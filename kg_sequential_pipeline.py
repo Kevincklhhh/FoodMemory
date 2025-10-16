@@ -269,7 +269,7 @@ def main():
                         help='Print detailed processing information')
     parser.add_argument('--save-interval', type=int, default=10,
                         help='Save KG every N rows (default: 10)')
-    parser.add_argument('--entity-extraction', choices=['keyword', 'llm'], default='keyword',
+    parser.add_argument('--entity-extraction', choices=['keyword', 'llm'], default='llm',
                         help='Entity extraction method: keyword (fast) or llm (accurate, slower)')
 
     args = parser.parse_args()

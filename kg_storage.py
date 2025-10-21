@@ -207,7 +207,8 @@ def add_interaction(kg: Dict[str, Any],
                    end_time: float,
                    action: str,
                    narration_text: str,
-                   location_context: str) -> bool:
+                   location_context: str,
+                   video_id: str = None) -> bool:
     """
     Add an interaction to a food node's history.
 
@@ -219,6 +220,7 @@ def add_interaction(kg: Dict[str, Any],
         action: Action verb (pick up, place, chop, etc.)
         narration_text: Full narration text
         location_context: Zone ID where action occurred
+        video_id: Video identifier for multi-video KG tracking
 
     Returns:
         True if successful, False if food_id not found
@@ -232,7 +234,8 @@ def add_interaction(kg: Dict[str, Any],
         "end_time": end_time,
         "action": action,
         "narration_text": narration_text,
-        "location_context": location_context
+        "location_context": location_context,
+        "video_id": video_id
     }
 
     kg["foods"][food_id]["interaction_history"].append(interaction_entry)

@@ -60,24 +60,26 @@ def build_kg_update_prompt(
     # Build information about new narration
     narration_parts = [
         f"\nNEW ACTION TO PROCESS:",
-        f"- Video ID: {narration_info.get('video_id')}",
         f"- Time: {narration_info['start_time']:.2f}s to {narration_info['end_time']:.2f}s",
-        f"- Narration: \"{narration_info['narration']}\"",
-        f"- Identified food: {narration_info.get('food_entity', 'unknown')}",
-        f"- Identified location: {narration_info.get('location_entity', 'unknown')}",
-        f"- Primary action: {narration_info.get('primary_action', 'unknown')}"
+        f"- Narration: \"{narration_info['narration']}\""
     ]
 
     # Add few-shot examples
     examples = """
-Example 1 - Creating new food:
+Example 1 - Creating new food (first time seeing this item):
 Input: "Pick up milk bottle from fridge at 21.4-22.0s"
-Output: {"update_type": "TAKE", "target_food_id": null, "updates": {"location": null}, "history_entry": {"start_time": 21.4, "end_time": 22.0, "action": "pick up", "narration_text": "pick up milk bottle", "location_context": "zone_fridge_1"}, "new_food_info": {"name": "milk bottle", "state": "unknown", "quantity": "1"}}
+Current: NO EXISTING FOOD NODE FOUND
+Output: {"update_type": "CREATE_NEW", "new_food_info": {"name": "milk bottle"}, "updates": {"location": null}, "history_entry": {"start_time": 21.4, "end_time": 22.0, "action": "pick up", "narration_text": "pick up milk bottle", "location_context": "zone_fridge_1"}}
 
-Example 2 - Updating existing food:
+Example 2 - Updating existing food (append interaction):
 Input: "Place milk bottle in fridge at 37.0-38.0s"
 Current: food_milk_bottle_1 is in hand
-Output: {"update_type": "PLACE", "target_food_id": "food_milk_bottle_1", "updates": {"location": "zone_fridge_1"}, "history_entry": {"start_time": 37.0, "end_time": 38.0, "action": "place", "narration_text": "place milk bottle", "location_context": "zone_fridge_1"}}"""
+Output: {"update_type": "UPDATE_EXISTING", "target_food_id": "food_milk_bottle_1", "updates": {"location": "zone_fridge_1"}, "history_entry": {"start_time": 37.0, "end_time": 38.0, "action": "place", "narration_text": "place milk bottle", "location_context": "zone_fridge_1"}}
+
+Example 3 - Updating existing food (just append interaction, no property changes):
+Input: "Turn the milk bottle to read the label at 45.0-46.0s"
+Current: food_milk_bottle_1 is in hand
+Output: {"update_type": "UPDATE_EXISTING", "target_food_id": "food_milk_bottle_1", "updates": {}, "history_entry": {"start_time": 45.0, "end_time": 46.0, "action": "turn", "narration_text": "turn the milk bottle", "location_context": null}}"""
 
     # Combine into user message
     user_message = examples + "\n\n" + "\n".join(context_parts + narration_parts)
@@ -141,36 +143,12 @@ def validate_update_command(command: Dict) -> tuple[bool, Optional[str]]:
     if "update_type" not in command:
         return False, "Missing 'update_type' field"
 
-    # Normalize update_type: map common LLM responses to valid types
-    update_type = command["update_type"].upper()
+    # Normalize to uppercase
+    command["update_type"] = command["update_type"].upper()
 
-    # Map invalid types to valid ones
-    type_mapping = {
-        # Invalid -> Valid
-        "USE": "MODIFY_STATE",
-        "TILT": "MODIFY_STATE",
-        "MANIPULATE": "MODIFY_STATE",
-        "START": "MODIFY_STATE",
-        "UPDATE": "MODIFY_STATE",
-        "OPEN": "MODIFY_STATE",
-        "CLOSE": "MODIFY_STATE",
-        "TURN": "MODIFY_STATE",
-        "FLIP": "MODIFY_STATE",
-        "LIFT": "MODIFY_STATE",
-        "POUR": "MODIFY_STATE",
-        "ROTATE": "MODIFY_STATE",
-        "INTERACT": "MODIFY_STATE",
-    }
-
-    if update_type in type_mapping:
-        command["update_type"] = type_mapping[update_type]
-
-    # If new_food_info but no target_food_id, convert to CREATE_NEW
-    if command.get("new_food_info") and not command.get("target_food_id"):
-        command["update_type"] = "CREATE_NEW"
-
-    if command["update_type"] not in ["TAKE", "PLACE", "MODIFY_STATE", "CREATE_NEW"]:
-        return False, f"Invalid update_type: {command['update_type']}"
+    # Only two valid types
+    if command["update_type"] not in ["CREATE_NEW", "UPDATE_EXISTING"]:
+        return False, f"Invalid update_type: {command['update_type']}. Must be CREATE_NEW or UPDATE_EXISTING"
 
     if "history_entry" not in command:
         return False, "Missing 'history_entry' field"
@@ -188,9 +166,11 @@ def validate_update_command(command: Dict) -> tuple[bool, Optional[str]]:
             return False, "CREATE_NEW requires 'new_food_info' field"
         if "name" not in command["new_food_info"]:
             return False, "new_food_info missing 'name' field"
-    else:
+        if not command["new_food_info"]["name"]:
+            return False, "new_food_info 'name' cannot be None or empty"
+    elif command["update_type"] == "UPDATE_EXISTING":
         if "target_food_id" not in command or not command["target_food_id"]:
-            return False, f"{command['update_type']} requires 'target_food_id'"
+            return False, "UPDATE_EXISTING requires 'target_food_id'"
 
     return True, None
 

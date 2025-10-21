@@ -44,13 +44,28 @@ def execute_kg_update(
     if update_type == "CREATE_NEW":
         # Create new food node
         new_food_info = command.get('new_food_info', {})
-        food_name = new_food_info.get('name', narration_info['food_entity'])
+        food_name = new_food_info.get('name') or narration_info.get('food_entity')
 
-        # Determine initial location
+        # Validate food_name is not None
+        if not food_name:
+            print(f"  Error: Cannot create food node without a name")
+            print(f"    new_food_info: {new_food_info}")
+            print(f"    narration_info food_entity: {narration_info.get('food_entity')}")
+            return False
+
+        # Determine initial location from updates
         initial_location = None
-        if 'location' in command.get('updates', {}):
-            if command['updates']['location']:
-                initial_location = get_or_create_zone(kg, narration_info['location_entity'], "Storage")
+        updates = command.get('updates', {})
+        if 'location' in updates:
+            if updates['location'] is None:
+                # Food is in hand
+                initial_location = None
+            elif updates['location'].startswith('zone_'):
+                # Already a zone_id
+                initial_location = updates['location']
+            else:
+                # Convert location name to zone_id
+                initial_location = get_or_create_zone(kg, updates['location'], "Storage")
 
         food_id = add_food_node(
             kg,
@@ -61,28 +76,18 @@ def execute_kg_update(
             first_seen_time=narration_info['start_time']
         )
 
-        # Add interaction
-        add_interaction(
-            kg, food_id,
-            history_entry['start_time'],
-            history_entry['end_time'],
-            history_entry['action'],
-            history_entry['narration_text'],
-            history_entry.get('location_context', '')
-        )
-
         if verbose:
             print(f"  ✓ Created new food: {food_id}")
 
-    else:
-        # Update existing food
+    elif update_type == "UPDATE_EXISTING":
+        # Update existing food node
         food_id = command['target_food_id']
 
         if food_id not in kg['foods']:
             print(f"  Error: Food ID {food_id} not found in KG")
             return False
 
-        # Apply updates
+        # Apply updates (if any)
         updates = command.get('updates', {})
         if updates:
             # Handle location update
@@ -102,17 +107,22 @@ def execute_kg_update(
             if verbose:
                 print(f"  ✓ Updated {food_id}: {updates}")
 
-        # Add interaction
-        add_interaction(
-            kg, food_id,
-            history_entry['start_time'],
-            history_entry['end_time'],
-            history_entry['action'],
-            history_entry['narration_text'],
-            history_entry.get('location_context', '')
-        )
+    else:
+        print(f"  Error: Unknown update_type: {update_type}")
+        return False
 
-        if verbose:
-            print(f"  ✓ Added interaction to {food_id}")
+    # Always add interaction (for both CREATE_NEW and UPDATE_EXISTING)
+    add_interaction(
+        kg, food_id,
+        history_entry['start_time'],
+        history_entry['end_time'],
+        history_entry['action'],
+        history_entry['narration_text'],
+        history_entry.get('location_context', ''),
+        video_id=narration_info.get('video_id')
+    )
+
+    if verbose and update_type == "UPDATE_EXISTING":
+        print(f"  ✓ Added interaction to {food_id}")
 
     return True

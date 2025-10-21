@@ -56,6 +56,11 @@ def call_ollama_for_kg_update(
     # Extract user message content (messages[1] is user message)
     prompt = messages[1]["content"]
 
+    if verbose:
+        print(f"\n  --- LLM CONTEXT ---")
+        print(f"  System: {messages[0]['content'][:100]}...")
+        print(f"  User prompt (first 500 chars):\n{prompt[:500]}...")
+
     last_error = None
     last_response = None
 
@@ -78,11 +83,23 @@ def call_ollama_for_kg_update(
             response_text = resp["message"]["content"]
             last_response = response_text
 
+            if verbose:
+                print(f"\n  --- LLM RESPONSE ---")
+                print(f"  {response_text[:800]}...")
+
             # Parse and validate response
             update_command = parse_llm_response(response_text)
             if update_command:
                 is_valid, error_msg = validate_update_command(update_command)
                 if is_valid:
+                    if verbose:
+                        print(f"\n  --- PARSED UPDATE COMMAND ---")
+                        print(f"  Update type: {update_command['update_type']}")
+                        print(f"  Target food: {update_command.get('target_food_id', 'None')}")
+                        if update_command.get('new_food_info'):
+                            print(f"  New food: {update_command['new_food_info']}")
+                        if update_command.get('updates'):
+                            print(f"  Updates: {update_command['updates']}")
                     return update_command
                 else:
                     last_error = f"Invalid update command: {error_msg}"
@@ -182,25 +199,31 @@ def process_narration_sequential(
 
     # Step 2: Query KG for matching food (CRITICAL: query current state!)
     food_name = narration_info['food_entity']
-    location = narration_info['location_entity']
 
-    matching_foods = find_food(kg, name_pattern=food_name, location=location)
-    in_hand_foods = find_food(kg, name_pattern=food_name, location=None)
+    if verbose:
+        print(f"\n  --- KG RETRIEVAL ---")
+        print(f"  Searching for: '{food_name}'")
 
-    # Combine and prioritize: foods in hand first, then by most recent interaction
-    all_matches = in_hand_foods + matching_foods
+    # Find all foods matching the name pattern (ignoring location/zone)
+    matching_foods = find_food(kg, name_pattern=food_name)
 
     existing_food = None
-    if all_matches:
+    if matching_foods:
+        if verbose:
+            print(f"  Found {len(matching_foods)} matching food(s):")
+            for i, food in enumerate(matching_foods):
+                last_time = food['interaction_history'][-1]['end_time'] if food.get('interaction_history') else 0
+                print(f"    {i+1}. {food['food_id']} - name: '{food['name']}', last interaction: {last_time:.1f}s")
+
         # Sort by most recent interaction
-        all_matches.sort(
+        matching_foods.sort(
             key=lambda f: f['interaction_history'][-1]['end_time'] if f.get('interaction_history') else 0,
             reverse=True
         )
-        existing_food = all_matches[0]
+        existing_food = matching_foods[0]
 
         if verbose:
-            print(f"  → Found existing: {existing_food['food_id']} (location: {existing_food.get('location', 'in hand')})")
+            print(f"  → Selected most recent: {existing_food['food_id']} (location: {existing_food.get('location', 'unknown')})")
     else:
         if verbose:
             print(f"  → No existing food found")
@@ -257,8 +280,8 @@ def main():
                         help='Path to knowledge graph JSON file (default: food_kg_sequential.json)')
     parser.add_argument('--snapshots', default='kg_snapshots',
                         help='Directory for KG snapshots (default: kg_snapshots)')
-    parser.add_argument('--model', '-m', default='qwen2.5:32b',
-                        help='Ollama model name (default: qwen2.5:32b)')
+    parser.add_argument('--model', '-m', default='gpt-oss:120b',
+                        help='Ollama model name (default: gpt-oss:120b)')
     parser.add_argument('--host', default='http://localhost:11434',
                         help='Ollama host URL (default: http://localhost:11434)')
     parser.add_argument('--limit', '-l', type=int,
@@ -270,7 +293,7 @@ def main():
     parser.add_argument('--save-interval', type=int, default=10,
                         help='Save KG every N rows (default: 10)')
     parser.add_argument('--entity-extraction', choices=['keyword', 'llm'], default='llm',
-                        help='Entity extraction method: keyword (fast) or llm (accurate, slower)')
+                        help='Entity extraction method: keyword (fast) or llm (accurate, slower) (default: llm)')
 
     args = parser.parse_args()
 

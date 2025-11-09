@@ -1,5 +1,23 @@
 # Large video dataset - do not commit
 HD-EPIC/
+HDEPIC/
+home_videos/
+egoobject/
+
+# Large zip files and downloads
+*.zip
+2v6cgv1x04ol22qp9rm9x2j6a7.zip
+
+# EPIC-KITCHENS datasets (large)
+epic-kitchens-100-annotations/
+epic-kitchens-download-scripts/
+hd-epic-annotations/
+
+# VISOR dataset directories
+epic-kitchen-visor/GroundTruth-SparseAnnotations/
+epic-kitchen-visor/Interpolations-DenseAnnotations/
+visor_visualization_output/
+VISOR-VIS/
 
 # Python cache
 __pycache__/
@@ -25,21 +43,36 @@ ENV/
 .ipynb_checkpoints/
 *.ipynb
 
-# Data files
-*.csv
-*.jsonl
+# Large data files (videos, large CSVs)
 *.mp4
 *.avi
+*.mov
+*.mkv
+
+# Large generated analysis outputs (> 1MB or temporary)
+object_appearance_analysis.csv
+epic-kitchen-visor/frame_mapping.json
+
+# VISOR analysis outputs are INCLUDED as research results
+# (visor_food_mapping*, wdtcf_food*, visor_coverage* are kept)
+
+# Large JSONL files (usually > 1MB)
+# Small research result JSONLs should be committed
+# *_groundtruth_interactions.jsonl
+# *_narration_interactions.jsonl
 
 # KG outputs (exclude generated files)
 # food_kg*.json
 # kg_snapshots*/
 # *_snapshots/
 test_*.json
+kg_snapshots/
 
 # Logs
 *.log
 nohup.out
+debug_output.log
+output.log
 
 # OS
 .DS_Store
@@ -49,4 +82,3 @@ Thumbs.db
 tmp/
 temp/
 *.tmp
-hd-epic-annotations/

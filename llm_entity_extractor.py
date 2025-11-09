@@ -14,7 +14,7 @@ ENTITY_EXTRACTION_PROMPT = """You are a food tracking assistant. Given a narrati
 2. The LOCATION where the action takes place (if any)
 
 Rules:
-- FOOD: Only consumable items or containers holding consumable items (e.g., "milk bottle", "cheese", "mug with coffee")
+- FOOD: Only consumable items or containers holding consumable items (e.g., "milk bottle", "cheese", "mug with coffee") Return only singular form (return 'orange' if narration mentions 'oranges')
 - NOT FOOD: Tools, appliances, buttons, handles, lids by themselves (e.g., "knife", "coffee machine", "button", "lid")
 - LOCATION: Storage areas or surfaces (e.g., "fridge", "counter", "shelf")
 - Return null if no food/location is involved

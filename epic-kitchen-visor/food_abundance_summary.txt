@@ -1,0 +1,164 @@
+================================================================================
+FOOD ABUNDANCE ANALYSIS: Contamination Risk Assessment
+================================================================================
+
+MOTIVATION:
+-----------
+Multiple videos from the same participant may contain the SAME PHYSICAL FOOD INSTANCE.
+For example, P04 has 14 videos with "water" - likely the same water bottle across all videos.
+
+This creates a critical problem for retrieval evaluation:
+- Using same participant's videos as distractors → same object instance
+- Model might recognize same object → artificially high performance
+- Need to track UNIQUE SETTINGS, not just unique videos
+
+KEY FINDINGS:
+-------------
+
+1. CONTAMINATION RISK FORMULA:
+   Risk = Total Videos / Unique Settings
+   - Settings = (Participant ID, Session Type)
+   - Session Type: "original" (video_num < 100) vs "new_collection" (video_num >= 100)
+   - Risk > 2.0 = HIGH
+   - Risk 1.5-2.0 = MEDIUM  
+   - Risk < 1.5 = LOW
+
+2. HIGH RISK FOODS (2 foods):
+   ⚠️ WATER: 2.95x risk
+      - 112 videos but only 38 unique settings
+      - P04 has 14 videos with water (likely same bottle!)
+      - P06 has 11 videos
+      - P02 has 10 videos
+      - SOLUTION: ONLY use different participants as distractors
+   
+   ⚠️ SALMON: 2.50x risk
+      - 5 videos but only 2 unique settings
+      - P03 has 3 videos, P11 has 2 videos
+      - SOLUTION: ONLY use different participants
+
+3. MEDIUM RISK FOODS (24 foods):
+   Including: oil, salt, onion, cheese, sauce, milk, potato, rice, coffee, etc.
+   
+   Examples:
+   - OIL: 51 videos, 31 settings (1.65x risk)
+     P02(6 videos), P04(5), P28(5) - likely same oil bottle
+   
+   - ONION: 34 videos, 21 settings (1.62x risk)
+     P06(6 videos), P01/P02/P04(3 each)
+   
+   - SALT: 42 videos, 26 settings (1.62x risk)
+     P06(5), P28(5), P01(4), P12(4)
+   
+   SOLUTION: Prefer different participants; if same participant, require different session type
+
+4. LOW RISK FOODS (101 foods):
+   Most foods appear only once per participant
+   Safe to use any video as distractor
+
+PARTICIPANT SESSION BREAKDOWN:
+------------------------------
+Key contributors with many videos:
+- P04: 13 original + 5 new = 18 total
+- P02: 6 original + 11 new = 17 total
+- P06: 10 original + 7 new = 17 total
+- P03: 11 original + 5 new = 16 total
+
+Session type (>=100) helps distinguish different settings for same participant.
+
+CRITICAL IMPLICATIONS FOR DISTRACTOR SELECTION:
+------------------------------------------------
+
+PREVIOUS APPROACH (WRONG):
+  ✗ Count total videos per food class
+  ✗ Sample any N videos as distractors
+  ✗ Risk: Multiple distractors might be SAME OBJECT
+
+REVISED APPROACH (CORRECT):
+  ✓ Count unique SETTINGS per food class (participant + session_type)
+  ✓ Sample from different settings
+  ✓ For HIGH/MEDIUM risk: enforce participant diversity
+  ✓ Track: (participant_id, session_type) tuples, not just video_id
+
+CONCRETE EXAMPLE:
+-----------------
+WDTCF test case: P04_05_flour
+Query frame: P04_05_frame_XXXXXX.jpg (flour in use)
+Evidence frame: P04_05_frame_YYYYYY.jpg (flour in storage)
+
+WRONG distractor selection (ignoring contamination):
+- P04_03_frame_ZZZZZ.jpg (flour) ← Same participant! Likely same flour bag!
+- P04_121_frame_AAAAA.jpg (flour) ← Same participant! Same flour bag!
+✗ Model might recognize same packaging → artificially high performance
+
+CORRECT distractor selection (contamination-aware):
+- P06_03_frame_ZZZZZ.jpg (flour) ← Different participant ✓
+- P02_09_frame_AAAAA.jpg (flour) ← Different participant ✓
+- P12_03_frame_BBBBB.jpg (flour) ← Different participant ✓
+✓ Different flour bags → fair evaluation
+
+REVISED DISTRACTOR AVAILABILITY:
+---------------------------------
+Instead of counting:
+  "flour: 14 videos available"
+
+We should count:
+  "flour: 9 unique settings available"
+  - P04 (original): 3 videos → 1 setting
+  - P04 (new_collection): 3 videos → 1 setting
+  - P06 (original): 2 videos → 1 setting
+  - P02, P03, P12, etc.: 1 video each → 6 settings
+  Total: 9 settings (not 14 videos!)
+
+This significantly reduces available distractors for MEDIUM/HIGH risk foods.
+
+IMPLEMENTATION RECOMMENDATIONS:
+--------------------------------
+
+1. UPDATE food_inventory_lookup.json:
+   - Instead of "first_per_video", use "first_per_setting"
+   - Setting = (participant_id, session_type)
+   - Ensure each returned image is from unique setting
+
+2. DISTRACTOR SELECTION STRATEGY:
+   For each test case (video_id, food_class):
+   
+   a) Parse test video: participant_id, session_type
+   
+   b) Check food contamination risk:
+      - LOW: Sample from any setting (including same participant, different session)
+      - MEDIUM: Prefer different participants; allow same participant only if different session
+      - HIGH: MUST use different participants
+   
+   c) Filter available VISOR images:
+      - Exclude: same (participant_id, session_type) as test case
+      - For MEDIUM/HIGH: prefer/require different participant_id
+   
+   d) Sample N distractors from filtered pool
+
+3. UPDATE PREVIOUS ANALYSIS:
+   Recompute distractor availability using SETTINGS not VIDEOS:
+   
+   Example revisions:
+   - water: 87 videos → 38 settings (massive reduction!)
+   - oil: 42 videos → 31 settings
+   - onion: 29 videos → 21 settings
+   - flour: 9 videos → 9 settings (no change, LOW risk)
+
+NEXT STEPS:
+-----------
+1. ✓ Understand contamination risk (DONE)
+2. Create "first_per_setting" food index 
+3. Recompute distractor availability using settings
+4. Update retrieval test generator to enforce setting-based sampling
+5. Add contamination risk tracking to test metadata
+
+FILES GENERATED:
+----------------
+- food_abundance_analysis.json (86K) - Complete per-food statistics
+- food_abundance_summary.txt (this file) - Executive summary
+
+================================================================================
+CONCLUSION: Tracking unique SETTINGS (not just videos) is CRITICAL for fair
+retrieval evaluation. Many common foods (water, oil, salt, onion) have 1.6-3.0x
+contamination risk and require participant-diverse distractor selection.
+================================================================================

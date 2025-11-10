@@ -1,0 +1,82 @@
+================================================================================
+WDTCF FOOD EXTRACTION SUMMARY
+================================================================================
+
+TASK: Filter food items from WDTCF_GT.json using epic_food_nouns_detailed.json
+      and return a list of food per video with queryable instances.
+
+RESULTS:
+--------
+✓ Total videos with food: 74
+✓ Total food instances: 135
+✓ Unique food classes: 62
+✓ Non-food items filtered: 16 (containers, utensils, etc.)
+
+OUTPUT FILES:
+-------------
+1. wdtcf_food_items.json (87 KB)
+   - Complete food instances with queryable instance IDs
+   - Organized by video
+   - Includes query/evidence frames and storage locations
+
+2. wdtcf_food_per_video_simple.txt (1.7 KB)
+   - Simple list: video_id: food1, food2, food3...
+
+DATA STRUCTURE:
+---------------
+Each food instance contains:
+  - instance_id: Unique identifier (e.g., "P02_03_cheese")
+  - object_name: Original object name from WDTCF
+  - food_class: Matched food class from epic_food_nouns
+  - query_frame: Where object was queried/used
+  - evidence_frame: Where object was first stored
+  - storage_locations: Where found (fridge, cupboard, drawer)
+
+QUERYABILITY:
+-------------
+✓ Supports lookup by instance_id
+✓ Supports filtering by video
+✓ Supports filtering by food class
+✓ Supports temporal queries (query vs evidence frames)
+
+TOP FOOD CLASSES:
+-----------------
+1. cheese      - 8 instances
+2. oil         - 8 instances
+3. onion       - 7 instances
+4. milk        - 7 instances
+5. butter      - 5 instances
+6. flour       - 5 instances
+7. bread       - 4 instances
+8. egg         - 4 instances
+9. sauce       - 4 instances
+
+TOP VIDEOS:
+-----------
+1. P02_102     - 6 instances (cheese, egg, lemon, meat, milk, yoghurt)
+2. P24_09      - 6 instances (breadcrumb, cheese, lettuce, oil, onion, potato)
+3. P02_03      - 5 instances (broccoli, cheese, pasta, salt, sauce)
+4. P04_05      - 5 instances (chilli, cream, flour, garlic, spice)
+5. P08_21      - 5 instances (blueberry, milk, nut, oatmeal, oil)
+
+EXAMPLE USAGE:
+--------------
+# Load data
+import json
+with open('wdtcf_food_items.json', 'r') as f:
+    data = json.load(f)
+
+# Get all food in a video
+video_foods = data['videos']['P02_03']['food_classes']
+
+# Query by instance_id
+instance = [inst for v in data['videos'].values() 
+            for inst in v['food_instances'] 
+            if inst['instance_id'] == 'P02_03_cheese'][0]
+
+# Get frame info
+query_frame = instance['query_frame']['frame_name']
+evidence_frame = instance['evidence_frame']['frame_name']
+
+SCRIPT: 5_extract_wdtcf_food_items.py
+DOCUMENTED IN: WORKFLOW.md (Step 5)

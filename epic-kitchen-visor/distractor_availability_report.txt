@@ -1,0 +1,154 @@
+================================================================================
+WDTCF FOOD RETRIEVAL TEST: TEXT LABEL-BASED DISTRACTOR AVAILABILITY
+================================================================================
+
+EXECUTIVE SUMMARY
+-----------------
+Analysis of 135 WDTCF food instances against VISOR food inventory using 
+text label matching (same food_class name). VISOR uses "first appearance 
+per video" sampling for diversity.
+
+KEY FINDINGS
+------------
+• Mean distractor availability: 14.3 images per test instance
+• Median: 11 distractors
+• Range: 0-42 distractors
+• Only 1 instance (0.7%) has zero distractors - can be excluded
+• 98.4% food class coverage (61 of 62 WDTCF classes have VISOR matches)
+
+DISTRACTOR AVAILABILITY DISTRIBUTION
+------------------------------------
+Category                    Instances    Percentage   Recommendation
+------------------------------------------------------------------------
+0 distractors                    1         0.7%      EXCLUDE
+1-4 distractors                 31        23.0%      Use all + hard negatives
+5-9 distractors                 34        25.2%      Use all available
+10-19 distractors               32        23.7%      Good flexibility
+20+ distractors                 37        27.4%      Abundant choices
+------------------------------------------------------------------------
+TOTAL                          135       100.0%
+
+INVENTORY SIZE FEASIBILITY
+--------------------------
+Inventory Size    Feasible Instances    Coverage    Assessment
+----------------------------------------------------------------
+5 images          103/135 (76.3%)       Good        RECOMMENDED MINIMUM
+10 images          69/135 (51.1%)       Fair        Viable for subset
+20 images          37/135 (27.4%)       Limited     Only high-freq foods
+50+ images          0/135 (0.0%)        None        Not feasible
+
+PROBLEMATIC CASES
+-----------------
+
+1. ZERO DISTRACTORS (1 instance - EXCLUDE):
+   - breadcrumb (P24_09_breadcrumb)
+
+2. VERY LIMITED (<5 distractors, 31 instances):
+   High-risk cases requiring special handling:
+   - Single distractor (7 instances): celery, beer, beef, strawberry, 
+     lettuce, coconut, lime
+   - Two distractors (4 instances): paprika (2x), yeast, tuna
+   - Three distractors (11 instances): aubergine (2x), nut (2x), drink, 
+     cream, blueberry, fish, biscuit, hummus (2x)
+   - Four distractors (9 instances): courgette, roll (2x), oatmeal (2x),
+     kale, salami, banana, fruit
+
+3. HIGH-FREQUENCY FOODS (6 classes, 37 instances):
+   Risk of over-representation in inventory:
+   - oil: 42 videos, 8 WDTCF instances
+   - salt: 35 videos, 3 WDTCF instances
+   - sauce: 32 videos, 4 WDTCF instances
+   - milk: 29 videos, 7 WDTCF instances
+   - onion: 29 videos, 7 WDTCF instances (1,550 total occurrences!)
+   - cheese: 25 videos, 8 WDTCF instances
+
+FOOD CLASS COVERAGE
+-------------------
+• WDTCF unique food classes: 62
+• VISOR matched classes: 61 (98.4%)
+• WDTCF-only foods: 1 (breadcrumb)
+• Single-instance WDTCF foods: 30 classes (avg 3.7 VISOR videos each)
+
+TOP 20 FOOD CLASSES BY VISOR AVAILABILITY
+------------------------------------------
+Rank  Food Class    WDTCF Tests  VISOR Videos  Total Occurrences
+-----------------------------------------------------------------
+ 1.   oil                8            42             486
+ 2.   salt               3            35             419
+ 3.   sauce              4            32             589
+ 4.   milk               7            29             310
+ 5.   onion              7            29            1550  ⚠️ Very high
+ 6.   cheese             8            25             882
+ 7.   pepper             3            18             707
+ 8.   coffee             2            17             355
+ 9.   garlic             2            16             782
+10.   pasta              2            14             712
+11.   tomato             3            14             314
+12.   bread              4            13             499
+13.   potato             3            13             684
+14.   cereal             3            13             137
+15.   spice              2            13             114
+16.   rice               2            13             303
+17.   egg                4            12             300
+18.   chilli             2            11             105
+19.   flour              5             9             263
+20.   meat               1             9             902
+
+STRATEGIC RECOMMENDATIONS
+-------------------------
+
+1. RECOMMENDED INVENTORY SIZE: 5-10 distractors per test
+   - Covers 76.3% of instances with size=5
+   - Covers 51.1% of instances with size=10
+   - Balances feasibility with reasonable difficulty
+
+2. HANDLING LOW-AVAILABILITY CASES (66 instances):
+   
+   A. EXCLUDE (1 instance):
+      • breadcrumb - zero VISOR matches
+   
+   B. AUGMENT WITH SEMANTIC HARD NEGATIVES (31 instances with 1-4 distractors):
+      Strategy: Use all available VISOR + add visually similar foods from 
+      different classes (e.g., for celery: leek, spring onion, asparagus)
+      
+   C. USE ALL AVAILABLE (34 instances with 5-9 distractors):
+      Strategy: Include all VISOR images for these food classes
+      
+3. MITIGATE HIGH-FREQUENCY BIAS:
+   • Cap common foods (oil, salt, onion) to prevent over-sampling
+   • Ensure balanced representation across food categories
+   • Consider difficulty-based sampling (use harder negative examples)
+
+4. CROSS-VIDEO SAMPLING:
+   • VISOR's "first per video" approach provides good diversity
+   • No need for same-participant restriction
+   • Each distractor from different video → reduces visual similarity bias
+
+5. ADAPTIVE INVENTORY APPROACH:
+   Tier 1 (37 instances): 20+ distractors → Random sampling
+   Tier 2 (32 instances): 10-19 distractors → Use most available
+   Tier 3 (34 instances): 5-9 distractors → Use all available
+   Tier 4 (31 instances): 1-4 distractors → Augment with hard negatives
+   Tier 5 (1 instance): 0 distractors → Exclude
+
+NEXT STEPS
+----------
+1. Calculate visual similarity scores (CLIP embeddings) for all VISOR images
+2. For low-availability cases, identify semantically similar hard negatives
+3. Design tiered evaluation protocol based on distractor availability
+4. Consider reporting retrieval performance stratified by availability tier
+
+TECHNICAL NOTES
+---------------
+• Analysis based on text label matching only (exact food_class name match)
+• VISOR sampling: First appearance per video (default from query_food_inventory.py)
+• Visual similarity analysis pending (will use CLIP or similar)
+• Data sources:
+  - WDTCF: wdtcf_food_items.json (135 instances, 62 classes)
+  - VISOR: food_inventory_lookup.json (122 classes)
+
+================================================================================
+Generated: 2025-11-10
+Analysis Script: /tmp/analyze_distractor_availability.py
+Detailed JSON: distractor_availability_analysis.json
+================================================================================

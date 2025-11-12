@@ -11,6 +11,10 @@ This script:
    - Video metadata
 3. Creates a searchable index for food inventory lookup
 
+Note: VISOR has train/val splits for segmentation tasks, but we ignore this distinction
+since it's not relevant for our food inventory retrieval use case. We simply search across
+all splits to find frames for each video.
+
 Output: food_image_index.json - Complete mapping of food items to images and annotations
 """
 
@@ -119,16 +123,20 @@ def build_food_image_index(
         if not food_occurrences:
             continue
 
-        # Determine split (check both train and val)
+        # Find frames directory (ignore train/val split - not relevant for our use case)
+        # Just search for the video frames across all split directories
         image_path = None
         for split in splits:
             potential_path = frames_base_dir / split / participant_id
             if potential_path.exists():
-                image_path = potential_path
-                break
+                # Check if this split has frames for this video
+                sample_frames = list(potential_path.glob(f"{video_id}_frame_*.jpg"))
+                if sample_frames:
+                    image_path = potential_path
+                    break
 
         if not image_path:
-            print(f"  Warning: Could not find frames directory for {video_id}")
+            print(f"  Warning: Could not find frames for {video_id}")
             continue
 
         # Group occurrences by frame

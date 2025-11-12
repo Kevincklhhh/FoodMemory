@@ -6,14 +6,20 @@ This script demonstrates how to use the food_inventory_lookup.json index
 to find images for a synthetic household food inventory.
 
 Usage examples:
-  # Find all images of onion
+  # Find all images of onion (first per video by default)
   python3 query_food_inventory.py --food onion
+
+  # Get ALL frames with onion from ALL videos
+  python3 query_food_inventory.py --food onion --all-occurrences
 
   # Find images for multiple food items
   python3 query_food_inventory.py --food onion cheese tomato
 
   # Get sample images (first N)
   python3 query_food_inventory.py --food onion --limit 5
+
+  # Get all yoghurt frames from all videos and export to CSV
+  python3 query_food_inventory.py --food yoghurt --all-occurrences --export yoghurt_all.csv
 
   # Export to CSV
   python3 query_food_inventory.py --food onion cheese --export inventory.csv
@@ -40,6 +46,7 @@ def query_food_items(index: Dict, food_items: List[str], limit: int = None, firs
         food_items: List of food item names to query
         limit: Optional limit on number of images per food item
         first_per_video: If True, return only first appearance per video (default: True)
+                        If False, return ALL occurrences from ALL videos
 
     Returns:
         Dictionary mapping food item to list of image entries
@@ -72,6 +79,7 @@ def query_food_items(index: Dict, food_items: List[str], limit: int = None, firs
                     seen_videos.add(img['video'])
             images = filtered_images
         else:
+            # Return all occurrences from all videos
             images = all_images
 
         if limit:
@@ -233,7 +241,7 @@ def main():
     parser.add_argument(
         '--all-occurrences',
         action='store_true',
-        help='Return all occurrences (default: only first per video)'
+        help='Return ALL frames with the queried food from ALL videos (default: only first frame per video)'
     )
     parser.add_argument(
         '--export',
@@ -274,8 +282,17 @@ def main():
     if not args.food:
         parser.error("Please specify --food items to query or use --list to see available foods")
 
-    print(f"\nQuerying for: {', '.join(args.food)}")
-    results = query_food_items(index, args.food, args.limit, first_per_video=not args.all_occurrences)
+    if args.all_occurrences:
+        print(f"\nQuerying for: {', '.join(args.food)} (all occurrences from all videos)")
+    else:
+        print(f"\nQuerying for: {', '.join(args.food)} (first per video)")
+
+    results = query_food_items(
+        index,
+        args.food,
+        args.limit,
+        first_per_video=not args.all_occurrences
+    )
 
     # Print results
     print_query_results(results)

@@ -198,6 +198,8 @@ Each image shows the original frame with green overlay (30% transparency) highli
 
 ### Core Data (Keep)
 - `EPIC_100_noun_classes_v2.csv` - EPIC-100 taxonomy
+- `EPIC_100_train.pkl` - EPIC-100 train annotations (67,217 narrations)
+- `EPIC_100_validation.pkl` - EPIC-100 validation annotations (9,668 narrations)
 - `epic_food_nouns_detailed.json` - Food class definitions with categories
 - `epic_food_nouns_detailed.csv` - Same data in CSV format
 - `epic_food_nouns_names.txt` - Simple list of food nouns
@@ -206,6 +208,7 @@ Each image shows the original frame with green overlay (30% transparency) highli
 - `food_inventory_lookup.json` - **Output from Step 4** (Optimized lookup, 16 MB)
 - `wdtcf_food_items.json` - **Output from Step 5** (WDTCF food extraction, 87 KB)
 - `WDTCF_GT.json` - WDTCF ground truth annotations (input)
+- `benchmark_metadata_template.json` - Template for benchmark metadata
 
 ### Supporting Scripts (Keep)
 - `classify_epic_food_nouns.py` - Script used to classify food nouns
@@ -300,7 +303,7 @@ python3 4_build_food_image_index.py --skip-unzip
 
 **Script:** `5_extract_wdtcf_food_items.py`
 
-Extracts food items from the WDTCF (Where Did The Container First appear) dataset, which tracks where objects were first stored in the kitchen.
+Extracts food items from the WDTCF (Where Did The Container First appear) dataset, which provides temporal tracking of where food containers were first stored in the kitchen.
 
 ### Usage (Step 5)
 ```bash
@@ -313,13 +316,13 @@ python3 5_extract_wdtcf_food_items.py
 --wdtcf             # WDTCF ground truth file (default: WDTCF_GT.json)
 --food-nouns        # Food nouns JSON (default: epic_food_nouns_detailed.json)
 --output            # Output JSON file (default: wdtcf_food_items.json)
---simple-output     # Simple text output (default: wdtcf_food_per_video_simple.txt)
+--simple-output     # Simple text output (default: wdtcf_food_by_class_simple.txt)
 ```
 
 ### Output
 **Files:**
-1. **wdtcf_food_items.json** (87 KB) - Complete food instances with queryable instance IDs
-2. **wdtcf_food_per_video_simple.txt** (1.7 KB) - Simple list of food per video
+1. **wdtcf_food_items.json** (87 KB) - Complete food instances organized by food class
+2. **wdtcf_food_by_class_simple.txt** (1.7 KB) - Simple list of videos per food class
 
 #### JSON Structure:
 ```json
@@ -327,30 +330,31 @@ python3 5_extract_wdtcf_food_items.py
   "metadata": {
     "total_videos": 74,
     "total_food_instances": 135,
-    "unique_food_classes": 62
+    "unique_food_classes": 62,
+    "food_classes": ["aubergine", "banana", ...]
   },
-  "videos": {
-    "P02_03": {
-      "video_id": "P02_03",
-      "total_food_instances": 5,
-      "unique_food_classes": 5,
-      "food_classes": ["broccoli", "cheese", "pasta", "salt", "sauce"],
-      "food_instances": [
+  "foods": {
+    "yoghurt": {
+      "food_class": "yoghurt",
+      "total_instances": 3,
+      "videos_count": 3,
+      "videos": ["P02_102", "P04_101", "P22_107"],
+      "instances": [
         {
-          "instance_id": "P02_03_salt",
-          "object_name": "salt",
-          "food_class": "salt",
+          "instance_id": "P02_102_yoghurt",
+          "object_name": "yoghurt",
+          "video_id": "P02_102",
           "query_frame": {
-            "video_id": "P02_03",
-            "frame_number": 47206,
-            "frame_name": "P02_03_frame_0000047206.jpg"
+            "video_id": "P02_102",
+            "frame_number": 1361,
+            "frame_name": "P02_102_frame_0000001361.jpg"
           },
           "evidence_frame": {
-            "video_id": "P02_03",
-            "frame_number": 31449,
-            "frame_name": "P02_03_frame_0000031449.jpg"
+            "video_id": "P02_102",
+            "frame_number": 296,
+            "frame_name": "P02_102_frame_0000000296.jpg"
           },
-          "storage_locations": ["cupboard"]
+          "storage_locations": ["bag"]
         }
       ]
     }
@@ -372,36 +376,99 @@ Top food classes:
 5. butter - 5 instances
 
 **Key Features:**
+- Organized by food class for easy lookup (`.foods.yoghurt`, `.foods.cheese`, etc.)
 - Each instance has a unique `instance_id` (original WDTCF key) for queryability
 - Includes both query frame (where object was used) and evidence frame (where stored)
 - Storage locations tracked (fridge, cupboard, drawer, etc.)
+- Videos list shows which videos contain each food
+- Complementary to VISOR data: temporal storage context for food instances
 
-### Query Food Inventory
+## Step 6: Query Food Inventory
 
-**Script:** `query_food_inventory.py`
+**Script:** `6_query_food_inventory.py`
 
-Search the index for specific food items (for synthetic household inventory).
+Search the VISOR index for specific food items (for synthetic household inventory).
 
 **Default behavior:** Returns only the first appearance of each food item per video to provide diverse samples across different cooking sessions. Use `--all-occurrences` to get all frames containing the food.
 
 ```bash
 # List all available foods
-python3 query_food_inventory.py --list
+python3 6_query_food_inventory.py --list
 
 # Query specific food items (returns first appearance per video)
-python3 query_food_inventory.py --food onion cheese tomato
+python3 6_query_food_inventory.py --food onion cheese tomato
 
 # Get sample images (first N unique videos)
-python3 query_food_inventory.py --food onion --limit 5
+python3 6_query_food_inventory.py --food onion --limit 5
 
-# Get all occurrences (multiple frames from same video)
-python3 query_food_inventory.py --food onion --limit 10 --all-occurrences
+# Get all occurrences from all videos
+python3 6_query_food_inventory.py --food onion --limit 10 --all-occurrences
 
 # Export to CSV
-python3 query_food_inventory.py --food onion cheese --export inventory.csv
+python3 6_query_food_inventory.py --food onion cheese --export inventory.csv
 
 # Copy images organized by food type
-python3 query_food_inventory.py --food onion cheese --copy-images food_samples/
+python3 6_query_food_inventory.py --food onion cheese --copy-images food_samples/
+```
+
+## Step 7: Generate Benchmark Metadata
+
+**Script:** `7_generate_benchmark_metadata.py`
+
+Generates metadata for food instance retrieval benchmarks with instance IDs based on unique settings (participant + session_type). Frames from the same setting represent the same physical food instance.
+
+### Usage (Step 7)
+```bash
+# Auto-assign instance IDs based on settings
+python3 7_generate_benchmark_metadata.py --food yoghurt
+
+# Provide custom instance ID mapping
+python3 7_generate_benchmark_metadata.py \
+    --food yoghurt \
+    --mapping instance_mapping.json \
+    --output yoghurt_benchmark_instances.json
+```
+
+### Options
+```bash
+--food              # Food class to generate metadata for (required)
+--mapping           # Optional JSON file with custom instance ID mapping
+--benchmarks-dir    # Directory with benchmark subdirectories (default: retrieve_benchmarks)
+--epic100-train     # EPIC-100 train pickle (default: EPIC_100_train.pkl)
+--epic100-val       # EPIC-100 validation pickle (default: EPIC_100_validation.pkl)
+--food-index        # Food image index (default: food_image_index.json)
+--template          # Benchmark template (default: benchmark_metadata_template.json)
+--output            # Output file (default: {food}_benchmark_instances.json)
+```
+
+### Output
+**File:** `{food}_benchmark_instances.json`
+
+The generated metadata includes:
+- **instances**: Frames grouped by instance ID (setting-based or custom)
+- **statistics**: Total frames, total instances, frames per instance
+- **test_cases**: Empty (to be assigned by separate script)
+
+Each frame includes:
+- Frame identifiers (frame_id, video_id, frame_number)
+- Instance ID (based on participant + session_type)
+- VISOR metadata (object_id, segments, class_id)
+- EPIC-100 context (narration, timestamps, verb/noun)
+
+### Instance ID Logic
+**Auto-assignment (default):**
+- Setting = (participant_id, session_type)
+- session_type = "original" (video < 100) or "new_collection" (video >= 100)
+- Example: P02_03 → `P02_original`, P02_102 → `P02_new_collection`
+- Frames from same setting get same instance_id
+
+**Custom mapping:**
+Provide JSON file mapping filenames to instance IDs:
+```json
+{
+  "P02_12_frame_0000004926.jpg": "instance_001",
+  "P04_101_frame_0000011919.jpg": "instance_002"
+}
 ```
 
 ## Example Workflow
@@ -419,12 +486,16 @@ python3 3_analyze_food_per_video.py
 python3 4_build_food_image_index.py
 # Output: food_image_index.json (1.1 GB), food_inventory_lookup.json (16 MB)
 
-# Step 5: Extract WDTCF food items (temporal storage tracking)
+# Step 5: Extract WDTCF food items (organized by food class)
 python3 5_extract_wdtcf_food_items.py
-# Output: wdtcf_food_items.json (87 KB), wdtcf_food_per_video_simple.txt (1.7 KB)
+# Output: wdtcf_food_items.json (87 KB), wdtcf_food_by_class_simple.txt (1.7 KB)
 
-# Query for specific foods
-python3 query_food_inventory.py --food onion tomato cheese --limit 10
+# Step 6: Query for specific foods
+python3 6_query_food_inventory.py --food onion tomato cheese --limit 10
+
+# Step 7: Generate benchmark metadata with instance IDs
+python3 7_generate_benchmark_metadata.py --food yoghurt
+# Output: yoghurt_benchmark_instances.json
 
 # Step 2a: Create segments for specific video
 python3 2_create_food_segments.py --videos P02_03

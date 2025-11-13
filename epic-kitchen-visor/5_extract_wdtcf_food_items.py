@@ -84,7 +84,7 @@ def extract_wdtcf_food_items(
     """Extract food items from WDTCF dataset.
 
     Returns:
-        Dictionary organized by video with food instances
+        Dictionary organized by food class with instances
     """
     # Load food nouns
     print(f"Loading food nouns from {food_nouns_path}...")
@@ -97,9 +97,9 @@ def extract_wdtcf_food_items(
         wdtcf_data = json.load(f)
     print(f"✓ Loaded {len(wdtcf_data)} WDTCF entries")
 
-    # Extract food items organized by video
-    food_by_video = defaultdict(list)
-    food_classes_found = set()
+    # Extract food items organized by food class
+    food_by_class = defaultdict(list)
+    videos_with_food = set()
     total_food_instances = 0
     non_food_items = set()
 
@@ -143,39 +143,39 @@ def extract_wdtcf_food_items(
         food_instance = {
             'instance_id': key,  # Original WDTCF key for queryability
             'object_name': object_name,
-            'food_class': matched_food_name,
+            'video_id': video_id,
             'query_frame': query_info,
             'evidence_frame': evidence_info,
             'storage_locations': entry['answer']
         }
 
-        food_by_video[video_id].append(food_instance)
-        food_classes_found.add(matched_food_name)
+        food_by_class[matched_food_name].append(food_instance)
+        videos_with_food.add(video_id)
         total_food_instances += 1
 
     # Build final structure
     result = {
         'metadata': {
-            'total_videos': len(food_by_video),
+            'total_videos': len(videos_with_food),
             'total_food_instances': total_food_instances,
-            'unique_food_classes': len(food_classes_found),
-            'food_classes': sorted(list(food_classes_found)),
+            'unique_food_classes': len(food_by_class),
+            'food_classes': sorted(list(food_by_class.keys())),
             'non_food_items': sorted(list(non_food_items))
         },
-        'videos': {}
+        'foods': {}
     }
 
-    # Organize by video
-    for video_id, food_instances in sorted(food_by_video.items()):
-        # Get unique food classes in this video
-        unique_foods = set(inst['food_class'] for inst in food_instances)
+    # Organize by food class
+    for food_class, food_instances in sorted(food_by_class.items()):
+        # Get unique videos for this food
+        unique_videos = set(inst['video_id'] for inst in food_instances)
 
-        result['videos'][video_id] = {
-            'video_id': video_id,
-            'total_food_instances': len(food_instances),
-            'unique_food_classes': len(unique_foods),
-            'food_classes': sorted(list(unique_foods)),
-            'food_instances': sorted(food_instances, key=lambda x: x['query_frame']['frame_number'])
+        result['foods'][food_class] = {
+            'food_class': food_class,
+            'total_instances': len(food_instances),
+            'videos_count': len(unique_videos),
+            'videos': sorted(list(unique_videos)),
+            'instances': sorted(food_instances, key=lambda x: (x['video_id'], x['query_frame']['frame_number']))
         }
 
     return result
@@ -195,12 +195,8 @@ def print_statistics(result: Dict):
 
     print(f"\nFood classes found ({len(metadata['food_classes'])}):")
     for i, food_class in enumerate(metadata['food_classes'], 1):
-        # Count instances
-        count = sum(
-            sum(1 for inst in video['food_instances'] if inst['food_class'] == food_class)
-            for video in result['videos'].values()
-        )
-        print(f"  {i:3d}. {food_class:<20} ({count} instances)")
+        food_data = result['foods'][food_class]
+        print(f"  {i:3d}. {food_class:<20} ({food_data['total_instances']} instances)")
 
     print(f"\nNon-food items filtered out ({len(metadata['non_food_items'])}):")
     for item in metadata['non_food_items'][:20]:
@@ -208,27 +204,27 @@ def print_statistics(result: Dict):
     if len(metadata['non_food_items']) > 20:
         print(f"  ... and {len(metadata['non_food_items']) - 20} more")
 
-    print("\nTop 10 videos by food instance count:")
-    video_counts = [
-        (video_id, data['total_food_instances'])
-        for video_id, data in result['videos'].items()
+    print("\nTop 10 foods by instance count:")
+    food_counts = [
+        (food_class, data['total_instances'])
+        for food_class, data in result['foods'].items()
     ]
-    for video_id, count in sorted(video_counts, key=lambda x: x[1], reverse=True)[:10]:
-        foods = ', '.join(result['videos'][video_id]['food_classes'][:5])
-        if len(result['videos'][video_id]['food_classes']) > 5:
-            foods += '...'
-        print(f"  {video_id:<15} {count:2d} instances: {foods}")
+    for food_class, count in sorted(food_counts, key=lambda x: x[1], reverse=True)[:10]:
+        videos = ', '.join(result['foods'][food_class]['videos'][:5])
+        if len(result['foods'][food_class]['videos']) > 5:
+            videos += f"... (+{len(result['foods'][food_class]['videos']) - 5} more)"
+        print(f"  {food_class:<15} {count:2d} instances: {videos}")
 
 
 def create_simple_food_list(result: Dict, output_path: str):
-    """Create simple text file with food per video."""
+    """Create simple text file with food classes and their videos."""
     with open(output_path, 'w') as f:
-        f.write("WDTCF FOOD ITEMS BY VIDEO (Simple List)\n")
+        f.write("WDTCF FOOD ITEMS BY FOOD CLASS (Simple List)\n")
         f.write("=" * 80 + "\n\n")
 
-        for video_id, video_data in sorted(result['videos'].items()):
-            foods = ', '.join(sorted(video_data['food_classes']))
-            f.write(f"{video_id}: {foods}\n")
+        for food_class, food_data in sorted(result['foods'].items()):
+            videos = ', '.join(sorted(food_data['videos']))
+            f.write(f"{food_class} ({food_data['total_instances']} instances): {videos}\n")
 
     print(f"✓ Saved simple list to {output_path}")
 
@@ -257,8 +253,8 @@ def main():
     )
     parser.add_argument(
         '--simple-output',
-        default='wdtcf_food_per_video_simple.txt',
-        help='Simple text output (default: wdtcf_food_per_video_simple.txt)'
+        default='wdtcf_food_by_class_simple.txt',
+        help='Simple text output (default: wdtcf_food_by_class_simple.txt)'
     )
 
     args = parser.parse_args()

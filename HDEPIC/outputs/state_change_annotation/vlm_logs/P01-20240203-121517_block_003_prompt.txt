@@ -1,0 +1,157 @@
+You are analyzing an egocentric cooking video to track food item states.
+
+**TASK**: Determine the current state of each food item at the END of this video clip.
+
+**APPROACH**:
+- PRIMARY SOURCE: Read the narration text carefully to understand what actions occurred
+- SECONDARY SOURCE: Watch the video to VALIDATE the narrations and resolve any ambiguities
+- Focus on what the narrations describe, using video as confirmation
+
+**NARRATIONS** (what happened in this clip):
+- Pour hot water from the kettle into the bowl. This is the start of the prep for testing the yeast.
+- Pour cold water from the jug into the bowl, trying to produce a lukewarm water for the yeast by mixing hot and warm water.
+- Pour some of the water into the sink. The water is still too hot and the bowl is nearly full. So emptying the current content to add more cold water.
+
+**TARGET FOOD ITEMS**: food, yeast
+
+**CURRENT FOOD MEMORY** (all active instances for target items):
+No active instances
+
+**STATE TAXONOMY SCHEMA**:
+```json
+{
+  "container_state": {
+    "container_type": [
+      "original_packaging",
+      "storage_container",
+      "serving_dish",
+      "bowl",
+      "plate",
+      "none"
+    ]
+  },
+  "preparation_state": {
+    "form_state": [
+      "whole",
+      "prepared_ingredient",
+      "cooking_in_progress",
+      "cooked_dish",
+      "leftover",
+      "unknown"
+    ]
+  },
+  "consumption_state": {
+    "quantity": [
+      "full",
+      "partial",
+      "nearly_empty",
+      "consumed",
+      "unknown"
+    ]
+  },
+  "location_state": {
+    "location_type": [
+      "storage",
+      "shopping_bag",
+      "prep_surface",
+      "consumption_area",
+      "in_hand",
+      "unknown"
+    ]
+  }
+}
+```
+
+**INSTRUCTIONS FOR INSTANCE MANAGEMENT**:
+
+1. **Matching existing instances**:
+   - Read the narration carefully
+   - Determine which existing instance(s) the narration refers to
+   - Update the state of matched instance(s) by using their full instance_id
+   - Append to interaction_history (system will add automatically)
+
+2. **Creating new instances**:
+   - If narration describes a NEW physical instance (split, new preparation):
+     - Use keys: "NEW_INSTANCE", "NEW_INSTANCE_2", "NEW_INSTANCE_3", etc.
+     - Provide semantic_name from narration context (system appends counter)
+     - Examples of semantic names: "in_bowl", "from_bag", "minced", "sliced", "on_plate"
+   - For splits (pour, transfer, scoop):
+     - Update source instance (reduce quantity if partial)
+     - Create NEW_INSTANCE with semantic_name and parent_instance field
+
+3. **Semantic name guidelines**:
+   - Use snake_case format
+   - Keep concise (1-3 words): descriptor only, not food noun
+   - Descriptors can be:
+     * Container-based: "in_bowl", "on_plate", "in_cup"
+     * Preparation: "minced", "sliced", "chopped", "mixed"
+     * Source: "from_bag", "from_fridge", "from_package"
+     * Location: "on_counter", "in_oven"
+   - System creates full instance_id as: {food_noun}_{semantic_name}_{counter}
+
+4. **Consumption**:
+   - If food is fully consumed/discarded, set quantity="consumed"
+   - Instance will be removed from memory automatically
+
+5. **State tracking**:
+   - Use only values from the state taxonomy schema (exact matches required)
+   - Focus on observable state changes:
+     - Container: What is the food in? (values: original_packaging, storage_container, serving_dish, ...)
+   - Preparation: What form is the food? (values: whole, prepared_ingredient, cooking_in_progress, ...)
+   - Quantity: How much remains? (values: full, partial, nearly_empty, ...)
+   - Location: Where is the food? (values: storage, shopping_bag, prep_surface, ...)
+
+**OUTPUT FORMAT** (strict JSON):
+```json
+{
+  "food_memory": {
+    "NEW_INSTANCE": {
+      "food_noun": "lemon",
+      "semantic_name": "in_fridge",
+      "state": {
+        "container_state": {
+          "container_type": "..."
+        },
+        "preparation_state": {
+          "form_state": "..."
+        },
+        "consumption_state": {
+          "quantity": "..."
+        },
+        "location_state": {
+          "location_type": "..."
+        }
+      }
+    },
+    "NEW_INSTANCE_2": {
+      "food_noun": "meat",
+      "semantic_name": "minced",
+      "state": {
+        "container_state": {
+          "container_type": "..."
+        },
+        "preparation_state": {
+          "form_state": "..."
+        },
+        "consumption_state": {
+          "quantity": "..."
+        },
+        "location_state": {
+          "location_type": "..."
+        }
+      }
+    }
+  }
+}
+```
+
+**IMPORTANT**:
+- For existing instances, use their full instance_id as key
+- For new instances, use keys "NEW_INSTANCE", "NEW_INSTANCE_2", "NEW_INSTANCE_3", etc.
+- Each new instance must have semantic_name field
+- System handles counter assignment to prevent duplicates
+- VLM has full autonomy to decide: update existing OR create new
+- Base your reasoning primarily on the narration text
+- Return ONLY the JSON, no additional text
+
+Return ONLY the JSON, no additional text.

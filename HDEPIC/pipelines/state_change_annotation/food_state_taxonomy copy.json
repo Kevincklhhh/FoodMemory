@@ -1,0 +1,35 @@
+{
+  "state_schema": {
+    "container_state": {
+      "container_type": ["original_packaging", "storage_container", "serving_dish", "bowl", "plate", "none"],
+      "integrity_state": ["sealed", "opened", "closed_unsealed", "discarded"]
+    },
+    "preparation_state": {
+      "form_state": ["whole", "prepared_ingredient", "cooking_in_progress", "cooked_dish", "leftover", "unknown"],
+      "prepared_details": ["sliced", "diced", "peeled", "marinating", "mixed", "none"]
+    },
+    "consumption_state": {
+      "quantity": ["full", "partial", "nearly_empty", "consumed", "unknown"]
+    },
+    "location_state": {
+      "location_type": ["storage", "shoping bag","prep_surface", "consumption_area", "in_hand", "unknown"]
+    }
+  },
+  "default_state": {
+    "container_state": {
+      "container_type": "unknown",
+      "integrity_state": "unknown"
+    },
+    "preparation_state": {
+      "form_state": "unknown",
+      "prepared_details": "none"
+    },
+    "consumption_state": {
+      "quantity": "unknown"
+    },
+    "location_state": {
+      "location_type": "unknown",
+      "grounded_fixture_id": "unknown"
+    }
+  }
+}

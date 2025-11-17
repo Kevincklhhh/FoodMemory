@@ -1,0 +1,33 @@
+{
+  "benchmark_info": {
+    "name": "EPIC-KITCHENS Food Instance Retrieval Benchmark",
+    "version": "1.0",
+    "creation_date": "2025-11-12",
+    "description": "Benchmark for food instance retrieval using EPIC-KITCHENS-100 and VISOR annotations",
+    "task": "Given query images with food instances, retrieve matching food instances across the dataset",
+    "food_class_focus": ""
+  },
+  "data_sources": {
+    "epic_100_train": {
+      "path": "EPIC_100_train.pkl",
+      "total_narrations": 67217
+    },
+    "epic_100_validation": {
+      "path": "EPIC_100_validation.pkl",
+      "total_narrations": 9668
+    },
+    "visor_annotations": {
+      "path": "GroundTruth-SparseAnnotations/annotations/",
+      "format": "Per-video JSON files with frame-level object segmentation masks"
+    },
+    "food_image_index": {
+      "path": "food_image_index.json",
+      "total_food_images": 23933,
+      "total_food_occurrences": 32645,
+      "total_food_classes": 127
+    }
+  },
+  "instances": {},
+  "statistics": {},
+  "test_cases": []
+}

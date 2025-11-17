@@ -1,0 +1,61 @@
+{
+  "state_schema": {
+    "container_state": {
+      "container_type": ["original_packaging", "storage_container", "serving_dish", "bowl", "plate", "none"]
+    },
+    "preparation_state": {
+      "form_state": ["whole", "prepared_ingredient", "cooking_in_progress", "cooked_dish", "leftover", "unknown"]
+    },
+    "consumption_state": {
+      "quantity": ["full", "partial", "nearly_empty", "consumed", "unknown"]
+    },
+    "location_state": {
+      "location_type": ["storage", "shopping_bag","prep_surface", "consumption_area", "in_hand", "unknown"]
+    }
+  },
+  "default_state": {
+    "container_state": {
+      "container_type": "unknown"
+    },
+    "preparation_state": {
+      "form_state": "unknown"
+    },
+    "consumption_state": {
+      "quantity": "unknown"
+    },
+    "location_state": {
+      "location_type": "unknown"
+    }
+  },
+  "instance_metadata": {
+    "instance_id_format": "{food_noun}_{semantic_descriptor}_{counter:03d}",
+    "semantic_descriptor_examples": [
+      "in_bowl",
+      "from_bag",
+      "on_plate",
+      "in_cup",
+      "minced",
+      "sliced",
+      "chopped",
+      "diced",
+      "from_fridge",
+      "on_counter",
+      "in_oven"
+    ],
+    "instance_id_examples": [
+      "flour_from_bag_001",
+      "flour_in_bowl_002",
+      "meat_minced_001",
+      "onion_sliced_001",
+      "onion_sliced_002"
+    ],
+    "event_types": [
+      "created",
+      "updated",
+      "split_source",
+      "created_by_split",
+      "consumed"
+    ],
+    "new_instance_keys": ["NEW_INSTANCE", "NEW_INSTANCE_2", "NEW_INSTANCE_3"]
+  }
+}

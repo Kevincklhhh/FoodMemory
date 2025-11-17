@@ -49,11 +49,11 @@ ENV/
 *.avi
 *.mov
 *.mkv
-
+*.png
 # Large generated analysis outputs (> 1MB or temporary)
 object_appearance_analysis.csv
 epic-kitchen-visor/frame_mapping.json
-*.json
+#*.json
 *.csv
 *.jpg
 # VISOR analysis outputs are INCLUDED as research results
@@ -63,6 +63,10 @@ epic-kitchen-visor/frame_mapping.json
 # Small research result JSONLs should be committed
 # *_groundtruth_interactions.jsonl
 # *_narration_interactions.jsonl
+
+# Large JSON files that exceed GitHub's 100MB limit
+epic-kitchen-visor/visor_food_items.json
+epic-kitchen-visor/food_image_index.json
 
 # KG outputs (exclude generated files)
 # food_kg*.json

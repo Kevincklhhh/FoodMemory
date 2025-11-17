@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Synchronized Video Annotator</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for the playhead and annotation segments */
+        .timeline-playhead {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background-color: #ef4444; /* Red-500 */
+            z-index: 20;
+            pointer-events: none; /* Allows clicks to go "through" it */
+            transition: left 0.05s linear;
+        }
+        
+        .annotation-segment {
+            position: absolute;
+            height: 100%;
+            background-color: #3b82f6; /* Blue-500 */
+            opacity: 0.6;
+            z-index: 10;
+            transition: opacity 0.2s ease-in-out, background-color 0.2s ease-in-out;
+            border-radius: 0.25rem; /* rounded-sm */
+        }
+        
+        .annotation-segment:hover {
+            opacity: 0.8;
+        }
+        
+        .annotation-segment.active {
+            background-color: #10b981; /* Emerald-500 */
+            opacity: 0.9;
+        }
+
+        /* Styles for the zoomed timeline */
+        #zoomed-timeline-bar {
+            position: relative;
+            width: 100%;
+            height: 3.5rem; /* h-14 */
+            background-color: #4b5563; /* gray-600 */
+            border-radius: 0.5rem; /* rounded-lg */
+            box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.1);
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        #zoomed-playhead-marker {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background-color: #ef4444; /* Red-500 */
+            z-index: 30; /* Above segments */
+            transform: translateX(-50%);
+            pointer-events: none;
+        }
+
+        #zoomed-timeline-content {
+            position: relative;
+            height: 100%;
+            /* This content will be moved with 'transform: translateX()' */
+        }
+
+        .zoomed-annotation-segment {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 0 0.5rem; /* p-2 */
+            height: 100%;
+            background-color: #3b82f6; /* Blue-500 */
+            opacity: 0.7;
+            z-index: 10;
+            transition: opacity 0.2s ease-in-out, background-color 0.2s ease-in-out;
+            border-radius: 0.25rem; /* rounded-sm */
+            border: 1px solid #1f2937; /* gray-800 for definition */
+            overflow: hidden; /* Needed for text ellipsis */
+        }
+
+        .zoomed-annotation-segment.active {
+            background-color: #10b981; /* Emerald-500 */
+            opacity: 1;
+            z-index: 20;
+        }
+
+        /* Text inside the zoomed segment */
+        .zoomed-segment-text {
+            color: white;
+            font-size: 0.75rem; /* text-xs */
+            line-height: 1rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            pointer-events: none; /* Text shouldn't block hover/click */
+        }
+
+        .zoomed-annotation-segment.active .zoomed-segment-text {
+             font-weight: bold;
+        }
+
+        /* Custom style for disabled textarea */
+        textarea:disabled {
+            background-color: #374151; /* gray-700 */
+            cursor: not-allowed;
+        }
+
+        /* Styles for the frame timeline */
+        #frame-timeline-bar {
+            position: relative;
+            width: 100%;
+            height: 2rem; /* h-8 */
+            background-color: #374151; /* gray-700 */
+            border-radius: 0.5rem; /* rounded-lg */
+            box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.1);
+            overflow: hidden;
+        }
+
+        .frame-tick {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #f59e0b; /* Amber-500 */
+            z-index: 10;
+            transition: background-color 0.2s ease-in-out; /* Added transition */
+        }
+
+        /* NEW: Styles for zoomed frame timeline */
+        #zoomed-frame-timeline-bar {
+            position: relative;
+            width: 100%;
+            height: 2rem; /* h-8 */
+            background-color: #4b5563; /* gray-600, slightly different from global */
+            border-radius: 0.5rem; /* rounded-lg */
+            box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.1);
+            overflow: hidden;
+        }
+
+        #zoomed-frame-timeline-content {
+            position: relative;
+            height: 100%;
+        }
+
+        #zoomed-frame-playhead-marker {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background-color: #ef4444; /* Red-500 */
+            z-index: 30; /* Above ticks */
+            transform: translateX(-50%);
+            pointer-events: none;
+        }
+
+        .zoomed-frame-tick {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #f59e0b; /* Amber-500 */
+            z-index: 10;
+            transition: background-color 0.2s ease-in-out; /* Added transition */
+        }
+
+        /* NEW: Style for active frame ticks */
+        .frame-tick.active,
+        .zoomed-frame-tick.active {
+            background-color: #10b981; /* Emerald-500 (same as active annotation) */
+            z-index: 15; /* Above normal ticks, below playhead */
+        }
+
+        /* REMOVED: .static-tick style */
+
+        /* MODIFIED: New styles for zoomed 1s/2s timelines */
+        #timeline-1s-bar, #timeline-2s-bar {
+            position: relative;
+            width: 100%;
+            height: 1.5rem; /* h-6 */
+            background-color: #4b5563; /* gray-600 */
+            border-radius: 0.5rem; /* rounded-lg */
+            box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.1);
+            overflow: hidden;
+            cursor: pointer;
+        }
+        #timeline-1s-content, #timeline-2s-content {
+            position: relative;
+            height: 100%;
+        }
+        #timeline-1s-playhead-marker, #timeline-2s-playhead-marker {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background-color: #ef4444; /* Red-500 */
+            z-index: 30;
+            transform: translateX(-50%);
+            pointer-events: none;
+        }
+        .zoomed-1s-tick {
+            position: absolute;
+            top: 25%;
+            bottom: 25%;
+            width: 1px;
+            background-color: rgba(255, 255, 255, 0.4);
+            z-index: 10;
+        }
+        .zoomed-1s-tick.major { /* every 5s */
+            top: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+        .zoomed-2s-tick {
+            position: absolute;
+            top: 25%;
+            bottom: 25%;
+            width: 1px;
+            background-color: rgba(255, 255, 255, 0.4);
+            z-index: 10;
+        }
+        .zoomed-2s-tick.major { /* every 10s */
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+
+    </style>
+    <script>
+        // Set up Tailwind dark mode
+        document.documentElement.classList.add('dark');
+    </script>
+</head>
+<body class="bg-gray-900 text-gray-200 font-sans flex flex-col items-center min-h-screen p-4 md:p-8">
+
+    <!-- Main container for layout -->
+    <div class="w-full max-w-7xl mx-auto space-y-6">
+        
+        <!-- Top section with two-column layout -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+            
+            <div class="w-full">
+                <div class="w-full bg-black rounded-lg shadow-xl overflow-hidden aspect-square">
+                    <video id="video-player" class="w-full h-full object-contain" controls>
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+
+            <div class="flex flex-col space-y-4">
+                
+                <!-- File Input Row -->
+                <div class="bg-gray-800 p-4 rounded-lg shadow-md">
+                    <label for="json-file-input" class="block text-sm font-medium text-gray-300 mb-2">Upload Annotation Tasks JSON</label>
+                    <input type="file" id="json-file-input" accept="application/json" class="block w-full text-sm text-gray-400
+                        file:mr-3 file:py-2 file:px-4
+                        file:rounded-full file:border-0
+                        file:text-sm file:font-semibold
+                        file:bg-blue-600 file:text-white
+                        hover:file:bg-blue-700
+                        cursor-pointer">
+                    <p class="mt-2 text-xs text-gray-500">Load *_annotation_tasks.json to automatically load video, frames, and annotations</p>
+                </div>
+                
+                <!-- Current Time Display -->
+                <div id="time-display" class="bg-gray-800 p-4 rounded-lg shadow-md flex flex-col items-center justify-center text-center">
+                    <span class="text-sm font-medium text-gray-400 uppercase tracking-wider">Current Time</span>
+                    <p id="current-time-text" class="text-3xl font-mono font-bold text-white">0.0</p>
+                </div>
+
+            </div>
+        </div>
+        
+        <!-- Video Error Display -->
+        <div id="video-error-display" class="w-full bg-red-900 border border-red-700 text-red-100 p-4 rounded-lg shadow-md hidden">
+            <h3 class="font-bold text-lg mb-2">Video Loading Error:</h3>
+            <p id="video-error-text"></p>
+        </div>
+
+
+        <!-- Block Navigation -->
+        <div id="block-navigation" class="w-full bg-gray-800 p-4 rounded-lg shadow-md hidden">
+            <div class="flex items-center justify-between">
+                <button id="prev-block-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors disabled:bg-gray-600 disabled:cursor-not-allowed">
+                    ← Previous Block
+                </button>
+                <div class="text-center">
+                    <p class="text-sm text-gray-400">Block</p>
+                    <p id="block-counter" class="text-2xl font-bold text-white">1 / 1</p>
+                </div>
+                <button id="next-block-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors disabled:bg-gray-600 disabled:cursor-not-allowed">
+                    Next Block →
+                </button>
+            </div>
+        </div>
+
+        <!-- Frame Gallery Panel -->
+        <div id="frame-gallery-container" class="w-full bg-gray-800 p-4 rounded-lg shadow-md hidden">
+            <div class="flex justify-between items-center mb-3">
+                <h3 class="text-sm font-medium text-gray-400 uppercase tracking-wider">Frame Gallery</h3>
+                <label class="flex items-center cursor-pointer">
+                    <input type="checkbox" id="show-masks-toggle" class="sr-only peer">
+                    <div class="relative w-11 h-6 bg-gray-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                    <span class="ml-3 text-sm font-medium text-gray-300">Show Masks</span>
+                </label>
+            </div>
+            <div id="frame-gallery" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <!-- Frame images will be injected here -->
+            </div>
+        </div>
+
+        <!-- Food State Panel -->
+        <div id="food-state-container" class="w-full bg-gray-800 p-4 rounded-lg shadow-md hidden">
+            <h3 class="text-sm font-medium text-gray-400 uppercase tracking-wider mb-3">Food State Changes</h3>
+            <div id="food-state-content" class="space-y-4">
+                <!-- Food state data will be injected here -->
+            </div>
+        </div>
+
+        <!-- Current Block Display -->
+        <div class="w-full pt-6">
+            <div id="annotation-display" class="bg-gray-800 p-4 rounded-lg shadow-md min-h-[80px] flex items-center justify-center text-center">
+                <p id="annotation-text" class="text-lg text-gray-400 italic">Please upload annotation_tasks.json to begin.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- DOM Element References ---
+            const videoPlayer = document.getElementById('video-player');
+            const jsonFileInput = document.getElementById('json-file-input');
+
+            const annotationText = document.getElementById('annotation-text');
+            const annotationDisplay = document.getElementById('annotation-display');
+
+            const frameGalleryContainer = document.getElementById('frame-gallery-container');
+            const frameGallery = document.getElementById('frame-gallery');
+            const showMasksToggle = document.getElementById('show-masks-toggle');
+
+            const foodStateContainer = document.getElementById('food-state-container');
+            const foodStateContent = document.getElementById('food-state-content');
+            const currentTimeText = document.getElementById('current-time-text');
+
+            const blockNavigation = document.getElementById('block-navigation');
+            const prevBlockBtn = document.getElementById('prev-block-btn');
+            const nextBlockBtn = document.getElementById('next-block-btn');
+            const blockCounter = document.getElementById('block-counter');
+
+            const videoErrorDisplay = document.getElementById('video-error-display');
+            const videoErrorText = document.getElementById('video-error-text');
+
+            // --- State Variables ---
+            let videoDuration = 0;
+
+            // Annotation tasks state
+            let currentTaskData = null;
+            let currentBlockIndex = 0;
+            let allBlocks = [];
+            let showMasks = false;
+
+            // --- File Handlers ---
+
+            jsonFileInput.addEventListener('change', (event) => {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        try {
+                            const data = JSON.parse(e.target.result);
+                            if (Array.isArray(data)) {
+                                // Annotation tasks JSON - array of blocks
+                                allBlocks = data;
+                                console.log(`Loaded ${allBlocks.length} blocks`);
+
+                                // Show block navigation
+                                blockNavigation.classList.remove('hidden');
+
+                                // Load first block by default
+                                if (allBlocks.length > 0) {
+                                    loadBlock(0);
+                                }
+                            } else {
+                                console.error('JSON file is not in the expected format (expected array of blocks).');
+                                annotationText.textContent = 'Error: JSON format not recognized.';
+                            }
+                        } catch (err) {
+                            console.error('Error parsing JSON file:', err);
+                            annotationText.textContent = 'Error: Could not parse JSON file.';
+                        }
+                    };
+                    reader.readAsText(file);
+                }
+            });
+
+            // Mask toggle handler
+            showMasksToggle.addEventListener('change', (event) => {
+                showMasks = event.target.checked;
+                renderFrameGallery();
+            });
+
+            // Block navigation handlers
+            prevBlockBtn.addEventListener('click', () => {
+                if (currentBlockIndex > 0) {
+                    loadBlock(currentBlockIndex - 1);
+                }
+            });
+
+            nextBlockBtn.addEventListener('click', () => {
+                if (currentBlockIndex < allBlocks.length - 1) {
+                    loadBlock(currentBlockIndex + 1);
+                }
+            });
+
+            // --- Video Event Listeners ---
+
+            videoPlayer.addEventListener('loadedmetadata', () => {
+                videoDuration = videoPlayer.duration;
+                console.log('Video duration:', videoDuration);
+
+                // Render frame gallery and food states for annotation tasks
+                if (currentTaskData) {
+                    renderFrameGallery();
+                    renderFoodStates();
+                    annotationText.textContent = `Block ${currentBlockIndex + 1}/${allBlocks.length}: ${currentTaskData.task_id}`;
+                }
+            });
+
+            videoPlayer.addEventListener('timeupdate', () => {
+                currentTimeText.textContent = videoPlayer.currentTime.toFixed(1);
+            });
+
+            videoPlayer.addEventListener('error', (e) => {
+                videoErrorDisplay.classList.remove('hidden');
+                let errorMsg = 'An unknown error occurred.';
+                if (videoPlayer.error) {
+                    switch (videoPlayer.error.code) {
+                        case videoPlayer.error.MEDIA_ERR_ABORTED:
+                            errorMsg = 'Video playback was aborted.';
+                            break;
+                        case videoPlayer.error.MEDIA_ERR_NETWORK:
+                            errorMsg = 'A network error caused the video to fail to load.';
+                            break;
+                        case videoPlayer.error.MEDIA_ERR_DECODE:
+                            errorMsg = 'The video playback was aborted due to a corruption problem or because the video used features your browser did not support.';
+                            break;
+                        case videoPlayer.error.MEDIA_ERR_SRC_NOT_SUPPORTED:
+                            errorMsg = 'The video could not be loaded, either because the server or network failed or because the format is not supported.';
+                            break;
+                        default:
+                            errorMsg = 'An unknown error occurred.';
+                    }
+                }
+                videoErrorText.textContent = errorMsg + " Please try a different video file (H.264 MP4 is recommended).";
+                console.error('Video Error Event:', e);
+                console.error('videoPlayer.error object:', videoPlayer.error);
+            });
+            
+            // --- Helper Functions ---
+
+            function loadBlock(blockIndex) {
+                if (blockIndex < 0 || blockIndex >= allBlocks.length) {
+                    console.error('Invalid block index:', blockIndex);
+                    return;
+                }
+
+                currentBlockIndex = blockIndex;
+                currentTaskData = allBlocks[blockIndex];
+                console.log('Loading block:', currentTaskData.task_id);
+
+                // Update block counter
+                blockCounter.textContent = `${currentBlockIndex + 1} / ${allBlocks.length}`;
+
+                // Update navigation buttons
+                prevBlockBtn.disabled = (currentBlockIndex === 0);
+                nextBlockBtn.disabled = (currentBlockIndex === allBlocks.length - 1);
+
+                // Load video from clip_path
+                if (currentTaskData.assets && currentTaskData.assets.clip_path) {
+                    videoPlayer.src = currentTaskData.assets.clip_path;
+                    console.log('Loading video:', currentTaskData.assets.clip_path);
+                }
+
+                // Show UI panels
+                frameGalleryContainer.classList.remove('hidden');
+                foodStateContainer.classList.remove('hidden');
+
+                annotationText.textContent = `Block ${currentBlockIndex + 1}/${allBlocks.length}: ${currentTaskData.task_id}`;
+            }
+
+            function renderFrameGallery() {
+                frameGallery.innerHTML = '';
+                if (!currentTaskData || !currentTaskData.assets) return;
+
+                const allFrames = [];
+
+                // Combine before and after frames with narration context
+                currentTaskData.narration_details.forEach((narration, idx) => {
+                    const beforeFrame = currentTaskData.assets.before_frames[idx];
+                    const afterFrame = currentTaskData.assets.after_frames[idx];
+
+                    if (beforeFrame) {
+                        allFrames.push({
+                            type: 'before',
+                            frame: beforeFrame,
+                            narration: narration,
+                            narrationIndex: idx
+                        });
+                    }
+
+                    if (afterFrame) {
+                        allFrames.push({
+                            type: 'after',
+                            frame: afterFrame,
+                            narration: narration,
+                            narrationIndex: idx
+                        });
+                    }
+                });
+
+                // Render each frame
+                allFrames.forEach(item => {
+                    const frameDiv = document.createElement('div');
+                    frameDiv.className = 'relative bg-gray-900 rounded-lg overflow-hidden cursor-pointer hover:ring-2 hover:ring-blue-500';
+
+                    const img = document.createElement('img');
+                    img.src = item.frame.path;
+                    img.className = 'w-full h-auto';
+                    img.alt = `${item.type} frame`;
+
+                    const label = document.createElement('div');
+                    label.className = 'absolute top-2 left-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded';
+                    label.textContent = `${item.type.toUpperCase()} | ${item.frame.timestamp.toFixed(2)}s`;
+
+                    const narrationLabel = document.createElement('div');
+                    narrationLabel.className = 'absolute bottom-2 left-2 right-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded';
+                    narrationLabel.textContent = item.narration.narration.trim();
+
+                    frameDiv.appendChild(img);
+                    frameDiv.appendChild(label);
+                    frameDiv.appendChild(narrationLabel);
+
+                    // Click to seek video
+                    frameDiv.addEventListener('click', () => {
+                        videoPlayer.currentTime = item.frame.timestamp;
+                    });
+
+                    // Add mask overlay if enabled
+                    if (showMasks && currentTaskData.auto_grounding_data) {
+                        Object.keys(currentTaskData.auto_grounding_data).forEach(foodNoun => {
+                            const groundingData = currentTaskData.auto_grounding_data[foodNoun];
+                            const frameList = item.type === 'before' ? groundingData.before_frames : groundingData.after_frames;
+
+                            if (frameList) {
+                                frameList.forEach(mask => {
+                                    if (mask.frame_info && mask.frame_info.narration_index === item.narrationIndex) {
+                                        const maskImg = document.createElement('img');
+                                        maskImg.src = mask.mask_path;
+                                        maskImg.className = 'absolute top-0 left-0 w-full h-full opacity-50';
+                                        maskImg.alt = `${foodNoun} mask`;
+                                        frameDiv.appendChild(maskImg);
+                                    }
+                                });
+                            }
+                        });
+                    }
+
+                    frameGallery.appendChild(frameDiv);
+                });
+            }
+
+            function renderFoodStates() {
+                foodStateContent.innerHTML = '';
+                if (!currentTaskData || !currentTaskData.ground_truth_state_table) return;
+
+                Object.keys(currentTaskData.ground_truth_state_table).forEach(foodNoun => {
+                    const stateData = currentTaskData.ground_truth_state_table[foodNoun];
+
+                    const foodDiv = document.createElement('div');
+                    foodDiv.className = 'bg-gray-700 rounded-lg p-4 mb-4';
+
+                    // Food noun header with instance count
+                    const instances = stateData.instances || {};
+                    const instanceCount = Object.keys(instances).length;
+
+                    const header = document.createElement('h4');
+                    header.className = 'text-lg font-bold text-yellow-400 mb-3 capitalize';
+                    header.textContent = `${foodNoun} (${instanceCount} instance${instanceCount !== 1 ? 's' : ''})`;
+                    foodDiv.appendChild(header);
+
+                    // Render each instance
+                    if (instanceCount > 0) {
+                        Object.keys(instances).forEach(instanceId => {
+                            const instanceData = instances[instanceId];
+
+                            const instanceDiv = document.createElement('div');
+                            instanceDiv.className = 'bg-gray-800 rounded p-3 mb-3';
+
+                            // Instance ID badge
+                            const badgeDiv = document.createElement('div');
+                            badgeDiv.className = 'flex items-center gap-2 mb-2';
+
+                            const badge = document.createElement('div');
+                            badge.className = 'text-xs font-mono text-blue-400 bg-blue-900 px-2 py-1 rounded';
+                            badge.textContent = instanceId;
+                            badgeDiv.appendChild(badge);
+
+                            // Semantic name (if available)
+                            if (instanceData.semantic_name) {
+                                const semanticBadge = document.createElement('div');
+                                semanticBadge.className = 'text-xs text-gray-400 italic';
+                                semanticBadge.textContent = `(${instanceData.semantic_name})`;
+                                badgeDiv.appendChild(semanticBadge);
+                            }
+
+                            instanceDiv.appendChild(badgeDiv);
+
+                            // State display
+                            const stateAfter = instanceData.vlm_state_after;
+                            if (stateAfter) {
+                                const stateCard = createStateCard('Current State', stateAfter);
+                                instanceDiv.appendChild(stateCard);
+                            }
+
+                            // Reasoning
+                            if (instanceData.vlm_reasoning) {
+                                const reasoning = document.createElement('div');
+                                reasoning.className = 'text-xs text-gray-400 italic mt-2 pl-2 border-l-2 border-gray-600';
+                                reasoning.textContent = instanceData.vlm_reasoning;
+                                instanceDiv.appendChild(reasoning);
+                            }
+
+                            foodDiv.appendChild(instanceDiv);
+                        });
+                    } else {
+                        // No instances yet (old format or first block)
+                        const noInstances = document.createElement('div');
+                        noInstances.className = 'text-sm text-gray-500 italic';
+                        noInstances.textContent = 'No instances tracked yet';
+                        foodDiv.appendChild(noInstances);
+                    }
+
+                    foodStateContent.appendChild(foodDiv);
+                });
+            }
+
+            function createStateCard(label, state) {
+                const card = document.createElement('div');
+                card.className = 'bg-gray-800 rounded p-3';
+
+                const title = document.createElement('div');
+                title.className = 'text-xs font-semibold text-gray-400 uppercase mb-2';
+                title.textContent = label;
+                card.appendChild(title);
+
+                if (state) {
+                    Object.keys(state).forEach(category => {
+                        const catDiv = document.createElement('div');
+                        catDiv.className = 'mb-2';
+
+                        const catLabel = document.createElement('div');
+                        catLabel.className = 'text-xs text-gray-500';
+                        catLabel.textContent = category.replace(/_/g, ' ');
+                        catDiv.appendChild(catLabel);
+
+                        const values = document.createElement('div');
+                        values.className = 'text-sm text-white';
+                        values.textContent = Object.values(state[category]).join(', ');
+                        catDiv.appendChild(values);
+
+                        card.appendChild(catDiv);
+                    });
+                } else {
+                    // No state available
+                    const noState = document.createElement('div');
+                    noState.className = 'text-xs text-gray-500 italic';
+                    noState.textContent = label.includes('prev') ? 'First appearance' : 'No state data';
+                    card.appendChild(noState);
+                }
+
+                return card;
+            }
+
+            // --- Global Event Listeners (like click, keydown, resize) ---
+
+            // Keyboard controls
+            document.addEventListener('keydown', (event) => {
+                if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA' || event.target.tagName === 'BUTTON') {
+                    return;
+                }
+
+                // Arrow keys for block navigation
+                if (event.key === 'ArrowLeft') {
+                    event.preventDefault();
+                    if (currentBlockIndex > 0) {
+                        loadBlock(currentBlockIndex - 1);
+                    }
+                } else if (event.key === 'ArrowRight') {
+                    event.preventDefault();
+                    if (currentBlockIndex < allBlocks.length - 1) {
+                        loadBlock(currentBlockIndex + 1);
+                    }
+                } else if (event.key === ' ') {
+                    event.preventDefault();
+                    if (videoPlayer.paused) {
+                        videoPlayer.play();
+                    } else {
+                        videoPlayer.pause();
+                    }
+                }
+            });
+
+        });
+    </script>
+</body>
+</html>

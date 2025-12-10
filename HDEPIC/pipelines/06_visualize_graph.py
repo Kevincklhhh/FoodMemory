@@ -27,6 +27,10 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 
+# Default paths (relative to this script's location in pipelines/)
+_SCRIPT_DIR = Path(__file__).parent
+_PROJECT_ROOT = _SCRIPT_DIR.parent
+
 
 def load_graph(graph_file: Path) -> Dict:
     """Load spatio-temporal graph from JSON"""
@@ -386,13 +390,12 @@ def main():
     )
     parser.add_argument(
         '--graph-file',
-        default='../outputs/food_graph/spatio_temporal_graph.json',
-        #default='../outputs/food_graph_local/P01-20240202-161354_to_P01-20240202-161948/spatio_temporal_graph.json',
+        default=str(_PROJECT_ROOT / "gemini_outputs" / "food_graph_gemini" / "spatio_temporal_graph.json"),
         help='Path to spatio_temporal_graph.json'
     )
     parser.add_argument(
         '--output',
-        default='../outputs/food_graph/food_graph_visualization.png',
+        default=str(_PROJECT_ROOT / "gemini_outputs" / "food_graph_gemini" / "food_graph_visualization.png"),
         help='Output image file path'
     )
     parser.add_argument(

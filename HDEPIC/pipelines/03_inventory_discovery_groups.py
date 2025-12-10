@@ -48,11 +48,14 @@ except ImportError:
 QWEN3VL_URL = "http://saltyfish.eecs.umich.edu:8000/v1/chat/completions"
 QWEN_MODEL = "Qwen/Qwen3-VL-30B-A3B-Instruct"
 
-# Default paths
-DEFAULT_GROUPING_DIR = Path("/home/kailaic/NeuroTrace/kitchen/HDEPIC/narration_grouping")
-DEFAULT_CSV_PATH = Path("/home/kailaic/NeuroTrace/kitchen/HDEPIC/participant_P01_narrations.csv")
-DEFAULT_CLIPS_DIR = Path("/home/kailaic/NeuroTrace/kitchen/HDEPIC/outputs/food_clips")
-DEFAULT_OUTPUT_DIR = Path("/home/kailaic/NeuroTrace/kitchen/HDEPIC/outputs/inventory_discovery")
+# Default paths (relative to this script's location in pipelines/)
+_SCRIPT_DIR = Path(__file__).parent
+_PROJECT_ROOT = _SCRIPT_DIR.parent
+
+DEFAULT_GROUPING_DIR = _PROJECT_ROOT / "narration_grouping"
+DEFAULT_CSV_PATH = _PROJECT_ROOT / "P01" / "participant_P01_narrations.csv"
+DEFAULT_CLIPS_DIR = _PROJECT_ROOT / "outputs" / "food_clips"
+DEFAULT_OUTPUT_DIR = _PROJECT_ROOT / "outputs" / "inventory_discovery"
 
 # Global variable for log directory (set in main)
 VLM_LOG_DIR: Optional[Path] = None

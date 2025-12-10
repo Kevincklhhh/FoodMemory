@@ -30,11 +30,14 @@ from semantic_utils import (
 )
 
 
-# Default paths
-DEFAULT_VIDEO_DIR = Path("/home/kailaic/NeuroTrace/kitchen/HDEPIC/data/HD-EPIC/Videos/P01")
-DEFAULT_GROUPING_DIR = Path("/home/kailaic/NeuroTrace/kitchen/HDEPIC/narration_grouping")
-DEFAULT_CSV_PATH = Path("/home/kailaic/NeuroTrace/kitchen/HDEPIC/participant_P01_narrations.csv")
-DEFAULT_OUTPUT_DIR = Path("/home/kailaic/NeuroTrace/kitchen/HDEPIC/outputs/food_clips")
+# Default paths (relative to this script's location in pipelines/)
+_SCRIPT_DIR = Path(__file__).parent
+_PROJECT_ROOT = _SCRIPT_DIR.parent
+
+DEFAULT_VIDEO_DIR = _PROJECT_ROOT / "P01"
+DEFAULT_GROUPING_DIR = _PROJECT_ROOT / "narration_grouping"
+DEFAULT_CSV_PATH = _PROJECT_ROOT / "P01" / "participant_P01_narrations.csv"
+DEFAULT_OUTPUT_DIR = _PROJECT_ROOT / "outputs" / "food_clips"
 
 
 @dataclass

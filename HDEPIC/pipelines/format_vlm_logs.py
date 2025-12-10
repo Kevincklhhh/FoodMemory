@@ -14,6 +14,10 @@ import json
 import argparse
 from pathlib import Path
 
+# Default paths (relative to this script's location in pipelines/)
+_SCRIPT_DIR = Path(__file__).parent
+_PROJECT_ROOT = _SCRIPT_DIR.parent
+
 
 def format_log(log_data: dict) -> str:
     """Format a single VLM log entry into readable text"""
@@ -142,7 +146,7 @@ def main():
     parser = argparse.ArgumentParser(description="Format VLM logs for readability")
     parser.add_argument(
         '--input', '-i',
-        default='../outputs/food_graph/vlm_logs',
+        default=str(_PROJECT_ROOT / "outputs" / "food_graph" / "vlm_logs"),
         help='Input directory with JSON logs (or single file with --file)'
     )
     parser.add_argument(

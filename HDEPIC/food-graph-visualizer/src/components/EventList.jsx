@@ -10,11 +10,11 @@ const styles = {
     height: '100%',
   },
   header: {
-    padding: '15px',
+    padding: '10px 12px',
     backgroundColor: '#2196F3',
     color: 'white',
     fontWeight: 'bold',
-    fontSize: '16px',
+    fontSize: '13px',
   },
   list: {
     flex: 1,
@@ -24,7 +24,7 @@ const styles = {
     listStyle: 'none',
   },
   eventItem: {
-    padding: '12px 15px',
+    padding: '8px 12px',
     borderBottom: '1px solid #e0e0e0',
     cursor: 'pointer',
     transition: 'background-color 0.2s',
@@ -34,45 +34,50 @@ const styles = {
   },
   eventItemSelected: {
     backgroundColor: '#bbdefb',
-    borderLeft: '4px solid #2196F3',
+    borderLeft: '3px solid #2196F3',
+  },
+  eventHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: '2px',
   },
   eventId: {
     fontWeight: 'bold',
-    fontSize: '14px',
+    fontSize: '12px',
     color: '#1976D2',
-    marginBottom: '4px',
   },
   eventAction: {
-    fontSize: '13px',
+    fontSize: '11px',
     color: '#333',
-    marginBottom: '4px',
   },
   eventTime: {
-    fontSize: '12px',
+    fontSize: '10px',
     color: '#666',
     fontFamily: 'monospace',
   },
   eventDescription: {
-    fontSize: '12px',
+    fontSize: '10px',
     color: '#555',
-    marginTop: '4px',
+    marginTop: '2px',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
     maxWidth: '100%',
   },
   noEvents: {
-    padding: '20px',
+    padding: '15px',
     textAlign: 'center',
     color: '#666',
+    fontSize: '12px',
   },
   currentIndicator: {
     display: 'inline-block',
-    width: '8px',
-    height: '8px',
+    width: '6px',
+    height: '6px',
     borderRadius: '50%',
     backgroundColor: '#4CAF50',
-    marginRight: '8px',
+    marginRight: '6px',
   },
 };
 
@@ -128,21 +133,18 @@ function EventList({ events, selectedIndex, onSelectEvent, currentTime }) {
                 }
               }}
             >
-              <div style={styles.eventId}>
-                {isActive && <span style={styles.currentIndicator} />}
-                Event {event.event_id}
+              <div style={styles.eventHeader}>
+                <div style={styles.eventId}>
+                  {isActive && <span style={styles.currentIndicator} />}
+                  #{event.event_id}
+                </div>
+                <div style={styles.eventTime}>
+                  {formatTime(event.timestamp_start)}
+                </div>
               </div>
               <div style={styles.eventAction}>
                 {event.primary_action || event.action || 'Unknown action'}
               </div>
-              <div style={styles.eventTime}>
-                {formatTime(event.timestamp_start)} - {formatTime(event.timestamp_end)}
-              </div>
-              {event.state_description && (
-                <div style={styles.eventDescription} title={event.state_description}>
-                  {event.state_description}
-                </div>
-              )}
             </li>
           );
         })}

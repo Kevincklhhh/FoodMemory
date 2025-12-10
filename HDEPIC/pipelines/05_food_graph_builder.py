@@ -84,6 +84,10 @@ from food_graph.graph_operations import apply_transactions_batch, snapshot_activ
 # Global logger
 logger = logging.getLogger(__name__)
 
+# Default paths (relative to this script's location in pipelines/)
+_SCRIPT_DIR = Path(__file__).parent
+_PROJECT_ROOT = _SCRIPT_DIR.parent
+
 # Qwen3-VL API endpoint
 QWEN3VL_URL = "http://saltyfish.eecs.umich.edu:8000/v1/chat/completions"
 QWEN_MODEL = "Qwen/Qwen3-VL-30B-A3B-Instruct"
@@ -613,14 +617,14 @@ def main():
     # Two-stage pipeline (use pre-computed state descriptions)
     parser.add_argument('--use-descriptions', action='store_true',
                         help='Use pre-computed state descriptions instead of raw narrations')
-    parser.add_argument('--descriptions-dir', default='../outputs/food_classification/state_descriptions',
+    parser.add_argument('--descriptions-dir', default=str(_PROJECT_ROOT / "outputs" / "food_classification" / "state_descriptions"),
                         help='Directory containing state descriptions')
 
     # Paths
-    parser.add_argument('--arrivals-dir', default='../outputs/inventory_discovery_global')
-    parser.add_argument('--blocks-dir', default='../outputs/food_classification')
-    parser.add_argument('--output-dir', default='../outputs/food_graph')
-    parser.add_argument('--clips-dir', default='../outputs/food_clips')
+    parser.add_argument('--arrivals-dir', default=str(_PROJECT_ROOT / "outputs" / "inventory_discovery_global"))
+    parser.add_argument('--blocks-dir', default=str(_PROJECT_ROOT / "outputs" / "food_classification"))
+    parser.add_argument('--output-dir', default=str(_PROJECT_ROOT / "outputs" / "food_graph"))
+    parser.add_argument('--clips-dir', default=str(_PROJECT_ROOT / "outputs" / "food_clips"))
 
     args = parser.parse_args()
 
@@ -642,8 +646,8 @@ def main():
             return
 
         range_name = f"{start_video}_to_{end_video}"
-        args.arrivals_dir = f"../outputs/inventory_discovery_local/{range_name}"
-        args.output_dir = f"../outputs/food_graph_local/{range_name}"
+        args.arrivals_dir = str(_PROJECT_ROOT / "outputs" / "inventory_discovery_local" / range_name)
+        args.output_dir = str(_PROJECT_ROOT / "outputs" / "food_graph_local" / range_name)
 
         # Set video_ids from range if not already set
         if not args.video_ids:

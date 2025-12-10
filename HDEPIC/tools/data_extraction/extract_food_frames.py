@@ -14,6 +14,10 @@ from pathlib import Path
 import argparse
 from collections import defaultdict
 
+# Default paths (relative to this script's location in tools/data_extraction/)
+_SCRIPT_DIR = Path(__file__).parent
+_PROJECT_ROOT = _SCRIPT_DIR.parent.parent
+
 
 def parse_food_ids_file(file_path):
     """
@@ -50,7 +54,7 @@ def parse_food_ids_file(file_path):
 
 def extract_food_frames(
     objects_json='p01_objects_list.json',
-    video_dir='HD-EPIC/Videos/P01',
+    video_dir=str(_PROJECT_ROOT / "P01"),
     output_dir='food_extracted_frames',
     food_ids_file='food_objectIDs.txt',
     verbose=True
@@ -261,8 +265,8 @@ def main():
     )
     parser.add_argument('--json', '-j', default='p01_objects_list.json',
                        help='Path to p01_objects_list.json (default: p01_objects_list.json)')
-    parser.add_argument('--video-dir', '-v', default='HD-EPIC/Videos/P01',
-                       help='Directory containing P01 videos (default: HD-EPIC/Videos/P01)')
+    parser.add_argument('--video-dir', '-v', default=str(_PROJECT_ROOT / "P01"),
+                       help='Directory containing P01 videos (default: HDEPIC/P01)')
     parser.add_argument('--output', '-o', default='food_extracted_frames',
                        help='Output directory (default: food_extracted_frames)')
     parser.add_argument('--food-ids', '-f', default='food_objectIDs.txt',

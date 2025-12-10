@@ -17,8 +17,11 @@ from pathlib import Path
 from typing import List, Dict
 
 
-# Video directory
-VIDEO_DIR = Path("/home/kailaic/NeuroTrace/kitchen/HDEPIC/data/HD-EPIC/Videos/P01")
+# Default paths (relative to this script's location in pipelines/)
+_SCRIPT_DIR = Path(__file__).parent
+_PROJECT_ROOT = _SCRIPT_DIR.parent
+
+VIDEO_DIR = _PROJECT_ROOT / "P01"
 
 
 def get_video_path(video_id: str) -> Path:

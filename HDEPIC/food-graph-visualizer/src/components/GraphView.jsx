@@ -4,34 +4,34 @@ const styles = {
   container: {
     backgroundColor: '#fafafa',
     borderRadius: '8px',
-    padding: '15px',
+    padding: '12px',
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
     overflow: 'hidden',
   },
   header: {
-    fontSize: '16px',
+    fontSize: '14px',
     fontWeight: 'bold',
-    marginBottom: '15px',
+    marginBottom: '10px',
     color: '#333',
   },
   graphContainer: {
     flex: 1,
     display: 'flex',
-    gap: '20px',
+    gap: '15px',
     overflow: 'auto',
   },
   snapshotColumn: {
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
-    minWidth: '250px',
+    minWidth: '220px',
   },
   snapshotHeader: {
-    fontSize: '14px',
+    fontSize: '12px',
     fontWeight: 'bold',
-    padding: '10px',
+    padding: '8px',
     backgroundColor: '#e0e0e0',
     borderRadius: '4px 4px 0 0',
     textAlign: 'center',
@@ -48,19 +48,49 @@ const styles = {
     border: '1px solid #ddd',
     borderTop: 'none',
     borderRadius: '0 0 4px 4px',
-    padding: '10px',
+    padding: '8px',
     overflowY: 'auto',
   },
-  foodNode: {
-    padding: '10px',
-    marginBottom: '8px',
+  // Location group (container) styles
+  locationGroup: {
+    marginBottom: '10px',
     borderRadius: '6px',
-    border: '2px solid #2196F3',
-    backgroundColor: '#e3f2fd',
+    border: '1px solid #ccc',
+    overflow: 'hidden',
+  },
+  locationGroupInvolved: {
+    border: '2px solid #ff9800',
+  },
+  locationHeader: {
+    padding: '6px 10px',
+    backgroundColor: '#e8e8e8',
+    fontSize: '11px',
+    fontWeight: 'bold',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '6px',
+  },
+  locationHeaderInvolved: {
+    backgroundColor: '#fff3e0',
+  },
+  locationIcon: {
     fontSize: '12px',
   },
+  locationFoods: {
+    padding: '6px',
+    backgroundColor: '#fafafa',
+  },
+  // Compact food node styles
+  foodNode: {
+    padding: '6px 8px',
+    marginBottom: '4px',
+    borderRadius: '4px',
+    border: '1px solid #2196F3',
+    backgroundColor: '#e3f2fd',
+    fontSize: '11px',
+  },
   foodNodeConsumed: {
-    border: '2px solid #9e9e9e',
+    border: '1px solid #9e9e9e',
     backgroundColor: '#f5f5f5',
     opacity: 0.7,
   },
@@ -68,31 +98,45 @@ const styles = {
     border: '2px solid #ff9800',
     backgroundColor: '#fff3e0',
   },
+  foodNodeFocused: {
+    border: '2px solid #9c27b0',
+    backgroundColor: '#f3e5f5',
+    boxShadow: '0 0 6px rgba(156, 39, 176, 0.4)',
+  },
   foodId: {
     fontWeight: 'bold',
     color: '#1565c0',
-    marginBottom: '4px',
+    marginBottom: '2px',
     wordBreak: 'break-all',
+    fontSize: '11px',
   },
   foodProperty: {
     color: '#555',
-    marginBottom: '2px',
+    marginBottom: '1px',
+    fontSize: '10px',
+  },
+  foodPropertiesRow: {
+    display: 'flex',
+    gap: '8px',
+    flexWrap: 'wrap',
   },
   edgesColumn: {
-    width: '150px',
+    width: '180px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'flex-start',
     paddingTop: '40px',
+    overflowY: 'auto',
   },
   edge: {
-    padding: '6px 10px',
-    marginBottom: '6px',
-    borderRadius: '4px',
+    padding: '8px 12px',
+    marginBottom: '8px',
+    borderRadius: '6px',
     fontSize: '11px',
     textAlign: 'center',
-    minWidth: '100px',
+    minWidth: '140px',
+    maxWidth: '160px',
   },
   edgeSplit: { backgroundColor: '#c8e6c9', color: '#2e7d32' },
   edgeMerge: { backgroundColor: '#e1bee7', color: '#7b1fa2' },
@@ -136,7 +180,7 @@ const EDGE_STYLES = {
   consume: styles.edgeConsume,
 };
 
-function FoodNode({ food, isInvolved }) {
+function FoodNode({ food, isInvolved, showLocation = false, onClick, isFocused }) {
   const isConsumed = food.status === 'consumed';
   // Handle both flat structure and nested state structure
   const form = food.form || food.state?.form_state || 'unknown';
@@ -146,29 +190,175 @@ function FoodNode({ food, isInvolved }) {
 
   return (
     <div
+      onClick={() => onClick && onClick(foodId)}
       style={{
         ...styles.foodNode,
         ...(isConsumed ? styles.foodNodeConsumed : {}),
         ...(isInvolved ? styles.foodNodeInvolved : {}),
+        ...(isFocused ? styles.foodNodeFocused : {}),
+        cursor: onClick ? 'pointer' : 'default',
       }}
+      title="Click to trace lineage"
     >
       <div style={styles.foodId}>{foodId}</div>
-      <div style={styles.foodProperty}>
-        <strong>form:</strong> {form}
+      <div style={styles.foodPropertiesRow}>
+        <span style={styles.foodProperty}>{form}</span>
+        <span style={styles.foodProperty}>| {quantity}</span>
+        {food.status && food.status !== 'active' && (
+          <span style={styles.foodProperty}>| {food.status}</span>
+        )}
       </div>
-      <div style={styles.foodProperty}>
-        <strong>qty:</strong> {quantity}
-      </div>
-      {location && (
+      {showLocation && location && (
         <div style={styles.foodProperty}>
           <strong>loc:</strong> {location}
         </div>
       )}
-      {food.status && (
-        <div style={styles.foodProperty}>
-          <strong>status:</strong> {food.status}
-        </div>
-      )}
+    </div>
+  );
+}
+
+// Location icons for common container types
+const LOCATION_ICONS = {
+  pan: '🍳',
+  pot: '🍲',
+  bowl: '🥣',
+  plate: '🍽️',
+  cup: '☕',
+  mug: '☕',
+  glass: '🥛',
+  jar: '🫙',
+  container: '📦',
+  fridge: '❄️',
+  freezer: '🧊',
+  oven: '🔥',
+  microwave: '📡',
+  sink: '🚰',
+  counter: '📍',
+  countertop: '📍',
+  table: '🪑',
+  cutting_board: '🪵',
+  default: '📍',
+};
+
+function getLocationIcon(location) {
+  if (!location) return LOCATION_ICONS.default;
+  const loc = location.toLowerCase();
+  for (const [key, icon] of Object.entries(LOCATION_ICONS)) {
+    if (loc.includes(key)) return icon;
+  }
+  return LOCATION_ICONS.default;
+}
+
+function formatLocationName(location) {
+  if (!location) return 'Unknown';
+  // Remove trailing _001, _002 etc and replace underscores with spaces
+  return location.replace(/_\d+$/, '').replace(/_/g, ' ');
+}
+
+// Group foods by their location
+function groupFoodsByLocation(foods, involvedFoodIds) {
+  if (!foods || foods.length === 0) return [];
+
+  const groups = {};
+  const noLocation = [];
+
+  for (const food of foods) {
+    const location = food.location || null;
+    const foodId = food.food_id || food.instance_id;
+    const isInvolved = involvedFoodIds.has(foodId);
+
+    if (location) {
+      if (!groups[location]) {
+        groups[location] = {
+          location,
+          foods: [],
+          hasInvolvedFood: false,
+        };
+      }
+      groups[location].foods.push({ ...food, _isInvolved: isInvolved });
+      if (isInvolved) {
+        groups[location].hasInvolvedFood = true;
+      }
+    } else {
+      noLocation.push({ ...food, _isInvolved: isInvolved });
+    }
+  }
+
+  // Convert to array and sort: involved groups first, then alphabetically
+  const groupArray = Object.values(groups);
+  groupArray.sort((a, b) => {
+    if (a.hasInvolvedFood && !b.hasInvolvedFood) return -1;
+    if (!a.hasInvolvedFood && b.hasInvolvedFood) return 1;
+    return a.location.localeCompare(b.location);
+  });
+
+  // Sort foods within each group: involved first
+  for (const group of groupArray) {
+    group.foods.sort((a, b) => {
+      if (a._isInvolved && !b._isInvolved) return -1;
+      if (!a._isInvolved && b._isInvolved) return 1;
+      const aId = a.food_id || a.instance_id || '';
+      const bId = b.food_id || b.instance_id || '';
+      return aId.localeCompare(bId);
+    });
+  }
+
+  // Add "No Location" group if there are items without location
+  if (noLocation.length > 0) {
+    noLocation.sort((a, b) => {
+      if (a._isInvolved && !b._isInvolved) return -1;
+      if (!a._isInvolved && b._isInvolved) return 1;
+      const aId = a.food_id || a.instance_id || '';
+      const bId = b.food_id || b.instance_id || '';
+      return aId.localeCompare(bId);
+    });
+    groupArray.push({
+      location: null,
+      foods: noLocation,
+      hasInvolvedFood: noLocation.some(f => f._isInvolved),
+    });
+  }
+
+  return groupArray;
+}
+
+function LocationGroup({ group, onFoodNodeClick, focusedNodeId }) {
+  const { location, foods, hasInvolvedFood } = group;
+  const icon = getLocationIcon(location);
+  const displayName = location ? formatLocationName(location) : 'No Location';
+
+  return (
+    <div
+      style={{
+        ...styles.locationGroup,
+        ...(hasInvolvedFood ? styles.locationGroupInvolved : {}),
+      }}
+    >
+      <div
+        style={{
+          ...styles.locationHeader,
+          ...(hasInvolvedFood ? styles.locationHeaderInvolved : {}),
+        }}
+      >
+        <span style={styles.locationIcon}>{icon}</span>
+        <span>{displayName}</span>
+        <span style={{ color: '#888', fontWeight: 'normal' }}>({foods.length})</span>
+      </div>
+      <div style={styles.locationFoods}>
+        {foods.map((food, idx) => {
+          const foodId = food.food_id || food.instance_id;
+          return (
+            <FoodNode
+              key={foodId || idx}
+              food={food}
+              isInvolved={food._isInvolved}
+              showLocation={false}
+              onClick={onFoodNodeClick}
+              isFocused={focusedNodeId === foodId}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 }
@@ -187,7 +377,7 @@ const convertFoodNodesToArray = (blockGraph) => {
   return [];
 };
 
-function GraphView({ graph, selectedEventIndex, events }) {
+function GraphView({ graph, selectedEventIndex, events, onFoodNodeClick, focusedNodeId }) {
   // Compute before/after snapshots and relevant edges
   const { beforeSnapshot, afterSnapshot, relevantEdges } = useMemo(() => {
     if (!graph || selectedEventIndex === null || selectedEventIndex === undefined) {
@@ -263,12 +453,6 @@ function GraphView({ graph, selectedEventIndex, events }) {
     return ids;
   }, [relevantEdges]);
 
-  // Helper to check if a food is involved
-  const isFoodInvolved = (food) => {
-    const id = food.food_id || food.instance_id;
-    return involvedFoodIds.has(id);
-  };
-
   if (!graph) {
     return (
       <div style={styles.container}>
@@ -308,11 +492,12 @@ function GraphView({ graph, selectedEventIndex, events }) {
           </div>
           <div style={styles.nodesContainer}>
             {beforeSnapshot?.foods?.length > 0 ? (
-              beforeSnapshot.foods.map((food, idx) => (
-                <FoodNode
-                  key={food.food_id || food.instance_id || idx}
-                  food={food}
-                  isInvolved={isFoodInvolved(food)}
+              groupFoodsByLocation(beforeSnapshot.foods, involvedFoodIds).map((group, idx) => (
+                <LocationGroup
+                  key={group.location || `no-loc-${idx}`}
+                  group={group}
+                  onFoodNodeClick={onFoodNodeClick}
+                  focusedNodeId={focusedNodeId}
                 />
               ))
             ) : (
@@ -329,6 +514,16 @@ function GraphView({ graph, selectedEventIndex, events }) {
           {relevantEdges.map((edge, idx) => {
             const parentId = edge.parent_id || edge.parent_instance_id || '';
             const childId = edge.child_id || edge.child_instance_id || '';
+            // Extract readable names (e.g., "pasta_box_001" -> "pasta box")
+            const formatName = (id) => {
+              if (!id) return '?';
+              // Remove trailing _001, _002 etc and replace underscores with spaces
+              return id.replace(/_\d+$/, '').replace(/_/g, ' ');
+            };
+            const parentName = formatName(parentId);
+            const childName = formatName(childId);
+            const isSameItem = parentId === childId;
+
             return (
               <div
                 key={idx}
@@ -336,12 +531,19 @@ function GraphView({ graph, selectedEventIndex, events }) {
                   ...styles.edge,
                   ...(EDGE_STYLES[edge.derivation_type] || styles.edgeUpdate),
                 }}
-                title={`${parentId} → ${childId}`}
+                title={`${parentId} → ${childId}\nBlock ${edge.source_block} → ${edge.target_block}`}
               >
-                <div style={{ fontWeight: 'bold' }}>{edge.derivation_type}</div>
-                <div style={{ fontSize: '10px', marginTop: '2px' }}>
-                  {parentId?.split('_').slice(-1)[0]} → {childId?.split('_').slice(-1)[0]}
+                <div style={{ fontWeight: 'bold', textTransform: 'uppercase', fontSize: '10px' }}>
+                  {edge.derivation_type}
                 </div>
+                <div style={{ fontSize: '11px', marginTop: '4px', fontWeight: '500' }}>
+                  {parentName}
+                </div>
+                {!isSameItem && (
+                  <div style={{ fontSize: '10px', marginTop: '2px', color: '#666' }}>
+                    → {childName}
+                  </div>
+                )}
               </div>
             );
           })}
@@ -357,11 +559,12 @@ function GraphView({ graph, selectedEventIndex, events }) {
           </div>
           <div style={styles.nodesContainer}>
             {afterSnapshot?.foods?.length > 0 ? (
-              afterSnapshot.foods.map((food, idx) => (
-                <FoodNode
-                  key={food.food_id || food.instance_id || idx}
-                  food={food}
-                  isInvolved={isFoodInvolved(food)}
+              groupFoodsByLocation(afterSnapshot.foods, involvedFoodIds).map((group, idx) => (
+                <LocationGroup
+                  key={group.location || `no-loc-${idx}`}
+                  group={group}
+                  onFoodNodeClick={onFoodNodeClick}
+                  focusedNodeId={focusedNodeId}
                 />
               ))
             ) : (

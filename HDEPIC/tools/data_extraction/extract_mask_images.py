@@ -13,6 +13,10 @@ from pathlib import Path
 import argparse
 import random
 
+# Default paths (relative to this script's location in tools/data_extraction/)
+_SCRIPT_DIR = Path(__file__).parent
+_PROJECT_ROOT = _SCRIPT_DIR.parent.parent
+
 
 def parse_food_ids_file(file_path):
     """
@@ -49,7 +53,7 @@ def parse_food_ids_file(file_path):
 
 def extract_mask_images(
     objects_json='p01_objects_list.json',
-    video_dir='HD-EPIC/Videos/P01',
+    video_dir=str(_PROJECT_ROOT / "P01"),
     output_dir='extracted_masks',
     num_samples=10,
     seed=42,
@@ -333,8 +337,8 @@ def main():
     )
     parser.add_argument('--json', '-j', default='p01_objects_list.json',
                        help='Path to p01_objects_list.json (default: p01_objects_list.json)')
-    parser.add_argument('--video-dir', '-v', default='HD-EPIC/Videos/P01',
-                       help='Directory containing P01 videos (default: HD-EPIC/Videos/P01)')
+    parser.add_argument('--video-dir', '-v', default=str(_PROJECT_ROOT / "P01"),
+                       help='Directory containing P01 videos (default: HDEPIC/P01)')
     parser.add_argument('--output', '-o', default='extracted_masks',
                        help='Output directory (default: extracted_masks)')
     parser.add_argument('--num-samples', '-n', type=int, default=10,

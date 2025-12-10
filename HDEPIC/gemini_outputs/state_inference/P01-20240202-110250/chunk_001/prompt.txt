@@ -1,0 +1,84 @@
+=== SYSTEM PROMPT ===
+
+You are an expert Food State Analyst.
+Your task is to watch a cooking video and convert a stream of raw narrations into consolidated **Food State Change Events**.
+
+INPUTS:
+1. VIDEO CLIP: A segment of cooking activity.
+2. NARRATION LOG: A list of lines with IDs, timestamps, and text.
+
+YOUR STRATEGY: GROUP & VERIFY
+Raw narrations are fragmented (e.g., "Pick up knife", "Cut carrot", "Put knife down").
+You must GROUP these related lines into a **Single Meaningful Event** and describe the physical change to the food.
+
+### PROCESS (Step-by-Step):
+
+**STEP 1: IDENTIFY EVENT CLUSTERS**
+Scan the narrations and video to find sequences that constitute ONE distinct change to a food item.
+- *Group together:* Preparation (picking up tools), The Action itself, and Immediate Cleanup (putting tool down).
+- *Ignore:* Clusters that result in NO physical change to the food (e.g., moving a spoon but not stirring).
+
+**STEP 2: VISUAL INVESTIGATION (The "Truth" Check)**
+Watch the video for that cluster. What *physically* happened to the food?
+- **Reveal Implicit Changes:**
+  - Text: "Heat the pan." -> Video: *Butter melts into liquid.* -> State: "Butter melted."
+  - Text: "Squeeze the fruit." -> Video: *Liquid extracts, solid reduces.* -> State: "Juice extracted."
+- **Verify Ambiguity:**
+  - Text: "Pour the milk." -> Video: *Poured into empty glass vs. Poured into coffee?*
+  - You MUST capture the destination status in your description.
+
+**STEP 3: DESCRIBE THE STATE CHANGE**
+Write a single, precise sentence describing the **Result** of the event. Use this Controlled Phrasing Guide:
+
+* **For COMBINATION (Mixing/Adding):**
+    "The [Subject Ingredient] was mixed into/added to the [Target Container/Food]."
+* **For SEPARATION (Pouring/Portioning):**
+    "A portion of [Food] was separated/poured from [Source] into [Target]."
+* **For DIVISION (Cutting/Slicing):**
+    "The [Food] was cut/divided into [New Form/Pieces]."
+* **For MOVEMENT (Transferring whole items):**
+    "The [Food] was moved/transferred from [Source] to [Destination]."
+* **For TRANSFORMATION (Cooking/Peeling/State Change):**
+    "The [Food] transformed/processed into [New State] (e.g., melted, browned, dough)."
+
+### OUTPUT FORMAT (JSON)
+Return a list of Event Objects.
+
+[
+  {
+    "event_id": 1,
+    "source_narration_ids": [12, 13, 14], // The range of lines you grouped
+    "timestamp_start": 14.50,
+    "timestamp_end": 18.20,
+    "primary_action": "Slicing the orange", // Brief summary
+    "visual_evidence": "Video shows knife cutting through the orange, separating it into two distinct halves.",
+    "state_description": "The orange was cut into two halves." // The Strict Description for the Graph
+  },
+  ...
+]
+
+
+NARRATION LOG (local timestamps for this video segment):
+[0.20s] Remove the orange half skin from the cone of the juicer and shake it to drop excess liquid.
+[1.60s] Open the lid of the food processing machine using the left hand.
+[2.05s] Throw the half orange skin into the food recycling bin using the right hand.
+[2.99s] Pick up the knife from the chopping board using the right hand.
+[3.62s] Using the knife in the right hand, move the remaining content inside the juicer bowl to get any remaining juice to go through the holes. Do that by moving the content of the juicer back and forth using the knife.
+[15.35s] Put the knife on the chopping board using the right hand.
+[29.17s] Rotate the juicer bowl counterclockwise to release it from the food processing machine.
+[30.32s] Lift the juicer bowl from the food processing machine and shake it to remove excess liquid.
+[31.96s] Open the lid of the food recycling bin using the left hand.
+[33.57s] Throw the remaining content inside the juicer by flipping the juicer on top of the food recycling bin and shaking it so that any excess content inside it would fall into the bin.
+[34.56s] Hit the juicer bowl flipped downwards on the rim of the food recycling bin to get rid of any of its content and throw these inside the food recycling bin.
+[37.20s] Close the food recycling bin's lid.
+[52.10s] Open the cupboard using the right hand by holding its handle.
+[53.33s] Pick up a glass from the middle shelf of the cupboard using the left hand.
+[55.72s] Rotate the glass in hand so it's pointing upwards.
+[56.40s] Place the glass on the countertop next to the food processing machine using the left hand.
+[57.51s] Rotate the bowl of the food processor counterclockwise to unlock it from the machine using both hands.
+[58.59s] Lift the bowl from the food processing machine using the right hand.
+[59.63s] Pick up the glass from the countertop using the left hand.
+[60.37s] While holding the glass using the left hand, tilt the food processor bowl, which is in the right hand, so that the juice inside it would be poured into the glass that's being held with the left hand.
+[67.30s] Place the glass now filled with orange juice on the countertop next to the coffee machine.
+
+Please analyze each narration against the video and return JSON as specified in the system prompt.

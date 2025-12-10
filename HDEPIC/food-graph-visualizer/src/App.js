@@ -1,8 +1,11 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useMemo } from 'react';
 import DataLoader from './components/DataLoader';
 import VideoPlayer from './components/VideoPlayer';
 import EventList from './components/EventList';
 import GraphView from './components/GraphView';
+import DebugFooter from './components/DebugFooter';
+import LineageView from './components/LineageView';
+import { buildLineageGraph, traceAncestry } from './utils/lineageGraph';
 
 const styles = {
   app: {
@@ -35,9 +38,14 @@ const styles = {
     gap: '20px',
   },
   centerPanel: {
-    minHeight: '500px',
+    height: '350px',
+    maxHeight: '400px',
+    minHeight: '280px',
+    overflowY: 'auto',
   },
   rightPanel: {
+    height: 'calc(100vh - 200px)',
+    maxHeight: '700px',
     minHeight: '500px',
   },
   stats: {
@@ -58,9 +66,22 @@ function App() {
   // UI state
   const [selectedEventIndex, setSelectedEventIndex] = useState(null);
   const [currentTime, setCurrentTime] = useState(0);
+  const [focusedNodeId, setFocusedNodeId] = useState(null);
 
   // Refs
   const videoRef = useRef(null);
+
+  // Pre-compute lineage graph when graph data changes
+  const lineageGraph = useMemo(() => {
+    if (!graph) return null;
+    return buildLineageGraph(graph.lineage_edges, graph.block_graphs);
+  }, [graph]);
+
+  // Compute ancestry path for focused node
+  const ancestryPath = useMemo(() => {
+    if (!focusedNodeId || !lineageGraph) return null;
+    return traceAncestry(focusedNodeId, lineageGraph);
+  }, [focusedNodeId, lineageGraph]);
 
   // Handle data loaded from DataLoader
   const handleDataLoaded = useCallback((data) => {
@@ -73,6 +94,17 @@ function App() {
     setVideoUrl(data.videoUrl);
     setSelectedEventIndex(null);
     setCurrentTime(0);
+    setFocusedNodeId(null);
+  }, []);
+
+  // Handle food node click for lineage tracing
+  const handleFoodNodeClick = useCallback((nodeId) => {
+    setFocusedNodeId(nodeId);
+  }, []);
+
+  // Handle close lineage view
+  const handleCloseLineage = useCallback(() => {
+    setFocusedNodeId(null);
   }, []);
 
   // Handle event selection from EventList
@@ -137,8 +169,28 @@ function App() {
                   graph={graph}
                   selectedEventIndex={selectedEventIndex}
                   events={events}
+                  onFoodNodeClick={handleFoodNodeClick}
+                  focusedNodeId={focusedNodeId}
                 />
               </div>
+            </div>
+
+            {/* Lineage View - shows when a food node is clicked */}
+            {focusedNodeId && (
+              <LineageView
+                focusNode={focusedNodeId}
+                path={ancestryPath}
+                onClose={handleCloseLineage}
+              />
+            )}
+
+            {/* Debug Footer - VLM Reasoning */}
+            <div style={{ marginTop: '20px' }}>
+              <DebugFooter
+                selectedEventIndex={selectedEventIndex}
+                events={events}
+                vlmLogs={graph?.vlm_logs}
+              />
             </div>
           </>
         )}

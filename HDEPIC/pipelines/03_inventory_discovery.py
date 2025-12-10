@@ -40,6 +40,10 @@ except ImportError:
 QWEN3VL_URL = "http://saltyfish.eecs.umich.edu:8000/v1/chat/completions"
 QWEN_MODEL = "Qwen/Qwen3-VL-30B-A3B-Instruct"
 
+# Default paths (relative to this script's location in pipelines/)
+_SCRIPT_DIR = Path(__file__).parent
+_PROJECT_ROOT = _SCRIPT_DIR.parent
+
 
 class VLMClient:
     """Handles communication with VLM APIs (Qwen and GPT-4o) for text-only queries"""
@@ -369,12 +373,12 @@ def main():
     )
     parser.add_argument(
         '--input-dir',
-        default='/home/kailaic/NeuroTrace/kitchen/HDEPIC/outputs/food_classification',
+        default=str(_PROJECT_ROOT / "outputs" / "food_classification"),
         help='Directory containing food_blocks.json files'
     )
     parser.add_argument(
         '--output-dir',
-        default='/home/kailaic/NeuroTrace/kitchen/HDEPIC/outputs/inventory_discovery_global',
+        default=str(_PROJECT_ROOT / "outputs" / "inventory_discovery_global"),
         help='Output directory for arrival results (ignored if --local is set)'
     )
     parser.add_argument(
@@ -426,7 +430,7 @@ def main():
             return
         # Create local output directory named after video range
         range_name = f"{args.start_video}_to_{args.end_video}"
-        output_dir = Path('/home/kailaic/NeuroTrace/kitchen/HDEPIC/outputs/inventory_discovery_local') / range_name
+        output_dir = _PROJECT_ROOT / "outputs" / "inventory_discovery_local" / range_name
     else:
         output_dir = Path(args.output_dir)
 

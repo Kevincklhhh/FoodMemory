@@ -1,0 +1,99 @@
+{
+  "state_schema": {
+    "form_state": {
+      "values": ["whole", "prepared_ingredient", "cooking_in_progress", "cooked_dish", "leftover", "unknown"],
+      "description": "Physical form/preparation state of the food"
+    },
+    "quantity": {
+      "values": ["full", "partial", "nearly_empty", "consumed", "unknown"],
+      "description": "Amount remaining"
+    },
+    "count": {
+      "type": "integer or null",
+      "description": "For countable items (eggs, slices, pieces)"
+    }
+  },
+  "zone_types": {
+    "values": [
+      "storage",
+      "fridge",
+      "freezer",
+      "pantry",
+      "prep_surface",
+      "counter",
+      "cutting_board",
+      "stove",
+      "oven",
+      "microwave",
+      "toaster",
+      "sink",
+      "dishwasher",
+      "serving",
+      "table",
+      "unknown"
+    ],
+    "description": "Location zones in the kitchen"
+  },
+  "node_status": {
+    "values": ["active", "consumed", "discarded", "split_source"],
+    "description": "Lifecycle status of a food node"
+  },
+  "transaction_types": {
+    "transfer": {
+      "description": "Move food between containers",
+      "creates_lineage": false,
+      "fields": ["food_id", "to_container", "to_zone"]
+    },
+    "split": {
+      "subtypes": {
+        "partial": {
+          "description": "Remove portion while parent survives",
+          "parent_status_after": "active",
+          "creates_lineage": true
+        },
+        "complete": {
+          "description": "Fully divide parent into children",
+          "parent_status_after": "split_source",
+          "creates_lineage": true
+        }
+      },
+      "fields": ["parent_id", "subtype", "children"]
+    },
+    "merge": {
+      "subtypes": {
+        "accumulation": {
+          "description": "Add more of same substance",
+          "creates_lineage": false
+        },
+        "incorporation": {
+          "description": "Minor ingredient into dominant base",
+          "creates_lineage": false
+        },
+        "transformation": {
+          "description": "Combine distinct items into new substance",
+          "creates_lineage": true
+        }
+      },
+      "fields": ["subject_id", "target_id", "subtype", "new_food_noun"]
+    },
+    "consume": {
+      "consume_types": ["eaten", "discarded"],
+      "description": "End food lifecycle",
+      "creates_lineage": false,
+      "fields": ["food_id", "consume_type"]
+    },
+    "update": {
+      "description": "In-place state change",
+      "creates_lineage": false,
+      "fields": ["food_id", "state_changes"]
+    }
+  },
+  "instance_id_format": {
+    "pattern": "{food_noun}_{counter:03d}",
+    "examples": ["milk_001", "egg_002", "bread_001", "dough_001"]
+  },
+  "container_id_format": {
+    "pattern": "{descriptive_name}_{counter:03d}",
+    "examples": ["milk_bottle_001", "frying_pan_001", "mixing_bowl_002", "egg_carton_001"]
+  }
+}

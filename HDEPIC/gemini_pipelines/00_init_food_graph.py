@@ -3,12 +3,16 @@
 Initialize Food Graph Directory
 
 Creates a new food graph directory with:
-1. Filtered narrations (food-related) for the video range - for Gemini prompt
+1. Filtered narrations from gemini_input/filter_*.txt - already filtered by Gemini
 2. Empty inventory.json template - user fills from Gemini output
 3. Placeholder for state_change.json (populated by parse_state_inference.py)
 
+Reads from:
+    gemini_outputs/gemini_input/filter_{video_id}.txt         # All narrations
+    gemini_outputs/gemini_input/filter_{video_id}_response.txt  # Gemini filter response
+
 Workflow:
-1. Run this script to create directory and narration file
+1. Run this script to create directory and filtered narration file
 2. User copies narrations to Gemini, gets inventory items back
 3. User pastes Gemini output into inventory.json
 4. Run parse_state_inference.py to populate state_change.json
@@ -20,105 +24,120 @@ Usage:
 """
 
 import json
-import csv
 import argparse
+import re
 from pathlib import Path
-from typing import List, Dict, Optional
+from typing import List, Dict, Set, Tuple
 
 # Default paths (relative to this script's location in gemini_pipelines/)
 _SCRIPT_DIR = Path(__file__).parent
 _PROJECT_ROOT = _SCRIPT_DIR.parent
 
-DEFAULT_CSV_PATH = _PROJECT_ROOT / "P01" / "participant_P01_narrations.csv"
+DEFAULT_GEMINI_INPUT_DIR = _PROJECT_ROOT / "gemini_outputs" / "gemini_input"
 DEFAULT_OUTPUT_DIR = _PROJECT_ROOT / "gemini_outputs" / "food_graph"
 
-# Keywords that suggest food-related narrations
-FOOD_KEYWORDS = [
-    # Food items
-    'pasta', 'cheese', 'butter', 'salt', 'pepper', 'water', 'oil', 'sauce',
-    'egg', 'bread', 'meat', 'vegetable', 'fruit', 'milk', 'cream', 'flour',
-    'sugar', 'rice', 'noodle', 'chicken', 'beef', 'pork', 'fish', 'tomato',
-    'onion', 'garlic', 'potato', 'carrot', 'lettuce', 'spinach', 'mushroom',
-    'coffee', 'tea', 'juice', 'wine', 'beer', 'soup', 'broth', 'stock',
-    # Containers/tools related to food
-    'pan', 'pot', 'bowl', 'plate', 'cup', 'glass', 'mug', 'jar', 'bottle',
-    'kettle', 'grater', 'spatula', 'ladle', 'fork', 'knife', 'spoon',
-    'strainer', 'colander', 'fridge', 'oven', 'stove', 'hob', 'scale',
-    # Actions
-    'pour', 'stir', 'mix', 'cook', 'boil', 'fry', 'bake', 'grate', 'slice',
-    'cut', 'chop', 'dice', 'peel', 'season', 'taste', 'eat', 'drink',
-    'fill', 'empty', 'heat', 'melt', 'dissolve',
-]
+
+def load_filter_files(gemini_input_dir: Path, video_id: str) -> Tuple[List[str], Set[int]]:
+    """
+    Load filter input and response files for a video.
+
+    Returns:
+        Tuple of (all_lines, relevant_line_numbers)
+    """
+    input_file = gemini_input_dir / f"filter_{video_id}.txt"
+    response_file = gemini_input_dir / f"filter_{video_id}_response.txt"
+
+    if not input_file.exists():
+        print(f"  WARNING: No filter file found: {input_file.name}")
+        return [], set()
+
+    # Read all narration lines
+    with open(input_file, 'r', encoding='utf-8') as f:
+        all_lines = f.read().strip().split('\n')
+
+    # Parse response to get relevant line numbers
+    relevant_lines = set()
+    if response_file.exists():
+        with open(response_file, 'r', encoding='utf-8') as f:
+            response_text = f.read().strip()
+
+        if response_text:
+            try:
+                # Parse JSON response
+                response_data = json.loads(response_text)
+
+                # Extract relevant_lines from all segments
+                if isinstance(response_data, list):
+                    for segment in response_data:
+                        if isinstance(segment, dict) and 'relevant_lines' in segment:
+                            relevant_lines.update(segment['relevant_lines'])
+            except json.JSONDecodeError:
+                print(f"  WARNING: Could not parse response: {response_file.name}")
+    else:
+        print(f"  WARNING: No response file found: {response_file.name}")
+
+    return all_lines, relevant_lines
 
 
-def load_narrations(csv_path: Path) -> List[Dict]:
-    """Load narrations from CSV file."""
-    narrations = []
-    with open(csv_path, 'r', encoding='utf-8') as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            narrations.append(row)
-    return narrations
+def get_videos_in_range(gemini_input_dir: Path, start_video: str, end_video: str) -> List[str]:
+    """Get list of video IDs in range that have filter files."""
+    # Find all filter files
+    filter_files = list(gemini_input_dir.glob("filter_P*.txt"))
+    video_ids = []
 
+    for f in filter_files:
+        # Extract video ID from filename like "filter_P01-20240202-110250.txt"
+        match = re.match(r'filter_(P\d+-\d+-\d+)\.txt', f.name)
+        if match and not f.name.endswith('_response.txt'):
+            video_ids.append(match.group(1))
 
-def get_video_ids_from_csv(narrations: List[Dict]) -> List[str]:
-    """Get unique video IDs from narrations, sorted chronologically."""
-    video_ids = sorted(set(n['video_id'] for n in narrations))
-    return video_ids
+    video_ids.sort()
 
-
-def filter_narrations_by_video_range(
-    narrations: List[Dict],
-    start_video: str,
-    end_video: str
-) -> List[Dict]:
-    """Filter narrations to specified video range."""
-    # Get all video IDs and find range
-    all_videos = get_video_ids_from_csv(narrations)
-
+    # Filter to range
     try:
-        start_idx = all_videos.index(start_video)
-        end_idx = all_videos.index(end_video)
+        start_idx = video_ids.index(start_video)
+        end_idx = video_ids.index(end_video)
+        return video_ids[start_idx:end_idx + 1]
     except ValueError as e:
         print(f"ERROR: Video not found: {e}")
-        print(f"Available videos: {all_videos[:10]}...")
+        print(f"Available videos: {video_ids[:10]}...")
         return []
 
-    videos_in_range = set(all_videos[start_idx:end_idx + 1])
-    return [n for n in narrations if n['video_id'] in videos_in_range]
 
+def format_filtered_narrations(
+    gemini_input_dir: Path,
+    video_ids: List[str],
+    include_all: bool = False
+) -> Tuple[str, int, int]:
+    """
+    Format filtered narrations for all videos.
 
-def is_food_related(narration_text: str) -> bool:
-    """Check if narration is food-related based on keywords."""
-    text_lower = narration_text.lower()
-    return any(keyword in text_lower for keyword in FOOD_KEYWORDS)
-
-
-def filter_food_narrations(narrations: List[Dict]) -> List[Dict]:
-    """Filter to only food-related narrations."""
-    return [n for n in narrations if is_food_related(n.get('narration', ''))]
-
-
-def format_narrations_for_prompt(narrations: List[Dict]) -> str:
-    """Format narrations as text for Gemini prompt."""
+    Returns:
+        Tuple of (formatted_text, total_lines, filtered_lines)
+    """
     lines = []
-    current_video = None
+    total_count = 0
+    filtered_count = 0
 
-    for n in narrations:
-        video_id = n['video_id']
-        narration_id = n['narration_id']
-        narration_text = n['narration']
+    for video_id in video_ids:
+        all_lines, relevant_lines = load_filter_files(gemini_input_dir, video_id)
 
-        # Add video header when video changes
-        if video_id != current_video:
-            if current_video is not None:
-                lines.append("")  # Blank line between videos
-            lines.append(f"=== VIDEO: {video_id} ===")
-            current_video = video_id
+        if not all_lines:
+            continue
 
-        lines.append(f"{narration_id} | {narration_text}")
+        # Add video header
+        if lines:
+            lines.append("")  # Blank line between videos
+        lines.append(f"=== VIDEO: {video_id} ===")
 
-    return "\n".join(lines)
+        total_count += len(all_lines)
+
+        for i, line in enumerate(all_lines, 1):
+            if include_all or i in relevant_lines:
+                lines.append(line)
+                filtered_count += 1
+
+    return "\n".join(lines), total_count, filtered_count
 
 
 def create_inventory_template() -> List[Dict]:
@@ -152,10 +171,10 @@ def main():
         help='End video ID for range (e.g., P01-20240202-161948)'
     )
     parser.add_argument(
-        '--csv-path',
+        '--gemini-input-dir',
         type=Path,
-        default=DEFAULT_CSV_PATH,
-        help='Path to narrations CSV'
+        default=DEFAULT_GEMINI_INPUT_DIR,
+        help='Directory containing filter_*.txt files'
     )
     parser.add_argument(
         '--output-dir',
@@ -166,7 +185,7 @@ def main():
     parser.add_argument(
         '--all-narrations',
         action='store_true',
-        help='Include all narrations, not just food-related ones'
+        help='Include all narrations, not just Gemini-filtered ones'
     )
 
     args = parser.parse_args()
@@ -192,46 +211,42 @@ def main():
     print("=" * 60)
     print(f"Video range: {args.start_video} -> {args.end_video}")
     print(f"Range name:  {range_name}")
-    print(f"CSV:         {args.csv_path}")
+    print(f"Input:       {args.gemini_input_dir}")
     print(f"Output:      {args.output_dir / range_name}")
 
-    # Load narrations
-    print(f"\n[1/4] Loading narrations from CSV...")
-    narrations = load_narrations(args.csv_path)
-    print(f"      Total narrations: {len(narrations)}")
-
-    # Filter to video range
-    print(f"\n[2/4] Filtering to video range...")
-    range_narrations = filter_narrations_by_video_range(
-        narrations, args.start_video, args.end_video
-    )
-    print(f"      Narrations in range: {len(range_narrations)}")
-
-    if not range_narrations:
-        print("ERROR: No narrations found in specified range")
+    # Get videos in range
+    print(f"\n[1/3] Finding videos in range...")
+    video_ids = get_videos_in_range(args.gemini_input_dir, args.start_video, args.end_video)
+    if not video_ids:
+        print("ERROR: No videos found in specified range")
         return
+    print(f"      Found {len(video_ids)} videos: {video_ids}")
 
-    # Filter to food-related (optional)
-    if args.all_narrations:
-        filtered_narrations = range_narrations
-        print(f"\n[3/4] Using all narrations (--all-narrations flag)")
-    else:
-        print(f"\n[3/4] Filtering to food-related narrations...")
-        filtered_narrations = filter_food_narrations(range_narrations)
-        print(f"      Food-related narrations: {len(filtered_narrations)}")
+    # Format filtered narrations
+    print(f"\n[2/3] Loading filtered narrations...")
+    narrations_text, total_count, filtered_count = format_filtered_narrations(
+        args.gemini_input_dir,
+        video_ids,
+        include_all=args.all_narrations
+    )
+    print(f"      Total narrations: {total_count}")
+    print(f"      Filtered (food-related): {filtered_count}")
+
+    if not narrations_text:
+        print("ERROR: No narrations found")
+        return
 
     # Create output directory
     work_dir = args.output_dir / range_name
     work_dir.mkdir(parents=True, exist_ok=True)
 
     # Write narrations file
-    print(f"\n[4/4] Writing output files...")
+    print(f"\n[3/3] Writing output files...")
 
     narrations_file = work_dir / "narrations_for_gemini.txt"
-    narrations_text = format_narrations_for_prompt(filtered_narrations)
     with open(narrations_file, 'w', encoding='utf-8') as f:
         f.write(narrations_text)
-    print(f"      Created: {narrations_file.name}")
+    print(f"      Created: {narrations_file.name} ({filtered_count} narrations)")
 
     # Write empty inventory template
     inventory_file = work_dir / "inventory.json"

@@ -6,21 +6,18 @@ This script builds a spatio-temporal food graph from pre-annotated Gemini state
 inference outputs. Unlike the block-based pipeline (05_food_graph_builder.py),
 this processes events ONE-AT-A-TIME in chronological order.
 
-Input:
-    outputs/{range}/
-    ├── inventory.json      # Food arrivals with narration IDs
-    └── state_change.json   # Pre-annotated state change events from Gemini
-
-Output:
-    outputs/food_graph_gemini/{range}/
-    ├── spatio_temporal_graph.json
-    ├── event_log.jsonl
-    ├── vlm_logs/
-    └── clips/
+Directory structure (all files in one directory):
+    gemini_outputs/food_graph/{range}/
+    ├── inventory.json           # Input: Food arrivals with narration IDs
+    ├── state_change.json        # Input: Pre-annotated state change events
+    ├── spatio_temporal_graph.json  # Output: Complete graph with embedded vlm_logs
+    ├── event_log.jsonl          # Output: Processing log
+    ├── vlm_logs/                # Output: Raw VLM interaction logs
+    └── clips/                   # Output: Extracted video clips
 
 Usage:
-    python 06_food_graph_from_gemini.py --input-dir ../outputs/P01-20240202-161354_to_P01-20240202-161948
-    python 06_food_graph_from_gemini.py --input-dir ../outputs/P01-20240202-161354_to_P01-20240202-161948 --verbose
+    python 06_food_graph_from_gemini.py --dir ../gemini_outputs/food_graph/P01-20240202-161354_to_P01-20240202-161948
+    python 06_food_graph_from_gemini.py --dir ../gemini_outputs/food_graph/P01-20240202-161354_to_P01-20240202-161948 --verbose
 """
 
 import json
@@ -200,7 +197,7 @@ class GeminiPipelineRunner:
         self.stg = SpatioTemporalGraph(metadata={
             "source": "gemini_pre_annotations",
             "model": args.model,
-            "input_dir": str(args.input_dir)
+            "work_dir": str(args.dir)
         })
 
         # Current graph state (modified in place)
@@ -215,37 +212,36 @@ class GeminiPipelineRunner:
         )
 
         # Event log
-        self.event_log_file = self.output_dir / "event_log.jsonl"
+        self.event_log_file = self.work_dir / "event_log.jsonl"
         open(self.event_log_file, 'w').close()  # Clear existing
 
         # Reset instance counters
         reset_instance_counters()
 
     def setup_paths(self):
-        """Setup input/output paths."""
-        self.input_dir = Path(self.args.input_dir)
+        """Setup paths - single directory for both input and output."""
+        # Single directory contains both input files and receives output
+        self.work_dir = Path(self.args.dir)
+        self.work_dir.mkdir(parents=True, exist_ok=True)
+
         self.csv_path = Path(self.args.csv_path)
         self.video_dir = Path(self.args.video_dir)
 
-        # Output directory based on input directory name
-        input_name = self.input_dir.name
-        self.output_dir = Path(self.args.output_dir) / input_name
-        self.output_dir.mkdir(parents=True, exist_ok=True)
-
-        self.vlm_log_dir = self.output_dir / "vlm_logs"
+        # All outputs go to same directory as inputs
+        self.vlm_log_dir = self.work_dir / "vlm_logs"
         self.vlm_log_dir.mkdir(parents=True, exist_ok=True)
 
-        self.clips_dir = self.output_dir / "clips"
+        self.clips_dir = self.work_dir / "clips"
         self.clips_dir.mkdir(parents=True, exist_ok=True)
 
-        self.graph_file = self.output_dir / "spatio_temporal_graph.json"
+        self.graph_file = self.work_dir / "spatio_temporal_graph.json"
 
     def setup_logging(self):
         """Setup logging configuration."""
         logging.getLogger("urllib3").setLevel(logging.WARNING)
         logging.getLogger("requests").setLevel(logging.WARNING)
 
-        log_file = self.output_dir / "pipeline.log"
+        log_file = self.work_dir / "pipeline.log"
         logging.basicConfig(
             level=logging.INFO if self.args.verbose else logging.WARNING,
             format='%(asctime)s [%(levelname)s] %(message)s',
@@ -256,8 +252,8 @@ class GeminiPipelineRunner:
         )
 
     def load_inventory(self) -> List[Dict]:
-        """Load inventory.json."""
-        inventory_file = self.input_dir / "inventory.json"
+        """Load inventory.json from work directory."""
+        inventory_file = self.work_dir / "inventory.json"
         if not inventory_file.exists():
             print(f"WARNING: inventory.json not found at {inventory_file}")
             return []
@@ -269,8 +265,8 @@ class GeminiPipelineRunner:
         return data
 
     def load_state_changes(self) -> List[Dict]:
-        """Load state_change.json."""
-        state_file = self.input_dir / "state_change.json"
+        """Load state_change.json from work directory."""
+        state_file = self.work_dir / "state_change.json"
         if not state_file.exists():
             print(f"ERROR: state_change.json not found at {state_file}")
             return []
@@ -604,10 +600,9 @@ class GeminiPipelineRunner:
         print("="*60)
         print("FOOD GRAPH FROM GEMINI PRE-ANNOTATIONS")
         print("="*60)
-        print(f"Input:  {self.input_dir}")
-        print(f"Output: {self.output_dir}")
-        print(f"Model:  {self.args.model}")
-        print(f"Dry run: {self.args.dry_run}")
+        print(f"Directory: {self.work_dir}")
+        print(f"Model:     {self.args.model}")
+        print(f"Dry run:   {self.args.dry_run}")
 
         # Load inputs
         inventory = self.load_inventory()
@@ -669,12 +664,12 @@ def main():
         description="Build Food Graph from Gemini Pre-Annotations"
     )
 
-    # Input paths
+    # Working directory (contains both input and output)
     parser.add_argument(
-        '--input-dir',
+        '--dir',
         type=Path,
         required=True,
-        help='Directory containing inventory.json and state_change.json'
+        help='Working directory containing inventory.json and state_change.json (outputs also go here)'
     )
     parser.add_argument(
         '--csv-path',
@@ -687,14 +682,6 @@ def main():
         type=Path,
         default=_PROJECT_ROOT / "P01",
         help='Directory containing video files'
-    )
-
-    # Output paths
-    parser.add_argument(
-        '--output-dir',
-        type=Path,
-        default=_PROJECT_ROOT / "gemini_outputs" / "food_graph_gemini",
-        help='Output directory for graph and logs'
     )
 
     # Processing options

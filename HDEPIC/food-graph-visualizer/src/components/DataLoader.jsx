@@ -2,41 +2,46 @@ import React, { useState } from 'react';
 
 const styles = {
   container: {
-    padding: '20px',
+    padding: '15px 20px',
     backgroundColor: '#f5f5f5',
     borderRadius: '8px',
     marginBottom: '20px',
   },
   title: {
-    margin: '0 0 15px 0',
-    fontSize: '18px',
+    margin: '0 0 12px 0',
+    fontSize: '16px',
     fontWeight: 'bold',
   },
+  inputRow: {
+    display: 'flex',
+    gap: '15px',
+    alignItems: 'flex-end',
+    flexWrap: 'wrap',
+  },
   inputGroup: {
-    marginBottom: '15px',
+    flex: '1',
+    minWidth: '200px',
   },
   label: {
     display: 'block',
-    marginBottom: '5px',
+    marginBottom: '4px',
     fontWeight: '500',
+    fontSize: '13px',
   },
-  input: {
-    width: '100%',
-    padding: '8px',
-    border: '1px solid #ccc',
-    borderRadius: '4px',
-    fontSize: '14px',
-    boxSizing: 'border-box',
+  hint: {
+    fontSize: '11px',
+    color: '#666',
+    marginTop: '2px',
   },
   button: {
-    padding: '10px 20px',
+    padding: '8px 16px',
     backgroundColor: '#2196F3',
     color: 'white',
     border: 'none',
     borderRadius: '4px',
     cursor: 'pointer',
-    fontSize: '14px',
-    marginRight: '10px',
+    fontSize: '13px',
+    height: '34px',
   },
   buttonDisabled: {
     backgroundColor: '#ccc',
@@ -44,21 +49,20 @@ const styles = {
   },
   error: {
     color: '#d32f2f',
-    marginTop: '10px',
-    fontSize: '14px',
+    marginTop: '8px',
+    fontSize: '13px',
   },
   success: {
     color: '#388e3c',
-    marginTop: '10px',
-    fontSize: '14px',
+    marginTop: '8px',
+    fontSize: '13px',
   },
   fileInput: {
-    marginBottom: '10px',
+    fontSize: '13px',
   },
 };
 
 function DataLoader({ onDataLoaded }) {
-  const [stateChangeFile, setStateChangeFile] = useState(null);
   const [graphFile, setGraphFile] = useState(null);
   const [videoFile, setVideoFile] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -89,8 +93,8 @@ function DataLoader({ onDataLoaded }) {
   };
 
   const handleLoad = async () => {
-    if (!stateChangeFile || !graphFile) {
-      setError('Please select both state_change.json and spatio_temporal_graph.json files');
+    if (!graphFile) {
+      setError('Please select spatio_temporal_graph.json');
       return;
     }
 
@@ -99,10 +103,11 @@ function DataLoader({ onDataLoaded }) {
     setSuccess(null);
 
     try {
-      const [stateChangeData, graphData] = await Promise.all([
-        readJsonFile(stateChangeFile),
-        readJsonFile(graphFile),
-      ]);
+      const graphData = await readJsonFile(graphFile);
+
+      // Extract state_changes from graph (embedded during pipeline)
+      // Fall back to empty array if not present
+      const stateChangeData = graphData.state_changes || [];
 
       // Create video URL if video file provided
       let videoUrl = null;
@@ -116,8 +121,9 @@ function DataLoader({ onDataLoaded }) {
         videoUrl: videoUrl,
       });
 
-      const eventCount = Array.isArray(stateChangeData) ? stateChangeData.length : (stateChangeData.events?.length || 0);
-      setSuccess(`Loaded ${eventCount} events and ${graphData.block_graphs?.length || 0} snapshots`);
+      const eventCount = Array.isArray(stateChangeData) ? stateChangeData.length : 0;
+      const vlmLogCount = Object.keys(graphData.vlm_logs || {}).length;
+      setSuccess(`Loaded ${eventCount} events, ${graphData.block_graphs?.length || 0} snapshots, ${vlmLogCount} VLM logs`);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -127,48 +133,41 @@ function DataLoader({ onDataLoaded }) {
 
   return (
     <div style={styles.container}>
-      <h2 style={styles.title}>Load Data Files</h2>
+      <h2 style={styles.title}>Load Food Graph</h2>
 
-      <div style={styles.inputGroup}>
-        <label style={styles.label}>state_change.json (required)</label>
-        <input
-          type="file"
-          accept=".json"
-          onChange={handleFileChange(setStateChangeFile)}
-          style={styles.fileInput}
-        />
+      <div style={styles.inputRow}>
+        <div style={styles.inputGroup}>
+          <label style={styles.label}>spatio_temporal_graph.json</label>
+          <input
+            type="file"
+            accept=".json"
+            onChange={handleFileChange(setGraphFile)}
+            style={styles.fileInput}
+          />
+          <div style={styles.hint}>Contains graph, events, and VLM logs</div>
+        </div>
+
+        <div style={styles.inputGroup}>
+          <label style={styles.label}>Video (optional)</label>
+          <input
+            type="file"
+            accept="video/*"
+            onChange={handleFileChange(setVideoFile)}
+            style={styles.fileInput}
+          />
+        </div>
+
+        <button
+          onClick={handleLoad}
+          disabled={loading || !graphFile}
+          style={{
+            ...styles.button,
+            ...(loading || !graphFile ? styles.buttonDisabled : {}),
+          }}
+        >
+          {loading ? 'Loading...' : 'Load'}
+        </button>
       </div>
-
-      <div style={styles.inputGroup}>
-        <label style={styles.label}>spatio_temporal_graph.json (required)</label>
-        <input
-          type="file"
-          accept=".json"
-          onChange={handleFileChange(setGraphFile)}
-          style={styles.fileInput}
-        />
-      </div>
-
-      <div style={styles.inputGroup}>
-        <label style={styles.label}>Video file (optional)</label>
-        <input
-          type="file"
-          accept="video/*"
-          onChange={handleFileChange(setVideoFile)}
-          style={styles.fileInput}
-        />
-      </div>
-
-      <button
-        onClick={handleLoad}
-        disabled={loading || !stateChangeFile || !graphFile}
-        style={{
-          ...styles.button,
-          ...(loading || !stateChangeFile || !graphFile ? styles.buttonDisabled : {}),
-        }}
-      >
-        {loading ? 'Loading...' : 'Load Data'}
-      </button>
 
       {error && <div style={styles.error}>{error}</div>}
       {success && <div style={styles.success}>{success}</div>}

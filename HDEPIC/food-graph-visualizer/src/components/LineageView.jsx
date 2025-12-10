@@ -164,12 +164,6 @@ function getLocationIcon(location) {
   return LOCATION_ICONS.default;
 }
 
-function formatNodeId(id) {
-  if (!id) return '?';
-  // Remove trailing _001, _002 etc for display
-  return id.replace(/_\d+$/, '').replace(/_/g, ' ');
-}
-
 function PathStep({ step, isLast }) {
   const isCurrent = step.isCurrent;
   const isConsumed = step.status === 'consumed';

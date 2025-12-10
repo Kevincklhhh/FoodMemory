@@ -18,7 +18,7 @@ Input:
     └── manifest.json      # Contains global_start/global_end for timestamp conversion
 
 Output:
-    gemini_outputs/{start_video}_to_{end_video}/
+    gemini_outputs/food_graph/{start_video}_to_{end_video}/
     └── state_change.json  # Combined events with global timestamps
 """
 
@@ -33,7 +33,7 @@ _SCRIPT_DIR = Path(__file__).parent
 _PROJECT_ROOT = _SCRIPT_DIR.parent
 
 DEFAULT_STATE_INFERENCE_DIR = _PROJECT_ROOT / "gemini_outputs" / "state_inference"
-DEFAULT_OUTPUT_DIR = _PROJECT_ROOT / "gemini_outputs"
+DEFAULT_OUTPUT_DIR = _PROJECT_ROOT / "gemini_outputs" / "food_graph"
 
 
 def get_video_ids_in_range(

@@ -269,7 +269,7 @@ def build_chunk_prompt(chunk: Dict) -> str:
 
     lines = [
         f"NARRATION LOG (local video timestamp):",
-        f"Semantic Groups: {', '.join(chunk['labels'])}",
+        # f"Semantic Groups: {', '.join(chunk['labels'])}",
         ""
     ]
 

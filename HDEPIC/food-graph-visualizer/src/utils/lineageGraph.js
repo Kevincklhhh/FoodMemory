@@ -212,3 +212,104 @@ export function precomputeAllAncestry(lineageGraph) {
 
   return ancestryCache;
 }
+
+/**
+ * Trace what foods have been added to a container over time.
+ * Scans all block_graphs to find when foods first appeared in the container.
+ * Also finds the parent/source for each food via lineage edges.
+ *
+ * @param {string} containerId - The container ID (e.g., "pan_001", "pot_001")
+ * @param {Object} lineageGraph - Pre-built lineage graph
+ * @param {Array} events - Array of events with timestamps
+ * @returns {Array} Array of addition events sorted by block index
+ */
+export function traceContainerHistory(containerId, lineageGraph, events) {
+  const { blockGraphs, parentMap, nodeInfo } = lineageGraph;
+  const history = [];
+  const seenFoods = new Set(); // Track which foods we've already recorded
+
+  if (!blockGraphs || blockGraphs.length === 0) {
+    return history;
+  }
+
+  // Scan each block graph chronologically
+  for (let blockIdx = 0; blockIdx < blockGraphs.length; blockIdx++) {
+    const block = blockGraphs[blockIdx];
+    const foodNodes = block.food_nodes || {};
+
+    // Find foods in this container that we haven't seen before
+    for (const [instanceId, nodeData] of Object.entries(foodNodes)) {
+      if (nodeData.location === containerId && !seenFoods.has(instanceId)) {
+        seenFoods.add(instanceId);
+
+        // Get event info for this block
+        const event = events?.[blockIdx];
+        const timestamp = event?.timestamp_start || null;
+
+        // Find parent/source via lineage edges
+        let sourceInfo = null;
+        const parents = parentMap?.[instanceId] || [];
+        if (parents.length > 0) {
+          // Get the parent that led to this food appearing in this block
+          const relevantParent = parents.find(p => p.target_block === blockIdx) || parents[0];
+          const parentId = relevantParent.parent_id;
+          const parentNodeInfo = nodeInfo?.[parentId] || {};
+
+          // Get parent's location from the block before this one (source_block)
+          let parentLocation = parentNodeInfo.location || null;
+          if (relevantParent.source_block !== undefined && relevantParent.source_block >= 0) {
+            const sourceBlock = blockGraphs[relevantParent.source_block];
+            const sourceNodeData = sourceBlock?.food_nodes?.[parentId];
+            if (sourceNodeData) {
+              parentLocation = sourceNodeData.location || null;
+            }
+          }
+
+          sourceInfo = {
+            parent_id: parentId,
+            parent_noun: parentNodeInfo.food_noun || parentId.split('_')[0],
+            parent_location: parentLocation,
+            derivation_type: relevantParent.derivation_type,
+          };
+        }
+
+        history.push({
+          food_id: instanceId,
+          food_noun: nodeData.food_noun || instanceId.split('_')[0],
+          state: nodeData.state || {},
+          status: nodeData.status || 'active',
+          block_idx: blockIdx,
+          block_id: block.block_id,
+          timestamp: timestamp,
+          event_id: event?.event_id || blockIdx + 1,
+          primary_action: event?.primary_action || 'Unknown action',
+          source: sourceInfo, // Parent/source information
+        });
+      }
+    }
+  }
+
+  return history;
+}
+
+/**
+ * Get all unique container IDs that appear across all blocks.
+ *
+ * @param {Object} lineageGraph - Pre-built lineage graph
+ * @returns {Array} Array of unique container IDs
+ */
+export function getAllContainers(lineageGraph) {
+  const { blockGraphs } = lineageGraph;
+  const containers = new Set();
+
+  for (const block of blockGraphs || []) {
+    const foodNodes = block.food_nodes || {};
+    for (const nodeData of Object.values(foodNodes)) {
+      if (nodeData.location) {
+        containers.add(nodeData.location);
+      }
+    }
+  }
+
+  return Array.from(containers);
+}

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useRef, useState, useEffect, useCallback } from 'react';
 
 const styles = {
   container: {
@@ -19,7 +19,7 @@ const styles = {
   graphContainer: {
     flex: 1,
     display: 'flex',
-    gap: '15px',
+    gap: '80px',  // Increased gap for SVG edge lines
     overflow: 'auto',
   },
   snapshotColumn: {
@@ -61,6 +61,10 @@ const styles = {
   locationGroupInvolved: {
     border: '2px solid #ff9800',
   },
+  locationGroupFocused: {
+    border: '2px solid #9c27b0',
+    boxShadow: '0 0 8px rgba(156, 39, 176, 0.3)',
+  },
   locationHeader: {
     padding: '6px 10px',
     backgroundColor: '#e8e8e8',
@@ -72,6 +76,13 @@ const styles = {
   },
   locationHeaderInvolved: {
     backgroundColor: '#fff3e0',
+  },
+  locationHeaderFocused: {
+    backgroundColor: '#f3e5f5',
+  },
+  locationHeaderClickable: {
+    cursor: 'pointer',
+    transition: 'background-color 0.2s',
   },
   locationIcon: {
     fontSize: '12px',
@@ -120,30 +131,6 @@ const styles = {
     gap: '8px',
     flexWrap: 'wrap',
   },
-  edgesColumn: {
-    width: '180px',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    paddingTop: '40px',
-    overflowY: 'auto',
-  },
-  edge: {
-    padding: '8px 12px',
-    marginBottom: '8px',
-    borderRadius: '6px',
-    fontSize: '11px',
-    textAlign: 'center',
-    minWidth: '140px',
-    maxWidth: '160px',
-  },
-  edgeSplit: { backgroundColor: '#c8e6c9', color: '#2e7d32' },
-  edgeMerge: { backgroundColor: '#e1bee7', color: '#7b1fa2' },
-  edgeUpdate: { backgroundColor: '#bbdefb', color: '#1565c0' },
-  edgeIdentity: { backgroundColor: '#ffe0b2', color: '#e65100' },
-  edgeTransfer: { backgroundColor: '#cfd8dc', color: '#455a64' },
-  edgeConsume: { backgroundColor: '#ffcdd2', color: '#c62828' },
   noSelection: {
     padding: '40px',
     textAlign: 'center',
@@ -169,6 +156,12 @@ const styles = {
     height: '12px',
     borderRadius: '2px',
   },
+  edgeSplit: { backgroundColor: '#c8e6c9', color: '#2e7d32' },
+  edgeMerge: { backgroundColor: '#e1bee7', color: '#7b1fa2' },
+  edgeUpdate: { backgroundColor: '#bbdefb', color: '#1565c0' },
+  edgeIdentity: { backgroundColor: '#ffe0b2', color: '#e65100' },
+  edgeTransfer: { backgroundColor: '#cfd8dc', color: '#455a64' },
+  edgeConsume: { backgroundColor: '#ffcdd2', color: '#c62828' },
 };
 
 const EDGE_STYLES = {
@@ -180,7 +173,18 @@ const EDGE_STYLES = {
   consume: styles.edgeConsume,
 };
 
-function FoodNode({ food, isInvolved, showLocation = false, onClick, isFocused }) {
+// Edge colors for SVG visualization
+const EDGE_COLORS = {
+  split: '#4CAF50',      // Green
+  merge: '#9c27b0',      // Purple
+  update: '#2196F3',     // Blue
+  identity_transform: '#FF9800', // Orange
+  transfer: '#607d8b',   // Blue-grey
+  consume: '#f44336',    // Red
+  default: '#666',
+};
+
+function FoodNode({ food, isInvolved, showLocation = false, onClick, isFocused, nodeRef }) {
   const isConsumed = food.status === 'consumed';
   // Handle both flat structure and nested state structure
   const form = food.form || food.state?.form_state || 'unknown';
@@ -190,6 +194,7 @@ function FoodNode({ food, isInvolved, showLocation = false, onClick, isFocused }
 
   return (
     <div
+      ref={nodeRef}
       onClick={() => onClick && onClick(foodId)}
       style={{
         ...styles.foodNode,
@@ -217,7 +222,7 @@ function FoodNode({ food, isInvolved, showLocation = false, onClick, isFocused }
   );
 }
 
-// Location icons for common container types
+// Location icons for containers (V3 container-only model)
 const LOCATION_ICONS = {
   pan: '🍳',
   pot: '🍲',
@@ -227,36 +232,31 @@ const LOCATION_ICONS = {
   mug: '☕',
   glass: '🥛',
   jar: '🫙',
+  bottle: '🍾',
+  bag: '🛍️',
+  blender: '🥤',
   container: '📦',
-  fridge: '❄️',
-  freezer: '🧊',
-  oven: '🔥',
-  microwave: '📡',
-  sink: '🚰',
-  counter: '📍',
-  countertop: '📍',
-  table: '🪑',
-  cutting_board: '🪵',
-  default: '📍',
+  box: '📦',
+  environment: '',
+  default: '📦',
 };
 
 function getLocationIcon(location) {
-  if (!location) return LOCATION_ICONS.default;
+  if (!location) return LOCATION_ICONS.environment;
   const loc = location.toLowerCase();
   for (const [key, icon] of Object.entries(LOCATION_ICONS)) {
-    if (loc.includes(key)) return icon;
+    if (key !== 'environment' && key !== 'default' && loc.includes(key)) return icon;
   }
   return LOCATION_ICONS.default;
 }
 
 function formatLocationName(location) {
   if (!location) return 'Unknown';
-  // Remove trailing _001, _002 etc and replace underscores with spaces
   return location.replace(/_\d+$/, '').replace(/_/g, ' ');
 }
 
 // Group foods by their location
-function groupFoodsByLocation(foods, involvedFoodIds) {
+function groupFoodsByLocation(foods, involvedFoodIds, showOnlyInvolved = false) {
   if (!foods || foods.length === 0) return [];
 
   const groups = {};
@@ -266,6 +266,11 @@ function groupFoodsByLocation(foods, involvedFoodIds) {
     const location = food.location || null;
     const foodId = food.food_id || food.instance_id;
     const isInvolved = involvedFoodIds.has(foodId);
+
+    // Filter out non-involved nodes when showOnlyInvolved is true
+    if (showOnlyInvolved && !isInvolved) {
+      continue;
+    }
 
     if (location) {
       if (!groups[location]) {
@@ -322,23 +327,30 @@ function groupFoodsByLocation(foods, involvedFoodIds) {
   return groupArray;
 }
 
-function LocationGroup({ group, onFoodNodeClick, focusedNodeId }) {
+function LocationGroup({ group, onFoodNodeClick, onContainerClick, focusedNodeId, focusedContainerId, nodeRefs, side }) {
   const { location, foods, hasInvolvedFood } = group;
   const icon = getLocationIcon(location);
-  const displayName = location ? formatLocationName(location) : 'No Location';
+  const displayName = location ? formatLocationName(location) : 'Environment (on surface)';
+  const isContainerFocused = location && location === focusedContainerId;
+  const isClickableContainer = location !== null;
 
   return (
     <div
       style={{
         ...styles.locationGroup,
         ...(hasInvolvedFood ? styles.locationGroupInvolved : {}),
+        ...(isContainerFocused ? styles.locationGroupFocused : {}),
       }}
     >
       <div
+        onClick={() => isClickableContainer && onContainerClick && onContainerClick(location)}
         style={{
           ...styles.locationHeader,
           ...(hasInvolvedFood ? styles.locationHeaderInvolved : {}),
+          ...(isContainerFocused ? styles.locationHeaderFocused : {}),
+          ...(isClickableContainer ? styles.locationHeaderClickable : {}),
         }}
+        title={isClickableContainer ? 'Click to view container history' : undefined}
       >
         <span style={styles.locationIcon}>{icon}</span>
         <span>{displayName}</span>
@@ -347,6 +359,7 @@ function LocationGroup({ group, onFoodNodeClick, focusedNodeId }) {
       <div style={styles.locationFoods}>
         {foods.map((food, idx) => {
           const foodId = food.food_id || food.instance_id;
+          const refKey = `${side}_${foodId}`;
           return (
             <FoodNode
               key={foodId || idx}
@@ -355,6 +368,7 @@ function LocationGroup({ group, onFoodNodeClick, focusedNodeId }) {
               showLocation={false}
               onClick={onFoodNodeClick}
               isFocused={focusedNodeId === foodId}
+              nodeRef={nodeRefs ? (el) => { if (el) nodeRefs.current[refKey] = el; } : undefined}
             />
           );
         })}
@@ -366,18 +380,16 @@ function LocationGroup({ group, onFoodNodeClick, focusedNodeId }) {
 // Helper to convert food_nodes object to foods array
 const convertFoodNodesToArray = (blockGraph) => {
   if (!blockGraph) return [];
-  // If it already has foods array, use it
   if (blockGraph.foods && Array.isArray(blockGraph.foods)) {
     return blockGraph.foods;
   }
-  // Convert food_nodes object to array
   if (blockGraph.food_nodes && typeof blockGraph.food_nodes === 'object') {
     return Object.values(blockGraph.food_nodes);
   }
   return [];
 };
 
-function GraphView({ graph, selectedEventIndex, events, onFoodNodeClick, focusedNodeId }) {
+function GraphView({ graph, selectedEventIndex, events, onFoodNodeClick, onContainerClick, focusedNodeId, focusedContainerId, showOnlyInvolved = false }) {
   // Compute before/after snapshots and relevant edges
   const { beforeSnapshot, afterSnapshot, relevantEdges } = useMemo(() => {
     if (!graph || selectedEventIndex === null || selectedEventIndex === undefined) {
@@ -388,16 +400,10 @@ function GraphView({ graph, selectedEventIndex, events, onFoodNodeClick, focused
     const lineageEdges = graph.lineage_edges || [];
     const inventory = graph.inventory || [];
 
-    // Event N (1-indexed in state_change.json) corresponds to:
-    // - Before: block_graphs[N-2] or inventory if N=1
-    // - After: block_graphs[N-1]
-    // But selectedEventIndex is 0-indexed in our array
-
-    // After event at index i, the state is block_graphs[i]
     const afterIdx = selectedEventIndex;
     const beforeIdx = selectedEventIndex - 1;
 
-    // After snapshot - convert food_nodes object to array
+    // After snapshot
     let afterSnapshot = null;
     if (afterIdx >= 0 && afterIdx < blockGraphs.length) {
       const block = blockGraphs[afterIdx];
@@ -407,7 +413,7 @@ function GraphView({ graph, selectedEventIndex, events, onFoodNodeClick, focused
       };
     }
 
-    // Before snapshot: previous block_graph or inventory
+    // Before snapshot
     let beforeSnapshot = null;
     if (beforeIdx >= 0 && beforeIdx < blockGraphs.length) {
       const block = blockGraphs[beforeIdx];
@@ -416,7 +422,6 @@ function GraphView({ graph, selectedEventIndex, events, onFoodNodeClick, focused
         foods: convertFoodNodesToArray(block),
       };
     } else if (selectedEventIndex === 0) {
-      // First event: before is the initial inventory
       beforeSnapshot = {
         block_idx: -1,
         foods: inventory.map(f => ({
@@ -429,8 +434,6 @@ function GraphView({ graph, selectedEventIndex, events, onFoodNodeClick, focused
       };
     }
 
-    // Find edges that target the selected event's block
-    // target_block corresponds to the block index after the event
     const relevantEdges = lineageEdges.filter(
       (edge) => edge.target_block === afterIdx
     );
@@ -442,7 +445,6 @@ function GraphView({ graph, selectedEventIndex, events, onFoodNodeClick, focused
   const involvedFoodIds = useMemo(() => {
     const ids = new Set();
     relevantEdges.forEach((edge) => {
-      // Handle multiple naming conventions: parent_id, parent_instance_id, source_id
       if (edge.parent_id) ids.add(edge.parent_id);
       if (edge.parent_instance_id) ids.add(edge.parent_instance_id);
       if (edge.child_id) ids.add(edge.child_id);
@@ -452,6 +454,64 @@ function GraphView({ graph, selectedEventIndex, events, onFoodNodeClick, focused
     });
     return ids;
   }, [relevantEdges]);
+
+  // Refs and state for SVG edge visualization
+  const nodeRefs = useRef({});
+  const containerRef = useRef(null);
+  const [edgePaths, setEdgePaths] = useState([]);
+
+  // Calculate edge paths
+  const calculateEdgePaths = useCallback(() => {
+    if (!containerRef.current || relevantEdges.length === 0) {
+      setEdgePaths([]);
+      return;
+    }
+
+    const containerRect = containerRef.current.getBoundingClientRect();
+    const paths = [];
+
+    relevantEdges.forEach((edge, idx) => {
+      const parentId = edge.parent_id || edge.parent_instance_id || '';
+      const childId = edge.child_id || edge.child_instance_id || '';
+
+      const fromEl = nodeRefs.current[`before_${parentId}`];
+      const toEl = nodeRefs.current[`after_${childId}`];
+
+      if (!fromEl || !toEl) return;
+
+      const fromRect = fromEl.getBoundingClientRect();
+      const toRect = toEl.getBoundingClientRect();
+
+      const fromX = fromRect.right - containerRect.left;
+      const fromY = fromRect.top + fromRect.height / 2 - containerRect.top;
+      const toX = toRect.left - containerRect.left;
+      const toY = toRect.top + toRect.height / 2 - containerRect.top;
+
+      const midX = (fromX + toX) / 2;
+      const midY = (fromY + toY) / 2;
+      paths.push({
+        id: `${parentId}-${childId}-${idx}`,
+        d: `M ${fromX} ${fromY} C ${midX} ${fromY}, ${midX} ${toY}, ${toX} ${toY}`,
+        color: EDGE_COLORS[edge.derivation_type] || EDGE_COLORS.default,
+        type: edge.derivation_type,
+        labelX: midX,
+        labelY: midY,
+      });
+    });
+
+    setEdgePaths(paths);
+  }, [relevantEdges]);
+
+  // Recalculate paths after render
+  useEffect(() => {
+    const timer = setTimeout(calculateEdgePaths, 100);
+    return () => clearTimeout(timer);
+  }, [calculateEdgePaths, beforeSnapshot, afterSnapshot, showOnlyInvolved]);
+
+  // Clear refs when event changes
+  useEffect(() => {
+    nodeRefs.current = {};
+  }, [selectedEventIndex]);
 
   if (!graph) {
     return (
@@ -484,7 +544,64 @@ function GraphView({ graph, selectedEventIndex, events, onFoodNodeClick, focused
         {selectedEvent?.primary_action && `: ${selectedEvent.primary_action}`}
       </div>
 
-      <div style={styles.graphContainer}>
+      <div ref={containerRef} style={{ ...styles.graphContainer, position: 'relative' }}>
+        {/* SVG Edge Overlay */}
+        <svg
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            pointerEvents: 'none',
+            zIndex: 10,
+          }}
+        >
+          <defs>
+            <marker
+              id="arrowhead"
+              markerWidth="8"
+              markerHeight="6"
+              refX="7"
+              refY="3"
+              orient="auto"
+            >
+              <polygon points="0 0, 8 3, 0 6" fill="#666" />
+            </marker>
+          </defs>
+          {edgePaths.map((path) => (
+            <g key={path.id}>
+              <path
+                d={path.d}
+                stroke={path.color}
+                strokeWidth={2}
+                fill="none"
+                markerEnd="url(#arrowhead)"
+                opacity={0.8}
+              />
+              <rect
+                x={path.labelX - 24}
+                y={path.labelY - 8}
+                width={48}
+                height={16}
+                fill="white"
+                opacity={0.9}
+                rx={3}
+              />
+              <text
+                x={path.labelX}
+                y={path.labelY + 4}
+                textAnchor="middle"
+                fontSize="10"
+                fontWeight="bold"
+                fill={path.color}
+              >
+                {path.type}
+              </text>
+            </g>
+          ))}
+        </svg>
+
         {/* Before Snapshot */}
         <div style={styles.snapshotColumn}>
           <div style={{ ...styles.snapshotHeader, ...styles.snapshotHeaderBefore }}>
@@ -492,64 +609,22 @@ function GraphView({ graph, selectedEventIndex, events, onFoodNodeClick, focused
           </div>
           <div style={styles.nodesContainer}>
             {beforeSnapshot?.foods?.length > 0 ? (
-              groupFoodsByLocation(beforeSnapshot.foods, involvedFoodIds).map((group, idx) => (
+              groupFoodsByLocation(beforeSnapshot.foods, involvedFoodIds, showOnlyInvolved).map((group, idx) => (
                 <LocationGroup
                   key={group.location || `no-loc-${idx}`}
                   group={group}
                   onFoodNodeClick={onFoodNodeClick}
+                  onContainerClick={onContainerClick}
                   focusedNodeId={focusedNodeId}
+                  focusedContainerId={focusedContainerId}
+                  nodeRefs={nodeRefs}
+                  side="before"
                 />
               ))
             ) : (
               <div style={{ color: '#999', textAlign: 'center' }}>No foods</div>
             )}
           </div>
-        </div>
-
-        {/* Edges Column */}
-        <div style={styles.edgesColumn}>
-          <div style={{ fontSize: '12px', fontWeight: 'bold', marginBottom: '10px' }}>
-            Edges ({relevantEdges.length})
-          </div>
-          {relevantEdges.map((edge, idx) => {
-            const parentId = edge.parent_id || edge.parent_instance_id || '';
-            const childId = edge.child_id || edge.child_instance_id || '';
-            // Extract readable names (e.g., "pasta_box_001" -> "pasta box")
-            const formatName = (id) => {
-              if (!id) return '?';
-              // Remove trailing _001, _002 etc and replace underscores with spaces
-              return id.replace(/_\d+$/, '').replace(/_/g, ' ');
-            };
-            const parentName = formatName(parentId);
-            const childName = formatName(childId);
-            const isSameItem = parentId === childId;
-
-            return (
-              <div
-                key={idx}
-                style={{
-                  ...styles.edge,
-                  ...(EDGE_STYLES[edge.derivation_type] || styles.edgeUpdate),
-                }}
-                title={`${parentId} → ${childId}\nBlock ${edge.source_block} → ${edge.target_block}`}
-              >
-                <div style={{ fontWeight: 'bold', textTransform: 'uppercase', fontSize: '10px' }}>
-                  {edge.derivation_type}
-                </div>
-                <div style={{ fontSize: '11px', marginTop: '4px', fontWeight: '500' }}>
-                  {parentName}
-                </div>
-                {!isSameItem && (
-                  <div style={{ fontSize: '10px', marginTop: '2px', color: '#666' }}>
-                    → {childName}
-                  </div>
-                )}
-              </div>
-            );
-          })}
-          {relevantEdges.length === 0 && (
-            <div style={{ fontSize: '11px', color: '#999' }}>No edges</div>
-          )}
         </div>
 
         {/* After Snapshot */}
@@ -559,12 +634,16 @@ function GraphView({ graph, selectedEventIndex, events, onFoodNodeClick, focused
           </div>
           <div style={styles.nodesContainer}>
             {afterSnapshot?.foods?.length > 0 ? (
-              groupFoodsByLocation(afterSnapshot.foods, involvedFoodIds).map((group, idx) => (
+              groupFoodsByLocation(afterSnapshot.foods, involvedFoodIds, showOnlyInvolved).map((group, idx) => (
                 <LocationGroup
                   key={group.location || `no-loc-${idx}`}
                   group={group}
                   onFoodNodeClick={onFoodNodeClick}
+                  onContainerClick={onContainerClick}
                   focusedNodeId={focusedNodeId}
+                  focusedContainerId={focusedContainerId}
+                  nodeRefs={nodeRefs}
+                  side="after"
                 />
               ))
             ) : (

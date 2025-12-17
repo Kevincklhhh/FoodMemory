@@ -5,7 +5,9 @@ import EventList from './components/EventList';
 import GraphView from './components/GraphView';
 import DebugFooter from './components/DebugFooter';
 import LineageView from './components/LineageView';
-import { buildLineageGraph, traceAncestry } from './utils/lineageGraph';
+import ContainerHistoryView from './components/ContainerHistoryView';
+import ThreeBlockView from './components/ThreeBlockView';
+import { buildLineageGraph, traceAncestry, traceContainerHistory } from './utils/lineageGraph';
 
 const styles = {
   app: {
@@ -67,9 +69,13 @@ function App() {
   const [selectedEventIndex, setSelectedEventIndex] = useState(null);
   const [currentTime, setCurrentTime] = useState(0);
   const [focusedNodeId, setFocusedNodeId] = useState(null);
+  const [focusedContainerId, setFocusedContainerId] = useState(null);
+  const [showOnlyInvolved, setShowOnlyInvolved] = useState(false);
+  const [showThreeBlockView, setShowThreeBlockView] = useState(true);
 
   // Refs
   const videoRef = useRef(null);
+  const hasAutoPausedRef = useRef(false);  // Track if we've auto-paused for current event
 
   // Pre-compute lineage graph when graph data changes
   const lineageGraph = useMemo(() => {
@@ -83,6 +89,13 @@ function App() {
     return traceAncestry(focusedNodeId, lineageGraph);
   }, [focusedNodeId, lineageGraph]);
 
+  // Compute container history for focused container
+  const containerHistory = useMemo(() => {
+    if (!focusedContainerId || !lineageGraph) return null;
+    const events = stateChange?.events || [];
+    return traceContainerHistory(focusedContainerId, lineageGraph, events);
+  }, [focusedContainerId, lineageGraph, stateChange]);
+
   // Handle data loaded from DataLoader
   const handleDataLoaded = useCallback((data) => {
     // state_change.json is an array directly, not {events: [...]}
@@ -95,11 +108,19 @@ function App() {
     setSelectedEventIndex(null);
     setCurrentTime(0);
     setFocusedNodeId(null);
+    setFocusedContainerId(null);
   }, []);
 
   // Handle food node click for lineage tracing
   const handleFoodNodeClick = useCallback((nodeId) => {
     setFocusedNodeId(nodeId);
+    setFocusedContainerId(null); // Clear container selection when clicking food
+  }, []);
+
+  // Handle container click for container history
+  const handleContainerClick = useCallback((containerId) => {
+    setFocusedContainerId(containerId);
+    setFocusedNodeId(null); // Clear food node selection when clicking container
   }, []);
 
   // Handle close lineage view
@@ -107,9 +128,15 @@ function App() {
     setFocusedNodeId(null);
   }, []);
 
+  // Handle close container history view
+  const handleCloseContainerHistory = useCallback(() => {
+    setFocusedContainerId(null);
+  }, []);
+
   // Handle event selection from EventList
   const handleSelectEvent = useCallback((index) => {
     setSelectedEventIndex(index);
+    hasAutoPausedRef.current = false;  // Reset auto-pause flag for new event
 
     // Get the event and seek video to its start time
     const events = stateChange?.events || [];
@@ -121,9 +148,19 @@ function App() {
   }, [stateChange]);
 
   // Handle time update from VideoPlayer
+  // Feature 1: Auto-pause at event end timestamp (only once per event selection)
   const handleTimeUpdate = useCallback((time) => {
     setCurrentTime(time);
-  }, []);
+    // Auto-pause at event end (only once)
+    const events = stateChange?.events || [];
+    const selectedEvent = events[selectedEventIndex];
+    if (selectedEvent?.timestamp_end &&
+        time >= selectedEvent.timestamp_end &&
+        !hasAutoPausedRef.current) {
+      hasAutoPausedRef.current = true;
+      videoRef.current?.pause();
+    }
+  }, [stateChange, selectedEventIndex]);
 
   const events = stateChange?.events || [];
 
@@ -138,8 +175,26 @@ function App() {
 
         {(stateChange || graph) && (
           <>
-            <div style={styles.stats}>
-              Loaded: {events.length} events | {graph?.block_graphs?.length || 0} snapshots | {graph?.lineage_edges?.length || 0} edges | {graph?.inventory?.length || 0} inventory items
+            <div style={{ ...styles.stats, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span>Loaded: {events.length} events | {graph?.block_graphs?.length || 0} snapshots | {graph?.lineage_edges?.length || 0} edges | {graph?.inventory?.length || 0} inventory items</span>
+              <div style={{ display: 'flex', gap: '16px' }}>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer' }}>
+                  <input
+                    type="checkbox"
+                    checked={showThreeBlockView}
+                    onChange={(e) => setShowThreeBlockView(e.target.checked)}
+                  />
+                  Three-Block View
+                </label>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer' }}>
+                  <input
+                    type="checkbox"
+                    checked={showOnlyInvolved}
+                    onChange={(e) => setShowOnlyInvolved(e.target.checked)}
+                  />
+                  Show only involved nodes
+                </label>
+              </div>
             </div>
 
             <div style={{ ...styles.mainLayout, marginTop: '20px' }}>
@@ -170,7 +225,10 @@ function App() {
                   selectedEventIndex={selectedEventIndex}
                   events={events}
                   onFoodNodeClick={handleFoodNodeClick}
+                  onContainerClick={handleContainerClick}
                   focusedNodeId={focusedNodeId}
+                  focusedContainerId={focusedContainerId}
+                  showOnlyInvolved={showOnlyInvolved}
                 />
               </div>
             </div>
@@ -181,6 +239,26 @@ function App() {
                 focusNode={focusedNodeId}
                 path={ancestryPath}
                 onClose={handleCloseLineage}
+              />
+            )}
+
+            {/* Container History View - shows when a container is clicked */}
+            {focusedContainerId && (
+              <ContainerHistoryView
+                containerId={focusedContainerId}
+                history={containerHistory}
+                onClose={handleCloseContainerHistory}
+              />
+            )}
+
+            {/* Three Block View - shows three consecutive graph states */}
+            {showThreeBlockView && (
+              <ThreeBlockView
+                graph={graph}
+                selectedEventIndex={selectedEventIndex}
+                events={events}
+                showOnlyInvolved={showOnlyInvolved}
+                onClose={() => setShowThreeBlockView(false)}
               />
             )}
 

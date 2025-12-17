@@ -18,16 +18,23 @@ Scan the narrations and video to find sequences that constitute ONE distinct cha
 
 **STEP 2: VISUAL INVESTIGATION (The "Truth" Check)**
 Watch the video for that cluster. What *physically* happened to the food?
-- **Reveal Implicit Changes:**
-  - Text: "Heat the pan." -> Video: *Butter melts into liquid.* -> State: "Butter melted."
-  - Text: "Squeeze the fruit." -> Video: *Liquid extracts, solid reduces.* -> State: "Juice extracted."
-- **Verify Ambiguity:**
-  - Text: "Pour the milk." -> Video: *Poured into empty glass vs. Poured into coffee?*
-  - You MUST capture the destination status in your description.
+- Detect implicit changes (melting, browning) not explicitly mentioned in text.
+- Verify destinations (e.g., did the milk go into the *empty* glass or the *coffee*?).
 
-**STEP 3: DESCRIBE THE STATE CHANGE**
-Write a single, precise sentence describing the **Result** of the event. Use this Controlled Phrasing Guide:
+**STEP 3: DESCRIBE THE STATE CHANGE (CRITICAL: IDENTITY ANCHORING)**
+Write a single, precise sentence describing the result.
+**YOU MUST PRESERVE OBJECT IDENTITY:**
+1. **Specifics over Generics:** Never say "Butter" if the text/video shows "The butter pieces in the pan".
+   - *Bad:* "Butter was mixed."
+   - *Good:* "The **butter pieces in the pan** were mixed."
+2. **State Adjectives:** Include the current state in the name if it helps identification.
+   - *Bad:* "The onions were moved."
+   - *Good:* "The **chopped onions** were moved."
+3. **Location Anchors:** If an item is defined by its container, mention it.
+   - *Bad:* "The juice was poured."
+   - *Good:* "The juice **from the jug** was poured."
 
+Use this Controlled Phrasing Guide:
 * **For COMBINATION (Mixing/Adding):**
     "The [Subject Ingredient] was mixed into/added to the [Target Container/Food]."
 * **For SEPARATION (Pouring/Portioning):**
@@ -44,7 +51,6 @@ Return a list of Event Objects.
 
 Use the exact narration IDs provided in parentheses (e.g., "P01-20240202-161948-249") for `source_narration_ids`.
 
-```json
 [
   {
     "event_id": 1,
@@ -57,4 +63,3 @@ Use the exact narration IDs provided in parentheses (e.g., "P01-20240202-161948-
   },
   ...
 ]
-```

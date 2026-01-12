@@ -1,109 +1,90 @@
-# HDEPIC Pipeline Outputs Directory
+# HDEPIC Inventory Pipeline Outputs
 
-This directory contains all outputs from the HDEPIC inventory tracking pipeline. The structure is organized by pipeline stage and output type for easy navigation and maintenance.
+This directory contains all outputs from the HDEPIC inventory tracking pipeline.
 
 ## Directory Structure
 
 ```
 outputs/
 ├── 01_narrations/              # Narration processing outputs
-│   └── filtered/{participant}/ # Filtered food-related narrations by participant
-│                                 (from 01_export_narrations.py)
+│   └── filtered/
+│       ├── P01/                # Participant-specific filtered narrations
+│       ├── P02/
+│       └── P03/
 │
 ├── 02_inventory/               # Inventory tracking outputs
-│   ├── lifecycle/              # Recipe-level inventory and lifecycle JSON files
-│   │                             (inventory_{recipe_id}.json, lifecycle_{recipe_id}.json)
-│   ├── video_lifecycle/        # Video-level inventory and lifecycle data
-│   ├── clips/{recipe_id}/      # Video clips of inventory lifecycle events
-│   └── edits/                  # Lifecycle edit annotations
+│   ├── P01/                    # Participant-specific inventory outputs
+│   │   ├── P01_discovery_edit.json      # Step 02: Discovered items
+│   │   ├── P01_lifecycle.json           # Step 03: Lifecycle events
+│   │   ├── P01_dispensal_classified.json # Step 04: Difficulty ratings
+│   │   └── P01_known_quantities.json    # Step 05: Items with known quantities
+│   ├── P02/
+│   └── P03/
 │
-├── 03_dispensal/               # Dispensal event tracking
-│   ├── actions/                # Dispensal action data
-│   ├── classified/             # Classified dispensal difficulty/method
-│   ├── clips/{recipe_id}/      # Video clips of dispensal events
-│   └── timestamps/             # Dispensal event timestamps
-│
-├── 04_food/                    # Food state and classification
-│   ├── classification/         # Food classification results
-│   ├── clips/{video_id}/       # Food-related video clips
-│   ├── graphs/                 # Food state transition graphs
-│   │   ├── gemini/             # Gemini-generated food graphs
-│   │   └── local/{video_range}/# Locally-generated food graphs
-│   └── state_descriptions/{video_id}/ # Food state descriptions
-│
-├── legacy/                     # Deprecated pipeline outputs
-│   ├── chunks/                 # Old chunked data (deprecated)
-│   ├── graphs/                 # Old graph outputs (deprecated)
-│   └── video_ranges/           # Old video range outputs (deprecated)
-│
-└── old/                        # Archived outputs from previous pipeline versions
+└── 04_food/                    # Food state graphs (separate pipeline)
+    └── graphs/
 ```
 
-## File Statistics
+## Pipeline Steps
 
-- **Narrations**: 156 files (filtered narrations)
-- **Inventory**: 531 files (48 recipe-level JSONs + clips + edits)
-- **Dispensal**: 78 files (action data, classifications, timestamps)
-- **Food**: 560 files (classifications, clips, graphs, state descriptions)
+| Step | Script | Output | Description |
+|------|--------|--------|-------------|
+| 01 | `01_export_narrations.py` | `01_narrations/filtered/{P}/` | Filter food-related narrations |
+| 02 | `02_inventory_discovery.py` | `{P}_discovery_edit.json` | Discover inventory items with deduplication |
+| 03 | `03_lifecycle_tracking.py` | `{P}_lifecycle.json` | Track lifecycle events per item |
+| 04 | `04_dispensal_classification.py` | `{P}_dispensal_classified.json` | Classify dispensal difficulty |
+| 05 | `05_filter_for_annotation.py` | `{P}_known_quantities.json` | Filter items with known/easy quantities |
 
-## Pipeline Scripts and Output Locations
+## Output File Formats
 
-| Script | Output Directory | Description |
-|--------|-----------------|-------------|
-| `01_export_narrations.py` | `01_narrations/filtered/{participant}/` | Filters food-related narrations |
-| `02_inventory_transactions.py` | `02_inventory/lifecycle/` | Generates recipe-level inventory & lifecycle |
-| `03_export_lifecycle_edits.py` | `02_inventory/edits/` | Exports lifecycle event annotations |
-| `04_dispensal_classification.py` | `03_dispensal/classified/` | Classifies dispensal events |
-| `05_get_timestamps.py` | Various | Extracts timestamps for events |
+### discovery_edit.json
+Contains discovered inventory items with:
+- `narration_id`: First appearance narration
+- `food_name`: Item description
+- `video_range`: List of videos where item appears
+- `ingredient_matches`: Recipe ingredient matches (with amounts)
+- `include`: Whether to include in lifecycle tracking
+- `aliases`: Merged duplicate items (from deduplication)
 
-## Key Output Files
+### lifecycle.json
+Contains lifecycle events per item:
+- `events`: List of RETRIEVAL, ACCESS, DISPENSING, RESTOCKING events
+- `video_range`: Videos analyzed
+- Each event has: `narration_id`, `stage`, `action`
 
-### Inventory Lifecycle Files
-- **Format**: `inventory_{recipe_id}[_C{capture}].json`
-- **Content**: List of discovered inventory items with metadata
-- **Example**: `inventory_P01_R03.json`, `inventory_P01_R01_C0.json`
+### dispensal_classified.json
+Contains difficulty ratings per item:
+- `difficulty`: LOW (countable), MID (geometric), HIGH (continuous)
+- `reasoning`: Explanation for rating
+- `events`: All lifecycle events
 
-### Lifecycle Event Files
-- **Format**: `lifecycle_{recipe_id}[_C{capture}].json`
-- **Content**: Lifecycle events (RETRIEVAL, ACCESS, DISPENSING, RESTOCKING) per item
-- **Example**: `lifecycle_P01_R03.json`, `lifecycle_P03_R05.json`
-
-### Filtered Narrations
-- **Format**: `filtered/{participant}/filter_{video_id}_response.txt`
-- **Content**: JSON with filtered narration IDs
-- **Example**: `filtered/P01/filter_P01-20240202-110250_response.txt`
-
-## Recipe ID Naming Convention
-
-- **Format**: `{Participant}_R{Recipe_Number}[_C{Capture}]`
-- **Participant**: P01-P09 (participant identifier)
-- **Recipe Number**: R01-R10 (unique recipe within participant)
-- **Capture**: Optional C0, C1, C2... (for recipes with multiple captures/sessions)
-
-**Examples**:
-- `P01_R03` - Participant 1, Recipe 3 (single capture)
-- `P01_R01_C0` - Participant 1, Recipe 1, Capture 0 (first of multiple captures)
-- `P03_R05` - Participant 3, Recipe 5
+### known_quantities.json
+Items with known or easily measurable quantities:
+- Items with `difficulty = LOW`
+- Items with matched ingredient that has `amount` field
 
 ## Video ID Format
 
-- **Format**: `{Participant}-{YYYYMMDD}-{HHMMSS}`
-- **Example**: `P01-20240202-110250` (Participant 01, February 2 2024, 11:02:50)
+`{Participant}-{YYYYMMDD}-{HHMMSS}`
 
-## Usage Notes
+Example: `P01-20240202-110250` (Participant 01, February 2 2024, 11:02:50)
 
-1. **Recipe-level processing**: Most inventory outputs are organized by recipe, combining multiple videos
-2. **Multi-capture recipes**: Some recipes have multiple independent captures (cooking sessions), indicated by `_C{N}` suffix
-3. **Video-first mode**: Video-level outputs in `02_inventory/video_lifecycle/` process each video independently
-4. **Legacy outputs**: The `legacy/` directory contains deprecated pipeline outputs that may be removed in future versions
+## Usage
 
-## Maintenance
+Run the full pipeline:
+```bash
+cd inventory_pipeline
+./run_all_participants.sh P01
+```
 
-- **Archiving**: Move old/deprecated outputs to `old/` directory with timestamp
-- **Cleanup**: Periodically review `legacy/` directory for safe removal
-- **Backup**: Recipe-level JSONs in `02_inventory/lifecycle/` are critical outputs
+Run a specific step:
+```bash
+python 02_inventory_discovery.py --participant P01
+python 03_lifecycle_tracking.py --participant P01
+python 04_dispensal_classification.py --participant P01
+python 05_filter_for_annotation.py --participant P01
+```
 
 ---
-
-*Last updated*: 2026-01-09
-*Pipeline version*: Inventory Lifecycle v2.0
+*Last updated*: 2025-01-12
+*Pipeline version*: Inventory Lifecycle v3.0

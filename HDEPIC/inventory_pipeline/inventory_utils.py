@@ -26,7 +26,7 @@ _SCRIPT_DIR = Path(__file__).parent
 _PROJECT_ROOT = _SCRIPT_DIR.parent
 
 # Default paths
-DEFAULT_OUTPUT_DIR = _PROJECT_ROOT / "outputs" / "02_inventory" / "lifecycle"
+DEFAULT_OUTPUT_DIR = _PROJECT_ROOT / "outputs" / "02_inventory"
 RECIPES_FILE = _PROJECT_ROOT / "data" / "hd-epic-annotations" / "high-level" / "complete_recipes.json"
 DEFAULT_PICKLE_PATH = _PROJECT_ROOT / "data" / "hd-epic-annotations" / "narrations-and-action-segments" / "HD_EPIC_Narrations.pkl"
 

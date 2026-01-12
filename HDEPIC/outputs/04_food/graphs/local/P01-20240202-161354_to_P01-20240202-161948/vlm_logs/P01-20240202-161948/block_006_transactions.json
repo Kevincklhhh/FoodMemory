@@ -1,0 +1,45 @@
+{
+  "video_id": "P01-20240202-161948",
+  "block_id": 6,
+  "prompt_type": "transactions",
+  "system_prompt": "You are a food state tracker for egocentric cooking videos. Analyze narrations and video to identify food state changes.\n\nCRITICAL: CONTAINERS vs FOOD\n- CONTAINERS are physical objects holding food (bowls, pans, cutting boards).\n- FOOD includes edible parts and waste (orange peels, egg shells).\n- NEVER label food parts (shells, peels, halves) as containers.\n\nRULES:\n1. Use food IDs from the Active Food Items table.\n2. Only track a container if food is actively placed into it.\n3. Container naming: {object_type}_{number} (e.g., \"mixing_bowl_001\").\n4. One transaction per distinct action. Return empty array if no food changes occur.\n5. REFERENCING ITEMS:\n   - For items in the 'Active Food Items' table: Use their Instance ID (e.g., \"butter_002\")\n   - For items CREATED via SPLIT in this same block: Use the food_noun (e.g., \"butter\")\n   - The system will automatically resolve food_noun references to the correct instance ID\n   - If a narration mentions a food item not in the table and not created by a prior SPLIT, IGNORE IT.\n\nTRANSACTION TYPES:\n- TRANSFER: Move food to a different container\n  {type: \"transfer\", food_id: \"...\", to_container: \"...\", to_zone: \"...\"}\n\n- SPLIT: Divide food. Child nodes get NEW names.\n  * Partial (Parent Survives): Use when taking a portion from a bulk item/container. The source remains.\n    (e.g., Taking 1 egg from a carton, pouring some milk from a jug).\n    Schema: {type: \"split\", subtype: \"partial\", parent_id: \"...\", children: [{food_noun: \"...\", form_state: \"...\", quantity: \"...\", count: N}]}\n\n  * Complete (Parent Consumed): Use when the object is physically cut or transformed into pieces. The source object NO LONGER EXISTS.\n    (e.g., Cutting an orange into two halves, chopping a carrot into slices).\n    Schema: {type: \"split\", subtype: \"complete\", parent_id: \"...\", children: [{food_noun: \"...\", form_state: \"...\", quantity: \"...\", count: N}, ...]}\n\n- MERGE: Combine foods\n  Accumulation (same food): {type: \"merge\", subtype: \"accumulation\", subject_id: \"...\", target_id: \"...\"}\n  Incorporation (minor into dominant): {type: \"merge\", subtype: \"incorporation\", subject_id: \"...\", target_id: \"...\"}\n  Transformation (create new food): {type: \"merge\", subtype: \"transformation\", subject_id: \"...\", target_id: \"...\", new_food_noun: \"...\"}\n\n- CONSUME: Food eaten or discarded\n  {type: \"consume\", food_id: \"...\", consume_type: \"eaten\"|\"discarded\"}\n\n- UPDATE: Change state in place\n  {type: \"update\", food_id: \"...\", state_changes: {form_state?: \"...\", quantity?: \"...\"}}\n\nVALID VALUES:\n- form_state: whole | prepared_ingredient | cooking_in_progress | cooked_dish | leftover\n- zone: storage, fridge, freezer, pantry, prep_surface, counter, cutting_board, stove, oven, microwave, sink, table, serving\n",
+  "user_prompt": "**BLOCK INFO:**\n    Video: P01-20240202-161948\n    Block: 6\n    Time: 180.0s - 210.0s\n    \n    **ACTIVE FOOD ITEMS:**\n    | Instance ID | Food | Form | Quantity | Container |\n|-------------|------|------|----------|-----------|\n| black_pepper_001 | black pepper | cooking_in_progress (x1) | some | pan_001 |\n| black_pepper_jar_001 | black pepper jar | cooking_in_progress | partial | pan_001 |\n| bottle_of_salt_001 | bottle of salt | whole | partial | countertop_001 |\n| butter_001 | butter | prepared_ingredient | nearly_empty | countertop_001 |\n| butter_002 | butter | prepared_ingredient (x1) | some | countertop_001 |\n| butter_003 | butter | cooking_in_progress (x1) | some | pan_001 |\n| butter_004 | butter | cooking_in_progress (x1) | some | pan_001 |\n| parmesan_cheese_002 | parmesan cheese | prepared_ingredient (x1) | some | plate_001 |\n| pasta_box_001 | pasta box | cooking_in_progress | full | pan_001 |\n| salt_001 | salt | cooking_in_progress (x1) | some | pan_001 |\n\n    **KNOWN CONTAINERS:**\n    | Container ID | Zone | Contents |\n|--------------|------|----------|\n| countertop_001 | counter | bottle_of_salt_001, butter_001, butter_002 |\n| pan_001 | stove | salt_001, pasta_box_001, butter_003, butter_004, black_pepper_jar_001, black_pepper_001 |\n| plate_001 | counter | parmesan_cheese_002 |\n\n    **NARRATIONS:**\n    1. [0.39s - 0.61s]  Pick up the plastic lid of the jar from the counter using the right hand.\n2. [0.64s - 2.91s]  Close the jar by placing the lid on top of the jar. The jar is being held using the left hand and the lid is positioned on the jar using the right hand.\n3. [3.11s - 3.97s]  Place the black pepper jar on the countertop to the left of the hob using the left hand.\n4. [5.43s - 6.02s]  Pick up the cheese from the top of the cheese grater using the right hand.\n5. [5.82s - 6.12s]  Pick up the cheese grater from the top of the plate using the left hand, holding it from its handle.\n6. [6.16s - 7.82s]  Grate more cheese, positioning the grater on top of the plate, so the grated cheese falls into the plate. Place the cheese on the grater and moving it back and forth multiple times.\n7. [8.23s - 9.26s]  Press the button on the scale to switch it on.\n8. [10.06s - 10.84s]  Lift the plate from the scale to read the measure using the left hand.\n9. [11.86s - 13.43s]  Return the plate on top of the scale to read its weight.\n10. [13.39s - 14.33s]  Move the cheese and the grater from the right hand to the left hand so as to use the right hand for writing.\n11. [14.76s - 15.05s]  Pick up the pen from the countertop.\n12. [16.57s - 16.94s]  Press the button on the scale to read its weight.\n13. [17.11s - 21.20s]  Write down the rate of the scale on the notepad using the pen with the right hand. By writing the current weight, the difference in the two weights will be captured.\n14. [21.24s - 21.58s]  Put down the pen on the counter top.\n15. [21.92s - 22.29s]  Move the cheese block from the left hand to the right hand, keeping the grater in the left hand.\n16. [22.35s - 51.00s]  Position the grater on top of the plate and grate more cheese by moving the cheese block on the grater back and forth multiple times. The grater is being held using the left hand and the cheese block in the right hand.\n\n    **TASK:**\n    Analyze the narrations to identify food state changes or movements.\n    1. Identify any transactions (Transfer, Split, Merge, Consume, Update).\n    2. If a transaction requires a container NOT listed in \"KNOWN CONTAINERS\", add it to \"new_containers\".\n\n    Return a response in the following format:\n\n\n    JSON:\n    ```\n    {\n     \"transactions\": [\n        {\"type\": \"transfer\", \"food_id\": \"egg_001\", \"to_container\": \"frying_pan_001\", \"to_zone\": \"stove\"},\n        {\"type\": \"update\", \"food_id\": \"egg_001\", \"state_changes\": {\"form_state\": \"cooking_in_progress\"}}\n    ],\n    \"new_containers\": [\n        {\"container_id\": \"frying_pan_001\", \"zone\": \"stove\"}\n    ]\n    }\n    ```",
+  "raw_response": "```json\n{\n  \"transactions\": [\n    {\n      \"type\": \"transfer\",\n      \"food_id\": \"black_pepper_jar_001\",\n      \"to_container\": \"countertop_001\",\n      \"to_zone\": \"counter\"\n    },\n    {\n      \"type\": \"transfer\",\n      \"food_id\": \"parmesan_cheese_002\",\n      \"to_container\": \"plate_001\",\n      \"to_zone\": \"counter\"\n    },\n    {\n      \"type\": \"split\",\n      \"subtype\": \"partial\",\n      \"parent_id\": \"parmesan_cheese_002\",\n      \"children\": [\n        {\n          \"food_noun\": \"parmesan_cheese\",\n          \"form_state\": \"prepared_ingredient\",\n          \"quantity\": \"some\",\n          \"count\": 1\n        }\n      ]\n    },\n    {\n      \"type\": \"update\",\n      \"food_id\": \"parmesan_cheese_002\",\n      \"state_changes\": {\n        \"form_state\": \"prepared_ingredient\"\n      }\n    }\n  ],\n  \"new_containers\": []\n}\n```",
+  "parsed_response": {
+    "transactions": [
+      {
+        "type": "transfer",
+        "food_id": "black_pepper_jar_001",
+        "to_container": "countertop_001",
+        "to_zone": "counter"
+      },
+      {
+        "type": "transfer",
+        "food_id": "parmesan_cheese_002",
+        "to_container": "plate_001",
+        "to_zone": "counter"
+      },
+      {
+        "type": "split",
+        "subtype": "partial",
+        "parent_id": "parmesan_cheese_002",
+        "children": [
+          {
+            "food_noun": "parmesan_cheese",
+            "form_state": "prepared_ingredient",
+            "quantity": "some",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "type": "update",
+        "food_id": "parmesan_cheese_002",
+        "state_changes": {
+          "form_state": "prepared_ingredient"
+        }
+      }
+    ],
+    "new_containers": []
+  }
+}

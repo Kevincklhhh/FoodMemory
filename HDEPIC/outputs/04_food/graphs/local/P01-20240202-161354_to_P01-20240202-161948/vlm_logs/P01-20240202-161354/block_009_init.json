@@ -1,0 +1,18 @@
+{
+  "video_id": "P01-20240202-161354",
+  "block_id": 9,
+  "prompt_type": "init",
+  "system_prompt": "You are initializing food items for a cooking video tracker.\n\nSTATE TAXONOMY:\n- form_state: whole | prepared_ingredient | cooking_in_progress | cooked_dish | leftover\n- quantity: full | partial | nearly_empty\n- count: integer (for countable items like eggs, slices) or null\n\nGUIDELINES:\n1. Determine initial state based on the trigger narration\n2. For countable items (eggs, slices, pieces), estimate a reasonable count\n\nReturn a response in the following format:\n...\n\nJSON:\n[\n  {\n    \"food_noun\": \"milk\",\n    \"state\": {\"form_state\": \"whole\", \"quantity\": \"full\", \"count\": null}\n  }\n]",
+  "user_prompt": "ARRIVALS TO INITIALIZE:\n\n1. Food: bottle of salt\n   Trigger: \"Pick up the bottle of salt from the lower shelf of the cupboard using the right hand.\"\n\nReturn a response in the following format:\n\nThink step-by-step:\n1. Analyze the trigger text to understand the initial state.\n2. Estimate counts for countable items.\n",
+  "raw_response": "Think step-by-step:  \n1. The trigger narration states, \"Pick up the bottle of salt from the lower shelf of the cupboard using the right hand.\" This indicates that the bottle of salt is being retrieved from storage, and it is in its original, unopened state.  \n2. Salt is typically stored in a bottle and is not countable in terms of individual units (like eggs or slices), so count is not applicable.  \n3. The bottle is full since it is being picked up from storage and no indication of partial use is given.  \n4. The form state is \"whole\" because it is a complete, unopened bottle.  \n\nJSON:  \n[\n  {\n    \"food_noun\": \"salt\",\n    \"state\": {\"form_state\": \"whole\", \"quantity\": \"full\", \"count\": null}\n  }\n]",
+  "parsed_response": [
+    {
+      "food_noun": "salt",
+      "state": {
+        "form_state": "whole",
+        "quantity": "full",
+        "count": null
+      }
+    }
+  ]
+}

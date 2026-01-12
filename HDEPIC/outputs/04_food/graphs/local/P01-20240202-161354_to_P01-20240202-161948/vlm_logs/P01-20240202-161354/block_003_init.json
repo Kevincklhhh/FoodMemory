@@ -1,0 +1,18 @@
+{
+  "video_id": "P01-20240202-161354",
+  "block_id": 3,
+  "prompt_type": "init",
+  "system_prompt": "You are initializing food items for a cooking video tracker.\n\nSTATE TAXONOMY:\n- form_state: whole | prepared_ingredient | cooking_in_progress | cooked_dish | leftover\n- quantity: full | partial | nearly_empty\n- count: integer (for countable items like eggs, slices) or null\n\nGUIDELINES:\n1. Determine initial state based on the trigger narration\n2. For countable items (eggs, slices, pieces), estimate a reasonable count\n\nReturn a response in the following format:\n...\n\nJSON:\n[\n  {\n    \"food_noun\": \"milk\",\n    \"state\": {\"form_state\": \"whole\", \"quantity\": \"full\", \"count\": null}\n  }\n]",
+  "user_prompt": "ARRIVALS TO INITIALIZE:\n\n1. Food: pasta box\n   Trigger: \"Pick up the pasta box using the right hand from the drawer.\"\n\nReturn a response in the following format:\n\nThink step-by-step:\n1. Analyze the trigger text to understand the initial state.\n2. Estimate counts for countable items.\n",
+  "raw_response": "Think step-by-step:  \n1. The trigger text states, \"Pick up the pasta box using the right hand from the drawer.\" This indicates that the pasta box is being retrieved from storage (the drawer), and it is being handled as a whole, unopened item.  \n2. Since the pasta box is being picked up from the drawer, it is in its original state\u2014unopened and full.  \n3. Pasta is typically sold in a box, and unless otherwise specified, we assume it is a standard-sized box with a full quantity of pasta.  \n4. The count of pasta is not applicable here because it is a bulk item (not individual pieces or countable units like eggs or slices).  \n\nTherefore, the initial state of the pasta box is whole, full, and not yet prepared.\n\nJSON:\n[\n  {\n    \"food_noun\": \"pasta box\",\n    \"state\": {\"form_state\": \"whole\", \"quantity\": \"full\", \"count\": null}\n  }\n]",
+  "parsed_response": [
+    {
+      "food_noun": "pasta box",
+      "state": {
+        "form_state": "whole",
+        "quantity": "full",
+        "count": null
+      }
+    }
+  ]
+}

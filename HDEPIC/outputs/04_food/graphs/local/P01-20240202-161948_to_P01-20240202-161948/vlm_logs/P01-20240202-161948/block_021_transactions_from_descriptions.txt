@@ -1,0 +1,152 @@
+=== SYSTEM PROMPT ===
+You are a food state tracker. Convert state descriptions into formal graph transactions.
+
+INPUT:
+1. STATE DESCRIPTIONS: Pre-analyzed descriptions with timestamps (relative to clip start).
+   NOTE: These may include non-food items (tools, appliances). ONLY create transactions for items in the Active Food Items table.
+2. VIDEO CLIP: The actual video for this block - use it to verify and ground your transactions.
+
+CONCEPT: LOCATION
+- A 'Location' is WHERE the food is (zone like "counter" or container like "pan_001").
+- For NEW containers not in the list, just name it (e.g., "bowl").
+
+TRANSACTION TYPES (each requires a "reasoning" field):
+- TRANSFER: Move food to a location.
+  {type: "transfer", food_id: "...", to_location: "...", reasoning: "..."}
+
+- SPLIT: Divide food.
+  * Partial: {type: "split", subtype: "partial", parent_id: "...", children: [...], reasoning: "..."}
+  * Complete: {type: "split", subtype: "complete", parent_id: "...", children: [...], reasoning: "..."}
+
+- MERGE: Absorb one food into another (subject dies, target survives).
+  {type: "merge", subject_id: "...", target_id: "...", reasoning: "..."}
+
+- CONSUME: Food eaten or discarded.
+  {type: "consume", food_id: "...", consume_type: "eaten"|"discarded", reasoning: "..."}
+
+- UPDATE: Change state or identity in place.
+  {type: "update", food_id: "...", state_changes: {...}, reasoning: "..."}
+  * Use food_noun when the item transforms into something new:
+    - Orange being juiced → food_noun: "orange_juice"
+    - Bread being toasted → food_noun: "toast"
+    - Egg being fried → food_noun: "fried_egg"
+
+RULES:
+1. ONLY create transactions for food items listed in the Active Food Items table.
+2. IGNORE descriptions about non-food items (tools, appliances, empty containers).
+3. Use food IDs from the Active Food Items table for existing items.
+4. For items created via SPLIT in this block, use the food_noun (e.g., "butter").
+5. One transaction per distinct state change.
+6. Each transaction MUST include a "reasoning" field explaining the visual evidence.
+7. Return empty transactions array if no food state changes occur in the descriptions.
+
+VALID VALUES:
+- form_state: whole | prepared_ingredient | cooking_in_progress | cooked_dish | leftover
+
+
+=== USER PROMPT ===
+**BLOCK INFO:**
+Video: P01-20240202-161948
+Block: 21
+Clip duration: 30.0s (timestamps below are relative to clip start)
+
+**ACTIVE FOOD ITEMS:**
+| Instance ID | Food | Form | Quantity | Location |
+|-------------|------|------|----------|----------|
+| butter_001 | butter | cooking_in_progress | nearly_empty | fridge_shelf_003 |
+| butter_001_part_1_001 | butter_001_part_1 | cooking_in_progress (x1) | full | pan_001 |
+| butter_001_part_2_001 | butter_001_part_2 | cooking_in_progress (x1) | full | pan_001 |
+| cheese_package_001 | cheese package | prepared_ingredient | partial | fridge_shelf_003 |
+| grated_cheese_001 | grated cheese | cooking_in_progress | full | pan_001 |
+| parmesan_001 | parmesan | prepared_ingredient | empty | plate_001 |
+| parmesan_002_001 | parmesan_002 | prepared_ingredient | partial | plate_001 |
+| parmesan_002_001_part_1_001_001 | parmesan_002_001_part_1_001 | cooking_in_progress (x1) | full | pan_001 |
+| parmesan_002_001_part_2_001_001 | parmesan_002_001_part_2_001 | prepared_ingredient (x1) | full | plate_001 |
+| pasta_package_box_001 | pasta package box | whole | full | drawer_003 |
+
+**KNOWN LOCATIONS:**
+| Location | Contents |
+|----------|----------|
+| drawer_003 | pasta_package_box_001 |
+| fridge_shelf_003 | butter_001, cheese_package_001 |
+| pan_001 | butter_001_part_1_001, butter_001_part_2_001, parmesan_002_001_part_1_001_001, grated_cheese_001 |
+| plate_001 | parmesan_001, parmesan_002_001, parmesan_002_001_part_2_001_001 |
+
+**STATE DESCRIPTIONS:**
+(Timestamps are relative to clip start. May include non-food items - ignore those.)
+[7.5s] The spatula was moved from the plate to the hand.
+[8.2s] The food in the saucepan was mixed using the spatula.
+[14.0s] A portion of liquid was separated from the spatula into the saucepan.
+[15.6s] The spatula was moved from the hand to the plate.
+[22.8s] The ladle was moved from one location to another on the countertop.
+[25.6s] The fork was moved from the countertop to the hand.
+[26.3s] The pasta was mixed in the water using the fork.
+
+**VIDEO CLIP:** (attached - use to verify state changes)
+
+**TASK:**
+Convert state descriptions about FOOD ITEMS into formal transactions.
+1. ONLY process descriptions that match items in the Active Food Items table.
+2. SKIP descriptions about tools, appliances, or non-food items.
+3. For NEW containers, use the container type (e.g., "bowl") - system will auto-number it.
+4. Include source_text: The exact quote from the input description that triggered this.
+
+Return JSON:
+```json
+{
+  "transactions": [
+    {"type": "transfer", "food_id": "milk_001", "to_location": "frother_001", "reasoning": "Video shows milk bottle being placed into frother"}
+  ]
+}
+```
+
+=== RAW RESPONSE ===
+```json
+{
+  "transactions": [
+    {
+      "type": "update",
+      "food_id": "grated_cheese_001",
+      "state_changes": {
+        "form_state": "cooked_dish"
+      },
+      "reasoning": "The grated cheese is being cooked in the pan, as evidenced by the visual context of the cooking process and its presence in pan_001, which is on the stove with other cooking items.",
+      "source_text": "The food in the saucepan was mixed using the spatula."
+    },
+    {
+      "type": "update",
+      "food_id": "parmesan_002_001_part_1_001_001",
+      "state_changes": {
+        "form_state": "cooked_dish"
+      },
+      "reasoning": "The parmesan is being cooked in the pan, as indicated by its presence in pan_001 and the cooking activity observed in the video.",
+      "source_text": "The pasta was mixed in the water using the fork."
+    }
+  ]
+}
+```
+
+=== PARSED RESPONSE ===
+{
+  "transactions": [
+    {
+      "type": "update",
+      "food_id": "grated_cheese_001",
+      "state_changes": {
+        "form_state": "cooked_dish"
+      },
+      "reasoning": "The grated cheese is being cooked in the pan, as evidenced by the visual context of the cooking process and its presence in pan_001, which is on the stove with other cooking items.",
+      "source_text": "The food in the saucepan was mixed using the spatula."
+    },
+    {
+      "type": "update",
+      "food_id": "parmesan_002_001_part_1_001_001",
+      "state_changes": {
+        "form_state": "cooked_dish"
+      },
+      "reasoning": "The parmesan is being cooked in the pan, as indicated by its presence in pan_001 and the cooking activity observed in the video.",
+      "source_text": "The pasta was mixed in the water using the fork."
+    }
+  ],
+  "new_containers": []
+}

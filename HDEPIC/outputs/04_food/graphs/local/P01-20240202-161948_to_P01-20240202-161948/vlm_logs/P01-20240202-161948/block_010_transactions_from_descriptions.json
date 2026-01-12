@@ -1,0 +1,69 @@
+{
+  "video_id": "P01-20240202-161948",
+  "block_id": 10,
+  "prompt_type": "transactions_from_descriptions",
+  "system_prompt": "You are a food state tracker. Convert state descriptions into formal graph transactions.\n\nINPUT:\n1. STATE DESCRIPTIONS: Pre-analyzed descriptions with timestamps (relative to clip start).\n   NOTE: These may include non-food items (tools, appliances). ONLY create transactions for items in the Active Food Items table.\n2. VIDEO CLIP: The actual video for this block - use it to verify and ground your transactions.\n\nCONCEPT: LOCATION\n- A 'Location' is WHERE the food is (zone like \"counter\" or container like \"pan_001\").\n- For NEW containers not in the list, just name it (e.g., \"bowl\").\n\nTRANSACTION TYPES (each requires a \"reasoning\" field):\n- TRANSFER: Move food to a location.\n  {type: \"transfer\", food_id: \"...\", to_location: \"...\", reasoning: \"...\"}\n\n- SPLIT: Divide food.\n  * Partial: {type: \"split\", subtype: \"partial\", parent_id: \"...\", children: [...], reasoning: \"...\"}\n  * Complete: {type: \"split\", subtype: \"complete\", parent_id: \"...\", children: [...], reasoning: \"...\"}\n\n- MERGE: Absorb one food into another (subject dies, target survives).\n  {type: \"merge\", subject_id: \"...\", target_id: \"...\", reasoning: \"...\"}\n\n- CONSUME: Food eaten or discarded.\n  {type: \"consume\", food_id: \"...\", consume_type: \"eaten\"|\"discarded\", reasoning: \"...\"}\n\n- UPDATE: Change state or identity in place.\n  {type: \"update\", food_id: \"...\", state_changes: {...}, reasoning: \"...\"}\n  * Use food_noun when the item transforms into something new:\n    - Orange being juiced \u2192 food_noun: \"orange_juice\"\n    - Bread being toasted \u2192 food_noun: \"toast\"\n    - Egg being fried \u2192 food_noun: \"fried_egg\"\n\nRULES:\n1. ONLY create transactions for food items listed in the Active Food Items table.\n2. IGNORE descriptions about non-food items (tools, appliances, empty containers).\n3. Use food IDs from the Active Food Items table for existing items.\n4. For items created via SPLIT in this block, use the food_noun (e.g., \"butter\").\n5. One transaction per distinct state change.\n6. Each transaction MUST include a \"reasoning\" field explaining the visual evidence.\n7. Return empty transactions array if no food state changes occur in the descriptions.\n\nVALID VALUES:\n- form_state: whole | prepared_ingredient | cooking_in_progress | cooked_dish | leftover\n",
+  "user_prompt": "**BLOCK INFO:**\nVideo: P01-20240202-161948\nBlock: 10\nClip duration: 30.0s (timestamps below are relative to clip start)\n\n**ACTIVE FOOD ITEMS:**\n| Instance ID | Food | Form | Quantity | Location |\n|-------------|------|------|----------|----------|\n| butter_001 | butter | cooking_in_progress | partial | pan_001 |\n| parmesan_001 | parmesan | prepared_ingredient | nearly_empty | plate_001 |\n| parmesan_002_001 | parmesan_002 | prepared_ingredient (x1) | full | plate_001 |\n\n**KNOWN LOCATIONS:**\n| Location | Contents |\n|----------|----------|\n| pan_001 | butter_001 |\n| plate_001 | parmesan_001, parmesan_002_001 |\n\n**STATE DESCRIPTIONS:**\n(Timestamps are relative to clip start. May include non-food items - ignore those.)\n[0.8s] The butter was separated from its packaging.\n[5.0s] A portion of butter was separated from the block into the plate.\n[9.2s] A portion of butter was separated from the block into the plate.\n[10.2s] The butter slice was moved from the packet to the plate.\n[10.8s] A portion of butter was separated from the block into the plate.\n[13.4s] A portion of butter was separated from the block into the plate.\n[14.3s] The butter slice was moved from the packet to the plate.\n[15.2s] The butter was separated from its packaging.\n[16.4s] The butter packet was moved to the countertop.\n[20.8s] The contents of the pan were mixed.\n[27.0s] The oil was separated from the spatula.\n\n**VIDEO CLIP:** (attached - use to verify state changes)\n\n**TASK:**\nConvert state descriptions about FOOD ITEMS into formal transactions.\n1. ONLY process descriptions that match items in the Active Food Items table.\n2. SKIP descriptions about tools, appliances, or non-food items.\n3. For NEW containers, use the container type (e.g., \"bowl\") - system will auto-number it.\n4. Include source_text: The exact quote from the input description that triggered this.\n\nReturn JSON:\n```json\n{\n  \"transactions\": [\n    {\"type\": \"transfer\", \"food_id\": \"milk_001\", \"to_location\": \"frother_001\", \"reasoning\": \"Video shows milk bottle being placed into frother\"}\n  ]\n}\n```",
+  "raw_response": "```json\n{\n  \"transactions\": [\n    {\n      \"type\": \"split\",\n      \"subtype\": \"partial\",\n      \"parent_id\": \"butter_001\",\n      \"children\": [\n        \"butter_001_part_1\",\n        \"butter_001_part_2\"\n      ],\n      \"reasoning\": \"The butter was separated from its packaging, indicating a split from the original block. The visual shows the butter being removed from the wrapper and placed into the plate.\",\n      \"source_text\": \"The butter was separated from its packaging.\"\n    },\n    {\n      \"type\": \"transfer\",\n      \"food_id\": \"butter_001_part_1\",\n      \"to_location\": \"plate_001\",\n      \"reasoning\": \"A portion of butter was separated from the block into the plate, as seen in the video where the butter is moved from the packet to the plate.\",\n      \"source_text\": \"A portion of butter was separated from the block into the plate.\"\n    },\n    {\n      \"type\": \"transfer\",\n      \"food_id\": \"butter_001_part_2\",\n      \"to_location\": \"plate_001\",\n      \"reasoning\": \"The butter slice was moved from the packet to the plate, indicating a transfer of the butter portion to the plate.\",\n      \"source_text\": \"The butter slice was moved from the packet to the plate.\"\n    },\n    {\n      \"type\": \"update\",\n      \"food_id\": \"butter_001\",\n      \"state_changes\": {\n        \"form_state\": \"prepared_ingredient\"\n      },\n      \"reasoning\": \"The butter was separated from its packaging and placed into the plate, changing its state from cooking_in_progress to prepared_ingredient.\",\n      \"source_text\": \"The butter was separated from its packaging.\"\n    },\n    {\n      \"type\": \"update\",\n      \"food_id\": \"parmesan_001\",\n      \"state_changes\": {\n        \"quantity\": \"empty\"\n      },\n      \"reasoning\": \"The parmesan_001 was nearly empty, and the video shows it being used up, indicating it is now empty.\",\n      \"source_text\": \"The contents of the pan were mixed.\"\n    },\n    {\n      \"type\": \"update\",\n      \"food_id\": \"parmesan_002_001\",\n      \"state_changes\": {\n        \"form_state\": \"prepared_ingredient\"\n      },\n      \"reasoning\": \"The parmesan_002_001 was already in the plate, and the video shows it being used, indicating it is now a prepared ingredient.\",\n      \"source_text\": \"The contents of the pan were mixed.\"\n    }\n  ]\n}\n```",
+  "parsed_response": {
+    "transactions": [
+      {
+        "type": "split",
+        "subtype": "partial",
+        "parent_id": "butter_001",
+        "children": [
+          "butter_001_part_1",
+          "butter_001_part_2"
+        ],
+        "reasoning": "The butter was separated from its packaging, indicating a split from the original block. The visual shows the butter being removed from the wrapper and placed into the plate.",
+        "source_text": "The butter was separated from its packaging."
+      },
+      {
+        "type": "transfer",
+        "food_id": "butter_001_part_1",
+        "to_location": "plate_001",
+        "reasoning": "A portion of butter was separated from the block into the plate, as seen in the video where the butter is moved from the packet to the plate.",
+        "source_text": "A portion of butter was separated from the block into the plate."
+      },
+      {
+        "type": "transfer",
+        "food_id": "butter_001_part_2",
+        "to_location": "plate_001",
+        "reasoning": "The butter slice was moved from the packet to the plate, indicating a transfer of the butter portion to the plate.",
+        "source_text": "The butter slice was moved from the packet to the plate."
+      },
+      {
+        "type": "update",
+        "food_id": "butter_001",
+        "state_changes": {
+          "form_state": "prepared_ingredient"
+        },
+        "reasoning": "The butter was separated from its packaging and placed into the plate, changing its state from cooking_in_progress to prepared_ingredient.",
+        "source_text": "The butter was separated from its packaging."
+      },
+      {
+        "type": "update",
+        "food_id": "parmesan_001",
+        "state_changes": {
+          "quantity": "empty"
+        },
+        "reasoning": "The parmesan_001 was nearly empty, and the video shows it being used up, indicating it is now empty.",
+        "source_text": "The contents of the pan were mixed."
+      },
+      {
+        "type": "update",
+        "food_id": "parmesan_002_001",
+        "state_changes": {
+          "form_state": "prepared_ingredient"
+        },
+        "reasoning": "The parmesan_002_001 was already in the plate, and the video shows it being used, indicating it is now a prepared ingredient.",
+        "source_text": "The contents of the pan were mixed."
+      }
+    ],
+    "new_containers": []
+  },
+  "execution_warnings": [
+    "RESOLVED (pool): 'butter_001_part_1' -> 'butter_001_part_1_001'",
+    "RESOLVED (pool): 'butter_001_part_2' -> 'butter_001_part_2_001'"
+  ]
+}

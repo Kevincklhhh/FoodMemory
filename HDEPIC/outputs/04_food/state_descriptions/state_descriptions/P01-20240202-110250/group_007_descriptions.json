@@ -1,0 +1,51 @@
+{
+  "video_id": "P01-20240202-110250",
+  "group_id": 7,
+  "query": "use scissors to cut open a mesh bag of oranges",
+  "original_start": 48.0,
+  "original_end": 53.0,
+  "clip_start": 45.5,
+  "clip_end": 55.5,
+  "padded": true,
+  "video_clip": "/home/kailaic/NeuroTrace/kitchen/HDEPIC/outputs/food_clips/P01-20240202-110250/group_007.mp4",
+  "raw_response": "[2.78s] Open the top drawer using the left hand. -> CONTEXT: The action involves opening a drawer, which is a container holding food-related tools. The drawer itself is not food, but it contains items that interact with food. The action is relevant as it enables a subsequent food-related task. -> STATE: The drawer was opened.\n\n[4.04s] Pick up the scissors from the drawer using the right hand. -> CONTEXT: The scissors are a tool used for food preparation (cutting the mesh of oranges). The action is directly related to handling food. -> STATE: The scissors were removed from the drawer.\n\n[4.67s] Using the left hand, remove the plastic cover of the scissors. This action occurs at the periphery, quite off-screen. -> SKIP: The narration describes removing a plastic cover from the scissors, which is a tool, not food. The action is not about food state change and occurs off-screen, making it irrelevant to food state analysis.\n\n[5.91s] Hold the mesh containing oranges using the left hand to free the space to cut it open. Using the right hand, open the scissors and cut the mesh to open it. -> CONTEXT: The mesh is a container holding oranges. Cutting the mesh is a direct action on the food's packaging. The scissors are used to open the mesh, which is a food-related container. -> STATE: The mesh was cut open.",
+  "descriptions": [
+    {
+      "timestamp": 2.78,
+      "original_narration": "Open the top drawer using the left hand.",
+      "skip": false,
+      "skip_reason": null,
+      "context": "The action involves opening a drawer, which is a container holding food-related tools. The drawer itself is not food, but it contains items that interact with food. The action is relevant as it enables a subsequent food-related task.",
+      "state_description": "The drawer was opened."
+    },
+    {
+      "timestamp": 4.04,
+      "original_narration": "Pick up the scissors from the drawer using the right hand.",
+      "skip": false,
+      "skip_reason": null,
+      "context": "The scissors are a tool used for food preparation (cutting the mesh of oranges). The action is directly related to handling food.",
+      "state_description": "The scissors were removed from the drawer."
+    },
+    {
+      "timestamp": 4.67,
+      "original_narration": "Using the left hand, remove the plastic cover of the scissors. This action occurs at the periphery, quite off-screen. -> SKIP: The narration describes removing a plastic cover from the scissors, which is a tool, not food. The action is not about food state change and occurs off-screen, making it irrelevant to food state analysis.",
+      "skip": false,
+      "skip_reason": null,
+      "context": null,
+      "state_description": null
+    },
+    {
+      "timestamp": 5.91,
+      "original_narration": "Hold the mesh containing oranges using the left hand to free the space to cut it open. Using the right hand, open the scissors and cut the mesh to open it.",
+      "skip": false,
+      "skip_reason": null,
+      "context": "The mesh is a container holding oranges. Cutting the mesh is a direct action on the food's packaging. The scissors are used to open the mesh, which is a food-related container.",
+      "state_description": "The mesh was cut open."
+    }
+  ],
+  "stats": {
+    "total_narrations": 4,
+    "skipped": 0,
+    "with_state": 3
+  }
+}

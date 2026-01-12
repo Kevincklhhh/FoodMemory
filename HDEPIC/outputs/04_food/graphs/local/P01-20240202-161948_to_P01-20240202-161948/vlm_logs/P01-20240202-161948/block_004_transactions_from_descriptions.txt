@@ -1,0 +1,124 @@
+=== SYSTEM PROMPT ===
+You are a food state tracker. Convert state descriptions into formal graph transactions.
+
+INPUT:
+1. STATE DESCRIPTIONS: Pre-analyzed descriptions with timestamps (relative to clip start).
+   NOTE: These may include non-food items (tools, appliances). ONLY create transactions for items in the Active Food Items table.
+2. VIDEO CLIP: The actual video for this block - use it to verify and ground your transactions.
+
+CONCEPT: LOCATION
+- A 'Location' is WHERE the food is (zone like "counter" or container like "pan_001").
+- For NEW containers not in the list, just name it (e.g., "bowl").
+
+TRANSACTION TYPES (each requires a "reasoning" field):
+- TRANSFER: Move food to a location.
+  {type: "transfer", food_id: "...", to_location: "...", reasoning: "..."}
+
+- SPLIT: Divide food.
+  * Partial: {type: "split", subtype: "partial", parent_id: "...", children: [...], reasoning: "..."}
+  * Complete: {type: "split", subtype: "complete", parent_id: "...", children: [...], reasoning: "..."}
+
+- MERGE: Absorb one food into another (subject dies, target survives).
+  {type: "merge", subject_id: "...", target_id: "...", reasoning: "..."}
+
+- CONSUME: Food eaten or discarded.
+  {type: "consume", food_id: "...", consume_type: "eaten"|"discarded", reasoning: "..."}
+
+- UPDATE: Change state or identity in place.
+  {type: "update", food_id: "...", state_changes: {...}, reasoning: "..."}
+  * Use food_noun when the item transforms into something new:
+    - Orange being juiced → food_noun: "orange_juice"
+    - Bread being toasted → food_noun: "toast"
+    - Egg being fried → food_noun: "fried_egg"
+
+RULES:
+1. ONLY create transactions for food items listed in the Active Food Items table.
+2. IGNORE descriptions about non-food items (tools, appliances, empty containers).
+3. Use food IDs from the Active Food Items table for existing items.
+4. For items created via SPLIT in this block, use the food_noun (e.g., "butter").
+5. One transaction per distinct state change.
+6. Each transaction MUST include a "reasoning" field explaining the visual evidence.
+7. Return empty transactions array if no food state changes occur in the descriptions.
+
+VALID VALUES:
+- form_state: whole | prepared_ingredient | cooking_in_progress | cooked_dish | leftover
+
+
+=== USER PROMPT ===
+**BLOCK INFO:**
+Video: P01-20240202-161948
+Block: 4
+Clip duration: 30.0s (timestamps below are relative to clip start)
+
+**ACTIVE FOOD ITEMS:**
+| Instance ID | Food | Form | Quantity | Location |
+|-------------|------|------|----------|----------|
+| butter_001 | butter | prepared_ingredient | partial | pan_001 |
+| parmesan_001 | parmesan | prepared_ingredient | partial | plate_001 |
+
+**KNOWN LOCATIONS:**
+| Location | Contents |
+|----------|----------|
+| pan_001 | butter_001 |
+| plate_001 | parmesan_001 |
+
+**STATE DESCRIPTIONS:**
+(Timestamps are relative to clip start. May include non-food items - ignore those.)
+[1.1s] The black pepper jar was moved from the countertop to the person's hand.
+[1.1s] The spatula was moved from the person's hand to the countertop.
+[1.5s] The black pepper jar was attempted to be opened, but no change in food state occurred.
+[4.4s] The lid of the black pepper jar was removed.
+[7.0s] The lid of the black pepper jar was moved from the person's hand to the countertop.
+[7.4s] The black pepper jar was moved from the countertop to a position above the pan.
+[7.9s] The black pepper was mixed into the food in the pan.
+
+**VIDEO CLIP:** (attached - use to verify state changes)
+
+**TASK:**
+Convert state descriptions about FOOD ITEMS into formal transactions.
+1. ONLY process descriptions that match items in the Active Food Items table.
+2. SKIP descriptions about tools, appliances, or non-food items.
+3. For NEW containers, use the container type (e.g., "bowl") - system will auto-number it.
+4. Include source_text: The exact quote from the input description that triggered this.
+
+Return JSON:
+```json
+{
+  "transactions": [
+    {"type": "transfer", "food_id": "milk_001", "to_location": "frother_001", "reasoning": "Video shows milk bottle being placed into frother"}
+  ]
+}
+```
+
+=== RAW RESPONSE ===
+```json
+{
+  "transactions": [
+    {
+      "type": "update",
+      "food_id": "butter_001",
+      "state_changes": {
+        "form_state": "cooking_in_progress"
+      },
+      "reasoning": "The butter is in a pan on the stove and is being mixed with black pepper, indicating it is actively cooking.",
+      "source_text": "The black pepper was mixed into the food in the pan."
+    }
+  ]
+}
+```
+
+=== PARSED RESPONSE ===
+{
+  "transactions": [
+    {
+      "type": "update",
+      "food_id": "butter_001",
+      "state_changes": {
+        "form_state": "cooking_in_progress"
+      },
+      "reasoning": "The butter is in a pan on the stove and is being mixed with black pepper, indicating it is actively cooking.",
+      "source_text": "The black pepper was mixed into the food in the pan."
+    }
+  ],
+  "new_containers": []
+}

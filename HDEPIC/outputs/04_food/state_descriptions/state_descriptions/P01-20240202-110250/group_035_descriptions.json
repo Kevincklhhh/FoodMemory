@@ -1,0 +1,51 @@
+{
+  "video_id": "P01-20240202-110250",
+  "group_id": 35,
+  "query": "cut the last orange in half",
+  "original_start": 254.0,
+  "original_end": 259.0,
+  "clip_start": 251.5,
+  "clip_end": 261.5,
+  "padded": true,
+  "video_clip": "/home/kailaic/NeuroTrace/kitchen/HDEPIC/outputs/food_clips/P01-20240202-110250/group_035.mp4",
+  "raw_response": "[2.17s] Pick up the third orange using the right hand from the countertop.  \n-> CONTEXT: The action involves picking up a whole orange from the countertop. This is a food-related action.  \n-> STATE: The orange was moved from the countertop to the right hand.\n\n[3.12s] Place the orange on the chopping board.  \n-> CONTEXT: The orange is placed on the chopping board, a food preparation surface. This is a food-related action.  \n-> STATE: The orange was moved from the right hand to the chopping board.\n\n[3.62s] Pick up the knife using the right hand from the chopping board.  \n-> SKIP: This is a tool movement, not a food state change.\n\n[3.64s] Holding the orange with the left hand, use the knife with the right hand in a sewing-like motion to cut the orange into two halves.  \n-> CONTEXT: The orange is cut into two halves on the chopping board. This is a food state change.  \n-> STATE: The orange was transformed into two halves.",
+  "descriptions": [
+    {
+      "timestamp": 2.17,
+      "original_narration": "Pick up the third orange using the right hand from the countertop.",
+      "skip": false,
+      "skip_reason": null,
+      "context": "The action involves picking up a whole orange from the countertop. This is a food-related action.",
+      "state_description": "The orange was moved from the countertop to the right hand."
+    },
+    {
+      "timestamp": 3.12,
+      "original_narration": "Place the orange on the chopping board.",
+      "skip": false,
+      "skip_reason": null,
+      "context": "The orange is placed on the chopping board, a food preparation surface. This is a food-related action.",
+      "state_description": "The orange was moved from the right hand to the chopping board."
+    },
+    {
+      "timestamp": 3.62,
+      "original_narration": "Pick up the knife using the right hand from the chopping board.",
+      "skip": true,
+      "skip_reason": "Non-food action",
+      "context": null,
+      "state_description": null
+    },
+    {
+      "timestamp": 3.64,
+      "original_narration": "Holding the orange with the left hand, use the knife with the right hand in a sewing-like motion to cut the orange into two halves.",
+      "skip": false,
+      "skip_reason": null,
+      "context": "The orange is cut into two halves on the chopping board. This is a food state change.",
+      "state_description": "The orange was transformed into two halves."
+    }
+  ],
+  "stats": {
+    "total_narrations": 4,
+    "skipped": 1,
+    "with_state": 3
+  }
+}

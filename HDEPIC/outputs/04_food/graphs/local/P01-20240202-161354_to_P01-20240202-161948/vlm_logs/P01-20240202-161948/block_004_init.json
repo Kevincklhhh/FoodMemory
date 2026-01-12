@@ -1,0 +1,18 @@
+{
+  "video_id": "P01-20240202-161948",
+  "block_id": 4,
+  "prompt_type": "init",
+  "system_prompt": "You are initializing food items for a cooking video tracker.\n\nSTATE TAXONOMY:\n- form_state: whole | prepared_ingredient | cooking_in_progress | cooked_dish | leftover\n- quantity: full | partial | nearly_empty\n- count: integer (for countable items like eggs, slices) or null\n\nGUIDELINES:\n1. Determine initial state based on the trigger narration\n2. For countable items (eggs, slices, pieces), estimate a reasonable count\n\nReturn a response in the following format:\n...\n\nJSON:\n[\n  {\n    \"food_noun\": \"milk\",\n    \"state\": {\"form_state\": \"whole\", \"quantity\": \"full\", \"count\": null}\n  }\n]",
+  "user_prompt": "ARRIVALS TO INITIALIZE:\n\n1. Food: black pepper jar\n   Trigger: \"Pick up the black pepper jar from the countertop next to the hob using the left hand.\"\n\nReturn a response in the following format:\n\nThink step-by-step:\n1. Analyze the trigger text to understand the initial state.\n2. Estimate counts for countable items.\n",
+  "raw_response": "Think step-by-step:\n1. The trigger text states: \"Pick up the black pepper jar from the countertop next to the hob using the left hand.\" This indicates that the black pepper jar is currently whole and untouched, resting on the countertop. Since it's being picked up, it is not yet in use, and there is no indication of partial use or depletion. Therefore, the form state is \"whole\".\n2. The jar is described as being on the countertop, and there is no mention of it being empty or nearly empty. Given that it's a typical kitchen jar, it is reasonable to assume it is full.\n3. Black pepper is not countable in the sense of individual units (like eggs or slices), so the count is null.\n\nFinal assessment:\n- form_state: whole\n- quantity: full\n- count: null\n\nJSON:\n[\n  {\n    \"food_noun\": \"black pepper jar\",\n    \"state\": {\"form_state\": \"whole\", \"quantity\": \"full\", \"count\": null}\n  }\n]",
+  "parsed_response": [
+    {
+      "food_noun": "black pepper jar",
+      "state": {
+        "form_state": "whole",
+        "quantity": "full",
+        "count": null
+      }
+    }
+  ]
+}

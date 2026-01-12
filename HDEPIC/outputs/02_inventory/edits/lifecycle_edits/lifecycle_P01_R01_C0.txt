@@ -1,0 +1,64 @@
+# Recipe: P01_R01_C0 - Nespresso
+# Capture: 0
+# Videos: P01-20240202-110250
+#
+# INSTRUCTIONS:
+#   - To exclude an item: delete the block or add '# SKIP' before item name
+#   - To exclude an event: delete the line or prefix with '#'
+#   - Run 04_dispensal_classification.py to classify DISPENSING events
+#   - Run 05_get_timestamps.py to extract video clips
+#
+# Total items: 3
+# Total events: 12
+#   RETRIEVAL: 3
+#   ACCESS: 3
+#   DISPENSING: 5
+#   RESTOCKING: 1
+
+coffee capsule:
+  - narration_id: P01-20240202-110250-8
+    stage: RETRIEVAL
+    action: Pick up the coffee capsule from the countertop to the left of the coffee machine.
+  - narration_id: P01-20240202-110250-10
+    stage: ACCESS
+    action: Lift the handle of the coffee machine to expose the gap where the coffee capsule should fit.
+  - narration_id: P01-20240202-110250-11
+    stage: DISPENSING
+    method: pick_unit
+    action: Slide the coffee capsule into the gap of the coffee machine.
+
+milk bottle:
+  - narration_id: P01-20240202-110250-14
+    stage: RETRIEVAL
+    action: User picks up the milk bottle from the lower shelf of the fridge door.
+  - narration_id: P01-20240202-110250-17
+    stage: ACCESS
+    action: User opens the milk bottle by rotating the lid counterclockwise.
+  - narration_id: P01-20240202-110250-18
+    stage: DISPENSING
+    method: pour
+    action: User tilts the milk bottle to pour milk into the milk frother.
+  - narration_id: P01-20240202-110250-23
+    stage: RESTOCKING
+    action: User puts the milk bottle back into the fridge (lower shelf of the door).
+
+oranges (in mesh bag):
+  - narration_id: P01-20240202-110250-29
+    stage: RETRIEVAL
+    action: User holds the oranges (in mesh bag) in hand (location not specified in log, appears already at the workspace).
+  - narration_id: P01-20240202-110250-29
+    stage: ACCESS
+    action: User cuts the mesh to open the oranges (in mesh bag) using scissors.
+  - narration_id: P01-20240202-110250-30
+    stage: DISPENSING
+    method: pick_unit
+    action: User picks up one orange from the oranges (in mesh bag) and places it on the counter.
+  - narration_id: P01-20240202-110250-31
+    stage: DISPENSING
+    method: pick_unit
+    action: User picks up a second orange from the oranges (in mesh bag) and places it on the counter.
+  - narration_id: P01-20240202-110250-32
+    stage: DISPENSING
+    method: pick_unit
+    action: User picks up a third orange from the oranges (in mesh bag) and places it on the counter.
+

@@ -1,0 +1,182 @@
+=== SYSTEM PROMPT ===
+
+You are an expert Food State Analyst.
+Your task is to watch a cooking video and convert a stream of raw narrations into consolidated **Food State Change Events**.
+
+INPUTS:
+1. VIDEO CLIP: A segment of cooking activity.
+2. NARRATION LOG: A list of lines with IDs, timestamps, and text.
+
+YOUR STRATEGY: GROUP & VERIFY
+Raw narrations are fragmented (e.g., "Pick up knife", "Cut carrot", "Put knife down").
+You must GROUP these related lines into a **Single Meaningful Event** and describe the physical change to the food.
+
+### PROCESS (Step-by-Step):
+
+**STEP 1: IDENTIFY EVENT CLUSTERS**
+Scan the narrations and video to find sequences that constitute ONE distinct change to a food item.
+- *Group together:* Preparation (picking up tools), The Action itself, and Immediate Cleanup (putting tool down).
+- *Ignore:* Clusters that result in NO physical change to the food (e.g., moving a spoon but not stirring).
+
+**STEP 2: VISUAL INVESTIGATION (The "Truth" Check)**
+Watch the video for that cluster. What *physically* happened to the food?
+- **Reveal Implicit Changes:**
+  - Text: "Heat the pan." -> Video: *Butter melts into liquid.* -> State: "Butter melted."
+  - Text: "Squeeze the fruit." -> Video: *Liquid extracts, solid reduces.* -> State: "Juice extracted."
+- **Verify Ambiguity:**
+  - Text: "Pour the milk." -> Video: *Poured into empty glass vs. Poured into coffee?*
+  - You MUST capture the destination status in your description.
+
+**STEP 3: DESCRIBE THE STATE CHANGE**
+Write a single, precise sentence describing the **Result** of the event. Use this Controlled Phrasing Guide:
+
+* **For COMBINATION (Mixing/Adding):**
+    "The [Subject Ingredient] was mixed into/added to the [Target Container/Food]."
+* **For SEPARATION (Pouring/Portioning):**
+    "A portion of [Food] was separated/poured from [Source] into [Target]."
+* **For DIVISION (Cutting/Slicing):**
+    "The [Food] was cut/divided into [New Form/Pieces]."
+* **For MOVEMENT (Transferring whole items):**
+    "The [Food] was moved/transferred from [Source] to [Destination]."
+* **For TRANSFORMATION (Cooking/Peeling/State Change):**
+    "The [Food] transformed/processed into [New State] (e.g., melted, browned, dough)."
+
+### OUTPUT FORMAT (JSON)
+Return a list of Event Objects.
+
+[
+  {
+    "event_id": 1,
+    "source_narration_ids": [12, 13, 14], // The range of lines you grouped
+    "timestamp_start": 14.50,
+    "timestamp_end": 18.20,
+    "primary_action": "Slicing the orange", // Brief summary
+    "visual_evidence": "Video shows knife cutting through the orange, separating it into two distinct halves.",
+    "state_description": "The orange was cut into two halves." // The Strict Description for the Graph
+  },
+  ...
+]
+
+
+=== USER PROMPT ===
+
+NARRATION LOG (local timestamps for this video segment):
+Semantic Groups: Prepare Coffee and Unpack Oranges, Place Orange on Chopping Board, Finish Coffee (Pour Milk and Stir), Cut and Juice Oranges, Pour and Serve Orange Juice
+
+[0.00s] Pick up a mug from the lower shelf of the cupboard that is upside down using the left hand.
+[4.39s] Using the left hand, flip the bottom part of the coffee machine so as to put the mug using the right hand in the right place under the nozzle of the coffee machine.
+[4.86s] Put the mug that is in the right hand under the nozzle of the coffee machine.
+[5.47s] Using the left hand, pick up the coffee capsule from the countertop to the left of the coffee machine.
+[6.02s] Press down the button to turn on the coffee machine using the right hand.
+[6.72s] Lift the handle of the coffee machine using the right hand so that to expose the gap where the coffee capsule should fit.
+[6.74s] Slide the coffee capsule that is in the left hand inside the gap of the coffee machine.
+[8.06s] Using the right hand, pull down the handle of the coffee machine so as to lock the coffee capsule inside.
+[12.06s] Using the left hand, pick up the milk bottle using the handle, which is located in the lower shelf of the door of the fridge.
+[15.21s] Slide the milk frother and its base on the counter to get it closer to where the person is standing.
+[16.41s] Open the milk bottle by holding it with the right hand, holding the lid with the left hand, and rotating the lid counterclockwise.
+[17.66s] While holding the milk bottle lid with the left hand, using the right hand tilt the milk bottle to pour milk from the bottle into the milk frother.
+[18.27s] Tilt the milk bottle up after the milk has been poured. Place the lid from the left hand on top of the milk bottle. Rotate clockwise to close the milk bottle.
+[21.36s] While the left hand is closing the milk bottle, the right hand presses the power button on the milk frother to start it on.
+[24.80s] Pick up the milk bottle from its handle using the left hand.
+[27.83s] Put down the milk bottle inside the fridge in the lower shelf of the door using the left hand.
+[31.85s] Using the left hand press the button of the long coffee on the coffee machine.
+[40.20s] Pick up the scissors from the drawer using the right hand.
+[40.83s] Using the left hand, remove the plastic cover of the scissors. This action occurs at the periphery, quite off-screen.
+[42.07s] Hold the mesh containing oranges using the left hand to free the space to cut it open. Using the right hand, open the scissors and cut the mesh to open it.
+[43.97s] Using the left hand, pick up one orange from the mesh and place it to the left on the counter.
+[45.92s] Pick up a second orange from the mesh and place it to the left on the counter.
+[47.26s] Pick up a third orange from inside the mesh and place it on the left at the counter.
+[92.47s] Pick up one orange using the right hand from the countertop.
+[93.69s] Place the orange on the chopping board.
+[127.01s] hold the mug of coffee with the left hand and rotate it so that the handle is facing to the left side. Then hold the milk frother with the right hand.
+[127.38s] Pick up the milk frother with the right hand from its base.
+[127.91s] Hit the milk frother on the countertop using the right hand to set the milk frothing inside.
+[128.36s] Tilt the milk frother to pour the frothed milk from inside it into the mug which is being held using the left hand.
+[130.58s] Lift and drop the milk-frother slightly using the right hand up and down twice to get rid of all the froth inside it.
+[131.80s] Tilt the milk frothing back upwards and place it on the countertop.
+[134.11s] using the left hand, lift the lid of the box of wooden stirrers using the left hand while holding the cover. Pick up one wooden stirrer from inside the box using the left hand as well.
+[135.52s] Move the wooden stirrer from the left hand to the right hand.
+[135.95s] Using the wooden stirrer, stir the coffee and the frothed milk in the mug using the right hand rotating clockwise. The left hand is holding the mug to steady it while the coffee and the milk froth are being stirred.
+[137.68s] Now stir the coffee and the milk frothing using the wooden stirrer but stirring a counter-clockwise.
+[140.52s] Do one final stirring clockwise and then remove the wooden stirrer from the mug.
+[141.39s] Shake the wooden stirrer using the right hand to get rid of any excess liquid on it.
+[144.29s] throw the wooden stirrer which is in the right hand inside the bin.
+[174.55s] Hold the orange that's on the chopping board using the left hand and pick up the knife from the chopping board using the right hand.
+[175.44s] Using saw-like motion back and forth, cut the orange into two halves using the knife that's being held using the right hand.
+[177.61s] put down the knife on the chopping board using the right hand and pick up one of the two halves of the orange, the left half, using the left hand.
+[178.55s] Flip the orange and place it on the cone of the juice presser, holding it using the right hand.
+[179.29s] Turn the dial of the food processor clockwise to switch it on. The juicer will now start rotating.
+[180.03s] Using the left hand on top of the right hand on top of the orange, press the orange onto the cone of the juicer.
+[183.68s] Continue pressing and rotating the orange half using the right hand on the cone of the juicer.
+[191.57s] Turn off the food processor by rotating the dial counterclockwise using the left hand.
+[192.90s] Remove the orange half from the juicer, turning it to face the camera to check that all the juice has been removed and only the skin remains.
+[193.66s] Lift the lid of the food recycling bin using the left hand.
+[194.27s] Throw the half orange skin inside the food recycling bin.
+[194.89s] Pick up the second half of the orange from the chopping board using the right hand.
+[195.43s] Flip and place the orange half on the cone of the juicer using the right hand.
+[196.17s] Turn on the food processor using the left hand by rotating the dial clockwise.
+[197.04s] Press the orange half on the cone of the juicer using both hands, right hand on top of the orange half and left hand on top of the right hand, and press downwards.
+[207.68s] Turn off the food processor by rotating the dial using the left hand counter-clockwise.
+[208.79s] Flip the orange half towards the camera to check that all the juice has been removed.
+[209.30s] open the lid of the food recycling bin using the left hand.
+[210.08s] throw the half orange skin inside the food processing bin using the right hand.
+[211.28s] Pick up the second orange from the countertop using the right hand.
+[211.83s] Place the orange on the chopping board.
+[212.45s] Pick up the knife from the chopping board.
+[212.93s] holding the orange using the left hand, slice the orange into two halves using a sewing-like motion of the knife using the right hand.
+[215.22s] Put down the knife on the chopping board.
+[215.80s] Pick up one of the halves of the orange using the left hand and pass it to the right hand.
+[216.35s] Flip the half of the orange using the right hand, place it downwards, facing downwards, on the cone of the juice processor.
+[216.88s] Switch the food processor on using the dial with the left hand rotating it clockwise.
+[217.51s] Press the orange half using both hands, right hand on the orange and left hand on the right hand, pressing it downwards on the cone of the juicer.
+[226.50s] Turn the food processor off by rotating the dial using the left hand counter-clockwise.
+[228.71s] Open the lid of the food recycling bin using the left hand and remove the orange from the cone of the juicer using the right hand.
+[229.38s] throw the half skin orange from the right hand inside the food recycling bin.
+[230.15s] Pick up the second half of the second orange using the right hand from the chopping board.
+[231.16s] Place the half of the orange facing downwards on the cone of the juicer.
+[231.71s] Turn on the food processor by rotating the dial using the left hand clockwise.
+[232.35s] Press the orange half downwards using both hands on the cone of the juicer.
+[241.03s] Turn off the food processor by rotating the dial using the left hand counterclockwise.
+[242.33s] Lift the lid of the food recycling bin using the left hand and rotate the orange skin half in the right hand to check that it's empty.
+[243.38s] throw the half orange skin inside the food processing bin using the right hand.
+[244.33s] Pick up the third orange using the right hand from the countertop.
+[245.28s] Place the orange on the chopping board.
+[245.78s] Pick up the knife using the right hand from the chopping board.
+[245.80s] Holding the orange with the left hand, use the knife with the right hand in a sewing-like motion to cut the orange into two halves.
+[249.37s] Put down the knife on the chopping board.
+[249.76s] Using the right hand, stop one of the halves of the orange from crawling on the counter top.
+[250.88s] Pick up half of the orange using the right hand from the chopping board.
+[251.33s] Place the half of the orange on the cone of the juicer facing downwards using the right hand.
+[252.43s] Turn on the food processor using the left hand by rotating the dial clockwise.
+[253.01s] Press the orange half on the cone of the juicer using both hands.
+[264.06s] Turn off the food processor using the left hand by rotating the dial counterclockwise.
+[265.47s] Rotate the half orange in the right hand towards the camera to check whether all the juice has been removed.
+[266.16s] Rotate back the half orange as some juice is still left, placing it on the cone of the juicer.
+[267.20s] Again, rotate the dial of the food processor to turn it on using the left hand clockwise.
+[268.59s] Turn the food processor off using the left hand by rotating the dial counterclockwise.
+[270.37s] Open the lid of the food recycling bin using the left hand.
+[271.13s] throw the orange half skin into the food processing bin using the right hand.
+[272.01s] Pick up the half orange using the right hand from the chopping board.
+[272.81s] Place the half orange on the cone of the juicer using the right hand facing downwards.
+[273.73s] Turn on the food processing machine using the dial, rotating it clockwise using the left hand.
+[274.66s] Press the half orange on the juicer using both hands.
+[283.64s] Turn the food processor off using the left hand by rotating the dial counterclockwise.
+[285.74s] Lift the orange half, rotating it towards the camera, checking it still has juice, and then place it again, return it to the cone of the juicer.
+[287.00s] Turn on the food processing machine using the left hand by rotating the dial clockwise.
+[289.35s] turn off the food processing machine using the left hand by rotating the dial counterclockwise.
+[290.86s] Remove the orange half skin from the cone of the juicer and shake it to drop excess liquid.
+[292.26s] Open the lid of the food processing machine using the left hand.
+[292.71s] Throw the half orange skin into the food recycling bin using the right hand.
+[293.65s] Pick up the knife from the chopping board using the right hand.
+[294.28s] Using the knife in the right hand, move the remaining content inside the juicer bowl to get any remaining juice to go through the holes. Do that by moving the content of the juicer back and forth using the knife.
+[306.01s] Put the knife on the chopping board using the right hand.
+[343.99s] Pick up a glass from the middle shelf of the cupboard using the left hand.
+[346.38s] Rotate the glass in hand so it's pointing upwards.
+[347.06s] Place the glass on the countertop next to the food processing machine using the left hand.
+[348.17s] Rotate the bowl of the food processor counterclockwise to unlock it from the machine using both hands.
+[349.25s] Lift the bowl from the food processing machine using the right hand.
+[350.29s] Pick up the glass from the countertop using the left hand.
+[351.03s] While holding the glass using the left hand, tilt the food processor bowl, which is in the right hand, so that the juice inside it would be poured into the glass that's being held with the left hand.
+[357.96s] Place the glass now filled with orange juice on the countertop next to the coffee machine.
+
+Please analyze each narration against the video and return JSON as specified in the system prompt.

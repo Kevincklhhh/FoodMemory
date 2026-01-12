@@ -1,0 +1,119 @@
+{
+  "video_id": "P01-20240202-161948",
+  "block_id": 18,
+  "prompt_type": "transactions",
+  "system_prompt": "You are a food state tracker for egocentric cooking videos. Analyze narrations and video to identify food state changes.\n\nCRITICAL: CONTAINERS vs FOOD\n- CONTAINERS are physical objects holding food (bowls, pans, cutting boards).\n- FOOD includes edible parts and waste (orange peels, egg shells).\n- NEVER label food parts (shells, peels, halves) as containers.\n\nRULES:\n1. Use food IDs from the Active Food Items table.\n2. Only track a container if food is actively placed into it.\n3. Container naming: {object_type}_{number} (e.g., \"mixing_bowl_001\").\n4. One transaction per distinct action. Return empty array if no food changes occur.\n5. REFERENCING ITEMS:\n   - For items in the 'Active Food Items' table: Use their Instance ID (e.g., \"butter_002\")\n   - For items CREATED via SPLIT in this same block: Use the food_noun (e.g., \"butter\")\n   - The system will automatically resolve food_noun references to the correct instance ID\n   - If a narration mentions a food item not in the table and not created by a prior SPLIT, IGNORE IT.\n\nTRANSACTION TYPES:\n- TRANSFER: Move food to a different container\n  {type: \"transfer\", food_id: \"...\", to_container: \"...\", to_zone: \"...\"}\n\n- SPLIT: Divide food. Child nodes get NEW names.\n  * Partial (Parent Survives): Use when taking a portion from a bulk item/container. The source remains.\n    (e.g., Taking 1 egg from a carton, pouring some milk from a jug).\n    Schema: {type: \"split\", subtype: \"partial\", parent_id: \"...\", children: [{food_noun: \"...\", form_state: \"...\", quantity: \"...\", count: N}]}\n\n  * Complete (Parent Consumed): Use when the object is physically cut or transformed into pieces. The source object NO LONGER EXISTS.\n    (e.g., Cutting an orange into two halves, chopping a carrot into slices).\n    Schema: {type: \"split\", subtype: \"complete\", parent_id: \"...\", children: [{food_noun: \"...\", form_state: \"...\", quantity: \"...\", count: N}, ...]}\n\n- MERGE: Combine foods\n  Accumulation (same food): {type: \"merge\", subtype: \"accumulation\", subject_id: \"...\", target_id: \"...\"}\n  Incorporation (minor into dominant): {type: \"merge\", subtype: \"incorporation\", subject_id: \"...\", target_id: \"...\"}\n  Transformation (create new food): {type: \"merge\", subtype: \"transformation\", subject_id: \"...\", target_id: \"...\", new_food_noun: \"...\"}\n\n- CONSUME: Food eaten or discarded\n  {type: \"consume\", food_id: \"...\", consume_type: \"eaten\"|\"discarded\"}\n\n- UPDATE: Change state in place\n  {type: \"update\", food_id: \"...\", state_changes: {form_state?: \"...\", quantity?: \"...\"}}\n\nVALID VALUES:\n- form_state: whole | prepared_ingredient | cooking_in_progress | cooked_dish | leftover\n- zone: storage, fridge, freezer, pantry, prep_surface, counter, cutting_board, stove, oven, microwave, sink, table, serving\n",
+  "user_prompt": "**BLOCK INFO:**\n    Video: P01-20240202-161948\n    Block: 18\n    Time: 540.0s - 570.0s\n    \n    **ACTIVE FOOD ITEMS:**\n    | Instance ID | Food | Form | Quantity | Container |\n|-------------|------|------|----------|-----------|\n| black_pepper_001 | black pepper | cooking_in_progress (x1) | some | pan_001 |\n| black_pepper_jar_001 | black pepper jar | cooking_in_progress | partial | pan_001 |\n| bottle_of_salt_001 | bottle of salt | whole | partial | pan_001 |\n| butter_001 | butter | cooking_in_progress | nearly_empty | pan_001 |\n| butter_002 | butter | cooking_in_progress (x1) | some | pan_001 |\n| butter_003 | butter | cooking_in_progress (x1) | some | pan_001 |\n| butter_004 | butter | cooking_in_progress (x1) | some | pan_001 |\n| butter_007 | butter | cooking_in_progress (x1) | some | pan_001 |\n| cheese_package_001 | cheese package | whole | full | pan_001 |\n| pasta_box_001 | pasta box | cooking_in_progress | full | pan_001 |\n| salt_001 | salt | cooking_in_progress (x1) | some | pan_001 |\n\n    **KNOWN CONTAINERS:**\n    | Container ID | Zone | Contents |\n|--------------|------|----------|\n| countertop_001 | counter | (empty) |\n| drawer_001 | drawer | (empty) |\n| fridge_001 | fridge | (empty) |\n| pan_001 | stove | salt_001, butter_002, butter_003, butter_004, butter_007, black_pepper_001, pasta_box_001, bottle_of_salt_001, black_pepper_jar_001, butter_001, cheese_package_001 |\n| plate_001 | counter | (empty) |\n\n    **NARRATIONS:**\n    1. [2.67s - 3.86s]  Hang the cheese grater on the hook using the right hand.\n2. [7.00s - 7.68s]  pick up the spatula using the right hand.\n3. [7.88s - 11.82s]  Stir the content of the pan with pasta sauce.\n4. [11.64s - 12.86s]  Hit this spatula softly on the rim of the pan to remove excess liquid.\n5. [12.84s - 13.75s]  place the spatula on the plate that's on the countertop using the right hand.\n6. [14.51s - 15.44s]  Open the top cupboard using the left hand by holding the handle.\n7. [16.25s - 17.31s]  Hold the bottom bowl in a pile of bowls in the second shelf of the cupboard.\n8. [17.95s - 19.13s]  Using the left hand, pick up the two top bowls in the pile and slide the bottom one out with the right hand, trying to release the bottom one only to take it out of the pile.\n9. [19.11s - 19.92s]  Release the two other bowls, keeping them in the second shelf.\n10. [19.47s - 20.13s]  Remove one plate using the right hand out of the cupboard.\n11. [21.41s - 22.55s]  Put down the plate on the counter top.\n12. [23.35s - 24.17s]  Close the cupboard.\n13. [24.32s - 25.05s]  Pick up the salt bottle from the countertop.\n14. [26.64s - 27.42s]  Open the top cupboard, holding the handle using the left hand.\n15. [27.41s - 27.73s]  Return the salt bottle into the lower shelf of the cupboard using the right hand.\n16. [29.88s - 30.19s]  Pick up the black pepper jar from the countertop.\n\n    **TASK:**\n    Analyze the narrations to identify food state changes or movements.\n    1. Identify any transactions (Transfer, Split, Merge, Consume, Update).\n    2. If a transaction requires a container NOT listed in \"KNOWN CONTAINERS\", add it to \"new_containers\".\n\n    Return a response in the following format:\n\n\n    JSON:\n    ```\n    {\n     \"transactions\": [\n        {\"type\": \"transfer\", \"food_id\": \"egg_001\", \"to_container\": \"frying_pan_001\", \"to_zone\": \"stove\"},\n        {\"type\": \"update\", \"food_id\": \"egg_001\", \"state_changes\": {\"form_state\": \"cooking_in_progress\"}}\n    ],\n    \"new_containers\": [\n        {\"container_id\": \"frying_pan_001\", \"zone\": \"stove\"}\n    ]\n    }\n    ```",
+  "raw_response": "```json\n{\n  \"transactions\": [\n    {\n      \"type\": \"transfer\",\n      \"food_id\": \"bottle_of_salt_001\",\n      \"to_container\": \"pan_001\",\n      \"to_zone\": \"stove\"\n    },\n    {\n      \"type\": \"transfer\",\n      \"food_id\": \"black_pepper_jar_001\",\n      \"to_container\": \"pan_001\",\n      \"to_zone\": \"stove\"\n    },\n    {\n      \"type\": \"transfer\",\n      \"food_id\": \"butter_001\",\n      \"to_container\": \"pan_001\",\n      \"to_zone\": \"stove\"\n    },\n    {\n      \"type\": \"transfer\",\n      \"food_id\": \"butter_002\",\n      \"to_container\": \"pan_001\",\n      \"to_zone\": \"stove\"\n    },\n    {\n      \"type\": \"transfer\",\n      \"food_id\": \"butter_003\",\n      \"to_container\": \"pan_001\",\n      \"to_zone\": \"stove\"\n    },\n    {\n      \"type\": \"transfer\",\n      \"food_id\": \"butter_004\",\n      \"to_container\": \"pan_001\",\n      \"to_zone\": \"stove\"\n    },\n    {\n      \"type\": \"transfer\",\n      \"food_id\": \"butter_007\",\n      \"to_container\": \"pan_001\",\n      \"to_zone\": \"stove\"\n    },\n    {\n      \"type\": \"transfer\",\n      \"food_id\": \"cheese_package_001\",\n      \"to_container\": \"pan_001\",\n      \"to_zone\": \"stove\"\n    },\n    {\n      \"type\": \"transfer\",\n      \"food_id\": \"pasta_box_001\",\n      \"to_container\": \"pan_001\",\n      \"to_zone\": \"stove\"\n    },\n    {\n      \"type\": \"transfer\",\n      \"food_id\": \"black_pepper_001\",\n      \"to_container\": \"pan_001\",\n      \"to_zone\": \"stove\"\n    },\n    {\n      \"type\": \"transfer\",\n      \"food_id\": \"salt_001\",\n      \"to_container\": \"pan_001\",\n      \"to_zone\": \"stove\"\n    },\n    {\n      \"type\": \"transfer\",\n      \"food_id\": \"bottle_of_salt_001\",\n      \"to_container\": \"cupboard_001\",\n      \"to_zone\": \"cupboard\"\n    },\n    {\n      \"type\": \"transfer\",\n      \"food_id\": \"black_pepper_jar_001\",\n      \"to_container\": \"cupboard_001\",\n      \"to_zone\": \"cupboard\"\n    },\n    {\n      \"type\": \"transfer\",\n      \"food_id\": \"plate_001\",\n      \"to_container\": \"countertop_001\",\n      \"to_zone\": \"counter\"\n    },\n    {\n      \"type\": \"transfer\",\n      \"food_id\": \"plate_001\",\n      \"to_container\": \"plate_001\",\n      \"to_zone\": \"counter\"\n    },\n    {\n      \"type\": \"transfer\",\n      \"food_id\": \"spatula\",\n      \"to_container\": \"plate_001\",\n      \"to_zone\": \"counter\"\n    }\n  ],\n  \"new_containers\": [\n    {\n      \"container_id\": \"cupboard_001\",\n      \"zone\": \"cupboard\"\n    }\n  ]\n}\n```",
+  "parsed_response": {
+    "transactions": [
+      {
+        "type": "transfer",
+        "food_id": "bottle_of_salt_001",
+        "to_container": "pan_001",
+        "to_zone": "stove"
+      },
+      {
+        "type": "transfer",
+        "food_id": "black_pepper_jar_001",
+        "to_container": "pan_001",
+        "to_zone": "stove"
+      },
+      {
+        "type": "transfer",
+        "food_id": "butter_001",
+        "to_container": "pan_001",
+        "to_zone": "stove"
+      },
+      {
+        "type": "transfer",
+        "food_id": "butter_002",
+        "to_container": "pan_001",
+        "to_zone": "stove"
+      },
+      {
+        "type": "transfer",
+        "food_id": "butter_003",
+        "to_container": "pan_001",
+        "to_zone": "stove"
+      },
+      {
+        "type": "transfer",
+        "food_id": "butter_004",
+        "to_container": "pan_001",
+        "to_zone": "stove"
+      },
+      {
+        "type": "transfer",
+        "food_id": "butter_007",
+        "to_container": "pan_001",
+        "to_zone": "stove"
+      },
+      {
+        "type": "transfer",
+        "food_id": "cheese_package_001",
+        "to_container": "pan_001",
+        "to_zone": "stove"
+      },
+      {
+        "type": "transfer",
+        "food_id": "pasta_box_001",
+        "to_container": "pan_001",
+        "to_zone": "stove"
+      },
+      {
+        "type": "transfer",
+        "food_id": "black_pepper_001",
+        "to_container": "pan_001",
+        "to_zone": "stove"
+      },
+      {
+        "type": "transfer",
+        "food_id": "salt_001",
+        "to_container": "pan_001",
+        "to_zone": "stove"
+      },
+      {
+        "type": "transfer",
+        "food_id": "bottle_of_salt_001",
+        "to_container": "cupboard_001",
+        "to_zone": "cupboard"
+      },
+      {
+        "type": "transfer",
+        "food_id": "black_pepper_jar_001",
+        "to_container": "cupboard_001",
+        "to_zone": "cupboard"
+      },
+      {
+        "type": "transfer",
+        "food_id": "plate_001",
+        "to_container": "countertop_001",
+        "to_zone": "counter"
+      },
+      {
+        "type": "transfer",
+        "food_id": "plate_001",
+        "to_container": "plate_001",
+        "to_zone": "counter"
+      },
+      {
+        "type": "transfer",
+        "food_id": "spatula",
+        "to_container": "plate_001",
+        "to_zone": "counter"
+      }
+    ],
+    "new_containers": [
+      {
+        "container_id": "cupboard_001",
+        "zone": "cupboard"
+      }
+    ]
+  },
+  "execution_warnings": [
+    "TRANSFER: unknown food_id 'plate_001'",
+    "TRANSFER: unknown food_id 'plate_001'",
+    "TRANSFER: unknown food_id 'spatula'"
+  ]
+}

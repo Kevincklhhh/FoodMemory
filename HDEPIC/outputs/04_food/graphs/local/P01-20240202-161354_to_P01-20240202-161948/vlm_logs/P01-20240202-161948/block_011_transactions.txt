@@ -1,0 +1,337 @@
+=== SYSTEM PROMPT ===
+You are a food state tracker for egocentric cooking videos. Analyze narrations and video to identify food state changes.
+
+CRITICAL: CONTAINERS vs FOOD
+- CONTAINERS are physical objects holding food (bowls, pans, cutting boards).
+- FOOD includes edible parts and waste (orange peels, egg shells).
+- NEVER label food parts (shells, peels, halves) as containers.
+
+RULES:
+1. Use food IDs from the Active Food Items table.
+2. Only track a container if food is actively placed into it.
+3. Container naming: {object_type}_{number} (e.g., "mixing_bowl_001").
+4. One transaction per distinct action. Return empty array if no food changes occur.
+5. REFERENCING ITEMS:
+   - For items in the 'Active Food Items' table: Use their Instance ID (e.g., "butter_002")
+   - For items CREATED via SPLIT in this same block: Use the food_noun (e.g., "butter")
+   - The system will automatically resolve food_noun references to the correct instance ID
+   - If a narration mentions a food item not in the table and not created by a prior SPLIT, IGNORE IT.
+
+TRANSACTION TYPES:
+- TRANSFER: Move food to a different container
+  {type: "transfer", food_id: "...", to_container: "...", to_zone: "..."}
+
+- SPLIT: Divide food. Child nodes get NEW names.
+  * Partial (Parent Survives): Use when taking a portion from a bulk item/container. The source remains.
+    (e.g., Taking 1 egg from a carton, pouring some milk from a jug).
+    Schema: {type: "split", subtype: "partial", parent_id: "...", children: [{food_noun: "...", form_state: "...", quantity: "...", count: N}]}
+
+  * Complete (Parent Consumed): Use when the object is physically cut or transformed into pieces. The source object NO LONGER EXISTS.
+    (e.g., Cutting an orange into two halves, chopping a carrot into slices).
+    Schema: {type: "split", subtype: "complete", parent_id: "...", children: [{food_noun: "...", form_state: "...", quantity: "...", count: N}, ...]}
+
+- MERGE: Combine foods
+  Accumulation (same food): {type: "merge", subtype: "accumulation", subject_id: "...", target_id: "..."}
+  Incorporation (minor into dominant): {type: "merge", subtype: "incorporation", subject_id: "...", target_id: "..."}
+  Transformation (create new food): {type: "merge", subtype: "transformation", subject_id: "...", target_id: "...", new_food_noun: "..."}
+
+- CONSUME: Food eaten or discarded
+  {type: "consume", food_id: "...", consume_type: "eaten"|"discarded"}
+
+- UPDATE: Change state in place
+  {type: "update", food_id: "...", state_changes: {form_state?: "...", quantity?: "..."}}
+
+VALID VALUES:
+- form_state: whole | prepared_ingredient | cooking_in_progress | cooked_dish | leftover
+- zone: storage, fridge, freezer, pantry, prep_surface, counter, cutting_board, stove, oven, microwave, sink, table, serving
+
+
+=== USER PROMPT ===
+**BLOCK INFO:**
+    Video: P01-20240202-161948
+    Block: 11
+    Time: 330.0s - 360.0s
+    
+    **ACTIVE FOOD ITEMS:**
+    | Instance ID | Food | Form | Quantity | Container |
+|-------------|------|------|----------|-----------|
+| black_pepper_001 | black pepper | cooking_in_progress (x1) | some | pan_001 |
+| black_pepper_jar_001 | black pepper jar | cooking_in_progress | partial | countertop_001 |
+| bottle_of_salt_001 | bottle of salt | whole | partial | countertop_001 |
+| butter_001 | butter | cooking_in_progress | nearly_empty | pan_001 |
+| butter_002 | butter | prepared_ingredient (x1) | some | pan_001 |
+| butter_003 | butter | cooking_in_progress (x1) | some | pan_001 |
+| butter_004 | butter | cooking_in_progress (x1) | some | pan_001 |
+| butter_005 | butter | prepared_ingredient (x1) | some | plate_001 |
+| butter_006 | butter | prepared_ingredient (x1) | some | pan_001 |
+| pasta_box_001 | pasta box | cooking_in_progress | full | pan_001 |
+| salt_001 | salt | cooking_in_progress (x1) | some | pan_001 |
+
+    **KNOWN CONTAINERS:**
+    | Container ID | Zone | Contents |
+|--------------|------|----------|
+| countertop_001 | counter | bottle_of_salt_001, black_pepper_jar_001 |
+| pan_001 | stove | salt_001, pasta_box_001, butter_003, butter_004, black_pepper_001, butter_001, butter_002, butter_006 |
+| plate_001 | counter | butter_005 |
+
+    **NARRATIONS:**
+    1. [1.00s - 2.02s]  pick up a fork from the counter top, which is positioned on top of the drainer, using the right hand.
+2. [2.34s - 5.90s]  Move the pasta that is inside the hot water in the pan using the fork so that to release any stuck pasta pieces to the sides or bottom of the pan by moving the fork in circular motion.
+3. [5.66s - 6.17s]  Hit the fork on the rim of the pan a couple of times to remove any excess liquid.
+4. [6.57s - 7.23s]  Place the fork on the drainer that's on the countertop using the right hand.
+5. [8.05s - 9.21s]  Open the second drawer using the left hand by sliding it outwards.
+6. [9.52s - 10.40s]  Pick up a ladle from the second drawer using the right hand.
+7. [10.31s - 11.17s]  Close the drawer using the left hand by sliding it back in place.
+8. [11.41s - 13.45s]  Dip the ladle in the pan containing boiling water with pasta to get some of the starch liquid for cooking the sauce. Filling most of the ladle using the water without adding any of the pasta pieces.
+9. [14.15s - 15.67s]  Pour the water in the ladle in the first pan containing butter and black pepper to start preparing the pasta sauce. You see steam coming out as a result of adding water to butter.
+10. [16.97s - 19.11s]  put down the ladle on the countertop on top of the strainer using the right hand.
+11. [19.02s - 20.05s]  Pick up the plate containing cheese using both hands from the countertop. This is to prepare for adding cheese to the pasta sauce.
+12. [20.35s - 21.35s]  While holding the plate with the left hand, take a handful of cheese from the grated cheese pile using the right hand.
+13. [21.45s - 22.10s]  throw the handful of cheese in the pan.
+14. [22.76s - 23.36s]  Pick up the spatula from the countertop.
+15. [23.46s - 28.76s]  Stir the added cheese into the pasta sauce, which contains hot water, butter and black pepper, allowing the cheese to mix with the sauce and melt. Mixing is done in quick, small, circular motions.
+16. [28.88s - 29.28s]  Hit the spatula on the side of the pan once to remove excess liquid.
+17. [29.38s - 29.98s]  Put the spatula on the countertop next to the hob.
+
+    **TASK:**
+    Analyze the narrations to identify food state changes or movements.
+    1. Identify any transactions (Transfer, Split, Merge, Consume, Update).
+    2. If a transaction requires a container NOT listed in "KNOWN CONTAINERS", add it to "new_containers".
+
+    Return a response in the following format:
+
+
+    JSON:
+    ```
+    {
+     "transactions": [
+        {"type": "transfer", "food_id": "egg_001", "to_container": "frying_pan_001", "to_zone": "stove"},
+        {"type": "update", "food_id": "egg_001", "state_changes": {"form_state": "cooking_in_progress"}}
+    ],
+    "new_containers": [
+        {"container_id": "frying_pan_001", "zone": "stove"}
+    ]
+    }
+    ```
+
+=== RAW RESPONSE ===
+```json
+{
+  "transactions": [
+    {
+      "type": "transfer",
+      "food_id": "butter_005",
+      "to_container": "pan_001",
+      "to_zone": "stove"
+    },
+    {
+      "type": "split",
+      "subtype": "partial",
+      "parent_id": "butter_005",
+      "children": [
+        {
+          "food_noun": "butter",
+          "form_state": "cooking_in_progress",
+          "quantity": "some",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "type": "merge",
+      "subtype": "incorporation",
+      "subject_id": "butter_005",
+      "target_id": "butter_003"
+    },
+    {
+      "type": "merge",
+      "subtype": "incorporation",
+      "subject_id": "butter_005",
+      "target_id": "butter_004"
+    },
+    {
+      "type": "merge",
+      "subtype": "incorporation",
+      "subject_id": "butter_005",
+      "target_id": "butter_006"
+    },
+    {
+      "type": "merge",
+      "subtype": "incorporation",
+      "subject_id": "butter_005",
+      "target_id": "butter_001"
+    },
+    {
+      "type": "merge",
+      "subtype": "incorporation",
+      "subject_id": "butter_005",
+      "target_id": "butter_002"
+    },
+    {
+      "type": "merge",
+      "subtype": "transformation",
+      "subject_id": "butter_005",
+      "target_id": "salt_001",
+      "new_food_noun": "pasta_sauce"
+    },
+    {
+      "type": "merge",
+      "subtype": "transformation",
+      "subject_id": "butter_005",
+      "target_id": "black_pepper_001",
+      "new_food_noun": "pasta_sauce"
+    },
+    {
+      "type": "merge",
+      "subtype": "transformation",
+      "subject_id": "butter_005",
+      "target_id": "pasta_box_001",
+      "new_food_noun": "pasta_sauce"
+    },
+    {
+      "type": "update",
+      "food_id": "butter_005",
+      "state_changes": {
+        "form_state": "cooking_in_progress"
+      }
+    },
+    {
+      "type": "update",
+      "food_id": "salt_001",
+      "state_changes": {
+        "form_state": "cooking_in_progress"
+      }
+    },
+    {
+      "type": "update",
+      "food_id": "black_pepper_001",
+      "state_changes": {
+        "form_state": "cooking_in_progress"
+      }
+    },
+    {
+      "type": "update",
+      "food_id": "pasta_box_001",
+      "state_changes": {
+        "form_state": "cooking_in_progress"
+      }
+    }
+  ],
+  "new_containers": []
+}
+```
+
+=== PARSED RESPONSE ===
+{
+  "transactions": [
+    {
+      "type": "transfer",
+      "food_id": "butter_005",
+      "to_container": "pan_001",
+      "to_zone": "stove"
+    },
+    {
+      "type": "split",
+      "subtype": "partial",
+      "parent_id": "butter_005",
+      "children": [
+        {
+          "food_noun": "butter",
+          "form_state": "cooking_in_progress",
+          "quantity": "some",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "type": "merge",
+      "subtype": "incorporation",
+      "subject_id": "butter_005",
+      "target_id": "butter_003"
+    },
+    {
+      "type": "merge",
+      "subtype": "incorporation",
+      "subject_id": "butter_005",
+      "target_id": "butter_004"
+    },
+    {
+      "type": "merge",
+      "subtype": "incorporation",
+      "subject_id": "butter_005",
+      "target_id": "butter_006"
+    },
+    {
+      "type": "merge",
+      "subtype": "incorporation",
+      "subject_id": "butter_005",
+      "target_id": "butter_001"
+    },
+    {
+      "type": "merge",
+      "subtype": "incorporation",
+      "subject_id": "butter_005",
+      "target_id": "butter_002"
+    },
+    {
+      "type": "merge",
+      "subtype": "transformation",
+      "subject_id": "butter_005",
+      "target_id": "salt_001",
+      "new_food_noun": "pasta_sauce"
+    },
+    {
+      "type": "merge",
+      "subtype": "transformation",
+      "subject_id": "butter_005",
+      "target_id": "black_pepper_001",
+      "new_food_noun": "pasta_sauce"
+    },
+    {
+      "type": "merge",
+      "subtype": "transformation",
+      "subject_id": "butter_005",
+      "target_id": "pasta_box_001",
+      "new_food_noun": "pasta_sauce"
+    },
+    {
+      "type": "update",
+      "food_id": "butter_005",
+      "state_changes": {
+        "form_state": "cooking_in_progress"
+      }
+    },
+    {
+      "type": "update",
+      "food_id": "salt_001",
+      "state_changes": {
+        "form_state": "cooking_in_progress"
+      }
+    },
+    {
+      "type": "update",
+      "food_id": "black_pepper_001",
+      "state_changes": {
+        "form_state": "cooking_in_progress"
+      }
+    },
+    {
+      "type": "update",
+      "food_id": "pasta_box_001",
+      "state_changes": {
+        "form_state": "cooking_in_progress"
+      }
+    }
+  ],
+  "new_containers": []
+}
+
+=== EXECUTION WARNINGS ===
+  - MERGE: inactive subject_id 'butter_005'
+  - MERGE: inactive subject_id 'butter_005'
+  - MERGE: inactive subject_id 'butter_005'
+  - MERGE: inactive subject_id 'butter_005'
+  - MERGE: inactive subject_id 'butter_005'
+  - MERGE: inactive subject_id 'butter_005'
+  - MERGE: inactive subject_id 'butter_005'
+  - UPDATE: inactive food_id 'butter_005'

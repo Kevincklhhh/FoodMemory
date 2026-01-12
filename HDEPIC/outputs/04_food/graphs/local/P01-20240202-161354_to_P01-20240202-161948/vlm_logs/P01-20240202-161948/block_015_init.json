@@ -1,0 +1,18 @@
+{
+  "video_id": "P01-20240202-161948",
+  "block_id": 15,
+  "prompt_type": "init",
+  "system_prompt": "You are initializing food items for a cooking video tracker.\n\nSTATE TAXONOMY:\n- form_state: whole | prepared_ingredient | cooking_in_progress | cooked_dish | leftover\n- quantity: full | partial | nearly_empty\n- count: integer (for countable items like eggs, slices) or null\n\nGUIDELINES:\n1. Determine initial state based on the trigger narration\n2. For countable items (eggs, slices, pieces), estimate a reasonable count\n\nReturn a response in the following format:\n...\n\nJSON:\n[\n  {\n    \"food_noun\": \"milk\",\n    \"state\": {\"form_state\": \"whole\", \"quantity\": \"full\", \"count\": null}\n  }\n]",
+  "user_prompt": "ARRIVALS TO INITIALIZE:\n\n1. Food: cheese package\n   Trigger: \"Pick up the cheese package from the counter.\"\n\nReturn a response in the following format:\n\nThink step-by-step:\n1. Analyze the trigger text to understand the initial state.\n2. Estimate counts for countable items.\n",
+  "raw_response": "Think step-by-step:  \n1. The trigger text is \"Pick up the cheese package from the counter.\" This indicates that the cheese package is currently on the counter and is being retrieved, meaning it is in its original, unopened state.  \n2. The cheese is described as a \"package,\" which implies it is whole and not yet prepared or cut.  \n3. Since it is a package, the quantity is full (not partially used), and there is no indication of a countable number of pieces (e.g., slices or cubes), so count is null.  \n\nJSON:\n[\n  {\n    \"food_noun\": \"cheese package\",\n    \"state\": {\"form_state\": \"whole\", \"quantity\": \"full\", \"count\": null}\n  }\n]",
+  "parsed_response": [
+    {
+      "food_noun": "cheese package",
+      "state": {
+        "form_state": "whole",
+        "quantity": "full",
+        "count": null
+      }
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+# Recipe: P03_R03_C1 - Drip Coffee
+# Capture: 1
+# Videos: P03-20240217-091657
+#
+# INSTRUCTIONS:
+#   - To exclude an item: delete the block or add '# SKIP' before item name
+#   - To exclude an event: delete the line or prefix with '#'
+#   - Run 04_dispensal_classification.py to classify DISPENSING events
+#   - Run 05_get_timestamps.py to extract video clips
+#
+# Total items: 5
+# Total events: 19
+#   RETRIEVAL: 5
+#   ACCESS: 6
+#   DISPENSING: 5
+#   RESTOCKING: 3
+
+bread (in bag):
+  - narration_id: P03-20240217-091657-304
+    stage: RETRIEVAL
+    action: User picks up bread (in bag) from the top shelf of the fridge.
+  - narration_id: P03-20240217-091657-306
+    stage: ACCESS
+    action: User unties the bread bag to open it.
+  - narration_id: P03-20240217-091657-310
+    stage: ACCESS
+    action: User enlarges the opening of the bread bag by pulling the bag apart with both hands.
+  - narration_id: P03-20240217-091657-311
+    stage: DISPENSING
+    method: pick_unit
+    action: User removes one slice of bread from the bread bag.
+  - narration_id: P03-20240217-091657-313
+    stage: DISPENSING
+    method: pick_unit
+    action: User removes a second slice of bread from the bread bag.
+  - narration_id: P03-20240217-091657-320
+    stage: RESTOCKING
+    action: User places the bread bag back on the top shelf of the fridge.
+
+butter:
+  - narration_id: P03-20240217-091657-272
+    stage: RETRIEVAL
+    action: User picks up butter from the middle tray attached to the fridge door (removing it from fridge storage) and brings it to the table.
+
+ground coffee (bag):
+  - narration_id: P03-20240217-091657-146
+    stage: RETRIEVAL
+    action: User picks up ground coffee (bag) from the middle shelf of the cupboard.
+  - narration_id: P03-20240217-091657-163
+    stage: ACCESS
+    action: User opens the ground coffee (bag) by pulling the two sides of the bag.
+  - narration_id: P03-20240217-091657-167
+    stage: DISPENSING
+    method: scoop
+    action: User scoops a spoonful of ground coffee from the ground coffee (bag) using a coffee spoon.
+  - narration_id: P03-20240217-091657-170
+    stage: DISPENSING
+    method: scoop
+    action: User scoops another spoonful of ground coffee from the ground coffee (bag) using a coffee spoon.
+  - narration_id: P03-20240217-091657-176
+    stage: RESTOCKING
+    action: User places the ground coffee (bag) back in the middle shelf of the cupboard.
+
+jam (jar):
+  - narration_id: P03-20240217-091657-208
+    stage: RETRIEVAL
+    action: User retrieves jam (jar) from the top tray of the fridge drawer and brings it to the table (placed on table in P03-20240217-091657-209).
+
+spanish tortilla leftovers (on plate):
+  - narration_id: P03-20240217-091657-210
+    stage: RETRIEVAL
+    action: User retrieves spanish tortilla leftovers (on plate) from the middle shelf of the fridge.
+  - narration_id: P03-20240217-091657-213
+    stage: ACCESS
+    action: User unwraps the cling film from the spanish tortilla leftovers (on plate) to access it (partially unseals).
+  - narration_id: P03-20240217-091657-224
+    stage: DISPENSING
+    method: cut_portion
+    action: User removes a cut slice of spanish tortilla from the spanish tortilla leftovers (on plate) and transfers it to a smaller grey plate.
+  - narration_id: P03-20240217-091657-225
+    stage: ACCESS
+    action: User wraps the cling film back onto the spanish tortilla leftovers (on plate) to reseal it.
+  - narration_id: P03-20240217-091657-231
+    stage: RESTOCKING
+    action: User places the spanish tortilla leftovers (on plate) back onto the middle shelf of the fridge.
+  - narration_id: P03-20240217-091657-232
+    stage: ACCESS
+    action: User presses/reattaches a loose section of cling film on the spanish tortilla leftovers (on plate) after placing it in the fridge.
+

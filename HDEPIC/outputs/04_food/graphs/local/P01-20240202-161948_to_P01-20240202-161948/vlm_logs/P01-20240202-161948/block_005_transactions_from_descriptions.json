@@ -1,0 +1,64 @@
+{
+  "video_id": "P01-20240202-161948",
+  "block_id": 5,
+  "prompt_type": "transactions_from_descriptions",
+  "system_prompt": "You are a food state tracker. Convert state descriptions into formal graph transactions.\n\nINPUT:\n1. STATE DESCRIPTIONS: Pre-analyzed descriptions with timestamps (relative to clip start).\n   NOTE: These may include non-food items (tools, appliances). ONLY create transactions for items in the Active Food Items table.\n2. VIDEO CLIP: The actual video for this block - use it to verify and ground your transactions.\n\nCONCEPT: LOCATION\n- A 'Location' is WHERE the food is (zone like \"counter\" or container like \"pan_001\").\n- For NEW containers not in the list, just name it (e.g., \"bowl\").\n\nTRANSACTION TYPES (each requires a \"reasoning\" field):\n- TRANSFER: Move food to a location.\n  {type: \"transfer\", food_id: \"...\", to_location: \"...\", reasoning: \"...\"}\n\n- SPLIT: Divide food.\n  * Partial: {type: \"split\", subtype: \"partial\", parent_id: \"...\", children: [...], reasoning: \"...\"}\n  * Complete: {type: \"split\", subtype: \"complete\", parent_id: \"...\", children: [...], reasoning: \"...\"}\n\n- MERGE: Absorb one food into another (subject dies, target survives).\n  {type: \"merge\", subject_id: \"...\", target_id: \"...\", reasoning: \"...\"}\n\n- CONSUME: Food eaten or discarded.\n  {type: \"consume\", food_id: \"...\", consume_type: \"eaten\"|\"discarded\", reasoning: \"...\"}\n\n- UPDATE: Change state or identity in place.\n  {type: \"update\", food_id: \"...\", state_changes: {...}, reasoning: \"...\"}\n  * Use food_noun when the item transforms into something new:\n    - Orange being juiced \u2192 food_noun: \"orange_juice\"\n    - Bread being toasted \u2192 food_noun: \"toast\"\n    - Egg being fried \u2192 food_noun: \"fried_egg\"\n\nRULES:\n1. ONLY create transactions for food items listed in the Active Food Items table.\n2. IGNORE descriptions about non-food items (tools, appliances, empty containers).\n3. Use food IDs from the Active Food Items table for existing items.\n4. For items created via SPLIT in this block, use the food_noun (e.g., \"butter\").\n5. One transaction per distinct state change.\n6. Each transaction MUST include a \"reasoning\" field explaining the visual evidence.\n7. Return empty transactions array if no food state changes occur in the descriptions.\n\nVALID VALUES:\n- form_state: whole | prepared_ingredient | cooking_in_progress | cooked_dish | leftover\n",
+  "user_prompt": "**BLOCK INFO:**\nVideo: P01-20240202-161948\nBlock: 5\nClip duration: 30.0s (timestamps below are relative to clip start)\n\n**ACTIVE FOOD ITEMS:**\n| Instance ID | Food | Form | Quantity | Location |\n|-------------|------|------|----------|----------|\n| butter_001 | butter | cooking_in_progress | partial | pan_001 |\n| parmesan_001 | parmesan | prepared_ingredient | partial | plate_001 |\n\n**KNOWN LOCATIONS:**\n| Location | Contents |\n|----------|----------|\n| pan_001 | butter_001 |\n| plate_001 | parmesan_001 |\n\n**STATE DESCRIPTIONS:**\n(Timestamps are relative to clip start. May include non-food items - ignore those.)\n[10.9s] A portion of ground pepper was poured from the grinder into the pan.\n[12.1s] A portion of ground pepper was poured from the grinder into the pan.\n[16.4s] A portion of ground pepper was poured from the grinder into the pan.\n[18.6s] The ground pepper was mixed into the butter.\n[22.2s] A portion of oil was separated from the spatula into the pan.\n[25.1s] A portion of ground pepper was poured from the grinder into the pan.\n[29.2s] A portion of ground pepper was poured from the grinder into the pan.\n\n**VIDEO CLIP:** (attached - use to verify state changes)\n\n**TASK:**\nConvert state descriptions about FOOD ITEMS into formal transactions.\n1. ONLY process descriptions that match items in the Active Food Items table.\n2. SKIP descriptions about tools, appliances, or non-food items.\n3. For NEW containers, use the container type (e.g., \"bowl\") - system will auto-number it.\n4. Include source_text: The exact quote from the input description that triggered this.\n\nReturn JSON:\n```json\n{\n  \"transactions\": [\n    {\"type\": \"transfer\", \"food_id\": \"milk_001\", \"to_location\": \"frother_001\", \"reasoning\": \"Video shows milk bottle being placed into frother\"}\n  ]\n}\n```",
+  "raw_response": "```json\n{\n  \"transactions\": [\n    {\n      \"type\": \"transfer\",\n      \"food_id\": \"butter_001\",\n      \"to_location\": \"pan_001\",\n      \"reasoning\": \"Ground pepper is being added to the pan containing butter, indicating a transfer of pepper into the pan with butter.\",\n      \"source_text\": \"A portion of ground pepper was poured from the grinder into the pan.\"\n    },\n    {\n      \"type\": \"transfer\",\n      \"food_id\": \"butter_001\",\n      \"to_location\": \"pan_001\",\n      \"reasoning\": \"Ground pepper is being added to the pan containing butter, indicating a transfer of pepper into the pan with butter.\",\n      \"source_text\": \"A portion of ground pepper was poured from the grinder into the pan.\"\n    },\n    {\n      \"type\": \"transfer\",\n      \"food_id\": \"butter_001\",\n      \"to_location\": \"pan_001\",\n      \"reasoning\": \"Ground pepper is being added to the pan containing butter, indicating a transfer of pepper into the pan with butter.\",\n      \"source_text\": \"A portion of ground pepper was poured from the grinder into the pan.\"\n    },\n    {\n      \"type\": \"update\",\n      \"food_id\": \"butter_001\",\n      \"state_changes\": {\n        \"form_state\": \"cooking_in_progress\"\n      },\n      \"reasoning\": \"The butter is being mixed with pepper in the pan, indicating it is actively being cooked.\",\n      \"source_text\": \"The ground pepper was mixed into the butter.\"\n    },\n    {\n      \"type\": \"transfer\",\n      \"food_id\": \"butter_001\",\n      \"to_location\": \"pan_001\",\n      \"reasoning\": \"Oil is being added to the pan, which already contains butter, indicating a transfer of oil into the pan with butter.\",\n      \"source_text\": \"A portion of oil was separated from the spatula into the pan.\"\n    },\n    {\n      \"type\": \"transfer\",\n      \"food_id\": \"butter_001\",\n      \"to_location\": \"pan_001\",\n      \"reasoning\": \"Ground pepper is being added to the pan containing butter, indicating a transfer of pepper into the pan with butter.\",\n      \"source_text\": \"A portion of ground pepper was poured from the grinder into the pan.\"\n    },\n    {\n      \"type\": \"transfer\",\n      \"food_id\": \"butter_001\",\n      \"to_location\": \"pan_001\",\n      \"reasoning\": \"Ground pepper is being added to the pan containing butter, indicating a transfer of pepper into the pan with butter.\",\n      \"source_text\": \"A portion of ground pepper was poured from the grinder into the pan.\"\n    }\n  ]\n}\n```",
+  "parsed_response": {
+    "transactions": [
+      {
+        "type": "transfer",
+        "food_id": "butter_001",
+        "to_location": "pan_001",
+        "reasoning": "Ground pepper is being added to the pan containing butter, indicating a transfer of pepper into the pan with butter.",
+        "source_text": "A portion of ground pepper was poured from the grinder into the pan."
+      },
+      {
+        "type": "transfer",
+        "food_id": "butter_001",
+        "to_location": "pan_001",
+        "reasoning": "Ground pepper is being added to the pan containing butter, indicating a transfer of pepper into the pan with butter.",
+        "source_text": "A portion of ground pepper was poured from the grinder into the pan."
+      },
+      {
+        "type": "transfer",
+        "food_id": "butter_001",
+        "to_location": "pan_001",
+        "reasoning": "Ground pepper is being added to the pan containing butter, indicating a transfer of pepper into the pan with butter.",
+        "source_text": "A portion of ground pepper was poured from the grinder into the pan."
+      },
+      {
+        "type": "update",
+        "food_id": "butter_001",
+        "state_changes": {
+          "form_state": "cooking_in_progress"
+        },
+        "reasoning": "The butter is being mixed with pepper in the pan, indicating it is actively being cooked.",
+        "source_text": "The ground pepper was mixed into the butter."
+      },
+      {
+        "type": "transfer",
+        "food_id": "butter_001",
+        "to_location": "pan_001",
+        "reasoning": "Oil is being added to the pan, which already contains butter, indicating a transfer of oil into the pan with butter.",
+        "source_text": "A portion of oil was separated from the spatula into the pan."
+      },
+      {
+        "type": "transfer",
+        "food_id": "butter_001",
+        "to_location": "pan_001",
+        "reasoning": "Ground pepper is being added to the pan containing butter, indicating a transfer of pepper into the pan with butter.",
+        "source_text": "A portion of ground pepper was poured from the grinder into the pan."
+      },
+      {
+        "type": "transfer",
+        "food_id": "butter_001",
+        "to_location": "pan_001",
+        "reasoning": "Ground pepper is being added to the pan containing butter, indicating a transfer of pepper into the pan with butter.",
+        "source_text": "A portion of ground pepper was poured from the grinder into the pan."
+      }
+    ],
+    "new_containers": []
+  }
+}

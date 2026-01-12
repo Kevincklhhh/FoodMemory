@@ -1,0 +1,425 @@
+# Recipe: P01_R08 - Marinated Chicken with Soy Sauce
+# Videos: P01-20240203-184214, P01-20240204-142301, P01-20240204-152537
+#
+# INSTRUCTIONS:
+#   - To exclude an item: delete the block or add '# SKIP' before item name
+#   - To exclude an event: delete the line or prefix with '#'
+#   - Run 04_dispensal_classification.py to classify DISPENSING events
+#   - Run 05_get_timestamps.py to extract video clips
+#
+# Total items: 11
+# Total events: 112
+#   RETRIEVAL: 15
+#   ACCESS: 19
+#   DISPENSING: 51
+#   RESTOCKING: 27
+
+chicken:
+  - narration_id: P01-20240203-184214-15
+    stage: ACCESS
+    action: Open the plastic cover of the container containing chicken by stabbing/tearing the film with a knife.
+  - narration_id: P01-20240203-184214-17
+    stage: ACCESS
+    action: Tear/peel the plastic cover fully off the chicken container to expose the chicken.
+  - narration_id: P01-20240204-142301-85
+    stage: ACCESS
+    action: Uncover the bowl with marinated chicken by removing the cling film.
+  - narration_id: P01-20240204-142301-86
+    stage: DISPENSING
+    method: pick_unit
+    action: Pick one piece of chicken from the bowl with marinated chicken.
+  - narration_id: P01-20240204-142301-89
+    stage: DISPENSING
+    method: pick_unit
+    action: Pick up another piece of chicken from the bowl with marinated chicken.
+  - narration_id: P01-20240204-142301-92
+    stage: DISPENSING
+    method: pick_unit
+    action: Pick up another piece of chicken from the bowl with marinated chicken.
+  - narration_id: P01-20240204-142301-94
+    stage: DISPENSING
+    method: pick_unit
+    action: Pick up another piece of chicken from the bowl with marinated chicken.
+  - narration_id: P01-20240204-142301-97
+    stage: DISPENSING
+    method: pick_unit
+    action: Pick up another chicken piece from the bowl with marinated chicken.
+
+chicken stock cubes:
+  - narration_id: P01-20240204-142301-125
+    stage: RETRIEVAL
+    action: User picks up the box of chicken stock cubes from the oven door.
+  - narration_id: P01-20240204-142301-126
+    stage: RESTOCKING
+    action: User returns the box of chicken stock cubes into the shelf on the door of the fridge.
+  - narration_id: P01-20240204-142301-130
+    stage: ACCESS
+    action: User opens the chicken stock cube packaging by unfolding its edges.
+  - narration_id: P01-20240204-142301-131
+    stage: DISPENSING
+    method: pick_unit
+    action: User removes one chicken stock cube from its packaging.
+  - narration_id: P01-20240204-142301-134
+    stage: DISPENSING
+    method: cut_portion
+    action: User slices/breaks portions off the chicken stock cube, letting pieces fall into the tray.
+  - narration_id: P01-20240204-142301-447
+    stage: RETRIEVAL
+    action: User picks up the box of chicken stock cubes from the fridge door shelf.
+  - narration_id: P01-20240204-142301-448
+    stage: DISPENSING
+    method: pick_unit
+    action: User tilts the box to drop one chicken stock cube out into their hand.
+  - narration_id: P01-20240204-142301-449
+    stage: RESTOCKING
+    action: User puts the box of chicken stock cubes back onto the fridge door shelf.
+  - narration_id: P01-20240204-142301-454
+    stage: ACCESS
+    action: User opens the chicken stock cube packaging by unfolding the edges.
+  - narration_id: P01-20240204-142301-455
+    stage: DISPENSING
+    method: pick_unit
+    action: User removes the chicken stock cube from its packaging.
+  - narration_id: P01-20240204-142301-457
+    stage: DISPENSING
+    method: scoop
+    action: User uses a small spoon to scrape remaining chicken stock cube residue from the packaging into the mug.
+
+garlic:
+  - narration_id: P01-20240204-142301-102
+    stage: DISPENSING
+    method: scoop
+    action: Using the hand, slide marination from the bowl into the tray, including the garlic pieces.
+  - narration_id: P01-20240204-142301-163
+    stage: RETRIEVAL
+    action: Pick up the garlic pulp from the shelf under the countertop.
+  - narration_id: P01-20240204-142301-165
+    stage: DISPENSING
+    method: pick_unit
+    action: Break one garlic clove from the garlic pulp.
+  - narration_id: P01-20240204-142301-167
+    stage: DISPENSING
+    method: pick_unit
+    action: Break another garlic clove from the garlic pulp.
+  - narration_id: P01-20240204-142301-170
+    stage: RESTOCKING
+    action: Return the garlic bulb/pulp to the shelf under the countertop.
+
+marinade (marination liquid):
+  - narration_id: P01-20240204-142301-85
+    stage: ACCESS
+    action: User removes the cling film covering the bowl, exposing the marinade (marination liquid).
+  - narration_id: P01-20240204-142301-99
+    stage: RETRIEVAL
+    action: User picks up the bowl containing the marinade (marination liquid) using both hands.
+  - narration_id: P01-20240204-142301-101
+    stage: DISPENSING
+    method: pour
+    action: User pours marinade (marination liquid) into the tray.
+  - narration_id: P01-20240204-142301-102
+    stage: DISPENSING
+    method: pour
+    action: User slides some of the marinade (marination liquid) from the bowl into the tray by hand.
+  - narration_id: P01-20240204-142301-103
+    stage: DISPENSING
+    method: pour
+    action: User tilts the bowl further to drop more marinade (marination liquid) into the tray.
+  - narration_id: P01-20240204-142301-105
+    stage: RESTOCKING
+    action: User puts the bowl with remaining marinade (marination liquid) in the sink.
+
+minced meat:
+  - narration_id: P01-20240204-142301-127
+    stage: RETRIEVAL
+    action: User retrieves the plastic packaging containing minced meat from the fridge (second shelf).
+  - narration_id: P01-20240204-142301-129
+    stage: RETRIEVAL
+    action: User places the minced meat packaging on the countertop next to the hob.
+  - narration_id: P01-20240204-142301-294
+    stage: ACCESS
+    action: User opens the minced meat plastic packaging by stabbing/cutting along the edge with a knife.
+  - narration_id: P01-20240204-142301-296
+    stage: ACCESS
+    action: User peels back the plastic covering of the minced meat packaging to expose the meat.
+  - narration_id: P01-20240204-142301-403
+    stage: DISPENSING
+    method: scoop
+    action: User picks a handful of minced meat from the packaging.
+  - narration_id: P01-20240204-142301-405
+    stage: DISPENSING
+    method: scoop
+    action: User picks another handful of minced meat from the packaging.
+  - narration_id: P01-20240204-142301-408
+    stage: DISPENSING
+    method: scoop
+    action: User picks another handful of minced meat from the packaging.
+  - narration_id: P01-20240204-142301-410
+    stage: DISPENSING
+    method: scoop
+    action: User picks another handful of minced meat from the packaging.
+  - narration_id: P01-20240204-142301-412
+    stage: DISPENSING
+    method: scoop
+    action: User picks another handful of minced meat from the packaging.
+  - narration_id: P01-20240204-142301-414
+    stage: DISPENSING
+    method: scoop
+    action: User picks a small amount of minced meat from the packaging.
+  - narration_id: P01-20240204-142301-416
+    stage: DISPENSING
+    method: scoop
+    action: User picks another handful of minced meat from the packaging.
+  - narration_id: P01-20240204-142301-418
+    stage: DISPENSING
+    method: scoop
+    action: User picks another handful of minced meat from the packaging.
+  - narration_id: P01-20240204-142301-420
+    stage: DISPENSING
+    method: scoop
+    action: User gathers the remaining minced meat pieces from the packaging.
+  - narration_id: P01-20240204-142301-479
+    stage: RESTOCKING
+    action: Minced meat packaging is now empty (all minced meat dispensed); the empty packaging remains on the countertop.
+
+onions:
+  - narration_id: P01-20240204-142301-162
+    stage: RETRIEVAL
+    action: Pick up the mesh with onions from the shelf under the countertop.
+  - narration_id: P01-20240204-142301-174
+    stage: ACCESS
+    action: Cut the onion mesh open using scissors to create an opening.
+  - narration_id: P01-20240204-142301-176
+    stage: DISPENSING
+    method: pick_unit
+    action: Remove one onion from the mesh through the opening.
+  - narration_id: P01-20240204-142301-182
+    stage: RESTOCKING
+    action: Return the mesh (with remaining onions) to the shelf under the countertop.
+
+oranges:
+  - narration_id: P01-20240204-142301-341
+    stage: RETRIEVAL
+    action: Pick up four oranges from the upper shelf.
+  - narration_id: P01-20240204-142301-480
+    stage: DISPENSING
+    method: pick_unit
+    action: Pick one orange from the countertop.
+  - narration_id: P01-20240204-142301-507
+    stage: RESTOCKING
+    action: Discard the squeezed half-orange skin into the food waste bin.
+  - narration_id: P01-20240204-142301-517
+    stage: RESTOCKING
+    action: Discard the squeezed half orange into the food waste bin.
+  - narration_id: P01-20240204-142301-518
+    stage: DISPENSING
+    method: pick_unit
+    action: Pick up another full orange from the countertop.
+  - narration_id: P01-20240204-142301-531
+    stage: RESTOCKING
+    action: Discard the squeezed orange half skin into the food waste bin.
+  - narration_id: P01-20240204-142301-540
+    stage: RESTOCKING
+    action: Discard the squeezed half orange into the food waste bin.
+  - narration_id: P01-20240204-142301-542
+    stage: DISPENSING
+    method: pick_unit
+    action: Remove one orange from the mesh packaging.
+  - narration_id: P01-20240204-142301-543
+    stage: DISPENSING
+    method: pick_unit
+    action: Remove the second orange from the mesh packaging.
+  - narration_id: P01-20240204-142301-558
+    stage: RESTOCKING
+    action: Discard the squeezed orange skin into the food waste bin.
+  - narration_id: P01-20240204-142301-566
+    stage: RESTOCKING
+    action: Discard the squeezed half-orange skin into the food waste bin.
+  - narration_id: P01-20240204-142301-578
+    stage: RESTOCKING
+    action: Discard the squeezed half-orange skin into the food waste bin.
+  - narration_id: P01-20240204-142301-590
+    stage: RESTOCKING
+    action: Discard the squeezed half orange into the food waste bin.
+
+rice:
+  - narration_id: P01-20240204-142301-29
+    stage: DISPENSING
+    method: pour
+    action: Pour the water and the rice from the tupperware into the white bowl by tilting the tupperware over the bowl.
+  - narration_id: P01-20240204-142301-35
+    stage: DISPENSING
+    method: pour
+    action: Tilt the tupperware and slide the remaining rice and water into the bowl.
+
+rosemary:
+  - narration_id: P01-20240204-142301-102
+    stage: DISPENSING
+    method: scoop
+    action: Using the hand, slide rosemary leaves from the bowl into the tray.
+
+vegetable oil:
+  - narration_id: P01-20240204-142301-112
+    stage: RETRIEVAL
+    action: Pick up the bottle of vegetable oil from the shelf on top of the sink.
+  - narration_id: P01-20240204-142301-113
+    stage: ACCESS
+    action: Open the vegetable oil bottle by flipping the lid up.
+  - narration_id: P01-20240204-142301-114
+    stage: DISPENSING
+    method: pour
+    action: Tilt the vegetable oil bottle over the tray to pour oil onto the chicken.
+  - narration_id: P01-20240204-142301-117
+    stage: RESTOCKING
+    action: Put back the vegetable oil bottle on the shelf on top of the sink.
+  - narration_id: P01-20240204-142301-288
+    stage: RETRIEVAL
+    action: Pick up the vegetable oil bottle from the lower shelf on top of the sink.
+  - narration_id: P01-20240204-142301-289
+    stage: ACCESS
+    action: Open the vegetable oil bottle by flipping the lid open.
+  - narration_id: P01-20240204-142301-290
+    stage: DISPENSING
+    method: pour
+    action: Tilt the vegetable oil bottle to pour oil into the pan.
+
+water:
+  - narration_id: P01-20240204-142301-28
+    stage: RETRIEVAL
+    action: User picks up the tupperware containing soaking rice and water.
+  - narration_id: P01-20240204-142301-29
+    stage: DISPENSING
+    method: pour
+    action: User pours the soaking water (with rice) from the tupperware into the white bowl.
+  - narration_id: P01-20240204-142301-30
+    stage: ACCESS
+    action: User opens the tap.
+  - narration_id: P01-20240204-142301-31
+    stage: DISPENSING
+    method: pour
+    action: User fills water from the tap into the tupperware to rinse and gather remaining rice.
+  - narration_id: P01-20240204-142301-32
+    stage: RESTOCKING
+    action: User closes the tap.
+  - narration_id: P01-20240204-142301-35
+    stage: DISPENSING
+    method: pour
+    action: User pours the remaining rinse water (with rice) from the tupperware into the bowl.
+  - narration_id: P01-20240204-142301-36
+    stage: RESTOCKING
+    action: User puts the now-empty tupperware in the sink.
+  - narration_id: P01-20240204-142301-40
+    stage: DISPENSING
+    method: pour
+    action: User tilts the bowl to pour the washing water into the sink (discarding the water).
+  - narration_id: P01-20240204-142301-42
+    stage: ACCESS
+    action: User opens the tap.
+  - narration_id: P01-20240204-142301-43
+    stage: DISPENSING
+    method: pour
+    action: User fills the bowl with water from the tap.
+  - narration_id: P01-20240204-142301-44
+    stage: RESTOCKING
+    action: User closes the tap.
+  - narration_id: P01-20240204-142301-49
+    stage: DISPENSING
+    method: pour
+    action: User tilts the bowl to pour the washing water into the sink (discarding the water).
+  - narration_id: P01-20240204-142301-50
+    stage: ACCESS
+    action: User opens the tap.
+  - narration_id: P01-20240204-142301-51
+    stage: DISPENSING
+    method: pour
+    action: User fills the bowl with water from the tap again.
+  - narration_id: P01-20240204-142301-52
+    stage: RESTOCKING
+    action: User closes the tap.
+  - narration_id: P01-20240204-142301-58
+    stage: DISPENSING
+    method: pour
+    action: User tilts the bowl over the strainer so the water pours out into the sink (rice retained).
+  - narration_id: P01-20240204-142301-61
+    stage: ACCESS
+    action: User opens the tap.
+  - narration_id: P01-20240204-142301-62
+    stage: ACCESS
+    action: User releases the tap nozzle from its holder.
+  - narration_id: P01-20240204-142301-63
+    stage: DISPENSING
+    method: pour
+    action: User fills the bowl with water using the tap nozzle.
+  - narration_id: P01-20240204-142301-64
+    stage: RESTOCKING
+    action: User locks the tap nozzle back into its holder.
+  - narration_id: P01-20240204-142301-65
+    stage: RESTOCKING
+    action: User closes the tap.
+  - narration_id: P01-20240204-142301-68
+    stage: DISPENSING
+    method: pour
+    action: User tilts the bowl over the strainer so the water pours out (draining into the sink).
+  - narration_id: P01-20240204-142301-100
+    stage: DISPENSING
+    method: pour
+    action: User tilts the bowl to pour some marination water into the tray.
+  - narration_id: P01-20240204-142301-101
+    stage: DISPENSING
+    method: pour
+    action: User pours marination water into the tray.
+  - narration_id: P01-20240204-142301-103
+    stage: DISPENSING
+    method: pour
+    action: User tilts the bowl further to pour more marination liquid into the tray.
+  - narration_id: P01-20240204-142301-105
+    stage: RESTOCKING
+    action: User puts the bowl (with a little marination liquid left) in the sink.
+  - narration_id: P01-20240204-142301-386
+    stage: RETRIEVAL
+    action: User picks up the kettle from its base.
+  - narration_id: P01-20240204-142301-386
+    stage: ACCESS
+    action: User opens the kettle lid (using the handle button).
+  - narration_id: P01-20240204-142301-388
+    stage: ACCESS
+    action: User places the tap nozzle inside the kettle to fill it.
+  - narration_id: P01-20240204-142301-389
+    stage: ACCESS
+    action: User opens the tap.
+  - narration_id: P01-20240204-142301-390
+    stage: RESTOCKING
+    action: User closes the tap.
+  - narration_id: P01-20240204-142301-392
+    stage: RESTOCKING
+    action: User puts the filled kettle back on its base.
+  - narration_id: P01-20240204-142301-441
+    stage: RETRIEVAL
+    action: User picks up the kettle (with hot water) from its base.
+  - narration_id: P01-20240204-142301-442
+    stage: DISPENSING
+    method: pour
+    action: User pours hot water from the kettle into the mug.
+  - narration_id: P01-20240204-142301-443
+    stage: RESTOCKING
+    action: User puts the kettle back on its base.
+  - narration_id: P01-20240204-142301-602
+    stage: RETRIEVAL
+    action: User picks up the kettle from its base.
+  - narration_id: P01-20240204-142301-603
+    stage: DISPENSING
+    method: pour
+    action: User pours some hot water from the kettle into the pan.
+  - narration_id: P01-20240204-142301-604
+    stage: RESTOCKING
+    action: User puts the kettle back on its base.
+  - narration_id: P01-20240204-142301-610
+    stage: RETRIEVAL
+    action: User picks up the kettle again from its base.
+  - narration_id: P01-20240204-142301-611
+    stage: DISPENSING
+    method: pour
+    action: User pours more hot water from the kettle into the pan.
+  - narration_id: P01-20240204-142301-612
+    stage: RESTOCKING
+    action: User puts the kettle back on its base.
+

@@ -1,0 +1,555 @@
+# Recipe: P01_R05 - Lazy Cake Recipe
+# Videos: P01-20240203-132119, P01-20240203-135502, P01-20240203-161757
+#
+# INSTRUCTIONS:
+#   - To exclude an item: delete the block or add '# SKIP' before item name
+#   - To exclude an event: delete the line or prefix with '#'
+#   - Run 04_dispensal_classification.py to classify DISPENSING events
+#   - Run 05_get_timestamps.py to extract video clips
+#
+# Total items: 14
+# Total events: 140
+#   RETRIEVAL: 17
+#   ACCESS: 23
+#   DISPENSING: 91
+#   RESTOCKING: 9
+
+biscuits (packet):
+  - narration_id: P01-20240203-132119-253
+    stage: RETRIEVAL
+    action: User picks up biscuits (packet) from the upper shelf of the cupboard.
+  - narration_id: P01-20240203-132119-254
+    stage: RETRIEVAL
+    action: User places the biscuits (packet) on the countertop.
+  - narration_id: P01-20240203-132119-350
+    stage: ACCESS
+    action: User opens the outer biscuits (packet) packaging by pulling the plastic apart.
+  - narration_id: P01-20240203-132119-351
+    stage: DISPENSING
+    method: pick_unit
+    action: User removes one inner tube packet of biscuits from the multi-pack outer packaging.
+  - narration_id: P01-20240203-132119-354
+    stage: ACCESS
+    action: User opens the inner tube biscuits (packet) to access the biscuits inside.
+  - narration_id: P01-20240203-132119-355
+    stage: DISPENSING
+    method: pour
+    action: User tips the biscuits (packet) so biscuits fall into the food processor bowl (about 10 biscuits).
+  - narration_id: P01-20240203-132119-367
+    stage: DISPENSING
+    method: pick_unit
+    action: User takes a handful of biscuits from the open biscuits (packet).
+  - narration_id: P01-20240203-132119-369
+    stage: DISPENSING
+    method: pick_unit
+    action: User throws the handful of biscuits into the food processor bowl.
+  - narration_id: P01-20240203-132119-372
+    stage: DISPENSING
+    method: pick_unit
+    action: User takes another handful of biscuits from the open biscuits (packet).
+  - narration_id: P01-20240203-132119-374
+    stage: DISPENSING
+    method: pick_unit
+    action: User throws the second handful of biscuits into the food processor bowl.
+  - narration_id: P01-20240203-132119-406
+    stage: DISPENSING
+    method: pour
+    action: User turns the biscuits (packet) upside down so remaining biscuits fall into the food processor bowl.
+  - narration_id: P01-20240203-132119-407
+    stage: DISPENSING
+    method: pour
+    action: User shakes the biscuits (packet) to help remaining biscuits fall into the food processor bowl.
+  - narration_id: P01-20240203-132119-417
+    stage: RESTOCKING
+    action: User discards the empty biscuits (packet) packaging into the bin.
+  - narration_id: P01-20240203-132119-442
+    stage: ACCESS
+    action: User opens another biscuits (packet) by peeling/pinching the end.
+  - narration_id: P01-20240203-132119-443
+    stage: DISPENSING
+    method: pour
+    action: As the biscuits (packet) is opened, one biscuit falls out onto the countertop.
+  - narration_id: P01-20240203-132119-446
+    stage: DISPENSING
+    method: pour
+    action: User turns the opened biscuits (packet) upside down over the food processor bowl so biscuits fall in.
+
+box of stock cubes:
+  - narration_id: P01-20240203-132119-13
+    stage: RETRIEVAL
+    action: User picks up the box of stock cubes from the countertop.
+  - narration_id: P01-20240203-132119-14
+    stage: ACCESS
+    action: User opens the box of stock cubes by breaking the seal and pulling the cover.
+  - narration_id: P01-20240203-132119-15
+    stage: DISPENSING
+    method: pick_unit
+    action: User picks up one stock cube from the box of stock cubes.
+  - narration_id: P01-20240203-132119-70
+    stage: RESTOCKING
+    action: User puts the box of stock cubes (chicken stock) into the fridge door (second shelf).
+
+butter (package):
+  - narration_id: P01-20240203-132119-235
+    stage: RETRIEVAL
+    action: User retrieves butter (package) from the lower shelf of the fridge.
+  - narration_id: P01-20240203-135502-51
+    stage: ACCESS
+    action: User opens/unwraps the butter (package) by unfolding the packaging ends to expose the butter.
+  - narration_id: P01-20240203-135502-100
+    stage: ACCESS
+    action: User unwraps more of the butter (package) packaging.
+  - narration_id: P01-20240203-135502-106
+    stage: ACCESS
+    action: User unwraps more of the butter (package) to expose the cut half.
+  - narration_id: P01-20240203-135502-107
+    stage: DISPENSING
+    method: cut_portion
+    action: User dispenses a cut portion of butter from the butter (package) into the pot by pushing the cut half out of the packaging and letting it fall into the pot on the scale.
+  - narration_id: P01-20240203-135502-111
+    stage: RESTOCKING
+    action: User returns the remaining butter (package) to the lower shelf of the fridge.
+
+cocoa (red can):
+  - narration_id: P01-20240203-132119-246
+    stage: RETRIEVAL
+    action: Pick up another red can of cocoa from the upper shelf of the cupboard.
+  - narration_id: P01-20240203-132119-247
+    stage: RETRIEVAL
+    action: Place the red can of cocoa on the countertop.
+  - narration_id: P01-20240203-132119-248
+    stage: ACCESS
+    action: Open the red can of cocoa by pulling the lid up to check contents, then close it again by pushing the lid down.
+  - narration_id: P01-20240203-135502-128
+    stage: ACCESS
+    action: Open the red can of cocoa by pinching and pulling the lid up.
+  - narration_id: P01-20240203-135502-131
+    stage: DISPENSING
+    method: scoop
+    action: Scoop one spoonful of cocoa powder from the red can of cocoa.
+  - narration_id: P01-20240203-135502-133
+    stage: DISPENSING
+    method: scoop
+    action: Scoop another spoonful of cocoa powder from the red can of cocoa.
+  - narration_id: P01-20240203-135502-135
+    stage: DISPENSING
+    method: scoop
+    action: Scoop a third spoonful of cocoa powder from the red can of cocoa.
+  - narration_id: P01-20240203-135502-140
+    stage: ACCESS
+    action: Close the red can of cocoa by putting the lid on and pressing it down.
+
+condensed milk (can):
+  - narration_id: P01-20240203-132119-237
+    stage: RETRIEVAL
+    action: User picks up the condensed milk (can) from the upper shelf of the fridge (off screen).
+  - narration_id: P01-20240203-132119-238
+    stage: RETRIEVAL
+    action: User puts down the condensed milk (can) on the countertop.
+  - narration_id: P01-20240203-135502-165
+    stage: ACCESS
+    action: User positions a can opener on the rim of the condensed milk (can) to open it.
+  - narration_id: P01-20240203-135502-166
+    stage: ACCESS
+    action: User turns the can opener to cut/open the lid of the condensed milk (can).
+  - narration_id: P01-20240203-135502-187
+    stage: ACCESS
+    action: User lifts the already-cut lid of the condensed milk (can) using a knife.
+  - narration_id: P01-20240203-135502-189
+    stage: ACCESS
+    action: User fully removes the lid from the condensed milk (can).
+  - narration_id: P01-20240203-135502-204
+    stage: DISPENSING
+    method: pour
+    action: User pours condensed milk from the can into the pot by tilting the can over the pot.
+  - narration_id: P01-20240203-135502-208
+    stage: RESTOCKING
+    action: User puts down the empty condensed milk (can) on the scale (container now empty; end of lifecycle).
+
+cooked meat (in pan):
+  - narration_id: P01-20240203-135502-405
+    stage: ACCESS
+    action: User removes/picks up the lid of the pan containing cooked meat (in pan).
+  - narration_id: P01-20240203-135502-463
+    stage: DISPENSING
+    method: scoop
+    action: User takes a small amount of cooked meat mixture from the pan using a spoon (to taste).
+  - narration_id: P01-20240203-135502-468
+    stage: RESTOCKING
+    action: User puts the pan containing cooked meat (in pan) (meat topping mixture) onto the upper shelf.
+  - narration_id: P01-20240203-135502-577
+    stage: RETRIEVAL
+    action: User retrieves the pan containing cooked meat (in pan) (meat topping) from the upper shelf.
+  - narration_id: P01-20240203-135502-579
+    stage: DISPENSING
+    method: scoop
+    action: User pinches some cooked meat topping from the pan.
+  - narration_id: P01-20240203-135502-581
+    stage: DISPENSING
+    method: scoop
+    action: User pinches another amount of cooked meat topping from the pan.
+  - narration_id: P01-20240203-135502-583
+    stage: DISPENSING
+    method: scoop
+    action: User pinches some cooked meat topping from the pan.
+  - narration_id: P01-20240203-135502-585
+    stage: DISPENSING
+    method: scoop
+    action: User pinches some cooked meat topping from the pan.
+  - narration_id: P01-20240203-135502-587
+    stage: DISPENSING
+    method: scoop
+    action: User pinches cooked meat topping from the pan.
+  - narration_id: P01-20240203-135502-589
+    stage: DISPENSING
+    method: scoop
+    action: User pinches cooked meat topping from the pan.
+  - narration_id: P01-20240203-135502-591
+    stage: DISPENSING
+    method: scoop
+    action: User pinches cooked meat topping from the pan.
+  - narration_id: P01-20240203-135502-593
+    stage: DISPENSING
+    method: scoop
+    action: User pinches cooked meat topping from the pan.
+  - narration_id: P01-20240203-135502-595
+    stage: DISPENSING
+    method: scoop
+    action: User pinches cooked meat topping from the pan.
+  - narration_id: P01-20240203-135502-597
+    stage: DISPENSING
+    method: scoop
+    action: User pinches cooked meat topping from the pan.
+  - narration_id: P01-20240203-135502-599
+    stage: DISPENSING
+    method: scoop
+    action: User pinches more cooked meat topping from the pan.
+  - narration_id: P01-20240203-135502-602
+    stage: DISPENSING
+    method: scoop
+    action: User pinches cooked meat topping from the pan.
+  - narration_id: P01-20240203-135502-604
+    stage: DISPENSING
+    method: scoop
+    action: User pinches cooked meat topping from the pan.
+  - narration_id: P01-20240203-135502-606
+    stage: DISPENSING
+    method: scoop
+    action: User pinches more cooked meat topping from the pan.
+  - narration_id: P01-20240203-135502-608
+    stage: DISPENSING
+    method: scoop
+    action: User pinches cooked meat topping from the pan.
+  - narration_id: P01-20240203-135502-610
+    stage: DISPENSING
+    method: scoop
+    action: User gathers and pinches more cooked meat topping from the pan.
+  - narration_id: P01-20240203-135502-613
+    stage: DISPENSING
+    method: scoop
+    action: User pinches cooked meat topping from the pan.
+  - narration_id: P01-20240203-135502-615
+    stage: DISPENSING
+    method: scoop
+    action: User pinches cooked meat topping from the pan.
+  - narration_id: P01-20240203-135502-617
+    stage: DISPENSING
+    method: scoop
+    action: User pinches cooked meat topping from the pan.
+  - narration_id: P01-20240203-135502-619
+    stage: DISPENSING
+    method: scoop
+    action: User pinches cooked meat topping from the pan.
+  - narration_id: P01-20240203-135502-621
+    stage: DISPENSING
+    method: scoop
+    action: User pinches cooked meat topping from the pan.
+  - narration_id: P01-20240203-135502-623
+    stage: DISPENSING
+    method: scoop
+    action: User pinches cooked meat topping from the pan.
+  - narration_id: P01-20240203-135502-625
+    stage: DISPENSING
+    method: scoop
+    action: User pinches cooked meat topping from the pan.
+  - narration_id: P01-20240203-135502-627
+    stage: DISPENSING
+    method: scoop
+    action: User pinches cooked meat topping from the pan.
+  - narration_id: P01-20240203-135502-629
+    stage: DISPENSING
+    method: scoop
+    action: User pinches cooked meat topping from the pan.
+  - narration_id: P01-20240203-135502-631
+    stage: DISPENSING
+    method: scoop
+    action: User pinches cooked meat topping from the pan.
+  - narration_id: P01-20240203-135502-633
+    stage: DISPENSING
+    method: scoop
+    action: User pinches cooked meat topping from the pan.
+  - narration_id: P01-20240203-135502-635
+    stage: DISPENSING
+    method: scoop
+    action: User gathers and pinches more cooked meat topping from the pan.
+  - narration_id: P01-20240203-135502-637
+    stage: DISPENSING
+    method: scoop
+    action: User pinches cooked meat topping from the pan.
+  - narration_id: P01-20240203-135502-639
+    stage: DISPENSING
+    method: scoop
+    action: User pinches cooked meat topping from the pan.
+  - narration_id: P01-20240203-135502-641
+    stage: DISPENSING
+    method: scoop
+    action: User pinches cooked meat topping from the pan.
+  - narration_id: P01-20240203-135502-643
+    stage: DISPENSING
+    method: scoop
+    action: User pinches cooked meat topping from the pan (moving the spoon as pan empties).
+  - narration_id: P01-20240203-135502-646
+    stage: DISPENSING
+    method: scoop
+    action: User gathers meat in the pan and pinches additional cooked meat topping from the pan.
+  - narration_id: P01-20240203-135502-648
+    stage: DISPENSING
+    method: scoop
+    action: User gathers and pinches cooked meat topping from the pan.
+  - narration_id: P01-20240203-135502-651
+    stage: DISPENSING
+    method: scoop
+    action: User gathers the remaining cooked meat topping in a corner of the pan using fingers (preparing to pick it).
+  - narration_id: P01-20240203-135502-652
+    stage: DISPENSING
+    method: scoop
+    action: User picks/scoops the remaining cooked meat topping from the pan using fingers.
+  - narration_id: P01-20240203-135502-656
+    stage: DISPENSING
+    method: scoop
+    action: User scrapes/gathers remaining cooked meat topping stuck on the spoon surface (to add to topping).
+  - narration_id: P01-20240203-135502-657
+    stage: DISPENSING
+    method: scoop
+    action: User gathers remaining cooked meat topping from the pan by passing fingers around the pan surface/hand to collect it.
+  - narration_id: P01-20240203-135502-659
+    stage: DISPENSING
+    method: scoop
+    action: User scoops all gathered remaining cooked meat topping from the pan using fingers.
+
+coriander (bag):
+  - narration_id: P01-20240203-135502-763
+    stage: ACCESS
+    action: User opens the plastic bag containing coriander by pulling the two sides of the bag apart.
+  - narration_id: P01-20240203-135502-777
+    stage: DISPENSING
+    method: scoop
+    action: User inserts their hand into the coriander bag to retrieve coriander.
+  - narration_id: P01-20240203-135502-778
+    stage: DISPENSING
+    method: scoop
+    action: User takes a handful of coriander from the bag.
+  - narration_id: P01-20240203-135502-779
+    stage: DISPENSING
+    method: scoop
+    action: User drops the handful of coriander into the strainer.
+  - narration_id: P01-20240203-135502-780
+    stage: DISPENSING
+    method: scoop
+    action: User takes another handful of coriander from the bag (some coriander falls onto the countertop during removal).
+  - narration_id: P01-20240203-135502-781
+    stage: DISPENSING
+    method: scoop
+    action: User drops the additional handful of coriander into the strainer.
+
+dough (in bowl):
+  - narration_id: P01-20240203-135502-358
+    stage: RETRIEVAL
+    action: User retrieves the dough (in bowl) from the oven (proofing location) and brings it to the countertop.
+  - narration_id: P01-20240203-135502-360
+    stage: ACCESS
+    action: User uncovers the dough (in bowl) by lifting the towels off the bowl.
+  - narration_id: P01-20240203-135502-469
+    stage: ACCESS
+    action: User uncovers the dough (in bowl) again by lifting the towel off the bowl.
+  - narration_id: P01-20240203-135502-477
+    stage: DISPENSING
+    method: cut_portion
+    action: User removes a small ball/portion of dough from the dough (in bowl).
+  - narration_id: P01-20240203-135502-492
+    stage: DISPENSING
+    method: cut_portion
+    action: User takes a portion of dough from the main dough (in bowl) to form a ball.
+  - narration_id: P01-20240203-135502-495
+    stage: DISPENSING
+    method: cut_portion
+    action: User removes another portion of dough from the dough (in bowl).
+  - narration_id: P01-20240203-135502-501
+    stage: DISPENSING
+    method: cut_portion
+    action: User removes another portion of dough from the dough (in bowl).
+  - narration_id: P01-20240203-135502-502
+    stage: DISPENSING
+    method: cut_portion
+    action: User removes an additional portion of dough from the dough (in bowl).
+  - narration_id: P01-20240203-135502-506
+    stage: DISPENSING
+    method: cut_portion
+    action: User removes another portion of dough from the dough (in bowl).
+  - narration_id: P01-20240203-135502-507
+    stage: DISPENSING
+    method: cut_portion
+    action: User removes another portion of dough from the dough (in bowl).
+  - narration_id: P01-20240203-135502-515
+    stage: DISPENSING
+    method: cut_portion
+    action: User removes another portion of dough from the dough (in bowl).
+  - narration_id: P01-20240203-135502-516
+    stage: DISPENSING
+    method: cut_portion
+    action: User removes another portion of dough from the dough (in bowl).
+  - narration_id: P01-20240203-135502-523
+    stage: DISPENSING
+    method: cut_portion
+    action: User removes another portion of dough from the dough (in bowl).
+  - narration_id: P01-20240203-135502-529
+    stage: DISPENSING
+    method: cut_portion
+    action: User removes another portion of dough from the dough (in bowl).
+  - narration_id: P01-20240203-135502-537
+    stage: DISPENSING
+    method: cut_portion
+    action: User removes another portion of dough from the dough (in bowl).
+  - narration_id: P01-20240203-135502-540
+    stage: DISPENSING
+    method: cut_portion
+    action: User removes another portion of dough from the dough (in bowl).
+  - narration_id: P01-20240203-135502-543
+    stage: DISPENSING
+    method: cut_portion
+    action: User removes another portion of dough from the dough (in bowl).
+  - narration_id: P01-20240203-135502-546
+    stage: DISPENSING
+    method: cut_portion
+    action: User removes another portion of dough from the dough (in bowl).
+  - narration_id: P01-20240203-135502-550
+    stage: DISPENSING
+    method: cut_portion
+    action: User removes another portion of dough from the dough (in bowl).
+  - narration_id: P01-20240203-135502-557
+    stage: DISPENSING
+    method: cut_portion
+    action: User removes another portion of dough from the dough (in bowl).
+  - narration_id: P01-20240203-135502-561
+    stage: DISPENSING
+    method: cut_portion
+    action: User removes another portion of dough from the dough (in bowl).
+  - narration_id: P01-20240203-135502-565
+    stage: DISPENSING
+    method: cut_portion
+    action: User takes the remaining dough portion (final portion) from the dough (in bowl).
+
+drinking cocoa (blue can):
+  - narration_id: P01-20240203-132119-243
+    stage: RETRIEVAL
+    action: User picks up drinking cocoa (blue can) from the upper shelf inside the cupboard.
+  - narration_id: P01-20240203-132119-251
+    stage: RESTOCKING
+    action: User returns drinking cocoa (blue can) to the cupboard since it won't be used.
+
+olive oil (bottle):
+  - narration_id: P01-20240203-135502-384
+    stage: DISPENSING
+    method: pour
+    action: User pours olive oil (bottle) into the tray on the right to oil it.
+  - narration_id: P01-20240203-135502-388
+    stage: DISPENSING
+    method: pour
+    action: User pours olive oil (bottle) into the tray on the left to oil it.
+  - narration_id: P01-20240203-135502-486
+    stage: DISPENSING
+    method: pour
+    action: User pours olive oil (bottle) onto a plate to oil their hands.
+
+sumac spice (jar):
+  - narration_id: P01-20240203-135502-446
+    stage: RETRIEVAL
+    action: Pick up the sumac spice (jar) from the lower shelf of the cupboard.
+  - narration_id: P01-20240203-135502-447
+    stage: ACCESS
+    action: Open the sumac spice (jar) by rotating the lid counterclockwise.
+  - narration_id: P01-20240203-135502-449
+    stage: DISPENSING
+    method: pour
+    action: Pour some sumac spice from the jar into the lid to measure it.
+  - narration_id: P01-20240203-135502-453
+    stage: RESTOCKING
+    action: Put the sumac spice (jar) back onto the lower shelf of the cupboard.
+
+tahini (jar):
+  - narration_id: P01-20240203-135502-424
+    stage: RETRIEVAL
+    action: Pick up tahini (jar) from the lower shelf on top of the sink.
+  - narration_id: P01-20240203-135502-425
+    stage: RETRIEVAL
+    action: Put down tahini (jar) on the countertop next to the yogurt.
+  - narration_id: P01-20240203-135502-432
+    stage: ACCESS
+    action: Open tahini (jar) by fully rotating the lid and lifting it off.
+  - narration_id: P01-20240203-135502-438
+    stage: DISPENSING
+    method: scoop
+    action: Scoop one spoonful of tahini from tahini (jar) (positioned over the pan).
+  - narration_id: P01-20240203-135502-440
+    stage: DISPENSING
+    method: scoop
+    action: Scoop another half spoon of tahini from tahini (jar).
+  - narration_id: P01-20240203-135502-457
+    stage: RETRIEVAL
+    action: Pick up tahini (jar) from the countertop.
+  - narration_id: P01-20240203-135502-458
+    stage: DISPENSING
+    method: scoop
+    action: Scoop one handful/spoonful of tahini from tahini (jar).
+
+unsalted butter:
+  - narration_id: P01-20240203-132119-235
+    stage: RETRIEVAL
+    action: User retrieves the unsalted butter from the lower shelf of the fridge (then brings it to the workspace/countertop).
+  - narration_id: P01-20240203-135502-51
+    stage: ACCESS
+    action: User opens/unfolds the unsalted butter packaging to expose the butter.
+  - narration_id: P01-20240203-135502-106
+    stage: ACCESS
+    action: User unwraps more of the butter packaging, further exposing the portion to be used.
+  - narration_id: P01-20240203-135502-107
+    stage: DISPENSING
+    method: cut_portion
+    action: User separates a cut portion of unsalted butter from the block (using a knife) and lets the portion fall into the pot on the scale.
+  - narration_id: P01-20240203-135502-111
+    stage: RESTOCKING
+    action: User returns the remaining unsalted butter (in its packaging) to the lower shelf of the fridge.
+
+yogurt (tub):
+  - narration_id: P01-20240203-135502-327
+    stage: RESTOCKING
+    action: User moves the yogurt (tub) within the fridge from the second shelf to the top shelf.
+  - narration_id: P01-20240203-135502-408
+    stage: RETRIEVAL
+    action: User retrieves the yogurt (tub) from the upper shelf of the fridge.
+  - narration_id: P01-20240203-135502-414
+    stage: ACCESS
+    action: User opens the yogurt (tub) by peeling back the cover (leaving it partially attached).
+  - narration_id: P01-20240203-135502-416
+    stage: DISPENSING
+    method: scoop
+    action: User scoops one spoonful of yogurt from the yogurt (tub).
+  - narration_id: P01-20240203-135502-418
+    stage: DISPENSING
+    method: scoop
+    action: User scoops another (not full) spoon of yogurt from the yogurt (tub).
+  - narration_id: P01-20240203-135502-420
+    stage: DISPENSING
+    method: scoop
+    action: User scoops a third (not full) spoon of yogurt from the yogurt (tub).
+

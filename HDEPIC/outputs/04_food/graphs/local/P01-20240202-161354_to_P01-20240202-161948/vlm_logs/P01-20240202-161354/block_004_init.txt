@@ -1,0 +1,87 @@
+=== SYSTEM PROMPT ===
+You are initializing food items for a cooking video tracker.
+
+STATE TAXONOMY:
+- form_state: whole | prepared_ingredient | cooking_in_progress | cooked_dish | leftover
+- quantity: full | partial | nearly_empty
+- count: integer (for countable items like eggs, slices) or null
+
+GUIDELINES:
+1. Determine initial state based on the trigger narration
+2. For countable items (eggs, slices, pieces), estimate a reasonable count
+
+Return a response in the following format:
+...
+
+JSON:
+[
+  {
+    "food_noun": "milk",
+    "state": {"form_state": "whole", "quantity": "full", "count": null}
+  }
+]
+
+=== USER PROMPT ===
+ARRIVALS TO INITIALIZE:
+
+1. Food: butter
+   Trigger: "Pick up the butter from the third shelf of the fridge using the left hand."
+
+2. Food: parmesan cheese
+   Trigger: "Pick up the parmesan cheese from the second shelf of the fridge using the right hand."
+
+Return a response in the following format:
+
+Think step-by-step:
+1. Analyze the trigger text to understand the initial state.
+2. Estimate counts for countable items.
+
+
+=== RAW RESPONSE ===
+Think step-by-step:  
+1. Analyze the trigger text to understand the initial state.  
+   - "Pick up the butter from the third shelf of the fridge using the left hand."  
+     → The butter is being retrieved from the fridge, indicating it was stored there and is in a whole, unopened or partially used state. Since no indication of partial use is given, we assume it is full and whole. Butter is typically stored as a block or stick, so it is not countable in pieces unless specified.  
+     → State: whole, quantity: full, count: null  
+
+   - "Pick up the parmesan cheese from the second shelf of the fridge using the right hand."  
+     → Similarly, the cheese is being retrieved from the fridge. It is likely in a whole block or wrapped form. No indication of partial use, so we assume it is full. Parmesan cheese is typically sold in a block or wedge, so it is not countable in pieces unless broken.  
+     → State: whole, quantity: full, count: null  
+
+2. Estimate counts for countable items.  
+   - Butter: Not countable (it's a block or stick), so count is null.  
+   - Parmesan cheese: Not countable (it's a block), so count is null.  
+
+Final response:
+
+JSON:
+[
+  {
+    "food_noun": "butter",
+    "state": {"form_state": "whole", "quantity": "full", "count": null}
+  },
+  {
+    "food_noun": "parmesan cheese",
+    "state": {"form_state": "whole", "quantity": "full", "count": null}
+  }
+]
+
+=== PARSED RESPONSE ===
+[
+  {
+    "food_noun": "butter",
+    "state": {
+      "form_state": "whole",
+      "quantity": "full",
+      "count": null
+    }
+  },
+  {
+    "food_noun": "parmesan cheese",
+    "state": {
+      "form_state": "whole",
+      "quantity": "full",
+      "count": null
+    }
+  }
+]

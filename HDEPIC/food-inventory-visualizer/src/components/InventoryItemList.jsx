@@ -189,6 +189,29 @@ const styles = {
     fontSize: '9px',
     color: '#e65100',
   },
+  assignmentBadge: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '4px',
+    padding: '2px 6px',
+    backgroundColor: '#e8f5e9',
+    borderRadius: '4px',
+    fontSize: '10px',
+    color: '#2e7d32',
+    marginTop: '4px',
+  },
+  assignmentRecipe: {
+    fontWeight: '600',
+  },
+  assignmentAmount: {
+    backgroundColor: '#c8e6c9',
+    padding: '1px 4px',
+    borderRadius: '3px',
+  },
+  noAssignment: {
+    backgroundColor: '#fff3e0',
+    color: '#e65100',
+  },
 };
 
 function InventoryItemList({ items, selectedItem, onSelectItem, onNarrationClick, narrationTimestamps }) {
@@ -355,6 +378,30 @@ function InventoryItemList({ items, selectedItem, onSelectItem, onNarrationClick
                                 )}
                               </div>
                               <div style={styles.narrationId}>{event.narration_id}</div>
+                              {/* Show assignment info for DISPENSING events */}
+                              {event.stage === 'DISPENSING' && (
+                                <div style={{
+                                  ...styles.assignmentBadge,
+                                  ...(event.assigned_recipe_id ? {} : styles.noAssignment),
+                                }}>
+                                  {event.assigned_recipe_id ? (
+                                    <>
+                                      <span style={styles.assignmentRecipe}>
+                                        {event.assigned_recipe_id}
+                                      </span>
+                                      <span>→</span>
+                                      <span style={styles.assignmentAmount}>
+                                        {event.assigned_amount} {event.assigned_amount_unit}
+                                      </span>
+                                      <span style={{ color: '#666' }}>
+                                        ({event.assigned_ingredient_name})
+                                      </span>
+                                    </>
+                                  ) : (
+                                    <span>⚠ No recipe assignment</span>
+                                  )}
+                                </div>
+                              )}
                             </div>
                             <span
                               style={{

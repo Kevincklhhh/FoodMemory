@@ -1,7 +1,7 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import InventoryItemList from './components/InventoryItemList';
 import InventoryVideoPlayer from './components/InventoryVideoPlayer';
-import { parseNarrationTimestamps, parseNarrationId } from './utils/narrationParser';
+import { parseNarrationTimestampsJSON, parseNarrationId } from './utils/narrationParser';
 
 const VIDEO_SERVER = 'http://localhost:3001';
 
@@ -189,13 +189,11 @@ function InventoryApp() {
       const inventoryJson = await inventoryResponse.json();
       setInventoryData(inventoryJson);
 
-      // Load narration timestamps
-      const csvResponse = await fetch(
-        `${VIDEO_SERVER}/data/${participant}/participant_${participant}_narrations.csv`
-      );
-      if (csvResponse.ok) {
-        const csvText = await csvResponse.text();
-        const timestamps = parseNarrationTimestamps(csvText);
+      // Load narration timestamps from central JSON file
+      const narrationsResponse = await fetch(`${VIDEO_SERVER}/narrations`);
+      if (narrationsResponse.ok) {
+        const narrationsJson = await narrationsResponse.json();
+        const timestamps = parseNarrationTimestampsJSON(narrationsJson);
         setNarrationTimestamps(timestamps);
       }
 
@@ -336,6 +334,7 @@ function InventoryApp() {
                 videoId={currentVideo}
                 currentTime={currentTime}
                 onTimeUpdate={handleTimeUpdate}
+                onNarrationClick={handleNarrationClick}
                 selectedItem={selectedItem}
                 narrationTimestamps={narrationTimestamps}
               />

@@ -127,6 +127,7 @@ const InventoryVideoPlayer = forwardRef(({
   videoId,
   currentTime,
   onTimeUpdate,
+  onNarrationClick,
   selectedItem,
   narrationTimestamps,
 }, ref) => {
@@ -182,10 +183,9 @@ const InventoryVideoPlayer = forwardRef(({
   });
 
   const handleEventClick = (event) => {
-    const timestamp = narrationTimestamps[event.narration_id];
-    if (timestamp !== undefined && videoRef.current) {
-      videoRef.current.currentTime = timestamp;
-      onTimeUpdate(timestamp);
+    // Use parent's narration click handler to properly load video and seek
+    if (onNarrationClick) {
+      onNarrationClick(event.narration_id);
     }
   };
 

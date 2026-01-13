@@ -12,7 +12,7 @@ const path = require('path');
 
 const PORT = 3001;
 // Absolute path to HDEPIC data
-const HDEPIC_ROOT = '/Users/kailaicui/FoodMemory/HDEPIC';
+const HDEPIC_ROOT = path.resolve(__dirname, '..');
 
 // MIME types
 const MIME_TYPES = {
@@ -42,10 +42,10 @@ const server = http.createServer((req, res) => {
   console.log(`[${new Date().toISOString()}] ${req.method} ${pathname}`);
 
   // Route: /videos/{participant}/{video_id}.mp4
-  // Maps to: HDEPIC/{participant}/{video_id}.mp4
+  // Maps to: HDEPIC/data/HD-EPIC/Videos/{participant}/{video_id}.mp4
   if (pathname.startsWith('/videos/')) {
     const relativePath = pathname.replace('/videos/', '');
-    const filePath = path.join(HDEPIC_ROOT, relativePath);
+    const filePath = path.join(HDEPIC_ROOT, 'data', 'HD-EPIC', 'Videos', relativePath);
 
     serveVideo(req, res, filePath);
     return;
@@ -63,9 +63,16 @@ const server = http.createServer((req, res) => {
   // Route: /list/{participant} - list available videos
   if (pathname.startsWith('/list/')) {
     const participant = pathname.replace('/list/', '');
-    const dirPath = path.join(HDEPIC_ROOT, participant);
+    const dirPath = path.join(HDEPIC_ROOT, 'data', 'HD-EPIC', 'Videos', participant);
 
     listVideos(res, dirPath, participant);
+    return;
+  }
+
+  // Route: /narrations - serve all narration timestamps
+  if (pathname === '/narrations') {
+    const filePath = path.join(HDEPIC_ROOT, 'data', 'hd-epic-annotations', 'narrations_timestamps.json');
+    serveFile(res, filePath);
     return;
   }
 

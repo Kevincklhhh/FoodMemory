@@ -1,4 +1,19 @@
 /**
+ * Parse narration timestamps from JSON content (from HD_EPIC_Narrations.pkl converted to JSON)
+ * @param {Object} jsonData - Parsed JSON object { narration_id: { timestamp, video_id, ... } }
+ * @returns {Object} Map of narration_id to timestamp
+ */
+export function parseNarrationTimestampsJSON(jsonData) {
+  const timestamps = {};
+  for (const [narrationId, data] of Object.entries(jsonData)) {
+    if (data.timestamp !== undefined && !isNaN(data.timestamp)) {
+      timestamps[narrationId] = data.timestamp;
+    }
+  }
+  return timestamps;
+}
+
+/**
  * Parse narration timestamps from CSV content
  * CSV format: unique_narration_id,participant_id,video_id,narration,start_timestamp,end_timestamp,...
  * @param {string} csvContent - Raw CSV file content

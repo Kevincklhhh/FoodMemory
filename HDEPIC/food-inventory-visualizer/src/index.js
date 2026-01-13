@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
+// Switch between Apps:
+// import App from './App';  // Original Food Graph Visualizer
+import App from './InventoryApp';  // Inventory Lifecycle Visualizer
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

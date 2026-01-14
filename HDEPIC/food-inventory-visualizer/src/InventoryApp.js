@@ -1,6 +1,7 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import InventoryItemList from './components/InventoryItemList';
 import InventoryVideoPlayer from './components/InventoryVideoPlayer';
+import TimelineView from './components/TimelineView';
 import { parseNarrationTimestampsJSON, parseNarrationId } from './utils/narrationParser';
 
 const VIDEO_SERVER = 'http://localhost:3001';
@@ -124,6 +125,31 @@ const styles = {
     paddingTop: '15px',
     borderTop: '1px solid #e0e0e0',
   },
+  viewToggle: {
+    display: 'flex',
+    gap: '0',
+    marginLeft: '20px',
+  },
+  viewToggleButton: {
+    padding: '8px 16px',
+    border: '1px solid #2E7D32',
+    backgroundColor: 'white',
+    color: '#2E7D32',
+    fontSize: '13px',
+    cursor: 'pointer',
+    transition: 'all 0.2s',
+  },
+  viewToggleButtonFirst: {
+    borderRadius: '4px 0 0 4px',
+  },
+  viewToggleButtonLast: {
+    borderRadius: '0 4px 4px 0',
+    borderLeft: 'none',
+  },
+  viewToggleButtonActive: {
+    backgroundColor: '#2E7D32',
+    color: 'white',
+  },
 };
 
 function InventoryApp() {
@@ -133,8 +159,10 @@ function InventoryApp() {
 
   // Data state
   const [inventoryData, setInventoryData] = useState(null);
+  const [lifecycleData, setLifecycleData] = useState(null);
   const [narrationTimestamps, setNarrationTimestamps] = useState({});
   const [participant, setParticipant] = useState('P01');
+  const [viewMode, setViewMode] = useState('items'); // 'items' or 'timeline'
 
   // UI state
   const [selectedItem, setSelectedItem] = useState(null);
@@ -179,7 +207,7 @@ function InventoryApp() {
     setSuccess(null);
 
     try {
-      // Load inventory data
+      // Load inventory data (known_quantities.json)
       const inventoryResponse = await fetch(
         `${VIDEO_SERVER}/data/outputs/02_inventory/${participant}/${participant}_known_quantities.json`
       );
@@ -188,6 +216,15 @@ function InventoryApp() {
       }
       const inventoryJson = await inventoryResponse.json();
       setInventoryData(inventoryJson);
+
+      // Load lifecycle data (lifecycle.json) for timeline view
+      const lifecycleResponse = await fetch(
+        `${VIDEO_SERVER}/data/outputs/02_inventory/${participant}/${participant}_lifecycle.json`
+      );
+      if (lifecycleResponse.ok) {
+        const lifecycleJson = await lifecycleResponse.json();
+        setLifecycleData(lifecycleJson);
+      }
 
       // Load narration timestamps from central JSON file
       const narrationsResponse = await fetch(`${VIDEO_SERVER}/narrations`);
@@ -292,6 +329,32 @@ function InventoryApp() {
             >
               {loading ? 'Loading...' : 'Load from Server'}
             </button>
+
+            {/* View Mode Toggle */}
+            {inventoryData && (
+              <div style={styles.viewToggle}>
+                <button
+                  style={{
+                    ...styles.viewToggleButton,
+                    ...styles.viewToggleButtonFirst,
+                    ...(viewMode === 'items' ? styles.viewToggleButtonActive : {}),
+                  }}
+                  onClick={() => setViewMode('items')}
+                >
+                  Item View
+                </button>
+                <button
+                  style={{
+                    ...styles.viewToggleButton,
+                    ...styles.viewToggleButtonLast,
+                    ...(viewMode === 'timeline' ? styles.viewToggleButtonActive : {}),
+                  }}
+                  onClick={() => setViewMode('timeline')}
+                >
+                  Timeline View
+                </button>
+              </div>
+            )}
           </div>
 
           {!serverOnline && (
@@ -317,28 +380,39 @@ function InventoryApp() {
               <strong> Videos Available:</strong> {availableVideos.length}
             </div>
 
-            <div style={styles.mainLayout}>
-              {/* Left Panel: Inventory List */}
-              <InventoryItemList
-                items={inventoryData.items || []}
-                selectedItem={selectedItem}
-                onSelectItem={handleSelectItem}
-                onNarrationClick={handleNarrationClick}
-                narrationTimestamps={narrationTimestamps}
-              />
+            {viewMode === 'items' ? (
+              <div style={styles.mainLayout}>
+                {/* Left Panel: Inventory List */}
+                <InventoryItemList
+                  items={inventoryData.items || []}
+                  selectedItem={selectedItem}
+                  onSelectItem={handleSelectItem}
+                  onNarrationClick={handleNarrationClick}
+                  narrationTimestamps={narrationTimestamps}
+                />
 
-              {/* Right Panel: Video Player */}
-              <InventoryVideoPlayer
-                ref={videoRef}
-                videoUrl={currentVideoUrl}
-                videoId={currentVideo}
-                currentTime={currentTime}
-                onTimeUpdate={handleTimeUpdate}
-                onNarrationClick={handleNarrationClick}
-                selectedItem={selectedItem}
-                narrationTimestamps={narrationTimestamps}
-              />
-            </div>
+                {/* Right Panel: Video Player */}
+                <InventoryVideoPlayer
+                  ref={videoRef}
+                  videoUrl={currentVideoUrl}
+                  videoId={currentVideo}
+                  currentTime={currentTime}
+                  onTimeUpdate={handleTimeUpdate}
+                  onNarrationClick={handleNarrationClick}
+                  selectedItem={selectedItem}
+                  narrationTimestamps={narrationTimestamps}
+                />
+              </div>
+            ) : (
+              <div style={{ ...styles.mainLayout, gridTemplateColumns: '1fr' }}>
+                {/* Timeline View */}
+                <TimelineView
+                  lifecycleData={lifecycleData}
+                  onEventClick={handleNarrationClick}
+                  narrationTimestamps={narrationTimestamps}
+                />
+              </div>
+            )}
           </>
         )}
       </div>

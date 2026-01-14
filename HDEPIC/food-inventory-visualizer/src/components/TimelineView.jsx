@@ -202,11 +202,13 @@ function TimelineView({ lifecycleData, onEventClick, narrationTimestamps }) {
       if (a.videoId !== b.videoId) {
         return a.videoId.localeCompare(b.videoId);
       }
-      return (a.timestamp || 0) - (b.timestamp || 0);
+      const aTime = narrationTimestamps[a.narration_id]?.start_timestamp || 0;
+      const bTime = narrationTimestamps[b.narration_id]?.start_timestamp || 0;
+      return aTime - bTime;
     });
 
     setAllEvents(events);
-  }, [lifecycleData]);
+  }, [lifecycleData, narrationTimestamps]);
 
   // Update same-item events when selection changes
   useEffect(() => {
@@ -320,7 +322,7 @@ function TimelineView({ lifecycleData, onEventClick, narrationTimestamps }) {
                 onClick={() => handleEventClick(event)}
               >
                 <span style={styles.timestamp}>
-                  {event.timestamp ? formatTimestamp(event.timestamp) : '--:--'}
+                  {formatTimestamp(narrationTimestamps[event.narration_id]?.start_timestamp)}
                 </span>
                 <span style={{ ...styles.stageBadge, backgroundColor: getStageColor(event.stage) }}>
                   {event.stage}
@@ -385,7 +387,7 @@ function TimelineView({ lifecycleData, onEventClick, narrationTimestamps }) {
                     >
                       <span style={styles.eventIndex}>{idx + 1}.</span>
                       <span style={styles.timestamp}>
-                        {event.timestamp ? formatTimestamp(event.timestamp) : '--:--'}
+                        {formatTimestamp(narrationTimestamps[event.narration_id]?.start_timestamp)}
                       </span>
                       <span style={{ ...styles.stageBadge, backgroundColor: getStageColor(event.stage), fontSize: '8px', minWidth: '55px' }}>
                         {event.stage}

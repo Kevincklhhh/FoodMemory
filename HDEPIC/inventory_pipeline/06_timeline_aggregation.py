@@ -43,10 +43,12 @@ Your task is to consolidate fragmented narration lines into time ranges that cap
 
 INPUT:
 1. TARGET INGREDIENT: "{target_ingredient}"
-2. NARRATION LOG: A chronological list of user actions with timestamps.
+2. NARRATION LOG: A chronological list of user actions with timestamps and video IDs.
+   Format: [VIDEO: <video_id>] [<start>s - <end>s] <narration_id>: <action>
 
 YOUR GOAL:
 Identify dispensing segments for the Target Ingredient. Each segment has:
+- **Video ID:** The video file where this segment occurs (from the [VIDEO: ...] prefix).
 - **Start:** The timestamp of the FIRST dispensing-related action in that segment.
 - **End:** The timestamp of the LAST dispensing-related action in that segment.
 - **Count:** If the item is countable, the number of units dispensed in that segment.
@@ -56,6 +58,7 @@ GUIDELINES:
 - **Split into Multiple Segments:** If dispensing actions are separated by MORE THAN 30 SECONDS, output them as SEPARATE segments. For example:
   - Actions at 100s, 105s, 110s -> ONE segment [100s - 110s]
   - Actions at 100s, 105s, then 200s -> TWO segments [100s - 105s] and [200s - 200s]
+- **Different Videos = Different Segments:** Actions from DIFFERENT video IDs must be in SEPARATE segments.
 - **Time Range:** Each segment's range [start, end] should cover all continuous actions within 30 seconds of each other.
 - **Count Logic:** Look for quantifiers in the text:
   - "one egg" -> +1
@@ -73,6 +76,7 @@ OUTPUT FORMAT (JSON):
   "food_name": "{target_ingredient}",
   "dispensal_segments": [
     {{
+      "video_id": "<video_id from the log>",
       "start_timestamp": <float>,
       "end_timestamp": <float>,
       "count": <int or null>,
@@ -117,7 +121,7 @@ def format_narration_log(events: List[Dict], all_narrations: Dict[str, Dict]) ->
     """
     Format the narration log for GPT input.
 
-    Includes DISPENSING events with their full narration text and timestamps.
+    Includes DISPENSING events with their full narration text, timestamps, and video_id.
     """
     lines = []
     for evt in events:
@@ -130,10 +134,17 @@ def format_narration_log(events: List[Dict], all_narrations: Dict[str, Dict]) ->
         start = narr_data.get('start') or evt.get('timestamp', 0)
         end = narr_data.get('end', start)
         text = narr_data.get('text') or evt.get('action', '')
+        video_id = narr_data.get('video_id') or extract_video_id_from_narration(narr_id)
 
-        lines.append(f"[{start:.2f}s - {end:.2f}s] {narr_id}: {text}")
+        lines.append(f"[VIDEO: {video_id}] [{start:.2f}s - {end:.2f}s] {narr_id}: {text}")
 
     return "\n".join(lines)
+
+
+def extract_video_id_from_narration(narration_id: str) -> str:
+    """Extract video_id from narration_id (e.g., 'P03-20240216-185832-38' -> 'P03-20240216-185832')."""
+    parts = narration_id.rsplit('-', 1)
+    return parts[0] if len(parts) > 1 else narration_id
 
 
 def run_timeline_aggregation(
@@ -171,15 +182,16 @@ def run_timeline_aggregation(
         result = None
         import re
 
-        # Try to find JSON in markdown code block (object or array)
-        code_block_match = re.search(r'```(?:json)?\s*(\{[\s\S]*?\})\s*```', response_text)
+        # Try to find JSON in markdown code block - capture everything between ```json and ```
+        code_block_match = re.search(r'```(?:json)?\s*([\s\S]*?)\s*```', response_text)
         if code_block_match:
+            json_text = code_block_match.group(1).strip()
             try:
-                result = json.loads(code_block_match.group(1))
+                result = json.loads(json_text)
             except json.JSONDecodeError:
                 pass
 
-        # If not found, try raw JSON object
+        # If not found, try raw JSON object (greedy match for nested structures)
         if result is None:
             json_match = re.search(r'\{[\s\S]*\}', response_text)
             if json_match:

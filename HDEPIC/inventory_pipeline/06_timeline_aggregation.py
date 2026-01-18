@@ -38,22 +38,25 @@ from inventory_utils import (
 )
 
 
-CONTINUOUS_DISPENSAL_PROMPT = """You are a "Video Timeline Aggregator" for cooking events.
-Your task is to consolidate fragmented narration lines into a SINGLE, CONTINUOUS time range that captures the *entire* dispensing action for a specific ingredient.
+DISPENSAL_AGGREGATION_PROMPT = """You are a "Video Timeline Aggregator" for cooking events.
+Your task is to consolidate fragmented narration lines into time ranges that capture dispensing actions for a specific ingredient.
 
 INPUT:
 1. TARGET INGREDIENT: "{target_ingredient}"
 2. NARRATION LOG: A chronological list of user actions with timestamps.
 
 YOUR GOAL:
-Identify the *start* and *end* of the dispensing phase for the Target Ingredient.
-- **Start:** The timestamp of the FIRST dispensing-related action (e.g., first pick, first pour, or opening container just before pouring).
-- **End:** The timestamp of the LAST dispensing-related action (e.g., last drop dispensed, or closing/putting down container immediately after).
-- **Total Count:** If the item is countable (e.g., eggs, dates, carrots, scoops), sum up the total number of units dispensed across all lines.
+Identify dispensing segments for the Target Ingredient. Each segment has:
+- **Start:** The timestamp of the FIRST dispensing-related action in that segment.
+- **End:** The timestamp of the LAST dispensing-related action in that segment.
+- **Count:** If the item is countable, the number of units dispensed in that segment.
 
 GUIDELINES:
-- **Merge Fragmented Actions:** The log often breaks a single action into multiple lines (e.g., "Pick egg 1", "Pick egg 2", "Pick egg 3"). Treat these as ONE continuous event.
-- **Time Range:** The output range [start, end] must cover ALL these lines. It is better to be slightly wider than too narrow.
+- **Merge Fragmented Actions:** The log often breaks a single action into multiple lines (e.g., "Pick egg 1", "Pick egg 2", "Pick egg 3"). Treat these as ONE continuous segment.
+- **Split into Multiple Segments:** If dispensing actions are separated by MORE THAN 30 SECONDS, output them as SEPARATE segments. For example:
+  - Actions at 100s, 105s, 110s -> ONE segment [100s - 110s]
+  - Actions at 100s, 105s, then 200s -> TWO segments [100s - 105s] and [200s - 200s]
+- **Time Range:** Each segment's range [start, end] should cover all continuous actions within 30 seconds of each other.
 - **Count Logic:** Look for quantifiers in the text:
   - "one egg" -> +1
   - "two more eggs" -> +2
@@ -61,7 +64,6 @@ GUIDELINES:
   - "a scoop" -> +1
   - "a slice" -> +1
   - If the item is uncountable (e.g. pouring milk with no unit mentioned), return null for count.
-- **Multiple Dispensing Sessions:** If the ingredient is dispensed in MULTIPLE separate sessions (e.g., take 3 eggs, put box back, then take 2 more eggs later), report a SINGLE range covering ALL sessions and sum the total count.
 
 INPUT LOG:
 {narration_log}
@@ -69,13 +71,17 @@ INPUT LOG:
 OUTPUT FORMAT (JSON):
 {{
   "food_name": "{target_ingredient}",
-  "dispensal_segment": {{
-    "start_timestamp": <float>,
-    "end_timestamp": <float>
-  }},
-  "total_count": <int or null>,
+  "dispensal_segments": [
+    {{
+      "start_timestamp": <float>,
+      "end_timestamp": <float>,
+      "count": <int or null>,
+      "count_unit": <string or null>
+    }}
+  ],
+  "total_count": <int or null - sum of all segment counts>,
   "count_unit": <string describing what was counted, e.g., "eggs", "slices", "scoops", or null if uncountable>,
-  "reasoning": "Explain which lines you included in the range and how you calculated the total count."
+  "reasoning": "Explain how you grouped the actions into segments and calculated counts."
 }}
 """
 
@@ -139,8 +145,9 @@ def run_timeline_aggregation(
 ) -> Optional[Dict]:
     """
     Call GPT to aggregate timeline for a single food item.
+    Returns segments (may be multiple if actions are >30s apart).
     """
-    prompt = CONTINUOUS_DISPENSAL_PROMPT.format(
+    prompt = DISPENSAL_AGGREGATION_PROMPT.format(
         target_ingredient=food_name,
         narration_log=narration_log
     )
@@ -157,11 +164,23 @@ def run_timeline_aggregation(
             if hasattr(usage, 'output_tokens_details') and usage.output_tokens_details:
                 print(f"    Reasoning tokens: {usage.output_tokens_details.reasoning_tokens}")
 
-        # Parse JSON from response
-        result = extract_json_from_response(response_text)
+        if verbose:
+            print(f"    Raw response: {response_text[:500]}...")
+
+        # Parse JSON from response - try object first, then array
+        result = None
+        import re
+
+        # Try to find JSON in markdown code block (object or array)
+        code_block_match = re.search(r'```(?:json)?\s*(\{[\s\S]*?\})\s*```', response_text)
+        if code_block_match:
+            try:
+                result = json.loads(code_block_match.group(1))
+            except json.JSONDecodeError:
+                pass
+
+        # If not found, try raw JSON object
         if result is None:
-            # Try parsing as single object (not array)
-            import re
             json_match = re.search(r'\{[\s\S]*\}', response_text)
             if json_match:
                 try:
@@ -169,9 +188,24 @@ def run_timeline_aggregation(
                 except json.JSONDecodeError:
                     pass
 
-        # Handle case where extract returns a list
-        if isinstance(result, list) and len(result) > 0:
-            result = result[0]
+        # Fallback to extract_json_from_response for arrays
+        if result is None:
+            result = extract_json_from_response(response_text)
+            if isinstance(result, list) and len(result) > 0:
+                result = result[0]
+
+        # Handle backward compatibility: convert old format to new format
+        if result and 'dispensal_segment' in result and 'dispensal_segments' not in result:
+            old_seg = result['dispensal_segment']
+            result['dispensal_segments'] = [{
+                'start_timestamp': old_seg.get('start_timestamp'),
+                'end_timestamp': old_seg.get('end_timestamp'),
+                'count': result.get('total_count'),
+                'count_unit': result.get('count_unit')
+            }]
+
+        if verbose and result:
+            print(f"    Segments returned: {len(result.get('dispensal_segments', []))}")
 
         return result
 
@@ -301,14 +335,22 @@ def main():
         )
 
         if result:
-            segment = result.get('dispensal_segment', {})
-            start = segment.get('start_timestamp', 0)
-            end = segment.get('end_timestamp', 0)
-            count = result.get('total_count')
+            segments = result.get('dispensal_segments', [])
+            total_count = result.get('total_count')
             count_unit = result.get('count_unit')
 
-            count_str = f"{count} {count_unit}" if count is not None else "uncountable"
-            print(f"[{start:.2f}s - {end:.2f}s] count={count_str}")
+            # Display segments
+            count_str = f"{total_count} {count_unit}" if total_count is not None else "uncountable"
+            if len(segments) == 1:
+                seg = segments[0]
+                print(f"[{seg.get('start_timestamp', 0):.2f}s - {seg.get('end_timestamp', 0):.2f}s] count={count_str}")
+            else:
+                print(f"{len(segments)} segments, total count={count_str}")
+                for j, seg in enumerate(segments):
+                    seg_count = seg.get('count')
+                    seg_unit = seg.get('count_unit', '')
+                    seg_count_str = f"{seg_count} {seg_unit}" if seg_count is not None else "-"
+                    print(f"    [{j+1}] {seg.get('start_timestamp', 0):.2f}s - {seg.get('end_timestamp', 0):.2f}s (count={seg_count_str})")
 
             if args.verbose and result.get('reasoning'):
                 print(f"  Reasoning: {result.get('reasoning')[:200]}...")
@@ -319,11 +361,12 @@ def main():
                 'food_name': food_name,
                 'difficulty': difficulty,
                 'video_range': item.get('video_range', []),
-                'dispensal_segment': segment,
-                'total_count': count,
+                'dispensal_segments': segments,
+                'total_count': total_count,
                 'count_unit': count_unit,
                 'reasoning': result.get('reasoning'),
                 'num_dispensing_events': len(dispensing_events),
+                'num_segments': len(segments),
                 'matched_ingredient_weight': item.get('matched_ingredient_weight')
             })
         else:
@@ -356,8 +399,10 @@ def main():
     print(f"  Saved: {output_file.name}")
 
     # Summary
-    successful = sum(1 for r in results if 'dispensal_segment' in r)
+    successful = sum(1 for r in results if 'dispensal_segments' in r)
     with_count = sum(1 for r in results if r.get('total_count') is not None)
+    multi_segment = sum(1 for r in results if r.get('num_segments', 0) > 1)
+    total_segments = sum(r.get('num_segments', 0) for r in results)
 
     print(f"\n{'='*70}")
     print(f"SUMMARY")
@@ -366,20 +411,35 @@ def main():
     print(f"  Successfully processed: {successful}")
     print(f"  With count (countable): {with_count}")
     print(f"  Uncountable: {successful - with_count}")
+    print(f"  Items with multiple segments: {multi_segment}")
+    print(f"  Total segments: {total_segments}")
 
     # Print results table
-    print(f"\n{'Food Name':<30} {'Time Range':<20} {'Count':<15}")
-    print("-" * 65)
+    print(f"\n{'Food Name':<30} {'Segments':<10} {'Time Range(s)':<25} {'Count':<15}")
+    print("-" * 80)
     for r in results:
-        if 'dispensal_segment' not in r:
+        if 'dispensal_segments' not in r:
             continue
         food = (r.get('food_name') or '')[:29]
-        seg = r.get('dispensal_segment', {})
-        time_range = f"{seg.get('start_timestamp', 0):.1f}s - {seg.get('end_timestamp', 0):.1f}s"
+        segments = r.get('dispensal_segments', [])
+        num_segs = len(segments)
         count = r.get('total_count')
         unit = r.get('count_unit', '')
         count_str = f"{count} {unit}" if count is not None else "-"
-        print(f"{food:<30} {time_range:<20} {count_str:<15}")
+
+        if num_segs == 1:
+            seg = segments[0]
+            time_range = f"{seg.get('start_timestamp', 0):.1f}s - {seg.get('end_timestamp', 0):.1f}s"
+            print(f"{food:<30} {num_segs:<10} {time_range:<25} {count_str:<15}")
+        else:
+            # First row with food name
+            seg = segments[0]
+            time_range = f"{seg.get('start_timestamp', 0):.1f}s - {seg.get('end_timestamp', 0):.1f}s"
+            print(f"{food:<30} {num_segs:<10} {time_range:<25} {count_str:<15}")
+            # Additional segments
+            for seg in segments[1:]:
+                time_range = f"{seg.get('start_timestamp', 0):.1f}s - {seg.get('end_timestamp', 0):.1f}s"
+                print(f"{'':<30} {'':<10} {time_range:<25} {'':<15}")
 
 
 if __name__ == '__main__':

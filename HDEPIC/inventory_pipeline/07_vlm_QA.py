@@ -32,7 +32,7 @@ import json
 import re
 import subprocess
 from pathlib import Path
-from typing import Dict, List, Optional, Any
+from typing import Dict, Optional, Any
 
 import requests
 
@@ -48,43 +48,62 @@ QWEN3VL_URL = "http://saltyfish.eecs.umich.edu:8000/v1/chat/completions"
 QWEN_MODEL = "Qwen/Qwen3-VL-30B-A3B-Instruct"
 
 
-QUANTITY_ESTIMATION_PROMPT = """You are a Visual Inventory Auditor.
-Your task is to analyze the video clip and estimate how much of the Target Food Item was removed, used, or dispensed by the user.
+ACTION_ESTIMATION_PROMPT = """You are a Visual Inventory Auditor.
+Analyze the video clip to estimate the quantity of the Target Food Item removed.
 
 **INPUT:**
-- **Target Food Item:** "{food_name}"
-- **Video Clip:** (Attached)
+- Target Item: "{item_name}"
 
 **INSTRUCTIONS:**
-1. **Focus ONLY on the Target Food Item.** Ignore all other ingredients.
-2. **Determine the Quantity Type:**
-   - **Countable:** Can you distinctly count the items? (e.g., eggs, carrots, scoops, slices).
-   - **Uncountable:** Is it a fluid/powder pour? (e.g., milk, oil, flour).
-3. **Estimate the Delta (Amount Used):**
-   - If **Countable**: Count the exact number of units transferred.
-   - If **Uncountable**: Estimate the amount based on:
-     - *Container Volume:* (e.g., "About 1/4 of the jar")
-     - *Standard Units:* (e.g., "About 1 cup", "A small splash")
-     - *Action Duration:* (e.g., "A long 5-second pour" vs "A quick dash")
+1. Focus ONLY on the Target Item.
+2. Determine if the action is **Discrete** (countable items like eggs, distinct scoops) or **Continuous** (pouring liquid, approximate piles).
+3. Provide the estimate in the strictly defined JSON format below.
 
-**OUTPUT FORMAT (JSON):**
+**OUTPUT SCHEMA (Strict JSON):**
 {{
-  "item_name": "{food_name}",
-  "quantity_type": "count" | "volume_estimate" | "unknown",
-  "count": <integer or null if uncountable>,
-  "count_unit": "<unit name like 'eggs', 'slices', 'scoops', or null>",
+  "item_name": "{item_name}",
+  "quantity_category": "discrete" | "continuous" | "unknown",
+  
+  // IF DISCRETE (Countable):
+  "numeric_count": <integer or null>,  // e.g., 1, 2, 5. Null if continuous.
+  
+  // IF CONTINUOUS (Fluids/Piles):
+  "amount_description": <string>,      // e.g., "about half a cup", "a small splash"
+  "volume_fraction": <float or null>,  // Estimate 0.0 to 1.0 of container size if visible. Null if unknown.
+  
+  "unit_type": "unit" | "scoop" | "cup" | "splash" | "pinch" | "slice",
   "confidence": "high" | "medium" | "low",
-  "reasoning": "Describe the specific visual cues (e.g., 'I saw the user pick up 3 distinct eggs', 'The milk level dropped by half')."
+  "visual_evidence": "Brief description of visual proof."
 }}
 
 **EXAMPLES:**
-- **Input:** Eggs
-- **Output:** {{ "quantity_type": "count", "count": 2, "count_unit": "eggs", "confidence": "high", "reasoning": "User picked one egg, placed it in bowl, then picked a second egg." }}
 
-- **Input:** Milk
-- **Output:** {{ "quantity_type": "volume_estimate", "count": null, "count_unit": null, "confidence": "medium", "reasoning": "User poured a steady stream for 3 seconds into a small mug, filling it halfway." }}
+*Example 1 (Discrete):*
+{{
+  "item_name": "eggs",
+  "quantity_category": "discrete",
+  "numeric_count": 2,
+  "amount_description": null,
+  "volume_fraction": null,
+  "unit_type": "unit",
+  "confidence": "high",
+  "visual_evidence": "User picked two distinct eggs from the carton."
+}}
+
+*Example 2 (Continuous):*
+{{
+  "item_name": "milk",
+  "quantity_category": "continuous",
+  "numeric_count": null,
+  "amount_description": "approx 1/2 cup",
+  "volume_fraction": 0.1,
+  "unit_type": "cup",
+  "confidence": "medium",
+  "visual_evidence": "Steady pour for 2 seconds into a small mug."
+}}
+
+Return ONLY the raw JSON string. Do not use Markdown (```json).
 """
-
 
 class VLMClient:
     """Handles communication with Qwen VLM API"""
@@ -199,65 +218,124 @@ def extract_video_clip(
 
 
 def parse_vlm_response(response_text: str) -> Dict[str, Any]:
-    """Parse JSON from VLM response."""
-    # Try to find JSON in response
-    json_match = re.search(r'\{[\s\S]*?\}', response_text)
-    if json_match:
+    """
+    Parse JSON from VLM response.
+
+    Expected schema:
+    {
+        "quantity_category": "discrete" | "continuous" | "unknown",
+        "numeric_count": int or null,        # for discrete items
+        "amount_description": str or null,   # for continuous items (e.g., "half a cup")
+        "volume_fraction": float or null,    # 0.0-1.0 of container
+        "unit_type": str,                    # "unit", "scoop", "cup", etc.
+        "confidence": str,
+        "visual_evidence": str
+    }
+    """
+    result = None
+
+    # Method 1: Extract JSON from markdown code block (```json ... ```)
+    code_block_match = re.search(r'```(?:json)?\s*([\s\S]*?)\s*```', response_text)
+    if code_block_match:
         try:
-            return json.loads(json_match.group(0))
+            result = json.loads(code_block_match.group(1).strip())
         except json.JSONDecodeError:
             pass
 
-    # Fallback: try to extract count from text
-    count_match = re.search(r'(\d+)\s*(eggs?|slices?|pieces?|scoops?|potatoes?|onions?)', response_text.lower())
+    # Method 2: Greedy match for raw JSON object (handles nested structures)
+    if result is None:
+        json_match = re.search(r'\{[\s\S]*\}', response_text)
+        if json_match:
+            try:
+                result = json.loads(json_match.group(0))
+            except json.JSONDecodeError:
+                pass
+
+    # Normalize to internal format
+    if result:
+        normalized = {
+            'quantity_category': result.get('quantity_category', 'unknown'),
+            'numeric_count': result.get('numeric_count'),
+            'amount_description': result.get('amount_description'),
+            'volume_fraction': result.get('volume_fraction'),
+            'unit_type': result.get('unit_type'),
+            'confidence': result.get('confidence', 'low'),
+            'visual_evidence': result.get('visual_evidence', ''),
+        }
+        return normalized
+
+    # Method 3: Regex fallback for plain text like "3 eggs"
+    count_match = re.search(r'(\d+)\s*(eggs?|slices?|pieces?|scoops?|potatoes?|onions?|carrots?)', response_text.lower())
     if count_match:
         return {
-            "count": int(count_match.group(1)),
-            "count_unit": count_match.group(2),
-            "confidence": "low",
-            "reasoning": "Extracted from unstructured response"
+            'quantity_category': 'discrete',
+            'numeric_count': int(count_match.group(1)),
+            'amount_description': None,
+            'volume_fraction': None,
+            'unit_type': count_match.group(2),
+            'confidence': 'low',
+            'visual_evidence': 'Extracted from unstructured response'
         }
 
     return {
-        "count": None,
-        "count_unit": None,
-        "confidence": "low",
-        "reasoning": f"Could not parse response: {response_text[:200]}"
+        'quantity_category': 'unknown',
+        'numeric_count': None,
+        'amount_description': None,
+        'volume_fraction': None,
+        'unit_type': None,
+        'confidence': 'low',
+        'visual_evidence': f"Could not parse response: {response_text[:200]}"
     }
 
 
 def evaluate_result(predicted: Dict, ground_truth: Dict) -> Dict[str, Any]:
-    """Compare predicted count with ground truth."""
+    """
+    Compare predicted result with ground truth.
+
+    Handles both discrete (countable) and continuous (volume/weight) items.
+    """
     gt_count = ground_truth.get('total_count')
-    pred_count = predicted.get('count')
+    pred_category = predicted.get('quantity_category', 'unknown')
+    pred_count = predicted.get('numeric_count')
+    pred_amount = predicted.get('amount_description')
 
     result = {
+        'quantity_category': pred_category,
         'predicted_count': pred_count,
+        'predicted_amount': pred_amount,
         'ground_truth_count': gt_count,
-        'predicted_unit': predicted.get('count_unit'),
+        'predicted_unit': predicted.get('unit_type'),
         'ground_truth_unit': ground_truth.get('count_unit'),
         'confidence': predicted.get('confidence'),
-        'reasoning': predicted.get('reasoning'),
+        'visual_evidence': predicted.get('visual_evidence'),
     }
 
-    if gt_count is None and pred_count is None:
-        result['match'] = 'both_uncountable'
-        result['error'] = 0
-    elif gt_count is None:
-        result['match'] = 'gt_uncountable'
-        result['error'] = None
-    elif pred_count is None:
-        result['match'] = 'pred_uncountable'
+    # Evaluate based on category
+    if pred_category == 'discrete' and pred_count is not None:
+        # Discrete: compare numeric counts
+        if gt_count is None:
+            result['match'] = 'gt_uncountable'
+            result['error'] = None
+        else:
+            result['error'] = pred_count - gt_count
+            result['abs_error'] = abs(pred_count - gt_count)
+            if pred_count == gt_count:
+                result['match'] = 'exact'
+            elif abs(pred_count - gt_count) <= 1:
+                result['match'] = 'close'
+            else:
+                result['match'] = 'wrong'
+    elif pred_category == 'continuous':
+        # Continuous: can't directly compare, mark as estimated
+        result['match'] = 'continuous_estimate'
         result['error'] = None
     else:
-        result['error'] = pred_count - gt_count
-        result['abs_error'] = abs(pred_count - gt_count)
-        if pred_count == gt_count:
-            result['match'] = 'exact'
-        elif abs(pred_count - gt_count) <= 1:
-            result['match'] = 'close'
+        # Unknown or failed to parse
+        if gt_count is None:
+            result['match'] = 'both_unknown'
         else:
-            result['match'] = 'wrong'
+            result['match'] = 'pred_unknown'
+        result['error'] = None
 
     return result
 
@@ -295,9 +373,9 @@ def main():
         help='Verbose output'
     )
     parser.add_argument(
-        '--keep-clips',
+        '--delete-clips',
         action='store_true',
-        help='Keep extracted video clips (default: delete after processing)'
+        help='Delete extracted video clips after processing (default: keep clips)'
     )
 
     args = parser.parse_args()
@@ -407,9 +485,9 @@ def main():
 
             # Query VLM
             print(f"    Querying {args.model}...", end=" ", flush=True)
-            prompt = QUANTITY_ESTIMATION_PROMPT.format(food_name=food_name)
+            prompt = ACTION_ESTIMATION_PROMPT.format(item_name=food_name)
             response = vlm.query(
-                system_prompt="You are a video analysis assistant.",
+                system_prompt="You are a Visual Inventory Auditor analyzing cooking videos.",
                 user_prompt=prompt,
                 video_path=clip_path
             )
@@ -426,13 +504,21 @@ def main():
 
             # Parse response
             parsed = parse_vlm_response(response)
-            pred_count = parsed.get('count')
-            pred_unit = parsed.get('count_unit')
+            pred_category = parsed.get('quantity_category', 'unknown')
+            pred_count = parsed.get('numeric_count')
+            pred_amount = parsed.get('amount_description')
+            pred_unit = parsed.get('unit_type')
 
-            print(f"predicted: {pred_count} {pred_unit or ''}")
+            # Display result based on category
+            if pred_category == 'discrete' and pred_count is not None:
+                print(f"predicted: {pred_count} {pred_unit or 'units'}")
+            elif pred_category == 'continuous' and pred_amount:
+                print(f"predicted: {pred_amount} (continuous)")
+            else:
+                print(f"predicted: unknown")
 
             if args.verbose:
-                print(f"    Reasoning: {parsed.get('reasoning', '')[:100]}...")
+                print(f"    Evidence: {parsed.get('visual_evidence', '')[:100]}...")
 
             # Evaluate
             evaluation = evaluate_result(
@@ -447,17 +533,19 @@ def main():
                 'end_timestamp': end_ts,
                 'ground_truth_count': gt_count,
                 'ground_truth_unit': gt_unit,
+                'quantity_category': pred_category,
                 'predicted_count': pred_count,
+                'predicted_amount': pred_amount,
                 'predicted_unit': pred_unit,
                 'confidence': parsed.get('confidence'),
-                'reasoning': parsed.get('reasoning'),
+                'visual_evidence': parsed.get('visual_evidence'),
                 'match': evaluation.get('match'),
                 'error': evaluation.get('error'),
-                'clip_path': str(clip_path) if args.keep_clips else None
+                'clip_path': str(clip_path) if not args.delete_clips else None
             })
 
-            # Clean up clip if not keeping
-            if not args.keep_clips and clip_path.exists():
+            # Clean up clip if requested
+            if args.delete_clips and clip_path.exists():
                 clip_path.unlink()
 
         # Aggregate item results
@@ -469,7 +557,9 @@ def main():
             'total_ground_truth': item.get('total_count'),
             'total_ground_truth_unit': item.get('count_unit'),
             'num_segments': len(segments),
-            'segments': segment_results
+            'segments': segment_results,
+            # Recipe amount (for visualization only, separate from dispensal ground truth)
+            'recipe_amount': item.get('matched_ingredient_weight'),
         }
 
         # Calculate total predicted
@@ -482,8 +572,8 @@ def main():
 
         results.append(item_result)
 
-    # Clean up clips directory if empty
-    if not args.keep_clips:
+    # Clean up clips directory if empty and deletion was requested
+    if args.delete_clips:
         try:
             clips_dir.rmdir()
         except OSError:
@@ -528,41 +618,64 @@ def main():
             for s in r.get('segments', [])
             if s.get('match') == 'close'
         )
+        continuous_estimates = sum(
+            1 for r in diff_items
+            for s in r.get('segments', [])
+            if s.get('match') == 'continuous_estimate'
+        )
 
         print(f"\n{diff}:")
         print(f"  Items: {len(diff_items)}")
         print(f"  Segments: {total_segments}")
         print(f"  Exact matches: {exact_matches} ({100*exact_matches/max(1,total_segments):.1f}%)")
         print(f"  Close matches (+/-1): {close_matches} ({100*close_matches/max(1,total_segments):.1f}%)")
+        if continuous_estimates > 0:
+            print(f"  Continuous estimates: {continuous_estimates}")
 
     # Results table
     print(f"\n{'='*70}")
     print(f"RESULTS TABLE")
     print(f"{'='*70}")
-    print(f"{'Food':<25} {'Diff':<6} {'GT':<8} {'Pred':<8} {'Match':<10}")
-    print("-" * 60)
+    print(f"{'Food':<25} {'Diff':<6} {'GT':<8} {'Predicted':<20} {'Match':<12}")
+    print("-" * 75)
 
     for r in results:
         food = (r.get('food_name') or '')[:24]
         diff = r.get('difficulty', '?')[:5]
         gt = r.get('total_ground_truth')
         gt_str = str(gt) if gt is not None else '-'
-        pred = r.get('total_predicted')
-        pred_str = str(pred) if pred is not None else '-'
+
+        # Get prediction info from segments
+        segments = r.get('segments', [])
+        if segments:
+            first_seg = segments[0]
+            cat = first_seg.get('quantity_category', 'unknown')
+            if cat == 'discrete':
+                pred = r.get('total_predicted')
+                pred_str = str(pred) if pred is not None else '-'
+            elif cat == 'continuous':
+                pred_str = first_seg.get('predicted_amount', 'continuous')[:18]
+            else:
+                pred_str = 'unknown'
+        else:
+            pred_str = '-'
 
         # Determine overall match
-        if gt is None and pred is None:
+        pred_count = r.get('total_predicted')
+        if segments and segments[0].get('quantity_category') == 'continuous':
+            match = 'continuous'
+        elif gt is None and pred_count is None:
             match = 'uncountable'
-        elif gt is None or pred is None:
+        elif gt is None or pred_count is None:
             match = 'n/a'
-        elif gt == pred:
+        elif gt == pred_count:
             match = 'EXACT'
-        elif abs(gt - pred) <= 1:
+        elif abs(gt - pred_count) <= 1:
             match = 'close'
         else:
-            match = f'off by {pred - gt}'
+            match = f'off by {pred_count - gt}'
 
-        print(f"{food:<25} {diff:<6} {gt_str:<8} {pred_str:<8} {match:<10}")
+        print(f"{food:<25} {diff:<6} {gt_str:<8} {pred_str:<20} {match:<12}")
 
 
 if __name__ == '__main__':

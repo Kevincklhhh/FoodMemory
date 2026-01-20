@@ -439,7 +439,9 @@ def main():
         unit = r.get('count_unit', '')
         count_str = f"{count} {unit}" if count is not None else "-"
 
-        if num_segs == 1:
+        if num_segs == 0:
+            print(f"{food:<30} {num_segs:<10} {'-':<25} {count_str:<15}")
+        elif num_segs == 1:
             seg = segments[0]
             time_range = f"{seg.get('start_timestamp', 0):.1f}s - {seg.get('end_timestamp', 0):.1f}s"
             print(f"{food:<30} {num_segs:<10} {time_range:<25} {count_str:<15}")

@@ -23,7 +23,7 @@
       ],
       "total_count": 3,
       "count_unit": "oranges",
-      "reasoning": "All three narration lines describe picking oranges from the mesh bag and placing them on the counter. The actions occur close together (53.31s, 55.26s, 56.60s), each within 30 seconds of the others, so they are merged into one continuous segment spanning from the first action start (53.31s) to the last action end (57.98s). Counts were derived from 'one orange', 'a second orange', and 'a third orange' for a total of 3 oranges.",
+      "reasoning": "All three actions involve dispensing oranges from the mesh bag and occur consecutively within ~5 seconds in the same video, so they are merged into one continuous segment [53.31s\u201357.98s]. Counts were taken directly from the narration: one orange (+1), a second orange (+1), and a third orange (+1), totaling 3 oranges.",
       "num_dispensing_events": 3,
       "num_segments": 1,
       "matched_ingredient_weight": null
@@ -46,7 +46,7 @@
       ],
       "total_count": 1,
       "count_unit": "capsules",
-      "reasoning": "There is a single dispensing-related action: inserting/sliding one coffee capsule into the coffee machine (16.08s\u201317.26s) in the same video. No other capsule actions occur within 30 seconds, so it forms one segment. The narration refers to a single capsule, so count = 1 capsule.",
+      "reasoning": "Only one dispensing-related action is present: inserting a coffee capsule into the coffee machine (16.08s\u201317.26s). This forms a single segment within one video. The narration refers to a single capsule, so count=1 capsule.",
       "num_dispensing_events": 1,
       "num_segments": 1,
       "matched_ingredient_weight": null
@@ -70,7 +70,7 @@
       ],
       "total_count": null,
       "count_unit": null,
-      "reasoning": "All narration lines describe dispensing pepper from the same black pepper jar (grinding and shaking out pepper). The actions occur in one video and are separated by at most ~7.4 seconds between the first grinding/shaking sequence (127.92\u2013166.96s) and the later 'grind more pepper' sequence (174.33\u2013179.70s), which is less than the 30-second split threshold, so they are merged into a single continuous dispensing segment spanning 127.92s to 179.70s. Pepper is uncountable here (no discrete unit like 'scoops' specified), so count is null.",
+      "reasoning": "All black pepper dispensing-related actions (grinding/pouring and shaking out excess) occur in the same video and are continuous, with no gaps greater than 30 seconds between events (127.92s through 179.70s, including the brief repositioning at 174.33s before additional grinding). Black pepper from a jar is not countable from the narration (no discrete units like 'pinches' or 'shakes' specified as a quantity to count reliably), so count and total_count are null.",
       "num_dispensing_events": 7,
       "num_segments": 1,
       "matched_ingredient_weight": {
@@ -99,7 +99,7 @@
       ],
       "total_count": null,
       "count_unit": null,
-      "reasoning": "There is a single dispensing action: pasta is poured from the pasta box into a plate on a scale (177.35s\u2013179.54s) in video P01-20240202-161354. No other pasta-dispensing actions are present, and dry pasta is not countable here (no units like pieces/handfuls specified), so count is null.",
+      "reasoning": "There is a single dispensing action in the log: pasta is poured from the pasta box into a plate on a scale (177.35s\u2013179.54s) in the same video. No discrete units or quantities are mentioned for the dry pasta, so count is null.",
       "num_dispensing_events": 1,
       "num_segments": 1,
       "matched_ingredient_weight": {
@@ -131,13 +131,27 @@
           "end_timestamp": 314.67,
           "count": 2,
           "count_unit": "slices"
+        },
+        {
+          "video_id": "P01-20240202-161948",
+          "start_timestamp": 402.09,
+          "end_timestamp": 402.94,
+          "count": 1,
+          "count_unit": "slices"
+        },
+        {
+          "video_id": "P01-20240202-161948",
+          "start_timestamp": 436.43,
+          "end_timestamp": 437.4,
+          "count": 1,
+          "count_unit": "slices"
         }
       ],
-      "total_count": 4,
+      "total_count": 6,
       "count_unit": "slices",
-      "reasoning": "Segment 1 (30.18\u201339.82) includes slicing butter and transferring two slices into the pan (\"Drop the sliced butter into the pan\" and then \"Put the slice in the pan\"), so it is one continuous dispensing segment within 30s with count=2 slices. Segment 2 (305.01\u2013314.67) includes slicing one slice and another slice and placing both onto a plate/scale to measure; these actions are contiguous within 30s and represent dispensing/portioning two slices, so count=2 slices. Later 'pick up' actions (402.09 and 436.43) were not counted as dispensing because no destination/transfer (e.g., into pan/bowl) is described.",
+      "reasoning": "Grouped butter-related dispensing actions within the same video into continuous segments when consecutive actions were within 30s. Segment 1 (30.18\u201339.82) includes slicing and dropping two slices into the pan (+2 slices). Segment 2 (305.01\u2013314.67) includes slicing two slices and placing them on a plate for measuring (+2 slices). The pick-up actions occur at 402.09 and 436.43, but they are >30s apart, so they form two separate segments; each explicitly picks up one/second slice (+1 slice each). Total slices dispensed across all segments = 2+2+1+1=6.",
       "num_dispensing_events": 10,
-      "num_segments": 2,
+      "num_segments": 4,
       "matched_ingredient_weight": {
         "ingredient": "butter",
         "amount": "25",
@@ -171,7 +185,7 @@
       ],
       "total_count": null,
       "count_unit": null,
-      "reasoning": "All relevant actions are grating parmesan cheese onto a plate, which is an uncountable dispensing action (no discrete unit like 'scoops' or 'slices' is stated), so counts are null. The first grating occurs from 67.47s to 91.40s. The next grating actions occur at 186.16\u2013187.82, 202.35\u2013231.00, and 237.19\u2013246.05; these are merged into one continuous segment because the gaps between them are under 30 seconds (187.82\u2192202.35 is ~14.5s; 231.00\u2192237.19 is ~6.2s). The gap between 91.40s and 186.16s is >30 seconds, so it forms a separate segment.",
+      "reasoning": "All listed actions are dispensing parmesan via grating. The first grating action (67.47\u201391.40s) is separated from the next by >30s, so it forms its own segment. The actions at 186.16\u2013187.82s, 202.35\u2013231.00s, and 237.19\u2013246.05s are each within 30s of the previous action, so they are merged into one continuous dispensal segment (186.16\u2013246.05s). No explicit countable units (e.g., scoops/slices) are given for the grated cheese, so counts are null.",
       "num_dispensing_events": 4,
       "num_segments": 2,
       "matched_ingredient_weight": {
@@ -199,7 +213,7 @@
       ],
       "total_count": 1,
       "count_unit": "capsules",
-      "reasoning": "There is one dispensing-related action: 'Pick up a coffee capsule from the box' in video P01-20240203-093333. Since it refers to a single capsule, the segment count is 1 capsule. No other capsule-dispensing actions occur within 30 seconds, so it remains a single segment.",
+      "reasoning": "There is one dispensing-related action: \"Pick up a coffee capsule from the box\" occurring from 43.76s to 45.51s in video P01-20240203-093333. This represents dispensing 1 countable unit (one capsule) from the box. No other capsule-dispensing actions appear within 30 seconds or in other videos, so it forms a single segment.",
       "num_dispensing_events": 1,
       "num_segments": 1,
       "matched_ingredient_weight": {
@@ -227,7 +241,7 @@
       ],
       "total_count": 1,
       "count_unit": "capsules",
-      "reasoning": "Only one dispensing-related action appears: picking up a coffee capsule from the box. With no other capsule actions within 30 seconds (and only one line in the log), this forms a single segment from 43.76s to 45.51s. The action implies dispensing 1 countable unit (one capsule).",
+      "reasoning": "There is one dispensing-related action: picking up a coffee capsule from the box (43.76s\u201345.51s). No other coffee-capsule actions occur within 30 seconds, so this forms a single segment. The phrasing indicates one capsule was taken, so count=1 capsule.",
       "num_dispensing_events": 1,
       "num_segments": 1,
       "matched_ingredient_weight": {
@@ -255,7 +269,7 @@
       ],
       "total_count": null,
       "count_unit": null,
-      "reasoning": "There is one dispensing action: pouring milk from the bottle into the milk frother (73.50s\u201376.57s) within a single video. No discrete unit/quantity is specified for the milk, so count is treated as uncountable (null).",
+      "reasoning": "There is one continuous dispensing action: pouring milk from the bottle into the milk frother. It occurs within a single narration line and time window (73.50s\u201376.57s) in the same video, so it forms one segment. Milk is poured with no explicit measurable units given, so the count is null.",
       "num_dispensing_events": 1,
       "num_segments": 1,
       "matched_ingredient_weight": {
@@ -289,7 +303,7 @@
       ],
       "total_count": 2,
       "count_unit": "onions",
-      "reasoning": "Both narration lines occur in the same video and are only ~5 seconds apart, so they are merged into one continuous dispensing segment (within the 30-second rule). The first action explicitly dispenses 'one onion' (+1). The second action says 'the other onion,' indicating another single onion dispensed (+1). Total for the segment = 2 onions.",
+      "reasoning": "Both narration lines occur in the same video and are only ~1 second apart, so they are merged into one continuous dispensing segment (within the 30-second rule). The first line explicitly dispenses 'one onion' (+1). The second line dispenses 'the other onion' (+1 more), for a total of 2 onions removed from the mesh bag in this segment.",
       "num_dispensing_events": 2,
       "num_segments": 1,
       "matched_ingredient_weight": {
@@ -323,7 +337,7 @@
       ],
       "total_count": 2,
       "count_unit": "pinches",
-      "reasoning": "All spice-dispensing actions occur in the same video and are continuous within a few seconds (232.81s to 237.45s), so they form one segment. The log explicitly indicates two separate withdrawals from the jar: 'take a pinch' and 'take another pinch', so the segment count is 2 pinches (sprinkling lines are part of the same dispensing sequence).",
+      "reasoning": "All spice-related actions occur in the same video and within ~5 seconds of each other, so they form one continuous dispensing segment from 232.81s to 237.45s. The narration indicates two discrete pickups from the jar: 'take a pinch' (+1) and 'take another pinch' (+1), totaling 2 pinches dispensed (sprinkling lines are part of the same dispensing sequence).",
       "num_dispensing_events": 4,
       "num_segments": 1,
       "matched_ingredient_weight": {
@@ -351,30 +365,23 @@
         {
           "video_id": "P01-20240203-130505",
           "start_timestamp": 64.83,
-          "end_timestamp": 66.95,
+          "end_timestamp": 89.79,
           "count": null,
           "count_unit": null
-        },
-        {
-          "video_id": "P01-20240203-130505",
-          "start_timestamp": 86.42,
-          "end_timestamp": 89.79,
-          "count": 1,
-          "count_unit": "slice"
         },
         {
           "video_id": "P01-20240203-135502",
           "start_timestamp": 247.38,
           "end_timestamp": 256.14,
-          "count": 1,
-          "count_unit": "half"
+          "count": null,
+          "count_unit": null
         }
       ],
       "total_count": null,
       "count_unit": null,
-      "reasoning": "Segmented by video ID and merged actions within 30s. (1) 64.83\u201366.95: butter is slid from the opened packet into the pan; no explicit count/units given. (2) 86.42\u201389.79: cutting followed by dropping an 'additional slice' into the pan are part of one continuous dispensing event; counted as 1 slice. (3) 247.38\u2013256.14: butter is cut mostly in half and the cut half is pushed off the packaging to fall into the pot; counted as 1 half. Total count is null because dispensing units are inconsistent (slice vs half) and one segment is unquantified.",
+      "reasoning": "Segment 1 (video P01-20240203-130505) groups butter being slid from the packet into the pan (64.83\u201366.95), then cutting and dropping an additional slice into the pan (86.42\u201389.79). These actions occur within 30 seconds of each other, so they are treated as one continuous dispensing segment. Segment 2 (video P01-20240203-135502) groups cutting the butter and pushing the cut half to fall into the pot on a scale (247.38\u2013256.14), also within 30 seconds. Counts are null because butter here is dispensed by amount/weight (including 'remaining butter' and 'half') rather than a clear integer number of packets or standardized countable units.",
       "num_dispensing_events": 5,
-      "num_segments": 3,
+      "num_segments": 2,
       "matched_ingredient_weight": {
         "ingredient": "salted butter",
         "amount": "46",
@@ -399,7 +406,7 @@
       "dispensal_segments": [],
       "total_count": null,
       "count_unit": null,
-      "reasoning": "The only logged action (508.69s\u2013509.57s) is picking up an opened can of condensed milk. This is a handling/prep action and does not indicate dispensing (e.g., pouring/squeezing/adding condensed milk). Therefore, no dispensing segments can be identified from the provided log.",
+      "reasoning": "The only logged action is picking up an opened can of condensed milk (508.69s\u2013509.57s). This is a handling action, not a dispensing action (e.g., pouring/squeezing/adding to another container). Therefore, no dispensing segments can be identified from the provided log, and no count applies.",
       "num_dispensing_events": 1,
       "num_segments": 0,
       "matched_ingredient_weight": {
@@ -442,13 +449,13 @@
           "video_id": "P01-20240203-123350",
           "start_timestamp": 1657.66,
           "end_timestamp": 1704.66,
-          "count": 3,
+          "count": 2,
           "count_unit": "carrots"
         }
       ],
-      "total_count": 10,
+      "total_count": 9,
       "count_unit": "carrots",
-      "reasoning": "Grouped consecutive carrot-pickup actions within the same video when gaps between actions were <= 30 seconds. This yields three segments: (1) a single carrot taken at 1341.68\u20131342.99; (2) a continuous run of picking the 2nd through 7th carrots from 1458.91\u20131571.20 (all steps separated by <=30s); (3) actions at 1657.66, 1683.64, and 1704.36 were within 30s of each other, covering the 8th carrot, 9th (final) carrot, and one small remaining cut-out from the bag, counted as one additional carrot unit. Counts were taken directly from the narration ordinals/quantifiers and summed across segments.",
+      "reasoning": "Grouped actions into segments when successive carrot-from-bag pickups occurred within 30 seconds; started a new segment when the gap exceeded 30 seconds. Segment 1 contains the first pickup (\"one carrot\"). Segment 2 contains pickups labeled second through seventh carrots (6 total) with all gaps <= 30s. Segment 3 contains the eighth and ninth carrots (2 total); the final \"very small remaining cut out\" is included in the segment time range as a bag-dispense action but not counted as a full carrot unit, since the narration already states the ninth was the final carrot.",
       "num_dispensing_events": 10,
       "num_segments": 3,
       "matched_ingredient_weight": {
@@ -483,7 +490,7 @@
       ],
       "total_count": 3,
       "count_unit": "spoonfuls",
-      "reasoning": "All cocoa powder dispensing actions (scooping from the can and pouring into the measuring cup/glass) occur in the same video and are continuous within 30 seconds, so they form one segment from 296.64s to 306.49s. The narration specifies three spoonfuls: (1) 'scoop one spoonful' then pour, (2) 'scoop another spoon' then pour, and (3) 'scoop one more spoon' / 'Pour the third spoon', totaling 3 spoonfuls.",
+      "reasoning": "All cocoa dispensing actions (scooping from the can and pouring into the measuring cup/glass) occur consecutively in the same video from 296.64s to 306.49s with no gaps >30s, so they form one segment. The narration specifies three discrete spoon measures: 'one spoonful', 'another spoon', and 'one more spoon'/'third spoon', totaling 3 spoonfuls dispensed.",
       "num_dispensing_events": 6,
       "num_segments": 1,
       "matched_ingredient_weight": {
@@ -518,7 +525,7 @@
       ],
       "total_count": null,
       "count_unit": null,
-      "reasoning": "Two spice-dispensing actions (\u2018Sprinkle the spices\u2026\u2019 then \u2018Sprinkle the spices again\u2026\u2019) occur in the same video and are separated by ~1.1 seconds, so they are merged into one continuous dispensing segment from the first sprinkle start (233.56s) to the last sprinkle end (237.45s). No explicit countable units (e.g., pinches/spoonfuls) are specified, so count is null.",
+      "reasoning": "Two spice-dispensing actions occur in the same video: sprinkling spices at 233.56\u2013235.23s and again at 236.30\u2013237.45s. Because the second sprinkle happens within 30 seconds of the first (about a 1-second gap), they are merged into a single continuous dispensing segment spanning 233.56s to 237.45s. No explicit countable units (e.g., scoops/shakes/pinches with numbers) are given, so count is null.",
       "num_dispensing_events": 2,
       "num_segments": 1,
       "matched_ingredient_weight": {
@@ -553,7 +560,7 @@
       ],
       "total_count": 2,
       "count_unit": "handfuls",
-      "reasoning": "Both narration lines describe dispensing coriander from the same bag in the same video. The second action (2304.57s) occurs ~5.7s after the first action starts (2298.88s), which is within the 30-second merge window, so they are grouped into one continuous segment spanning 2298.88s\u20132305.07s. The text indicates one handful retrieved first and then 'another handful', so the segment count is 2 handfuls total.",
+      "reasoning": "Both narration lines describe retrieving coriander from the bag in the same video. The second action (\u201cget another handful\u201d) occurs ~3.2s after the first, so they are merged into one continuous dispensing segment (well within the 30s threshold). For counts, the phrase \u201canother handful\u201d implies one additional handful following a prior retrieval, so the segment is interpreted as 2 handfuls total.",
       "num_dispensing_events": 2,
       "num_segments": 1,
       "matched_ingredient_weight": {
@@ -586,7 +593,7 @@
       ],
       "total_count": 1,
       "count_unit": "stock cube",
-      "reasoning": "There is one dispensing-related action in the log: turning the chicken stock box upside down so a single stock cube falls out. Since no other chicken-stock dispensing actions occur (and thus none to merge or split by the 30s rule), this forms one segment from 1173.41s to 1175.11s. The phrase 'one stock cube' indicates a count of 1.",
+      "reasoning": "There is a single dispensing-related action where the box is turned upside down and one stock cube falls out. Since there are no other chicken stock dispensing actions within 30 seconds (and only one log line), this is treated as one segment spanning the timestamps of that action. The phrase 'one stock cube' provides a count of 1 stock cube.",
       "num_dispensing_events": 1,
       "num_segments": 1,
       "matched_ingredient_weight": null
@@ -619,7 +626,7 @@
       ],
       "total_count": 2,
       "count_unit": "cubes",
-      "reasoning": "There are two dispensing actions involving chicken stock cubes, each occurring in a different video, so they must be separate segments. In P01-20240203-123350 (1173.41\u20131175.11), the narration specifies one stock cube falls out of the box (+1 cube). In P01-20240203-132119 (65.17\u201366.13), the narration specifies picking up one cube from the box (+1 cube). Total count is 1 + 1 = 2 cubes.",
+      "reasoning": "Two dispensing actions are present, each in a different video ID so they must be separate segments. In P01-20240203-123350, the narration says 'one stock cube falls' indicating 1 cube dispensed. In P01-20240203-132119, the narration says 'Pick up one cube of stock' indicating 1 cube dispensed. No actions within the same video needed merging beyond each single line, and the total is the sum: 1 + 1 = 2 cubes.",
       "num_dispensing_events": 2,
       "num_segments": 2,
       "matched_ingredient_weight": {
@@ -651,7 +658,7 @@
       ],
       "total_count": 1,
       "count_unit": "cubes",
-      "reasoning": "There is a single dispensing-related action: picking up one stock cube from the box. Since no other stock-cube actions occur within 30 seconds (and only one line is present), it forms one segment from 65.17s to 66.13s. The phrase 'one cube' provides a count of 1 cube.",
+      "reasoning": "There is one dispensing-related action: 'Pick up one cube of stock from the box' in video P01-20240203-132119. Since it is a single continuous event with an explicit quantity ('one cube'), it forms one segment from 65.17s to 66.13s with count=1 cube.",
       "num_dispensing_events": 1,
       "num_segments": 1,
       "matched_ingredient_weight": {
@@ -675,7 +682,7 @@
       "dispensal_segments": [
         {
           "video_id": "P01-20240203-135502",
-          "start_timestamp": 254.0,
+          "start_timestamp": 247.38,
           "end_timestamp": 256.14,
           "count": null,
           "count_unit": null
@@ -683,7 +690,7 @@
       ],
       "total_count": null,
       "count_unit": null,
-      "reasoning": "Only one narration line describes dispensing unsalted butter: the cut half is pushed from the packaging and allowed to fall into the pot on the scale (254.00s\u2013256.14s). The earlier action (247.38s\u2013248.82s) is cutting/prep, not dispensing, so it is not used to start the segment. Butter is treated as uncountable here because no discrete count unit (e.g., slices/tablespoons/sticks) is explicitly dispensed.",
+      "reasoning": "There is one continuous butter-dispensing sequence in the same video. The action starts with portioning the butter (cutting it) and continues directly into transferring the cut portion into the pot on the scale; these actions occur within 30 seconds of each other, so they are merged into a single segment [247.38s\u2013256.14s]. No explicit countable unit (e.g., sticks/slices/tablespoons) is given, and the portion is described as a 'half', which is not an integer count, so count is null.",
       "num_dispensing_events": 2,
       "num_segments": 1,
       "matched_ingredient_weight": {
@@ -727,9 +734,9 @@
           "count_unit": "biscuits"
         }
       ],
-      "total_count": 11,
+      "total_count": null,
       "count_unit": "biscuits",
-      "reasoning": "All events are in the same video. The actions at 838.95\u2013840.87 (about 10 biscuits fall), 870.69\u2013871.10 (throw biscuits in), and 880.42\u2013880.67 (throw biscuits in) were merged into one segment because each action occurs within 30 seconds of the previous action\u2019s end time. Only the first line provides an explicit quantity ('around 10'), so segment 1 is counted as 10 biscuits. The action at 971.06\u2013973.57 is separated by >30 seconds from the prior action, so it becomes a new segment; it refers to 'remaining biscuits' with no stated number, so count is null. The action at 1066.64\u20131066.92 is again >30 seconds later, forming a third segment, and specifies a single biscuit, so count = 1. Total count sums only numeric segments: 10 + 1 = 11 biscuits.",
+      "reasoning": "All events occur in the same video. Actions at 838.95\u2013840.87, 870.69\u2013871.10, and 880.42\u2013880.67 are within 30s of each other (gaps ~29.8s and ~9.3s), so they are merged into one segment. Only the first line provides a quantity ('Around 10 biscuits'), so that segment count is set to 10 (others in that segment are unspecified). The next biscuit-dispensing action at 971.06\u2013973.57 is >30s later, forming a new segment with unknown count ('remaining biscuits'). The final action at 1066.64\u20131066.92 is >30s later again, forming a third segment with count 1 ('the biscuit' singular). Because one segment has unknown quantity, total_count is null.",
       "num_dispensing_events": 5,
       "num_segments": 3,
       "matched_ingredient_weight": {
@@ -759,7 +766,7 @@
       ],
       "total_count": 2,
       "count_unit": "pies",
-      "reasoning": "All pie-related actions occur in the same video and are within 30 seconds of each other (184.68s to 196.33s), so they are merged into one continuous dispensing segment (placing pies into a tupperware). Count is inferred as 2 because the narration explicitly references placing a pie from the left hand and a pie from the right hand as separate placements; the earlier lines appear to be fragmented/duplicative descriptions of the same overall placing action rather than additional quantified pies.",
+      "reasoning": "All pie-related actions occur in the same video and within 30 seconds of each other (184.68s\u2013196.33s), so they are merged into one continuous dispensing segment. The final two lines specify a pie in the left hand and a pie in the right hand being placed into the tupperware, indicating 2 pies dispensed in this segment; earlier lines appear to be setup/continued placement of the same action window rather than clearly additional counted pies.",
       "num_dispensing_events": 4,
       "num_segments": 1,
       "matched_ingredient_weight": null
@@ -786,7 +793,7 @@
       ],
       "total_count": 1,
       "count_unit": "onions",
-      "reasoning": "There is a single dispensing-related action: removing one onion from the mesh bag. Since no other onion-dispensing actions occur within 30 seconds (and only one line is present), this forms one segment. The phrase 'one onion' indicates a count of 1 onion.",
+      "reasoning": "There is a single dispensing-related action: removing one onion from the mesh bag. Since no other onion-dispensing actions occur within 30 seconds (and only one log line is provided), this forms one segment covering 425.91s\u2013426.60s. The narration explicitly says 'one onion', so the segment count is 1 onion.",
       "num_dispensing_events": 1,
       "num_segments": 1,
       "matched_ingredient_weight": null
@@ -811,7 +818,7 @@
       ],
       "total_count": 5,
       "count_unit": "pieces",
-      "reasoning": "Two dispensing-related actions occur in the same video: (1) picking up two connected chicken pieces from the container (2 pieces) at 39.30\u201344.91s, and (2) picking up the remaining three pieces still attached from the tupperware (3 pieces) at 57.30\u201358.04s. These actions are separated by ~12.4 seconds (<30s), so they are merged into one continuous segment spanning from 39.30s to 58.04s. Total count is 2 + 3 = 5 pieces.",
+      "reasoning": "Both narration lines describe removing chicken pieces from the same plastic container in the same video. The actions occur at 39.30\u201344.91s and 57.30\u201358.04s, separated by ~12.4 seconds (<30s), so they are merged into one continuous dispensal segment. Counts were taken directly from the narration: first event removes two connected pieces (+2), second removes the remaining three pieces (+3), totaling 5 pieces.",
       "num_dispensing_events": 2,
       "num_segments": 1,
       "matched_ingredient_weight": null
@@ -843,7 +850,7 @@
       ],
       "total_count": null,
       "count_unit": "cloves",
-      "reasoning": "Segments are separated by video ID. In P01-20240203-184214, the action is breaking the garlic head to separate 'a few cloves', which is a dispensing event but not precisely countable, so count=null. In P01-20240204-142301, two clove-breaking actions occur within 30 seconds (407.25s\u2013409.05s and 409.81s\u2013413.10s), so they are merged into one segment and counted as 1 + another 1 = 2 cloves. Because one segment has an unknown quantity ('a few'), the overall total_count is null.",
+      "reasoning": "Segment 1 (P01-20240203-184214, 468.54\u2013471.22) is a single continuous action separating 'a few cloves' from a garlic head; the quantity is unspecified so count is null. Segment 2 (P01-20240204-142301) merges two clove-breaking actions (407.25\u2013409.05 and 409.81\u2013413.10) because they occur within 30 seconds and in the same video; 'one clove' + 'another clove' = 2 cloves. Total count is null because one segment has an unknown quantity.",
       "num_dispensing_events": 3,
       "num_segments": 2,
       "matched_ingredient_weight": null
@@ -875,7 +882,7 @@
       ],
       "total_count": 2,
       "count_unit": "halves",
-      "reasoning": "Two separate lemon-half pick-up (dispensing) actions were logged. They are 32.52s apart (from 235.65s to 268.17s), which is more than the 30s merge threshold, so they are split into two segments. Each action explicitly refers to one lemon half (first half, then second half), so each segment count is 1 half, total 2 halves.",
+      "reasoning": "Two lemon-half pickup actions occur in the same video. They are 33.3 seconds apart (235.65s to 268.17s), which is >30s, so they are split into two separate dispensing segments. Each line explicitly refers to picking up one half (first half, then second half), so each segment count is 1 half, totaling 2 halves.",
       "num_dispensing_events": 2,
       "num_segments": 2,
       "matched_ingredient_weight": {
@@ -905,7 +912,7 @@
       ],
       "total_count": 1,
       "count_unit": "lemons",
-      "reasoning": "Only one lemon-related action appears in the log: cutting the lemon into two halves. This indicates use of a single whole lemon. Since there are no other lemon actions and no gaps to merge/split, it forms one segment covering 325.54s\u2013328.23s with a count of 1 lemon.",
+      "reasoning": "Only one lemon-related action appears in the log: cutting 'the lemon' into two halves. This is treated as a single continuous dispensing/usage segment within the same video, and the wording implies 1 whole lemon was used.",
       "num_dispensing_events": 1,
       "num_segments": 1,
       "matched_ingredient_weight": {
@@ -930,7 +937,7 @@
           "start_timestamp": 335.96,
           "end_timestamp": 378.46,
           "count": null,
-          "count_unit": null
+          "count_unit": "cubes"
         },
         {
           "video_id": "P01-20240204-142301",
@@ -942,7 +949,7 @@
       ],
       "total_count": 1,
       "count_unit": "cubes",
-      "reasoning": "Segment 1 merges the slicing (335.96\u2013339.38) and breaking/dropping remaining bits (365.92\u2013378.46) because they are within 30 seconds of each other (26.54s gap). No explicit number of pieces/bits is given, so count is null. Segment 2 merges 'drop one chicken stock cube' (1316.86\u20131318.78) and then dropping that same cube into the mug (1332.31\u20131333.33) because they are within 30 seconds (13.53s gap). The only explicit quantified dispense is one cube, and the later line refers to the same cube being transferred into the mug, so the segment count is 1 cube. Total_count sums the known counted cubes (1).",
+      "reasoning": "Segment 1 merges the slicing (335.96\u2013339.38) and breaking/dropping remaining bits (365.92\u2013378.46) because they are dispensing-related actions within 30 seconds of each other (gap ~26.5s). No explicit quantity is stated, so count is null. Segment 2 merges dropping one cube into the hand (1316.86\u20131318.78) and then dropping it into the mug (1332.31\u20131333.33) since the actions are within 30 seconds (gap ~13.5s). It explicitly says 'drop one chicken stock cube', so count = 1 cube. Total count sums only the segments with explicit counts.",
       "num_dispensing_events": 4,
       "num_segments": 2,
       "matched_ingredient_weight": {
@@ -970,7 +977,7 @@
       ],
       "total_count": 1,
       "count_unit": "capsules",
-      "reasoning": "There is one dispensing-related action in video P01-20240204-095114 where the user picks up a coffee capsule from the capsule box. The narration explicitly says 'picking one capsule', so the segment count is 1. No other coffee capsule dispensing actions occur, so only one segment is output.",
+      "reasoning": "There is one dispensing-related action: picking up a coffee capsule from the capsule box. It explicitly says 'picking one capsule', so count=1. Since there are no other coffee-capsule actions and no gaps to merge/split, this forms a single segment from 21.75s to 23.23s in the same video.",
       "num_dispensing_events": 1,
       "num_segments": 1,
       "matched_ingredient_weight": null
@@ -1003,7 +1010,7 @@
       ],
       "total_count": 2,
       "count_unit": "cubes",
-      "reasoning": "There are two dispensing actions involving the box of chicken stock cubes, each explicitly stating 'one chicken stock cube'. They occur in different video IDs, so they must be separate segments. Each segment spans the single continuous action window given by its timestamp range. Counts were summed across segments: 1 + 1 = 2 cubes.",
+      "reasoning": "There are two dispensing actions involving chicken stock cubes, each in a different video ID, so they must be separate segments. In P01-20240204-142301, the narration explicitly says 'drop one chicken stock cube,' giving count=1 for that time range. In P01-20240204-145458, the narration says 'pick one chicken stock cube,' giving count=1 for that time range. Total count is the sum: 1 + 1 = 2 cubes.",
       "num_dispensing_events": 2,
       "num_segments": 2,
       "matched_ingredient_weight": null
@@ -1029,7 +1036,7 @@
       ],
       "total_count": 2,
       "count_unit": "cloves",
-      "reasoning": "Both log lines describe breaking off garlic cloves from the same garlic bulb/pulp area: first 'one garlic clove' (count +1) at 407.25\u2013409.05s, then 'another garlic clove' (count +1) at 409.81\u2013413.10s. The actions are in the same video and occur within 30 seconds of each other, so they are merged into a single continuous dispensing segment spanning 407.25s to 413.10s, totaling 2 cloves.",
+      "reasoning": "Both log lines describe dispensing garlic from the garlic bulb by breaking off cloves: the first explicitly says 'one garlic clove' (+1) and the second says 'another garlic clove' (+1). They occur in the same video and are separated by less than 30 seconds, so they are merged into a single continuous segment spanning from the first action start (407.25s) to the last action end (413.10s).",
       "num_dispensing_events": 2,
       "num_segments": 1,
       "matched_ingredient_weight": null
@@ -1055,7 +1062,7 @@
       ],
       "total_count": 2,
       "count_unit": "nests",
-      "reasoning": "Both narration lines occur in the same video and are within 30 seconds of each other (137.14s to 142.21s), so they are merged into one continuous dispensing segment. Counts were derived from 'one nest' (+1) and 'another vermicelli nest' (+1), totaling 2 nests dispensed.",
+      "reasoning": "Two dispensing actions occur in the same video within 30 seconds: taking 'one nest of vermicelli' (count +1) and then picking 'another vermicelli nest' (count +1). They are merged into a single continuous segment from 137.14s to 142.21s, totaling 2 nests dispensed.",
       "num_dispensing_events": 2,
       "num_segments": 1,
       "matched_ingredient_weight": null
@@ -1080,7 +1087,7 @@
       ],
       "total_count": 2,
       "count_unit": "oranges",
-      "reasoning": "There is one dispensing-related action in the log: 'Roll two oranges out of the mesh'. Since it occurs as a single continuous action within one video, it forms one segment from 483.25s to 484.48s. The phrase 'two oranges' provides a count of 2 oranges.",
+      "reasoning": "There is one dispensing-related action: \"Roll two oranges out of the mesh,\" which indicates removing/dispensing oranges. Since there are no other orange actions within 30 seconds (and only one log line), this forms a single segment from 483.25s to 484.48s. The phrase \"two oranges\" provides a count of 2 oranges.",
       "num_dispensing_events": 1,
       "num_segments": 1,
       "matched_ingredient_weight": null
@@ -1100,7 +1107,7 @@
           "start_timestamp": 552.68,
           "end_timestamp": 560.55,
           "count": null,
-          "count_unit": "biscuits"
+          "count_unit": null
         },
         {
           "video_id": "P01-20240204-121042",
@@ -1112,7 +1119,7 @@
       ],
       "total_count": null,
       "count_unit": "biscuits",
-      "reasoning": "Two dispensing clusters appear in the same video. Segment 1 groups actions at 552.68\u2013560.55s (shaking biscuits into the bowl plus an explicit 'two biscuits'), but the shake implies an unspecified number, so the segment count is null. Actions at 617.34s and 621.08s are packaging handling, not dispensing, and are excluded. Segment 2 groups dispensing actions at 652.50\u2013660.08s (2 + 1 + 4 biscuits = 7). The gap between 560.55s and 652.50s is >30s, so they are separate segments. Because one segment has an unknown quantity, total_count is null.",
+      "reasoning": "Dispensing actions for biscuits occur in two clusters within the same video. (1) 552.68\u2013560.55 includes shaking biscuits into the processor (quantity not stated) plus an explicit 'two biscuits' thrown in; because part of the dispensing is unquantified, the segment count is set to null. (2) 652.50\u2013660.08 contains three dispensing lines all within 30s: 2 biscuits + 1 biscuit + 4 biscuits = 7. The packet-removal actions at 617\u2013621s are handling, not dispensing. Total count is null because one segment has unknown quantity (minimum known dispensed from explicit counts is 2 + 7 = 9 biscuits).",
       "num_dispensing_events": 7,
       "num_segments": 2,
       "matched_ingredient_weight": {
@@ -1149,7 +1156,7 @@
       ],
       "total_count": null,
       "count_unit": null,
-      "reasoning": "Merged all date-dispensing actions from 71.53s through 108.04s into one segment because each action occurs within 30 seconds of the next (multiple 'handful of dates' picks plus picking up a fallen date). Created a second segment at 317.54s\u2013321.85s because it is separated from the prior activity by more than 30 seconds. Counts are null because most dispensing is described as 'handful' (not reliably countable); although one line mentions 'one date', it occurs within the same continuous segment dominated by unquantified handfuls, so a precise segment count cannot be determined.",
+      "reasoning": "All date-dispensing actions from 71.53s through 108.04s occur within 30 seconds of each other (multiple 'handful of dates' picks plus picking up one fallen date), so they are merged into one segment. The later action at 317.54s ('gather all the remaining dates') is more than 30 seconds after the prior activity, so it forms a separate segment. Counts are null because most actions are quantified as 'a handful' or 'remaining dates' (not a precise number of dates), so a reliable per-date count cannot be computed from the narration.",
       "num_dispensing_events": 6,
       "num_segments": 2,
       "matched_ingredient_weight": {
@@ -1171,7 +1178,7 @@
       "dispensal_segments": [],
       "total_count": null,
       "count_unit": null,
-      "reasoning": "The only logged action is placing a bowl containing marinated chicken on the countertop. This is a repositioning/handling step and does not involve dispensing (e.g., pouring, scooping, transferring, adding, or portioning) the marinated chicken itself, so no dispensal segment is recorded.",
+      "reasoning": "The only narration line mentions placing the bowl containing marinated chicken (covered with film) onto the countertop. This is a relocation/storage action, not a dispensing action (e.g., adding/portioning/pouring the marinated chicken into another container or onto a cooking surface). Therefore, no dispensal segments were identified.",
       "num_dispensing_events": 1,
       "num_segments": 0,
       "matched_ingredient_weight": null

@@ -29,14 +29,21 @@ Outputs:
 import argparse
 import base64
 import json
+import os
 import re
 import subprocess
 from pathlib import Path
-from typing import Dict, Optional, Any
+from typing import Dict, Optional, Any, List
 
 import requests
 
+from dotenv import load_dotenv
+from openai import AzureOpenAI
+
 from inventory_utils import DEFAULT_OUTPUT_DIR
+
+# Load environment from project root
+load_dotenv(Path(__file__).parent.parent.parent.parent / ".env")
 
 # Paths
 _SCRIPT_DIR = Path(__file__).parent
@@ -165,6 +172,128 @@ class VLMClient:
             return ""
         except Exception as e:
             print(f"  ERROR: Qwen API Error: {e}")
+            return ""
+
+
+class GPT4oClient:
+    """Handles communication with Azure OpenAI GPT-4o API using frame sampling"""
+
+    def __init__(self, fps: float = 2.0, max_frames: int = 30):
+        self.fps = fps
+        self.max_frames = max_frames  # Azure OpenAI limit is 50, we use 30 for safety
+        self.model = "gpt-4o"
+
+        # Use Azure OpenAI endpoint
+        api_key = os.getenv("AZURE_OPENAI_API_KEY")
+        endpoint = os.getenv("AZURE_OPENAI_ENDPOINT", "").strip()
+
+        if not api_key or not endpoint:
+            raise ValueError("Missing Azure OpenAI API credentials. Set AZURE_OPENAI_API_KEY and AZURE_OPENAI_ENDPOINT")
+
+        self.client = AzureOpenAI(
+            azure_endpoint=endpoint,
+            api_key=api_key,
+            api_version="2025-01-01-preview",
+        )
+
+    def extract_frames(self, video_path: Path) -> List[str]:
+        """
+        Extract frames from video at specified FPS and return as base64 encoded images.
+        Limits to max_frames by adjusting the sampling interval if needed.
+        """
+        import cv2
+
+        frames_b64 = []
+        cap = cv2.VideoCapture(str(video_path))
+
+        if not cap.isOpened():
+            print(f"    ERROR: Could not open video {video_path}")
+            return []
+
+        video_fps = cap.get(cv2.CAP_PROP_FPS)
+        total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+
+        # Calculate how many frames we'd get at target FPS
+        duration = total_frames / video_fps if video_fps > 0 else 0
+        expected_frames = int(duration * self.fps)
+
+        # Adjust frame interval to stay within max_frames
+        if expected_frames > self.max_frames:
+            # Need to sample less frequently
+            effective_fps = self.max_frames / duration if duration > 0 else self.fps
+            frame_interval = int(video_fps / effective_fps) if effective_fps > 0 else 1
+        else:
+            frame_interval = int(video_fps / self.fps) if self.fps > 0 and video_fps > 0 else 1
+
+        frame_interval = max(1, frame_interval)
+
+        frame_idx = 0
+        while True:
+            ret, frame = cap.read()
+            if not ret:
+                break
+
+            if frame_idx % frame_interval == 0:
+                # Encode frame as JPEG
+                _, buffer = cv2.imencode('.jpg', frame, [cv2.IMWRITE_JPEG_QUALITY, 85])
+                frame_b64 = base64.b64encode(buffer).decode('utf-8')
+                frames_b64.append(frame_b64)
+
+                # Stop if we've reached max frames
+                if len(frames_b64) >= self.max_frames:
+                    break
+
+            frame_idx += 1
+
+        cap.release()
+        return frames_b64
+
+    def query(
+        self,
+        system_prompt: str,
+        user_prompt: str,
+        video_path: Optional[Path] = None,
+        max_tokens: int = 2000,
+        temperature: float = 0.3
+    ) -> str:
+        """Query GPT-4o with frames extracted from video"""
+        messages = [{"role": "system", "content": system_prompt}]
+
+        user_content = []
+
+        # Extract frames from video and add as images
+        if video_path and video_path.exists():
+            frames = self.extract_frames(video_path)
+            if frames:
+                # Add frame count info to prompt
+                frame_info = f"[Video frames: {len(frames)} frames at {self.fps} FPS]\n\n"
+                user_content.append({"type": "text", "text": frame_info})
+
+                # Add each frame as an image
+                for frame_b64 in frames:
+                    user_content.append({
+                        "type": "image_url",
+                        "image_url": {
+                            "url": f"data:image/jpeg;base64,{frame_b64}",
+                            "detail": "low"  # Use low detail to reduce tokens
+                        }
+                    })
+
+        user_content.append({"type": "text", "text": user_prompt})
+        messages.append({"role": "user", "content": user_content})
+
+        try:
+            response = self.client.chat.completions.create(
+                model=self.model,
+                messages=messages,
+                max_tokens=max_tokens,
+                temperature=temperature,
+            )
+            if response.choices and len(response.choices) > 0:
+                return response.choices[0].message.content
+            return ""
+        except Exception as e:
+            print(f"  ERROR: GPT-4o API Error: {e}")
             return ""
 
 
@@ -364,8 +493,8 @@ def main():
     parser.add_argument(
         '--model',
         default='qwen',
-        choices=['qwen'],
-        help='VLM model to use'
+        choices=['qwen', 'gpt4o'],
+        help='VLM model to use (qwen: video input, gpt4o: frame sampling at 2fps)'
     )
     parser.add_argument(
         '--verbose', '-v',
@@ -413,7 +542,10 @@ def main():
 
     # Initialize VLM client
     print(f"\nInitializing {args.model} VLM client...")
-    vlm = VLMClient(model_name=args.model, use_video=True)
+    if args.model == 'gpt4o':
+        vlm = GPT4oClient(fps=2.0)
+    else:
+        vlm = VLMClient(model_name=args.model, use_video=True)
 
     # Create temp directory for clips
     clips_dir = participant_dir / "vlm_clips"
@@ -584,7 +716,7 @@ def main():
     print(f"SAVING RESULTS")
     print(f"{'='*70}")
 
-    output_file = participant_dir / f"{participant}_vlm_qa_results.json"
+    output_file = participant_dir / f"{participant}_vlm_qa_{args.model}_results.json"
     output_data = {
         'participant': participant,
         'model': args.model,

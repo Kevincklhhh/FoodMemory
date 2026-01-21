@@ -2,6 +2,8 @@ import React, { useState, useRef, useCallback, useEffect } from 'react';
 import InventoryItemList from './components/InventoryItemList';
 import InventoryVideoPlayer from './components/InventoryVideoPlayer';
 import TimelineView from './components/TimelineView';
+import AggregatedView from './components/AggregatedView';
+import VLMResultsView from './components/VLMResultsView';
 import { parseNarrationTimestampsJSON, parseNarrationId } from './utils/narrationParser';
 
 const VIDEO_SERVER = 'http://localhost:3001';
@@ -160,9 +162,12 @@ function InventoryApp() {
   // Data state
   const [inventoryData, setInventoryData] = useState(null);
   const [lifecycleData, setLifecycleData] = useState(null);
+  const [aggregatedData, setAggregatedData] = useState(null);
+  const [vlmDataByModel, setVlmDataByModel] = useState({}); // { modelName: data }
+  const [selectedVlmModel, setSelectedVlmModel] = useState(null);
   const [narrationTimestamps, setNarrationTimestamps] = useState({});
   const [participant, setParticipant] = useState('P01');
-  const [viewMode, setViewMode] = useState('items'); // 'items' or 'timeline'
+  const [viewMode, setViewMode] = useState('items'); // 'items', 'timeline', 'aggregated', or 'vlm'
 
   // UI state
   const [selectedItem, setSelectedItem] = useState(null);
@@ -226,6 +231,59 @@ function InventoryApp() {
         setLifecycleData(lifecycleJson);
       }
 
+      // Load timeline data for aggregated view
+      // First try annotated (user's saved annotations), then fall back to aggregated (original)
+      let aggregatedLoaded = false;
+      const annotatedResponse = await fetch(
+        `${VIDEO_SERVER}/data/outputs/02_inventory/${participant}/${participant}_timeline_annotated.json`
+      );
+      if (annotatedResponse.ok) {
+        const annotatedJson = await annotatedResponse.json();
+        setAggregatedData(annotatedJson);
+        aggregatedLoaded = true;
+        console.log('Loaded annotated timeline data');
+      }
+
+      if (!aggregatedLoaded) {
+        const aggregatedResponse = await fetch(
+          `${VIDEO_SERVER}/data/outputs/02_inventory/${participant}/${participant}_timeline_aggregated.json`
+        );
+        if (aggregatedResponse.ok) {
+          const aggregatedJson = await aggregatedResponse.json();
+          setAggregatedData(aggregatedJson);
+          console.log('Loaded aggregated timeline data');
+        }
+      }
+
+      // Load VLM QA results from multiple models
+      const vlmModels = [
+        { key: 'qwen', file: `${participant}_vlm_qa_results.json` },
+        { key: 'gpt4o', file: `${participant}_vlm_qa_gpt4o_results.json` },
+      ];
+      const loadedVlmData = {};
+      let firstModel = null;
+
+      for (const model of vlmModels) {
+        try {
+          const vlmResponse = await fetch(
+            `${VIDEO_SERVER}/data/outputs/02_inventory/${participant}/${model.file}`
+          );
+          if (vlmResponse.ok) {
+            const vlmJson = await vlmResponse.json();
+            loadedVlmData[model.key] = vlmJson;
+            if (!firstModel) firstModel = model.key;
+            console.log(`Loaded VLM QA results for ${model.key}`);
+          }
+        } catch (err) {
+          console.log(`No VLM results for ${model.key}`);
+        }
+      }
+
+      setVlmDataByModel(loadedVlmData);
+      if (firstModel) {
+        setSelectedVlmModel(firstModel);
+      }
+
       // Load narration timestamps from central JSON file
       const narrationsResponse = await fetch(`${VIDEO_SERVER}/narrations`);
       if (narrationsResponse.ok) {
@@ -281,6 +339,51 @@ function InventoryApp() {
   const handleTimeUpdate = useCallback((time) => {
     setCurrentTime(time);
   }, []);
+
+  // Handle video load with specific timestamp (for aggregated view)
+  const handleLoadVideoAtTime = useCallback((videoId, timestamp) => {
+    if (!videoId) return;
+
+    // Extract participant from videoId (e.g., P01-20240202-110250 -> P01)
+    const participantId = videoId.split('-')[0];
+    const videoUrl = `${VIDEO_SERVER}/videos/${participantId}/${videoId}.mp4`;
+
+    if (currentVideo !== videoId) {
+      setCurrentVideo(videoId);
+      setCurrentVideoUrl(videoUrl);
+      // Wait for video to load before seeking
+      setTimeout(() => {
+        if (timestamp !== undefined && videoRef.current) {
+          videoRef.current.seekTo(timestamp);
+          setCurrentTime(timestamp);
+        }
+      }, 500);
+    } else if (timestamp !== undefined && videoRef.current) {
+      videoRef.current.seekTo(timestamp);
+      setCurrentTime(timestamp);
+    }
+  }, [currentVideo]);
+
+  // Handle save for aggregated data modifications - saves to _timeline_annotated.json
+  const handleSaveAggregated = useCallback(async (updatedData) => {
+    const response = await fetch(
+      `${VIDEO_SERVER}/data/outputs/02_inventory/${participant}/${participant}_timeline_annotated.json`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedData, null, 2),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`Failed to save: ${response.statusText}`);
+    }
+
+    // Update local state with saved data
+    setAggregatedData(updatedData);
+  }, [participant]);
 
   return (
     <div style={styles.app}>
@@ -346,12 +449,36 @@ function InventoryApp() {
                 <button
                   style={{
                     ...styles.viewToggleButton,
-                    ...styles.viewToggleButtonLast,
+                    borderLeft: 'none',
                     ...(viewMode === 'timeline' ? styles.viewToggleButtonActive : {}),
                   }}
                   onClick={() => setViewMode('timeline')}
                 >
                   Timeline View
+                </button>
+                <button
+                  style={{
+                    ...styles.viewToggleButton,
+                    borderLeft: 'none',
+                    ...(viewMode === 'aggregated' ? styles.viewToggleButtonActive : {}),
+                  }}
+                  onClick={() => setViewMode('aggregated')}
+                  disabled={!aggregatedData}
+                  title={!aggregatedData ? 'No aggregated data available' : ''}
+                >
+                  Aggregated
+                </button>
+                <button
+                  style={{
+                    ...styles.viewToggleButton,
+                    ...styles.viewToggleButtonLast,
+                    ...(viewMode === 'vlm' ? styles.viewToggleButtonActive : {}),
+                  }}
+                  onClick={() => setViewMode('vlm')}
+                  disabled={Object.keys(vlmDataByModel).length === 0}
+                  title={Object.keys(vlmDataByModel).length === 0 ? 'No VLM results available' : ''}
+                >
+                  VLM Results
                 </button>
               </div>
             )}
@@ -403,13 +530,50 @@ function InventoryApp() {
                   narrationTimestamps={narrationTimestamps}
                 />
               </div>
-            ) : (
+            ) : viewMode === 'timeline' ? (
               <div style={{ ...styles.mainLayout, gridTemplateColumns: '1fr' }}>
-                {/* Timeline View */}
+                {/* Timeline View with integrated video player */}
                 <TimelineView
+                  ref={videoRef}
                   lifecycleData={lifecycleData}
                   onEventClick={handleNarrationClick}
                   narrationTimestamps={narrationTimestamps}
+                  videoUrl={currentVideoUrl}
+                  videoId={currentVideo}
+                  currentTime={currentTime}
+                  onTimeUpdate={handleTimeUpdate}
+                />
+              </div>
+            ) : viewMode === 'aggregated' ? (
+              <div style={{ ...styles.mainLayout, gridTemplateColumns: '1fr' }}>
+                {/* Aggregated View with timestamp editing */}
+                <AggregatedView
+                  ref={videoRef}
+                  aggregatedData={aggregatedData}
+                  onLoadVideoAtTime={handleLoadVideoAtTime}
+                  narrationTimestamps={narrationTimestamps}
+                  videoUrl={currentVideoUrl}
+                  videoId={currentVideo}
+                  currentTime={currentTime}
+                  onTimeUpdate={handleTimeUpdate}
+                  onSave={handleSaveAggregated}
+                  participant={participant}
+                />
+              </div>
+            ) : (
+              <div style={{ ...styles.mainLayout, gridTemplateColumns: '1fr' }}>
+                {/* VLM Results View */}
+                <VLMResultsView
+                  ref={videoRef}
+                  vlmData={vlmDataByModel[selectedVlmModel]}
+                  availableModels={Object.keys(vlmDataByModel)}
+                  selectedModel={selectedVlmModel}
+                  onModelChange={setSelectedVlmModel}
+                  onLoadVideoAtTime={handleLoadVideoAtTime}
+                  videoUrl={currentVideoUrl}
+                  videoId={currentVideo}
+                  currentTime={currentTime}
+                  onTimeUpdate={handleTimeUpdate}
                 />
               </div>
             )}

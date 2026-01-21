@@ -1,6 +1,9 @@
 #!/bin/bash
 # Start both the video server and the React app
 
+# Change to script directory
+cd "$(dirname "$0")"
+
 echo "🎬 Starting Video Server on port 3001..."
 node video-server.js &
 VIDEO_SERVER_PID=$!

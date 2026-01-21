@@ -256,26 +256,35 @@ function InventoryApp() {
       }
 
       // Load VLM QA results from multiple models
+      // Try multiple file naming conventions for each model
       const vlmModels = [
-        { key: 'qwen', file: `${participant}_vlm_qa_results.json` },
-        { key: 'gpt4o', file: `${participant}_vlm_qa_gpt4o_results.json` },
+        { key: 'qwen', files: [
+          `${participant}_vlm_qa_results.json`,
+          `${participant}_vlm_qa_qwen_results.json`,
+        ]},
+        { key: 'gpt4o', files: [
+          `${participant}_vlm_qa_gpt4o_results.json`,
+        ]},
       ];
       const loadedVlmData = {};
       let firstModel = null;
 
       for (const model of vlmModels) {
-        try {
-          const vlmResponse = await fetch(
-            `${VIDEO_SERVER}/data/outputs/02_inventory/${participant}/${model.file}`
-          );
-          if (vlmResponse.ok) {
-            const vlmJson = await vlmResponse.json();
-            loadedVlmData[model.key] = vlmJson;
-            if (!firstModel) firstModel = model.key;
-            console.log(`Loaded VLM QA results for ${model.key}`);
+        for (const file of model.files) {
+          try {
+            const vlmResponse = await fetch(
+              `${VIDEO_SERVER}/data/outputs/02_inventory/${participant}/${file}`
+            );
+            if (vlmResponse.ok) {
+              const vlmJson = await vlmResponse.json();
+              loadedVlmData[model.key] = vlmJson;
+              if (!firstModel) firstModel = model.key;
+              console.log(`Loaded VLM QA results for ${model.key} from ${file}`);
+              break; // Found file for this model, move to next model
+            }
+          } catch (err) {
+            // Continue to next file pattern
           }
-        } catch (err) {
-          console.log(`No VLM results for ${model.key}`);
         }
       }
 

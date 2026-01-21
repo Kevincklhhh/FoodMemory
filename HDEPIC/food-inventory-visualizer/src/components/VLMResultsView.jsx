@@ -370,6 +370,7 @@ const VLMResultsView = forwardRef(({
 
   items.forEach(item => {
     item.segments?.forEach(seg => {
+      if (!seg.match) return; // Skip segments with errors/no VLM response
       if (seg.match === 'exact') stats.exact++;
       else if (seg.match === 'close') stats.close++;
       else if (seg.match === 'wrong') stats.wrong++;
@@ -619,8 +620,15 @@ const VLMResultsView = forwardRef(({
               {/* Segments */}
               <div style={styles.fieldGroup}>
                 <div style={styles.fieldLabel}>Segments</div>
-                {segments.map((segment, idx) => (
-                  <div key={idx} style={styles.segmentCard}>
+                {segments.map((segment, idx) => {
+                  // Check if segment has error (no VLM response)
+                  const hasError = typeof segment.error === 'string';
+
+                  return (
+                  <div key={idx} style={{
+                    ...styles.segmentCard,
+                    ...(hasError ? { backgroundColor: '#fff3e0', borderColor: '#ffcc80' } : {}),
+                  }}>
                     <div style={styles.segmentHeader}>
                       <div>
                         <span style={styles.segmentTitle}>Segment {idx + 1}</span>
@@ -648,15 +656,28 @@ const VLMResultsView = forwardRef(({
                           </span>
                         )}
                       </div>
-                      <span style={{ ...styles.badge, ...getMatchStyle(segment.match), fontSize: '9px' }}>
-                        {getMatchLabel(segment.match)}
-                        {segment.error !== null && segment.error !== 0 && (
-                          <span style={{ marginLeft: '4px' }}>
-                            ({segment.error > 0 ? '+' : ''}{segment.error})
-                          </span>
-                        )}
-                      </span>
+                      {hasError ? (
+                        <span style={{ ...styles.badge, backgroundColor: '#ffcc80', color: '#e65100', fontSize: '9px' }}>
+                          Error
+                        </span>
+                      ) : (
+                        <span style={{ ...styles.badge, ...getMatchStyle(segment.match), fontSize: '9px' }}>
+                          {getMatchLabel(segment.match)}
+                          {typeof segment.error === 'number' && segment.error !== 0 && (
+                            <span style={{ marginLeft: '4px' }}>
+                              ({segment.error > 0 ? '+' : ''}{segment.error})
+                            </span>
+                          )}
+                        </span>
+                      )}
                     </div>
+
+                    {hasError ? (
+                      <div style={{ padding: '8px', color: '#e65100', fontSize: '11px' }}>
+                        {segment.error}
+                      </div>
+                    ) : (
+                    <>
 
                     {/* Ground Truth vs Prediction */}
                     <div style={styles.comparisonRow}>
@@ -752,8 +773,11 @@ const VLMResultsView = forwardRef(({
                         <strong>Visual:</strong> {segment.visual_evidence}
                       </div>
                     )}
+                    </>
+                    )}
                   </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           ) : (

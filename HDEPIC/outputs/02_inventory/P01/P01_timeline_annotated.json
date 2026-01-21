@@ -1,0 +1,1105 @@
+{
+  "participant": "P01",
+  "model": "gpt-5.2",
+  "reasoning_effort": "high",
+  "total_items": 37,
+  "processed_items": 37,
+  "items": [
+    {
+      "narration_id": "P01-20240202-110250-29",
+      "food_name": "oranges (in mesh bag)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240202-110250"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P01-20240202-110250",
+          "start_timestamp": 53.31,
+          "end_timestamp": 60.531511,
+          "count": 3,
+          "count_unit": "oranges"
+        }
+      ],
+      "total_count": 3,
+      "count_unit": "oranges",
+      "reasoning": "All three actions involve dispensing oranges from the mesh bag and occur consecutively within ~5 seconds in the same video, so they are merged into one continuous segment [53.31s–57.98s]. Counts were taken directly from the narration: one orange (+1), a second orange (+1), and a third orange (+1), totaling 3 oranges.",
+      "num_dispensing_events": 3,
+      "num_segments": 1,
+      "matched_ingredient_weight": null
+    },
+    {
+      "narration_id": "P01-20240202-110250-8",
+      "food_name": "coffee capsule",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240202-110250"
+      ],
+      "dispensal_segments": [],
+      "total_count": null,
+      "count_unit": "capsules",
+      "reasoning": "Only one dispensing-related action is present: inserting a coffee capsule into the coffee machine (16.08s–17.26s). This forms a single segment within one video. The narration refers to a single capsule, so count=1 capsule.",
+      "num_dispensing_events": 1,
+      "num_segments": 0,
+      "matched_ingredient_weight": null
+    },
+    {
+      "narration_id": "P01-20240202-161354-118",
+      "food_name": "black pepper (jar)",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P01-20240202-161354",
+        "P01-20240202-161948"
+      ],
+      "dispensal_segments": [],
+      "total_count": null,
+      "count_unit": null,
+      "reasoning": "All black pepper dispensing-related actions (grinding/pouring and shaking out excess) occur in the same video and are continuous, with no gaps greater than 30 seconds between events (127.92s through 179.70s, including the brief repositioning at 174.33s before additional grinding). Black pepper from a jar is not countable from the narration (no discrete units like 'pinches' or 'shakes' specified as a quantity to count reliably), so count and total_count are null.",
+      "num_dispensing_events": 7,
+      "num_segments": 0,
+      "matched_ingredient_weight": {
+        "ingredient": "black pepper",
+        "amount": "5",
+        "unit": "ml",
+        "recipe": "P01_R03"
+      }
+    },
+    {
+      "narration_id": "P01-20240202-161354-76",
+      "food_name": "pasta box (dry pasta)",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P01-20240202-161354",
+        "P01-20240202-161948"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P01-20240202-161354",
+          "start_timestamp": 177.35,
+          "end_timestamp": 190.677174,
+          "count": null,
+          "count_unit": null
+        }
+      ],
+      "total_count": null,
+      "count_unit": null,
+      "reasoning": "There is a single dispensing action in the log: pasta is poured from the pasta box into a plate on a scale (177.35s–179.54s) in the same video. No discrete units or quantities are mentioned for the dry pasta, so count is null.",
+      "num_dispensing_events": 1,
+      "num_segments": 1,
+      "matched_ingredient_weight": {
+        "ingredient": "penne pasta",
+        "amount": "125",
+        "unit": "g",
+        "recipe": "P01_R03"
+      }
+    },
+    {
+      "narration_id": "P01-20240202-161354-81",
+      "food_name": "butter",
+      "difficulty": "MID",
+      "video_range": [
+        "P01-20240202-161354",
+        "P01-20240202-161948"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P01-20240202-161948",
+          "start_timestamp": 30.18,
+          "end_timestamp": 39.82,
+          "count": 2,
+          "count_unit": "slices"
+        },
+        {
+          "video_id": "P01-20240202-161948",
+          "start_timestamp": 305.01,
+          "end_timestamp": 314.993276,
+          "count": 2,
+          "count_unit": "slices"
+        }
+      ],
+      "total_count": 4,
+      "count_unit": "slices",
+      "reasoning": "Grouped butter-related dispensing actions within the same video into continuous segments when consecutive actions were within 30s. Segment 1 (30.18–39.82) includes slicing and dropping two slices into the pan (+2 slices). Segment 2 (305.01–314.67) includes slicing two slices and placing them on a plate for measuring (+2 slices). The pick-up actions occur at 402.09 and 436.43, but they are >30s apart, so they form two separate segments; each explicitly picks up one/second slice (+1 slice each). Total slices dispensed across all segments = 2+2+1+1=6.",
+      "num_dispensing_events": 10,
+      "num_segments": 2,
+      "matched_ingredient_weight": {
+        "ingredient": "butter",
+        "amount": "25",
+        "unit": "g",
+        "recipe": "P01_R03"
+      }
+    },
+    {
+      "narration_id": "P01-20240202-161354-82",
+      "food_name": "parmesan cheese",
+      "difficulty": "MID",
+      "video_range": [
+        "P01-20240202-161354",
+        "P01-20240202-161948"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P01-20240202-161948",
+          "start_timestamp": 67.47,
+          "end_timestamp": 99.395759,
+          "count": null,
+          "count_unit": null
+        },
+        {
+          "video_id": "P01-20240202-161948",
+          "start_timestamp": 186.16,
+          "end_timestamp": 259.154779,
+          "count": null,
+          "count_unit": null
+        }
+      ],
+      "total_count": null,
+      "count_unit": null,
+      "reasoning": "All listed actions are dispensing parmesan via grating. The first grating action (67.47–91.40s) is separated from the next by >30s, so it forms its own segment. The actions at 186.16–187.82s, 202.35–231.00s, and 237.19–246.05s are each within 30s of the previous action, so they are merged into one continuous dispensal segment (186.16–246.05s). No explicit countable units (e.g., scoops/slices) are given for the grated cheese, so counts are null.",
+      "num_dispensing_events": 4,
+      "num_segments": 2,
+      "matched_ingredient_weight": {
+        "ingredient": "parmigiano",
+        "amount": "31",
+        "unit": "g",
+        "recipe": "P01_R03"
+      }
+    },
+    {
+      "narration_id": "P01-20240203-093333-17",
+      "food_name": "box of coffee capsules",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240203-093333"
+      ],
+      "dispensal_segments": [],
+      "total_count": null,
+      "count_unit": "capsules",
+      "reasoning": "There is one dispensing-related action: \"Pick up a coffee capsule from the box\" occurring from 43.76s to 45.51s in video P01-20240203-093333. This represents dispensing 1 countable unit (one capsule) from the box. No other capsule-dispensing actions appear within 30 seconds or in other videos, so it forms a single segment.",
+      "num_dispensing_events": 1,
+      "num_segments": 0,
+      "matched_ingredient_weight": {
+        "ingredient": "nespresso capsule",
+        "amount": "N/A",
+        "unit": "N/A",
+        "recipe": "P01_R01_C1"
+      }
+    },
+    {
+      "narration_id": "P01-20240203-093333-20",
+      "food_name": "coffee capsule",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240203-093333"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P01-20240203-093333",
+          "start_timestamp": 43.76,
+          "end_timestamp": 45.51,
+          "count": 1,
+          "count_unit": "capsules"
+        }
+      ],
+      "total_count": 1,
+      "count_unit": "capsules",
+      "reasoning": "There is one dispensing-related action: picking up a coffee capsule from the box (43.76s–45.51s). No other coffee-capsule actions occur within 30 seconds, so this forms a single segment. The phrasing indicates one capsule was taken, so count=1 capsule.",
+      "num_dispensing_events": 1,
+      "num_segments": 1,
+      "matched_ingredient_weight": {
+        "ingredient": "nespresso capsule",
+        "amount": "N/A",
+        "unit": "N/A",
+        "recipe": "P01_R01_C1"
+      }
+    },
+    {
+      "narration_id": "P01-20240203-093333-25",
+      "food_name": "milk bottle",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P01-20240203-093333"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P01-20240203-093333",
+          "start_timestamp": 73,
+          "end_timestamp": 77,
+          "count": null,
+          "count_unit": null
+        }
+      ],
+      "total_count": null,
+      "count_unit": null,
+      "reasoning": "There is one continuous dispensing action: pouring milk from the bottle into the milk frother. It occurs within a single narration line and time window (73.50s–76.57s) in the same video, so it forms one segment. Milk is poured with no explicit measurable units given, so the count is null.",
+      "num_dispensing_events": 1,
+      "num_segments": 1,
+      "matched_ingredient_weight": {
+        "ingredient": "milk",
+        "amount": "N/A",
+        "unit": "N/A",
+        "recipe": "P01_R01_C1"
+      }
+    },
+    {
+      "narration_id": "P01-20240203-121517-78",
+      "food_name": "onions (mesh bag)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240203-121517",
+        "P01-20240203-123350",
+        "P01-20240203-130505",
+        "P01-20240203-132119",
+        "P01-20240203-135502",
+        "P01-20240203-150506",
+        "P01-20240203-152323"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P01-20240203-123350",
+          "start_timestamp": 460.04,
+          "end_timestamp": 470.05,
+          "count": 2,
+          "count_unit": "onions"
+        }
+      ],
+      "total_count": 2,
+      "count_unit": "onions",
+      "reasoning": "Both narration lines occur in the same video and are only ~1 second apart, so they are merged into one continuous dispensing segment (within the 30-second rule). The first line explicitly dispenses 'one onion' (+1). The second line dispenses 'the other onion' (+1 more), for a total of 2 onions removed from the mesh bag in this segment.",
+      "num_dispensing_events": 2,
+      "num_segments": 1,
+      "matched_ingredient_weight": {
+        "ingredient": "onions",
+        "amount": "257",
+        "unit": "g",
+        "recipe": "P01_R06"
+      }
+    },
+    {
+      "narration_id": "P01-20240203-130505-83",
+      "food_name": "spices (jar)",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P01-20240203-121517",
+        "P01-20240203-123350",
+        "P01-20240203-130505",
+        "P01-20240203-132119",
+        "P01-20240203-135502",
+        "P01-20240203-150506",
+        "P01-20240203-152323"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P01-20240203-130505",
+          "start_timestamp": 232.81,
+          "end_timestamp": 237.45,
+          "count": 2,
+          "count_unit": "pinches"
+        }
+      ],
+      "total_count": 2,
+      "count_unit": "pinches",
+      "reasoning": "All spice-related actions occur in the same video and within ~5 seconds of each other, so they form one continuous dispensing segment from 232.81s to 237.45s. The narration indicates two discrete pickups from the jar: 'take a pinch' (+1) and 'take another pinch' (+1), totaling 2 pinches dispensed (sprinkling lines are part of the same dispensing sequence).",
+      "num_dispensing_events": 4,
+      "num_segments": 1,
+      "matched_ingredient_weight": {
+        "ingredient": "spice mix",
+        "amount": "5",
+        "unit": "g",
+        "recipe": "P01_R06"
+      }
+    },
+    {
+      "narration_id": "P01-20240203-121517-51",
+      "food_name": "butter (packet)",
+      "difficulty": "MID",
+      "video_range": [
+        "P01-20240203-121517",
+        "P01-20240203-123350",
+        "P01-20240203-130505",
+        "P01-20240203-132119",
+        "P01-20240203-135502",
+        "P01-20240203-150506",
+        "P01-20240203-152323",
+        "P01-20240203-161757"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P01-20240203-130505",
+          "start_timestamp": 64.83,
+          "end_timestamp": 89.79,
+          "count": null,
+          "count_unit": null
+        },
+        {
+          "video_id": "P01-20240203-135502",
+          "start_timestamp": 247.38,
+          "end_timestamp": 257.14,
+          "count": null,
+          "count_unit": null
+        }
+      ],
+      "total_count": null,
+      "count_unit": null,
+      "reasoning": "Segment 1 (video P01-20240203-130505) groups butter being slid from the packet into the pan (64.83–66.95), then cutting and dropping an additional slice into the pan (86.42–89.79). These actions occur within 30 seconds of each other, so they are treated as one continuous dispensing segment. Segment 2 (video P01-20240203-135502) groups cutting the butter and pushing the cut half to fall into the pot on a scale (247.38–256.14), also within 30 seconds. Counts are null because butter here is dispensed by amount/weight (including 'remaining butter' and 'half') rather than a clear integer number of packets or standardized countable units.",
+      "num_dispensing_events": 5,
+      "num_segments": 2,
+      "matched_ingredient_weight": {
+        "ingredient": "salted butter",
+        "amount": "46",
+        "unit": "g",
+        "recipe": "P01_R06"
+      }
+    },
+    {
+      "narration_id": "P01-20240203-121517-52",
+      "food_name": "condensed milk (can)",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P01-20240203-121517",
+        "P01-20240203-123350",
+        "P01-20240203-130505",
+        "P01-20240203-132119",
+        "P01-20240203-135502",
+        "P01-20240203-150506",
+        "P01-20240203-152323",
+        "P01-20240203-161757"
+      ],
+      "dispensal_segments": [],
+      "total_count": null,
+      "count_unit": null,
+      "reasoning": "The only logged action is picking up an opened can of condensed milk (508.69s–509.57s). This is a handling action, not a dispensing action (e.g., pouring/squeezing/adding to another container). Therefore, no dispensing segments can be identified from the provided log, and no count applies.",
+      "num_dispensing_events": 1,
+      "num_segments": 0,
+      "matched_ingredient_weight": {
+        "ingredient": "condensed milk",
+        "amount": "390",
+        "unit": "g",
+        "recipe": "P01_R05"
+      }
+    },
+    {
+      "narration_id": "P01-20240203-121517-72",
+      "food_name": "carrots (bag)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240203-121517",
+        "P01-20240203-123350",
+        "P01-20240203-130505",
+        "P01-20240203-132119",
+        "P01-20240203-135502",
+        "P01-20240203-150506",
+        "P01-20240203-152323",
+        "P01-20240203-161757"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P01-20240203-123350",
+          "start_timestamp": 1341.68,
+          "end_timestamp": 1344.045349,
+          "count": 1,
+          "count_unit": "carrots"
+        },
+        {
+          "video_id": "P01-20240203-123350",
+          "start_timestamp": 1458.91,
+          "end_timestamp": 1571.2,
+          "count": 6,
+          "count_unit": "carrots"
+        },
+        {
+          "video_id": "P01-20240203-123350",
+          "start_timestamp": 1657.66,
+          "end_timestamp": 1704.66,
+          "count": 2,
+          "count_unit": "carrots"
+        }
+      ],
+      "total_count": 9,
+      "count_unit": "carrots",
+      "reasoning": "Grouped actions into segments when successive carrot-from-bag pickups occurred within 30 seconds; started a new segment when the gap exceeded 30 seconds. Segment 1 contains the first pickup (\"one carrot\"). Segment 2 contains pickups labeled second through seventh carrots (6 total) with all gaps <= 30s. Segment 3 contains the eighth and ninth carrots (2 total); the final \"very small remaining cut out\" is included in the segment time range as a bag-dispense action but not counted as a full carrot unit, since the narration already states the ninth was the final carrot.",
+      "num_dispensing_events": 10,
+      "num_segments": 3,
+      "matched_ingredient_weight": {
+        "ingredient": "carrots",
+        "amount": "736",
+        "unit": "g",
+        "recipe": "P01_R06"
+      }
+    },
+    {
+      "narration_id": "P01-20240203-132119-246",
+      "food_name": "cocoa powder (can)",
+      "difficulty": "MID",
+      "video_range": [
+        "P01-20240203-121517",
+        "P01-20240203-123350",
+        "P01-20240203-130505",
+        "P01-20240203-132119",
+        "P01-20240203-135502",
+        "P01-20240203-150506",
+        "P01-20240203-152323",
+        "P01-20240203-161757"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P01-20240203-135502",
+          "start_timestamp": 296.64,
+          "end_timestamp": 308.39303,
+          "count": 3,
+          "count_unit": "spoonfuls"
+        }
+      ],
+      "total_count": 3,
+      "count_unit": "spoonfuls",
+      "reasoning": "All cocoa dispensing actions (scooping from the can and pouring into the measuring cup/glass) occur consecutively in the same video from 296.64s to 306.49s with no gaps >30s, so they form one segment. The narration specifies three discrete spoon measures: 'one spoonful', 'another spoon', and 'one more spoon'/'third spoon', totaling 3 spoonfuls dispensed.",
+      "num_dispensing_events": 6,
+      "num_segments": 1,
+      "matched_ingredient_weight": {
+        "ingredient": "cocoa powder",
+        "amount": "35",
+        "unit": "g",
+        "recipe": "P01_R05"
+      }
+    },
+    {
+      "narration_id": "P01-20240203-135502-729",
+      "food_name": "spice (jar)",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P01-20240203-121517",
+        "P01-20240203-123350",
+        "P01-20240203-130505",
+        "P01-20240203-132119",
+        "P01-20240203-135502",
+        "P01-20240203-150506",
+        "P01-20240203-152323",
+        "P01-20240203-161757"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P01-20240203-130505",
+          "start_timestamp": 233.56,
+          "end_timestamp": 237.45,
+          "count": null,
+          "count_unit": null
+        }
+      ],
+      "total_count": null,
+      "count_unit": null,
+      "reasoning": "Two spice-dispensing actions occur in the same video: sprinkling spices at 233.56–235.23s and again at 236.30–237.45s. Because the second sprinkle happens within 30 seconds of the first (about a 1-second gap), they are merged into a single continuous dispensing segment spanning 233.56s to 237.45s. No explicit countable units (e.g., scoops/shakes/pinches with numbers) are given, so count is null.",
+      "num_dispensing_events": 2,
+      "num_segments": 1,
+      "matched_ingredient_weight": {
+        "ingredient": "spice mix",
+        "amount": "5",
+        "unit": "g",
+        "recipe": "P01_R06"
+      }
+    },
+    {
+      "narration_id": "P01-20240203-135502-762",
+      "food_name": "coriander (bag)",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P01-20240203-121517",
+        "P01-20240203-123350",
+        "P01-20240203-130505",
+        "P01-20240203-132119",
+        "P01-20240203-135502",
+        "P01-20240203-150506",
+        "P01-20240203-152323",
+        "P01-20240203-161757"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P01-20240203-135502",
+          "start_timestamp": 2298.88,
+          "end_timestamp": 2306.898616,
+          "count": 2,
+          "count_unit": "handfuls"
+        }
+      ],
+      "total_count": 2,
+      "count_unit": "handfuls",
+      "reasoning": "Both narration lines describe retrieving coriander from the bag in the same video. The second action (“get another handful”) occurs ~3.2s after the first, so they are merged into one continuous dispensing segment (well within the 30s threshold). For counts, the phrase “another handful” implies one additional handful following a prior retrieval, so the segment is interpreted as 2 handfuls total.",
+      "num_dispensing_events": 2,
+      "num_segments": 1,
+      "matched_ingredient_weight": {
+        "ingredient": "coriander",
+        "amount": "5",
+        "unit": "g",
+        "recipe": "P01_R06"
+      }
+    },
+    {
+      "narration_id": "P01-20240203-121517-70",
+      "food_name": "chicken stock (box)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240203-121517",
+        "P01-20240203-123350",
+        "P01-20240203-130505",
+        "P01-20240203-135502",
+        "P01-20240203-150506",
+        "P01-20240203-152323"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P01-20240203-123350",
+          "start_timestamp": 1173.41,
+          "end_timestamp": 1175.51,
+          "count": 1,
+          "count_unit": "stock cube"
+        }
+      ],
+      "total_count": 1,
+      "count_unit": "stock cube",
+      "reasoning": "There is a single dispensing-related action where the box is turned upside down and one stock cube falls out. Since there are no other chicken stock dispensing actions within 30 seconds (and only one log line), this is treated as one segment spanning the timestamps of that action. The phrase 'one stock cube' provides a count of 1 stock cube.",
+      "num_dispensing_events": 1,
+      "num_segments": 1,
+      "matched_ingredient_weight": null
+    },
+    {
+      "narration_id": "P01-20240203-123350-326",
+      "food_name": "chicken stock cubes",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240203-123350",
+        "P01-20240203-130505",
+        "P01-20240203-132119",
+        "P01-20240203-135502"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P01-20240203-132119",
+          "start_timestamp": 65.17,
+          "end_timestamp": 68.334418,
+          "count": 1,
+          "count_unit": "cubes"
+        }
+      ],
+      "total_count": 1,
+      "count_unit": "cubes",
+      "reasoning": "Two dispensing actions are present, each in a different video ID so they must be separate segments. In P01-20240203-123350, the narration says 'one stock cube falls' indicating 1 cube dispensed. In P01-20240203-132119, the narration says 'Pick up one cube of stock' indicating 1 cube dispensed. No actions within the same video needed merging beyond each single line, and the total is the sum: 1 + 1 = 2 cubes.",
+      "num_dispensing_events": 2,
+      "num_segments": 1,
+      "matched_ingredient_weight": {
+        "ingredient": "chicken stock cube",
+        "amount": "1",
+        "unit": "cube",
+        "recipe": "P01_R06"
+      }
+    },
+    {
+      "narration_id": "P01-20240203-132119-13",
+      "food_name": "stock cubes (new box)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240203-123350",
+        "P01-20240203-130505",
+        "P01-20240203-132119",
+        "P01-20240203-135502",
+        "P01-20240203-161757"
+      ],
+      "dispensal_segments": [],
+      "total_count": null,
+      "count_unit": "cubes",
+      "reasoning": "There is one dispensing-related action: 'Pick up one cube of stock from the box' in video P01-20240203-132119. Since it is a single continuous event with an explicit quantity ('one cube'), it forms one segment from 65.17s to 66.13s with count=1 cube.",
+      "num_dispensing_events": 1,
+      "num_segments": 0,
+      "matched_ingredient_weight": {
+        "ingredient": "chicken stock cube",
+        "amount": "1",
+        "unit": "cube",
+        "recipe": "P01_R06"
+      }
+    },
+    {
+      "narration_id": "P01-20240203-132119-235",
+      "food_name": "unsalted butter",
+      "difficulty": "MID",
+      "video_range": [
+        "P01-20240203-123350",
+        "P01-20240203-130505",
+        "P01-20240203-132119",
+        "P01-20240203-135502",
+        "P01-20240203-161757"
+      ],
+      "dispensal_segments": [],
+      "total_count": null,
+      "count_unit": null,
+      "reasoning": "There is one continuous butter-dispensing sequence in the same video. The action starts with portioning the butter (cutting it) and continues directly into transferring the cut portion into the pot on the scale; these actions occur within 30 seconds of each other, so they are merged into a single segment [247.38s–256.14s]. No explicit countable unit (e.g., sticks/slices/tablespoons) is given, and the portion is described as a 'half', which is not an integer count, so count is null.",
+      "num_dispensing_events": 2,
+      "num_segments": 0,
+      "matched_ingredient_weight": {
+        "ingredient": "salted butter",
+        "amount": "46",
+        "unit": "g",
+        "recipe": "P01_R06"
+      }
+    },
+    {
+      "narration_id": "P01-20240203-132119-253",
+      "food_name": "biscuits",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240203-123350",
+        "P01-20240203-130505",
+        "P01-20240203-132119",
+        "P01-20240203-135502",
+        "P01-20240203-161757"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P01-20240203-132119",
+          "start_timestamp": 838.95,
+          "end_timestamp": 845.057626,
+          "count": 10,
+          "count_unit": "biscuits"
+        },
+        {
+          "video_id": "P01-20240203-132119",
+          "start_timestamp": 971.06,
+          "end_timestamp": 978.053705,
+          "count": null,
+          "count_unit": "biscuits"
+        },
+        {
+          "video_id": "P01-20240203-132119",
+          "start_timestamp": 1066.64,
+          "end_timestamp": 1076.605973,
+          "count": 1,
+          "count_unit": "biscuits"
+        }
+      ],
+      "total_count": 11,
+      "count_unit": "biscuits",
+      "reasoning": "All events occur in the same video. Actions at 838.95–840.87, 870.69–871.10, and 880.42–880.67 are within 30s of each other (gaps ~29.8s and ~9.3s), so they are merged into one segment. Only the first line provides a quantity ('Around 10 biscuits'), so that segment count is set to 10 (others in that segment are unspecified). The next biscuit-dispensing action at 971.06–973.57 is >30s later, forming a new segment with unknown count ('remaining biscuits'). The final action at 1066.64–1066.92 is >30s later again, forming a third segment with count 1 ('the biscuit' singular). Because one segment has unknown quantity, total_count is null.",
+      "num_dispensing_events": 5,
+      "num_segments": 3,
+      "matched_ingredient_weight": {
+        "ingredient": "biscuits",
+        "amount": "457",
+        "unit": "g",
+        "recipe": "P01_R05"
+      }
+    },
+    {
+      "narration_id": "P01-20240203-161757-113",
+      "food_name": "pies",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240203-132119",
+        "P01-20240203-135502",
+        "P01-20240203-161757"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P01-20240203-161757",
+          "start_timestamp": 184.68,
+          "end_timestamp": 196.33,
+          "count": 2,
+          "count_unit": "pies"
+        }
+      ],
+      "total_count": 2,
+      "count_unit": "pies",
+      "reasoning": "All pie-related actions occur in the same video and within 30 seconds of each other (184.68s–196.33s), so they are merged into one continuous dispensing segment. The final two lines specify a pie in the left hand and a pie in the right hand being placed into the tupperware, indicating 2 pies dispensed in this segment; earlier lines appear to be setup/continued placement of the same action window rather than clearly additional counted pies.",
+      "num_dispensing_events": 4,
+      "num_segments": 1,
+      "matched_ingredient_weight": null
+    },
+    {
+      "narration_id": "P01-20240204-142301-162",
+      "food_name": "onions (in mesh bag)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240203-184214",
+        "P01-20240204-120411",
+        "P01-20240204-142301",
+        "P01-20240204-145458",
+        "P01-20240204-152537"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P01-20240204-142301",
+          "start_timestamp": 425.91,
+          "end_timestamp": 427.9,
+          "count": 1,
+          "count_unit": "onions"
+        }
+      ],
+      "total_count": 1,
+      "count_unit": "onions",
+      "reasoning": "There is a single dispensing-related action: removing one onion from the mesh bag. Since no other onion-dispensing actions occur within 30 seconds (and only one log line is provided), this forms one segment covering 425.91s–426.60s. The narration explicitly says 'one onion', so the segment count is 1 onion.",
+      "num_dispensing_events": 1,
+      "num_segments": 1,
+      "matched_ingredient_weight": null
+    },
+    {
+      "narration_id": "P01-20240203-184214-15",
+      "food_name": "chicken (in plastic container)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240203-184214",
+        "P01-20240204-142301",
+        "P01-20240204-152537"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P01-20240203-184214",
+          "start_timestamp": 39.3,
+          "end_timestamp": 58.04,
+          "count": 5,
+          "count_unit": "pieces"
+        }
+      ],
+      "total_count": 5,
+      "count_unit": "pieces",
+      "reasoning": "Both narration lines describe removing chicken pieces from the same plastic container in the same video. The actions occur at 39.30–44.91s and 57.30–58.04s, separated by ~12.4 seconds (<30s), so they are merged into one continuous dispensal segment. Counts were taken directly from the narration: first event removes two connected pieces (+2), second removes the remaining three pieces (+3), totaling 5 pieces.",
+      "num_dispensing_events": 2,
+      "num_segments": 1,
+      "matched_ingredient_weight": null
+    },
+    {
+      "narration_id": "P01-20240203-184214-193",
+      "food_name": "garlic (head/bulb)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240203-184214",
+        "P01-20240204-142301",
+        "P01-20240204-152537"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P01-20240203-184214",
+          "start_timestamp": 468.54,
+          "end_timestamp": 471.22,
+          "count": null,
+          "count_unit": "cloves"
+        },
+        {
+          "video_id": "P01-20240204-142301",
+          "start_timestamp": 407.25,
+          "end_timestamp": 413.1,
+          "count": 2,
+          "count_unit": "cloves"
+        }
+      ],
+      "total_count": 2,
+      "count_unit": "cloves",
+      "reasoning": "Segment 1 (P01-20240203-184214, 468.54–471.22) is a single continuous action separating 'a few cloves' from a garlic head; the quantity is unspecified so count is null. Segment 2 (P01-20240204-142301) merges two clove-breaking actions (407.25–409.05 and 409.81–413.10) because they occur within 30 seconds and in the same video; 'one clove' + 'another clove' = 2 cloves. Total count is null because one segment has an unknown quantity.",
+      "num_dispensing_events": 3,
+      "num_segments": 2,
+      "matched_ingredient_weight": null
+    },
+    {
+      "narration_id": "P01-20240203-184214-85",
+      "food_name": "lemon (two halves)",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P01-20240203-184214",
+        "P01-20240204-142301",
+        "P01-20240204-152537"
+      ],
+      "dispensal_segments": [],
+      "total_count": null,
+      "count_unit": "halves",
+      "reasoning": "Two lemon-half pickup actions occur in the same video. They are 33.3 seconds apart (235.65s to 268.17s), which is >30s, so they are split into two separate dispensing segments. Each line explicitly refers to picking up one half (first half, then second half), so each segment count is 1 half, totaling 2 halves.",
+      "num_dispensing_events": 2,
+      "num_segments": 0,
+      "matched_ingredient_weight": {
+        "ingredient": "lemon juice",
+        "amount": "4",
+        "unit": "tbsp",
+        "recipe": "P01_R08"
+      }
+    },
+    {
+      "narration_id": "P01-20240203-184214-88",
+      "food_name": "lemon (whole)",
+      "difficulty": "MID",
+      "video_range": [
+        "P01-20240203-184214",
+        "P01-20240204-142301",
+        "P01-20240204-152537"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P01-20240203-184214",
+          "start_timestamp": 325.54,
+          "end_timestamp": 328.23,
+          "count": 1,
+          "count_unit": "lemons"
+        }
+      ],
+      "total_count": 1,
+      "count_unit": "lemons",
+      "reasoning": "Only one lemon-related action appears in the log: cutting 'the lemon' into two halves. This is treated as a single continuous dispensing/usage segment within the same video, and the wording implies 1 whole lemon was used.",
+      "num_dispensing_events": 1,
+      "num_segments": 1,
+      "matched_ingredient_weight": {
+        "ingredient": "lemon juice",
+        "amount": "4",
+        "unit": "tbsp",
+        "recipe": "P01_R08"
+      }
+    },
+    {
+      "narration_id": "P01-20240204-142301-130",
+      "food_name": "chicken stock cube",
+      "difficulty": "MID",
+      "video_range": [
+        "P01-20240203-184214",
+        "P01-20240204-142301",
+        "P01-20240204-152537"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P01-20240204-142301",
+          "start_timestamp": 1316.86,
+          "end_timestamp": 1334.33,
+          "count": 1,
+          "count_unit": "cubes"
+        }
+      ],
+      "total_count": 1,
+      "count_unit": "cubes",
+      "reasoning": "Segment 1 merges the slicing (335.96–339.38) and breaking/dropping remaining bits (365.92–378.46) because they are dispensing-related actions within 30 seconds of each other (gap ~26.5s). No explicit quantity is stated, so count is null. Segment 2 merges dropping one cube into the hand (1316.86–1318.78) and then dropping it into the mug (1332.31–1333.33) since the actions are within 30 seconds (gap ~13.5s). It explicitly says 'drop one chicken stock cube', so count = 1 cube. Total count sums only the segments with explicit counts.",
+      "num_dispensing_events": 4,
+      "num_segments": 1,
+      "matched_ingredient_weight": {
+        "ingredient": "chicken stock cube",
+        "amount": "1",
+        "unit": "cube",
+        "recipe": "P01_R08"
+      }
+    },
+    {
+      "narration_id": "P01-20240204-095114-11",
+      "food_name": "coffee capsule",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240204-095114"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P01-20240204-095114",
+          "start_timestamp": 21.75,
+          "end_timestamp": 23.23,
+          "count": 1,
+          "count_unit": "capsules"
+        }
+      ],
+      "total_count": 1,
+      "count_unit": "capsules",
+      "reasoning": "There is one dispensing-related action: picking up a coffee capsule from the capsule box. It explicitly says 'picking one capsule', so count=1. Since there are no other coffee-capsule actions and no gaps to merge/split, this forms a single segment from 21.75s to 23.23s in the same video.",
+      "num_dispensing_events": 1,
+      "num_segments": 1,
+      "matched_ingredient_weight": null
+    },
+    {
+      "narration_id": "P01-20240204-142301-125",
+      "food_name": "box of chicken stock cubes",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240204-120411",
+        "P01-20240204-142301",
+        "P01-20240204-145458",
+        "P01-20240204-152537"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P01-20240204-142301",
+          "start_timestamp": 1316.86,
+          "end_timestamp": 1319.408228,
+          "count": 1,
+          "count_unit": "cubes"
+        },
+        {
+          "video_id": "P01-20240204-145458",
+          "start_timestamp": 228.52,
+          "end_timestamp": 233.193142,
+          "count": 1,
+          "count_unit": "cubes"
+        }
+      ],
+      "total_count": 2,
+      "count_unit": "cubes",
+      "reasoning": "There are two dispensing actions involving chicken stock cubes, each in a different video ID, so they must be separate segments. In P01-20240204-142301, the narration explicitly says 'drop one chicken stock cube,' giving count=1 for that time range. In P01-20240204-145458, the narration says 'pick one chicken stock cube,' giving count=1 for that time range. Total count is the sum: 1 + 1 = 2 cubes.",
+      "num_dispensing_events": 2,
+      "num_segments": 2,
+      "matched_ingredient_weight": null
+    },
+    {
+      "narration_id": "P01-20240204-142301-163",
+      "food_name": "garlic bulb",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240204-120411",
+        "P01-20240204-142301",
+        "P01-20240204-145458",
+        "P01-20240204-152537"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P01-20240204-142301",
+          "start_timestamp": 407.25,
+          "end_timestamp": 414.166909,
+          "count": 2,
+          "count_unit": "cloves"
+        }
+      ],
+      "total_count": 2,
+      "count_unit": "cloves",
+      "reasoning": "Both log lines describe dispensing garlic from the garlic bulb by breaking off cloves: the first explicitly says 'one garlic clove' (+1) and the second says 'another garlic clove' (+1). They occur in the same video and are separated by less than 30 seconds, so they are merged into a single continuous segment spanning from the first action start (407.25s) to the last action end (413.10s).",
+      "num_dispensing_events": 2,
+      "num_segments": 1,
+      "matched_ingredient_weight": null
+    },
+    {
+      "narration_id": "P01-20240204-145458-46",
+      "food_name": "bag of vermicelli",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240204-120411",
+        "P01-20240204-142301",
+        "P01-20240204-145458",
+        "P01-20240204-152537"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P01-20240204-145458",
+          "start_timestamp": 137.14,
+          "end_timestamp": 143.548804,
+          "count": 2,
+          "count_unit": "nests"
+        }
+      ],
+      "total_count": 2,
+      "count_unit": "nests",
+      "reasoning": "Two dispensing actions occur in the same video within 30 seconds: taking 'one nest of vermicelli' (count +1) and then picking 'another vermicelli nest' (count +1). They are merged into a single continuous segment from 137.14s to 142.21s, totaling 2 nests dispensed.",
+      "num_dispensing_events": 2,
+      "num_segments": 1,
+      "matched_ingredient_weight": null
+    },
+    {
+      "narration_id": "P01-20240204-121042-256",
+      "food_name": "oranges",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240204-121042",
+        "P01-20240204-124504",
+        "P01-20240204-130448"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P01-20240204-130448",
+          "start_timestamp": 483.25,
+          "end_timestamp": 492.731994,
+          "count": 2,
+          "count_unit": "oranges"
+        }
+      ],
+      "total_count": 2,
+      "count_unit": "oranges",
+      "reasoning": "There is one dispensing-related action: \"Roll two oranges out of the mesh,\" which indicates removing/dispensing oranges. Since there are no other orange actions within 30 seconds (and only one log line), this forms a single segment from 483.25s to 484.48s. The phrase \"two oranges\" provides a count of 2 oranges.",
+      "num_dispensing_events": 1,
+      "num_segments": 1,
+      "matched_ingredient_weight": null
+    },
+    {
+      "narration_id": "P01-20240204-121042-278",
+      "food_name": "biscuits",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240204-121042",
+        "P01-20240204-124504",
+        "P01-20240204-130448"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P01-20240204-121042",
+          "start_timestamp": 552.68,
+          "end_timestamp": 560.55,
+          "count": null,
+          "count_unit": null
+        },
+        {
+          "video_id": "P01-20240204-121042",
+          "start_timestamp": 652.5,
+          "end_timestamp": 660.08,
+          "count": 7,
+          "count_unit": "biscuits"
+        }
+      ],
+      "total_count": null,
+      "count_unit": "biscuits",
+      "reasoning": "Dispensing actions for biscuits occur in two clusters within the same video. (1) 552.68–560.55 includes shaking biscuits into the processor (quantity not stated) plus an explicit 'two biscuits' thrown in; because part of the dispensing is unquantified, the segment count is set to null. (2) 652.50–660.08 contains three dispensing lines all within 30s: 2 biscuits + 1 biscuit + 4 biscuits = 7. The packet-removal actions at 617–621s are handling, not dispensing. Total count is null because one segment has unknown quantity (minimum known dispensed from explicit counts is 2 + 7 = 9 biscuits).",
+      "num_dispensing_events": 7,
+      "num_segments": 2,
+      "matched_ingredient_weight": {
+        "ingredient": "biscuits",
+        "amount": "192",
+        "unit": "g",
+        "recipe": "P01_R09"
+      }
+    },
+    {
+      "narration_id": "P01-20240204-121042-6",
+      "food_name": "dates",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P01-20240204-121042",
+        "P01-20240204-124504",
+        "P01-20240204-130448"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P01-20240204-121042",
+          "start_timestamp": 71.53,
+          "end_timestamp": 108.04,
+          "count": null,
+          "count_unit": null
+        },
+        {
+          "video_id": "P01-20240204-121042",
+          "start_timestamp": 317.54,
+          "end_timestamp": 321.85,
+          "count": null,
+          "count_unit": null
+        }
+      ],
+      "total_count": null,
+      "count_unit": null,
+      "reasoning": "All date-dispensing actions from 71.53s through 108.04s occur within 30 seconds of each other (multiple 'handful of dates' picks plus picking up one fallen date), so they are merged into one segment. The later action at 317.54s ('gather all the remaining dates') is more than 30 seconds after the prior activity, so it forms a separate segment. Counts are null because most actions are quantified as 'a handful' or 'remaining dates' (not a precise number of dates), so a reliable per-date count cannot be computed from the narration.",
+      "num_dispensing_events": 6,
+      "num_segments": 2,
+      "matched_ingredient_weight": {
+        "ingredient": "medjool dates",
+        "amount": "545",
+        "unit": "g",
+        "recipe": "P01_R09"
+      }
+    },
+    {
+      "narration_id": "P01-20240204-124504-17",
+      "food_name": "marinated chicken",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240204-121042",
+        "P01-20240204-124504",
+        "P01-20240204-130448"
+      ],
+      "dispensal_segments": [],
+      "total_count": null,
+      "count_unit": null,
+      "reasoning": "The only narration line mentions placing the bowl containing marinated chicken (covered with film) onto the countertop. This is a relocation/storage action, not a dispensing action (e.g., adding/portioning/pouring the marinated chicken into another container or onto a cooking surface). Therefore, no dispensal segments were identified.",
+      "num_dispensing_events": 1,
+      "num_segments": 0,
+      "matched_ingredient_weight": null
+    }
+  ],
+  "last_modified": "2026-01-21T03:44:01.804Z"
+}

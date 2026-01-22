@@ -1,0 +1,15 @@
+{
+  "vlm_call": "VLM_CALL_1_DETECTION",
+  "timestamp": "2025-10-30T15:10:11.672184",
+  "video_name": "20251029-192329.MOV",
+  "clip_index": 5,
+  "clip_path": "clips/20251029-192329_clip_004.mp4",
+  "prompt": "You are a food tracker. Analyze this egocentric video clip and identify all food items the user *directly interacts with*.\n\nIMPORTANT RULES:\n- Only identify food items that the user physically touches, grasps, or manipulates\n- Ignore food in the background that is not being interacted with\n- Focus on direct physical contact with food items\n- Be specific about the food item (e.g., \"whole milk\" not just \"milk\", \"raw chicken breast\" not just \"chicken\")\n\nOutput ONLY a JSON object in this exact format:\n{\n  \"food_names\": [\"specific food item 1\", \"specific food item 2\", ...]\n}\n\nIf no food interactions are detected, return:\n{\n  \"food_names\": []\n}\n",
+  "raw_response": "{\n  \"food_names\": [\n    \"kimchi\",\n    \"banana\"\n  ]\n}",
+  "parsed_output": {
+    "food_names": [
+      "kimchi",
+      "banana"
+    ]
+  }
+}

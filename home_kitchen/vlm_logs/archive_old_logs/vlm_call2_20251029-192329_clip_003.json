@@ -1,0 +1,34 @@
+{
+  "vlm_call": "VLM_CALL_2_UPDATE",
+  "timestamp": "2025-10-30T15:10:00.647206",
+  "video_name": "20251029-192329.MOV",
+  "clip_index": 4,
+  "clip_path": "clips/20251029-192329_clip_003.mp4",
+  "mode": "STANDARD_INTERACTION",
+  "expected_items": null,
+  "context_provided": "CONTEXT: No matching items found in memory. All detected items are likely new.",
+  "prompt": "You are a food memory manager. Analyze this video clip showing food interactions.\n\nCONTEXT: No matching items found in memory. All detected items are likely new.\n\nTASK:\n1. Match the food items in the video to their IDs from the memory context above\n2. Identify the interaction (e.g., \"retrieve from fridge\", \"place in fridge\", \"cook\", \"eat\", \"store leftover\")\n3. Determine the new state (location, quantity)\n4. Output commands to update the memory\n\nOutput a JSON object with a list of commands:\n\n{\n  \"commands\": [\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"milk_abc123\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"half-full\",\n        \"action\": \"retrieve from fridge\"\n      }\n    },\n    {\n      \"command\": \"CREATE\",\n      \"data\": {\n        \"primary_label\": \"Leftover Pasta\",\n        \"description\": \"Container of leftover pasta\",\n        \"visual_embedding\": [0.0, 0.0, 0.0],\n        \"location\": \"counter\",\n        \"quantity\": \"1 container\",\n        \"purchase_date\": \"<current_timestamp>\",\n        \"action\": \"created from cooking\"\n      }\n    }\n  ]\n}\n\nRULES:\n- UPDATE existing items from context when you see them\n- CREATE new items only if they don't match anything in context\n- Be specific about actions (what is the user doing with the food?)\n- Update location and quantity based on what you observe\n- If no interactions detected, return empty commands list: {\"commands\": []}\n",
+  "raw_response": "```json\n{\n  \"commands\": [\n    {\n      \"command\": \"CREATE\",\n      \"data\": {\n        \"primary_label\": \"Rice\",\n        \"description\": \"Rice being washed in a pot under running water\",\n        \"visual_embedding\": [0.0, 0.0, 0.0],\n        \"location\": \"sink\",\n        \"quantity\": \"1 pot\",\n        \"purchase_date\": \"2023-10-05\",\n        \"action\": \"washing\"\n      }\n    }\n  ]\n}\n```",
+  "parsed_output": {
+    "commands": [
+      {
+        "command": "CREATE",
+        "data": {
+          "primary_label": "Rice",
+          "description": "Rice being washed in a pot under running water",
+          "visual_embedding": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "location": "sink",
+          "quantity": "1 pot",
+          "purchase_date": "2023-10-05",
+          "action": "washing"
+        }
+      }
+    ],
+    "num_creates": 1,
+    "num_updates": 0
+  }
+}

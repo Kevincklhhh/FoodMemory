@@ -1,0 +1,73 @@
+================================================================================
+VLM INTERACTION REPORT: 20251026-183616.MOV
+================================================================================
+
+
+================================================================================
+CLIP 1
+================================================================================
+
+[VLM CALL 1: Context-Free Detection]
+Clip: 20251026-183616_clip_000.mp4
+Timestamp: 2025-10-30T15:08:21.819800
+
+Detected Food Items:
+  • orange juice
+  • lettuce
+  • tomatoes
+  • blueberries
+  • kimchi
+  • yogurt
+  • eggs
+  • ground beef
+
+[VLM CALL 2: Context-Aware Update]
+Mode: UN-BAGGING
+Expected Items: napa cabbage, simply orange juice, kroger ribeye, blueberies, spam lite
+
+Generated Commands:
+  • CREATE: Napa Cabbage
+  • CREATE: Simply Orange Juice
+  • CREATE: Kroger Ribeye
+  • CREATE: Blueberries
+  • CREATE: Spam Lite
+
+[Memory Update Results]
+  Created: 5 items
+  Updated: 0 items
+  Failed: 0 items
+
+================================================================================
+CLIP 2
+================================================================================
+
+[VLM CALL 1: Context-Free Detection]
+Clip: 20251026-183616_clip_001.mp4
+Timestamp: 2025-10-30T15:08:40.741241
+
+Detected Food Items:
+  • SPAM
+  • eggs
+  • wine
+  • orange juice
+  • milk
+  • ground beef
+  • butter
+  • soy sauce
+  • canned tuna
+
+[VLM CALL 2: Context-Aware Update]
+Mode: STANDARD_INTERACTION
+
+Generated Commands:
+  • UPDATE: spam_lite_a92d7c96 - retrieve from bag
+  • UPDATE: spam_lite_c52b3252 - retrieve from bag
+  • UPDATE: simply_orange_juice_dd74a63b - retrieve from bag
+  • UPDATE: simply_orange_juice_db709650 - retrieve from bag
+
+[Memory Update Results]
+  Created: 0 items
+  Updated: 4 items
+  Failed: 0 items
+
+================================================================================

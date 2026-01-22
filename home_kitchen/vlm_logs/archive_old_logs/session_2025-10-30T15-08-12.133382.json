@@ -1,0 +1,2157 @@
+{
+  "session_start": "2025-10-30T15:08:12.133382",
+  "session_end": "2025-10-30T15:16:57.463990",
+  "total_vlm_calls": 63,
+  "vlm_call_1_count": 21,
+  "vlm_call_2_count": 21,
+  "logs": [
+    {
+      "vlm_call": "VLM_CALL_1_DETECTION",
+      "timestamp": "2025-10-30T15:08:21.819800",
+      "video_name": "20251026-183616.MOV",
+      "clip_index": 1,
+      "clip_path": "clips/20251026-183616_clip_000.mp4",
+      "prompt": "You are a food tracker. Analyze this egocentric video clip and identify all food items the user *directly interacts with*.\n\nIMPORTANT RULES:\n- Only identify food items that the user physically touches, grasps, or manipulates\n- Ignore food in the background that is not being interacted with\n- Focus on direct physical contact with food items\n- Be specific about the food item (e.g., \"whole milk\" not just \"milk\", \"raw chicken breast\" not just \"chicken\")\n\nOutput ONLY a JSON object in this exact format:\n{\n  \"food_names\": [\"specific food item 1\", \"specific food item 2\", ...]\n}\n\nIf no food interactions are detected, return:\n{\n  \"food_names\": []\n}\n",
+      "raw_response": "{\n  \"food_names\": [\"orange juice\", \"lettuce\", \"tomatoes\", \"blueberries\", \"kimchi\", \"yogurt\", \"eggs\", \"ground beef\"]\n}",
+      "parsed_output": {
+        "food_names": [
+          "orange juice",
+          "lettuce",
+          "tomatoes",
+          "blueberries",
+          "kimchi",
+          "yogurt",
+          "eggs",
+          "ground beef"
+        ]
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_2_UPDATE",
+      "timestamp": "2025-10-30T15:08:37.672790",
+      "video_name": "20251026-183616.MOV",
+      "clip_index": 1,
+      "clip_path": "clips/20251026-183616_clip_000.mp4",
+      "mode": "UN-BAGGING",
+      "expected_items": [
+        "napa cabbage",
+        "simply orange juice",
+        "kroger ribeye",
+        "blueberies",
+        "spam lite"
+      ],
+      "context_provided": "CONTEXT: The food memory contains the following potentially relevant items:\n\n1. Simply Orange Juice (ID: simply_orange_juice_dd74a63b)\n   Description: A bottle of Simply Orange juice being un-bagged\n   Current Location: counter\n   Current Quantity: 1 bottle\n   Purchased: 2025-10-30T14:49:47.683512\n   Last Interaction: retrieve from bag at 2025-10-26T18:36:16\n\n2. Blueberries (ID: blueberries_4b788a23)\n   Description: A container of blueberries being un-bagged\n   Current Location: counter\n   Current Quantity: 1 container\n   Purchased: 2025-10-30T14:49:47.683537\n   Last Interaction: purchased and un-bagged at 2025-10-26T18:36:16\n",
+      "prompt": "You are a food memory manager. The user is UN-BAGGING GROCERIES in this video.\n\nEXPECTED ITEMS FROM RECEIPT:\n  - napa cabbage\n  - simply orange juice\n  - kroger ribeye\n  - blueberies\n  - spam lite\n\nCONTEXT: The food memory contains the following potentially relevant items:\n\n1. Simply Orange Juice (ID: simply_orange_juice_dd74a63b)\n   Description: A bottle of Simply Orange juice being un-bagged\n   Current Location: counter\n   Current Quantity: 1 bottle\n   Purchased: 2025-10-30T14:49:47.683512\n   Last Interaction: retrieve from bag at 2025-10-26T18:36:16\n\n2. Blueberries (ID: blueberries_4b788a23)\n   Description: A container of blueberries being un-bagged\n   Current Location: counter\n   Current Quantity: 1 container\n   Purchased: 2025-10-30T14:49:47.683537\n   Last Interaction: purchased and un-bagged at 2025-10-26T18:36:16\n\n\nTASK:\nAnalyze the video and identify each food item being un-bagged. For each item:\n1. Check if it matches an expected item from the receipt\n2. Check if it matches any existing item in the memory context\n3. Decide whether to CREATE a new item or UPDATE an existing one\n4. Extract visual embedding (use a placeholder for now: [0.0, 0.0, 0.0])\n\nOutput a JSON object with a list of commands:\n\n{\n  \"commands\": [\n    {\n      \"command\": \"CREATE\",\n      \"data\": {\n        \"primary_label\": \"Kroger Whole Milk Gallon\",\n        \"description\": \"Gallon of whole milk being un-bagged\",\n        \"visual_embedding\": [0.0, 0.0, 0.0],\n        \"location\": \"counter\",\n        \"quantity\": \"1 gallon\",\n        \"purchase_date\": \"<current_timestamp>\",\n        \"action\": \"purchased and un-bagged\"\n      }\n    },\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"existing_item_id_from_context\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"updated quantity\",\n        \"action\": \"retrieved from bag\"\n      }\n    }\n  ]\n}\n\nRULES:\n- CREATE new items for items not in memory\n- UPDATE existing items if they match context\n- Set initial location to \"counter\" or \"table\" (where un-bagging happens)\n- Be specific with labels (match receipt items)\n- All items should have an action describing what's happening\n",
+      "raw_response": "```json\n{\n  \"commands\": [\n    {\n      \"command\": \"CREATE\",\n      \"data\": {\n        \"primary_label\": \"Napa Cabbage\",\n        \"description\": \"A head of napa cabbage being un-bagged\",\n        \"visual_embedding\": [0.0, 0.0, 0.0],\n        \"location\": \"counter\",\n        \"quantity\": \"1 head\",\n        \"purchase_date\": \"2025-10-30T14:49:47.683512\",\n        \"action\": \"purchased and un-bagged\"\n      }\n    },\n    {\n      \"command\": \"CREATE\",\n      \"data\": {\n        \"primary_label\": \"Simply Orange Juice\",\n        \"description\": \"A bottle of Simply Orange juice being un-bagged\",\n        \"visual_embedding\": [0.0, 0.0, 0.0],\n        \"location\": \"counter\",\n        \"quantity\": \"1 bottle\",\n        \"purchase_date\": \"2025-10-30T14:49:47.683512\",\n        \"action\": \"purchased and un-bagged\"\n      }\n    },\n    {\n      \"command\": \"CREATE\",\n      \"data\": {\n        \"primary_label\": \"Kroger Ribeye\",\n        \"description\": \"A package of Kroger ribeye being un-bagged\",\n        \"visual_embedding\": [0.0, 0.0, 0.0],\n        \"location\": \"counter\",\n        \"quantity\": \"1 package\",\n        \"purchase_date\": \"2025-10-30T14:49:47.683512\",\n        \"action\": \"purchased and un-bagged\"\n      }\n    },\n    {\n      \"command\": \"CREATE\",\n      \"data\": {\n        \"primary_label\": \"Blueberries\",\n        \"description\": \"A container of blueberries being un-bagged\",\n        \"visual_embedding\": [0.0, 0.0, 0.0],\n        \"location\": \"counter\",\n        \"quantity\": \"1 container\",\n        \"purchase_date\": \"2025-10-30T14:49:47.683537\",\n        \"action\": \"purchased and un-bagged\"\n      }\n    },\n    {\n      \"command\": \"CREATE\",\n      \"data\": {\n        \"primary_label\": \"Spam Lite\",\n        \"description\": \"A can of Spam Lite being un-bagged\",\n        \"visual_embedding\": [0.0, 0.0, 0.0],\n        \"location\": \"counter\",\n        \"quantity\": \"1 can\",\n        \"purchase_date\": \"2025-10-30T14:49:47.683512\",\n        \"action\": \"purchased and un-bagged\"\n      }\n    }\n  ]\n}\n```",
+      "parsed_output": {
+        "commands": [
+          {
+            "command": "CREATE",
+            "data": {
+              "primary_label": "Napa Cabbage",
+              "description": "A head of napa cabbage being un-bagged",
+              "visual_embedding": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "location": "counter",
+              "quantity": "1 head",
+              "purchase_date": "2025-10-30T14:49:47.683512",
+              "action": "purchased and un-bagged"
+            }
+          },
+          {
+            "command": "CREATE",
+            "data": {
+              "primary_label": "Simply Orange Juice",
+              "description": "A bottle of Simply Orange juice being un-bagged",
+              "visual_embedding": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "location": "counter",
+              "quantity": "1 bottle",
+              "purchase_date": "2025-10-30T14:49:47.683512",
+              "action": "purchased and un-bagged"
+            }
+          },
+          {
+            "command": "CREATE",
+            "data": {
+              "primary_label": "Kroger Ribeye",
+              "description": "A package of Kroger ribeye being un-bagged",
+              "visual_embedding": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "location": "counter",
+              "quantity": "1 package",
+              "purchase_date": "2025-10-30T14:49:47.683512",
+              "action": "purchased and un-bagged"
+            }
+          },
+          {
+            "command": "CREATE",
+            "data": {
+              "primary_label": "Blueberries",
+              "description": "A container of blueberries being un-bagged",
+              "visual_embedding": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "location": "counter",
+              "quantity": "1 container",
+              "purchase_date": "2025-10-30T14:49:47.683537",
+              "action": "purchased and un-bagged"
+            }
+          },
+          {
+            "command": "CREATE",
+            "data": {
+              "primary_label": "Spam Lite",
+              "description": "A can of Spam Lite being un-bagged",
+              "visual_embedding": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "location": "counter",
+              "quantity": "1 can",
+              "purchase_date": "2025-10-30T14:49:47.683512",
+              "action": "purchased and un-bagged"
+            }
+          }
+        ],
+        "num_creates": 5,
+        "num_updates": 0
+      }
+    },
+    {
+      "event": "MEMORY_UPDATE",
+      "timestamp": "2025-10-30T15:08:37.678933",
+      "video_name": "20251026-183616.MOV",
+      "video_timestamp": "2025-10-26T18:36:16",
+      "clip_index": 1,
+      "commands": [
+        {
+          "command": "CREATE",
+          "data": {
+            "primary_label": "Napa Cabbage",
+            "description": "A head of napa cabbage being un-bagged",
+            "visual_embedding": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "location": "counter",
+            "quantity": "1 head",
+            "purchase_date": "2025-10-30T14:49:47.683512",
+            "action": "purchased and un-bagged"
+          }
+        },
+        {
+          "command": "CREATE",
+          "data": {
+            "primary_label": "Simply Orange Juice",
+            "description": "A bottle of Simply Orange juice being un-bagged",
+            "visual_embedding": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "location": "counter",
+            "quantity": "1 bottle",
+            "purchase_date": "2025-10-30T14:49:47.683512",
+            "action": "purchased and un-bagged"
+          }
+        },
+        {
+          "command": "CREATE",
+          "data": {
+            "primary_label": "Kroger Ribeye",
+            "description": "A package of Kroger ribeye being un-bagged",
+            "visual_embedding": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "location": "counter",
+            "quantity": "1 package",
+            "purchase_date": "2025-10-30T14:49:47.683512",
+            "action": "purchased and un-bagged"
+          }
+        },
+        {
+          "command": "CREATE",
+          "data": {
+            "primary_label": "Blueberries",
+            "description": "A container of blueberries being un-bagged",
+            "visual_embedding": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "location": "counter",
+            "quantity": "1 container",
+            "purchase_date": "2025-10-30T14:49:47.683537",
+            "action": "purchased and un-bagged"
+          }
+        },
+        {
+          "command": "CREATE",
+          "data": {
+            "primary_label": "Spam Lite",
+            "description": "A can of Spam Lite being un-bagged",
+            "visual_embedding": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "location": "counter",
+            "quantity": "1 can",
+            "purchase_date": "2025-10-30T14:49:47.683512",
+            "action": "purchased and un-bagged"
+          }
+        }
+      ],
+      "execution_stats": {
+        "created": 5,
+        "updated": 0,
+        "failed": 0
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_1_DETECTION",
+      "timestamp": "2025-10-30T15:08:40.741241",
+      "video_name": "20251026-183616.MOV",
+      "clip_index": 2,
+      "clip_path": "clips/20251026-183616_clip_001.mp4",
+      "prompt": "You are a food tracker. Analyze this egocentric video clip and identify all food items the user *directly interacts with*.\n\nIMPORTANT RULES:\n- Only identify food items that the user physically touches, grasps, or manipulates\n- Ignore food in the background that is not being interacted with\n- Focus on direct physical contact with food items\n- Be specific about the food item (e.g., \"whole milk\" not just \"milk\", \"raw chicken breast\" not just \"chicken\")\n\nOutput ONLY a JSON object in this exact format:\n{\n  \"food_names\": [\"specific food item 1\", \"specific food item 2\", ...]\n}\n\nIf no food interactions are detected, return:\n{\n  \"food_names\": []\n}\n",
+      "raw_response": "{\n  \"food_names\": [\"SPAM\", \"eggs\", \"wine\", \"orange juice\", \"milk\", \"ground beef\", \"butter\", \"soy sauce\", \"canned tuna\"]\n}",
+      "parsed_output": {
+        "food_names": [
+          "SPAM",
+          "eggs",
+          "wine",
+          "orange juice",
+          "milk",
+          "ground beef",
+          "butter",
+          "soy sauce",
+          "canned tuna"
+        ]
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_2_UPDATE",
+      "timestamp": "2025-10-30T15:08:45.819174",
+      "video_name": "20251026-183616.MOV",
+      "clip_index": 2,
+      "clip_path": "clips/20251026-183616_clip_001.mp4",
+      "mode": "STANDARD_INTERACTION",
+      "expected_items": null,
+      "context_provided": "CONTEXT: The food memory contains the following potentially relevant items:\n\n1. Spam Lite (ID: spam_lite_a92d7c96)\n   Description: A can of Spam Lite being un-bagged\n   Current Location: counter\n   Current Quantity: 1 can\n   Purchased: 2025-10-30T14:49:47.683545\n   Last Interaction: retrieve from bag at 2025-10-26T18:36:16\n\n2. Spam Lite (ID: spam_lite_c52b3252)\n   Description: A can of Spam Lite being un-bagged\n   Current Location: counter\n   Current Quantity: 1 can\n   Purchased: 2025-10-30T14:49:47.683512\n   Last Interaction: purchased and un-bagged at 2025-10-26T18:36:16\n\n3. Simply Orange Juice (ID: simply_orange_juice_dd74a63b)\n   Description: A bottle of Simply Orange juice being un-bagged\n   Current Location: counter\n   Current Quantity: 1 bottle\n   Purchased: 2025-10-30T14:49:47.683512\n   Last Interaction: retrieve from bag at 2025-10-26T18:36:16\n\n4. Simply Orange Juice (ID: simply_orange_juice_db709650)\n   Description: A bottle of Simply Orange juice being un-bagged\n   Current Location: counter\n   Current Quantity: 1 bottle\n   Purchased: 2025-10-30T14:49:47.683512\n   Last Interaction: purchased and un-bagged at 2025-10-26T18:36:16\n",
+      "prompt": "You are a food memory manager. Analyze this video clip showing food interactions.\n\nCONTEXT: The food memory contains the following potentially relevant items:\n\n1. Spam Lite (ID: spam_lite_a92d7c96)\n   Description: A can of Spam Lite being un-bagged\n   Current Location: counter\n   Current Quantity: 1 can\n   Purchased: 2025-10-30T14:49:47.683545\n   Last Interaction: retrieve from bag at 2025-10-26T18:36:16\n\n2. Spam Lite (ID: spam_lite_c52b3252)\n   Description: A can of Spam Lite being un-bagged\n   Current Location: counter\n   Current Quantity: 1 can\n   Purchased: 2025-10-30T14:49:47.683512\n   Last Interaction: purchased and un-bagged at 2025-10-26T18:36:16\n\n3. Simply Orange Juice (ID: simply_orange_juice_dd74a63b)\n   Description: A bottle of Simply Orange juice being un-bagged\n   Current Location: counter\n   Current Quantity: 1 bottle\n   Purchased: 2025-10-30T14:49:47.683512\n   Last Interaction: retrieve from bag at 2025-10-26T18:36:16\n\n4. Simply Orange Juice (ID: simply_orange_juice_db709650)\n   Description: A bottle of Simply Orange juice being un-bagged\n   Current Location: counter\n   Current Quantity: 1 bottle\n   Purchased: 2025-10-30T14:49:47.683512\n   Last Interaction: purchased and un-bagged at 2025-10-26T18:36:16\n\n\nTASK:\n1. Match the food items in the video to their IDs from the memory context above\n2. Identify the interaction (e.g., \"retrieve from fridge\", \"place in fridge\", \"cook\", \"eat\", \"store leftover\")\n3. Determine the new state (location, quantity)\n4. Output commands to update the memory\n\nOutput a JSON object with a list of commands:\n\n{\n  \"commands\": [\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"milk_abc123\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"half-full\",\n        \"action\": \"retrieve from fridge\"\n      }\n    },\n    {\n      \"command\": \"CREATE\",\n      \"data\": {\n        \"primary_label\": \"Leftover Pasta\",\n        \"description\": \"Container of leftover pasta\",\n        \"visual_embedding\": [0.0, 0.0, 0.0],\n        \"location\": \"counter\",\n        \"quantity\": \"1 container\",\n        \"purchase_date\": \"<current_timestamp>\",\n        \"action\": \"created from cooking\"\n      }\n    }\n  ]\n}\n\nRULES:\n- UPDATE existing items from context when you see them\n- CREATE new items only if they don't match anything in context\n- Be specific about actions (what is the user doing with the food?)\n- Update location and quantity based on what you observe\n- If no interactions detected, return empty commands list: {\"commands\": []}\n",
+      "raw_response": "```json\n{\n  \"commands\": [\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"spam_lite_a92d7c96\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": 1,\n        \"action\": \"retrieve from bag\"\n      }\n    },\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"spam_lite_c52b3252\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": 1,\n        \"action\": \"retrieve from bag\"\n      }\n    },\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"simply_orange_juice_dd74a63b\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": 1,\n        \"action\": \"retrieve from bag\"\n      }\n    },\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"simply_orange_juice_db709650\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": 1,\n        \"action\": \"retrieve from bag\"\n      }\n    }\n  ]\n}\n```",
+      "parsed_output": {
+        "commands": [
+          {
+            "command": "UPDATE",
+            "food_id": "spam_lite_a92d7c96",
+            "data": {
+              "location": "counter",
+              "quantity": 1,
+              "action": "retrieve from bag"
+            }
+          },
+          {
+            "command": "UPDATE",
+            "food_id": "spam_lite_c52b3252",
+            "data": {
+              "location": "counter",
+              "quantity": 1,
+              "action": "retrieve from bag"
+            }
+          },
+          {
+            "command": "UPDATE",
+            "food_id": "simply_orange_juice_dd74a63b",
+            "data": {
+              "location": "counter",
+              "quantity": 1,
+              "action": "retrieve from bag"
+            }
+          },
+          {
+            "command": "UPDATE",
+            "food_id": "simply_orange_juice_db709650",
+            "data": {
+              "location": "counter",
+              "quantity": 1,
+              "action": "retrieve from bag"
+            }
+          }
+        ],
+        "num_creates": 0,
+        "num_updates": 4
+      }
+    },
+    {
+      "event": "MEMORY_UPDATE",
+      "timestamp": "2025-10-30T15:08:45.820005",
+      "video_name": "20251026-183616.MOV",
+      "video_timestamp": "2025-10-26T18:36:16",
+      "clip_index": 2,
+      "commands": [
+        {
+          "command": "UPDATE",
+          "food_id": "spam_lite_a92d7c96",
+          "data": {
+            "location": "counter",
+            "quantity": 1,
+            "action": "retrieve from bag"
+          }
+        },
+        {
+          "command": "UPDATE",
+          "food_id": "spam_lite_c52b3252",
+          "data": {
+            "location": "counter",
+            "quantity": 1,
+            "action": "retrieve from bag"
+          }
+        },
+        {
+          "command": "UPDATE",
+          "food_id": "simply_orange_juice_dd74a63b",
+          "data": {
+            "location": "counter",
+            "quantity": 1,
+            "action": "retrieve from bag"
+          }
+        },
+        {
+          "command": "UPDATE",
+          "food_id": "simply_orange_juice_db709650",
+          "data": {
+            "location": "counter",
+            "quantity": 1,
+            "action": "retrieve from bag"
+          }
+        }
+      ],
+      "execution_stats": {
+        "created": 0,
+        "updated": 4,
+        "failed": 0
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_1_DETECTION",
+      "timestamp": "2025-10-30T15:08:54.442725",
+      "video_name": "20251029-192329.MOV",
+      "clip_index": 1,
+      "clip_path": "clips/20251029-192329_clip_000.mp4",
+      "prompt": "You are a food tracker. Analyze this egocentric video clip and identify all food items the user *directly interacts with*.\n\nIMPORTANT RULES:\n- Only identify food items that the user physically touches, grasps, or manipulates\n- Ignore food in the background that is not being interacted with\n- Focus on direct physical contact with food items\n- Be specific about the food item (e.g., \"whole milk\" not just \"milk\", \"raw chicken breast\" not just \"chicken\")\n\nOutput ONLY a JSON object in this exact format:\n{\n  \"food_names\": [\"specific food item 1\", \"specific food item 2\", ...]\n}\n\nIf no food interactions are detected, return:\n{\n  \"food_names\": []\n}\n",
+      "raw_response": "{\n  \"food_names\": [\n    \"whole milk\",\n    \"kimchi\",\n    \"raw shrimp\",\n    \"banana\"\n  ]\n}",
+      "parsed_output": {
+        "food_names": [
+          "whole milk",
+          "kimchi",
+          "raw shrimp",
+          "banana"
+        ]
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_2_UPDATE",
+      "timestamp": "2025-10-30T15:09:07.950967",
+      "video_name": "20251029-192329.MOV",
+      "clip_index": 1,
+      "clip_path": "clips/20251029-192329_clip_000.mp4",
+      "mode": "UN-BAGGING",
+      "expected_items": [
+        "Fresh Bunch of Organic Bananas \u2013 5-7 Bananas",
+        "Garlic",
+        "Kroger\u00ae Peeled & Deveined Tail Off White Raw Shrimp",
+        "Kroger\u00ae Vitamin D Whole Milk Gallon",
+        "Simple Truth Organic\u00ae Firm Tofu"
+      ],
+      "context_provided": "CONTEXT: No matching items found in memory. All detected items are likely new.",
+      "prompt": "You are a food memory manager. The user is UN-BAGGING GROCERIES in this video.\n\nEXPECTED ITEMS FROM RECEIPT:\n  - Fresh Bunch of Organic Bananas \u2013 5-7 Bananas\n  - Garlic\n  - Kroger\u00ae Peeled & Deveined Tail Off White Raw Shrimp\n  - Kroger\u00ae Vitamin D Whole Milk Gallon\n  - Simple Truth Organic\u00ae Firm Tofu\n\nCONTEXT: No matching items found in memory. All detected items are likely new.\n\nTASK:\nAnalyze the video and identify each food item being un-bagged. For each item:\n1. Check if it matches an expected item from the receipt\n2. Check if it matches any existing item in the memory context\n3. Decide whether to CREATE a new item or UPDATE an existing one\n4. Extract visual embedding (use a placeholder for now: [0.0, 0.0, 0.0])\n\nOutput a JSON object with a list of commands:\n\n{\n  \"commands\": [\n    {\n      \"command\": \"CREATE\",\n      \"data\": {\n        \"primary_label\": \"Kroger Whole Milk Gallon\",\n        \"description\": \"Gallon of whole milk being un-bagged\",\n        \"visual_embedding\": [0.0, 0.0, 0.0],\n        \"location\": \"counter\",\n        \"quantity\": \"1 gallon\",\n        \"purchase_date\": \"<current_timestamp>\",\n        \"action\": \"purchased and un-bagged\"\n      }\n    },\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"existing_item_id_from_context\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"updated quantity\",\n        \"action\": \"retrieved from bag\"\n      }\n    }\n  ]\n}\n\nRULES:\n- CREATE new items for items not in memory\n- UPDATE existing items if they match context\n- Set initial location to \"counter\" or \"table\" (where un-bagging happens)\n- Be specific with labels (match receipt items)\n- All items should have an action describing what's happening\n",
+      "raw_response": "```json\n{\n  \"commands\": [\n    {\n      \"command\": \"CREATE\",\n      \"data\": {\n        \"primary_label\": \"Kroger Whole Milk Gallon\",\n        \"description\": \"Gallon of whole milk being un-bagged and placed in the refrigerator\",\n        \"visual_embedding\": [0.0, 0.0, 0.0],\n        \"location\": \"refrigerator\",\n        \"quantity\": \"1 gallon\",\n        \"purchase_date\": \"<current_timestamp>\",\n        \"action\": \"purchased and un-bagged\"\n      }\n    },\n    {\n      \"command\": \"CREATE\",\n      \"data\": {\n        \"primary_label\": \"Kroger Peeled & Deveined Tail Off White Raw Shrimp\",\n        \"description\": \"Bag of raw shrimp being un-bagged and placed in the refrigerator\",\n        \"visual_embedding\": [0.0, 0.0, 0.0],\n        \"location\": \"refrigerator\",\n        \"quantity\": \"1 bag\",\n        \"purchase_date\": \"<current_timestamp>\",\n        \"action\": \"purchased and un-bagged\"\n      }\n    },\n    {\n      \"command\": \"CREATE\",\n      \"data\": {\n        \"primary_label\": \"Fresh Bunch of Organic Bananas\",\n        \"description\": \"Bunch of organic bananas being un-bagged and placed on the counter\",\n        \"visual_embedding\": [0.0, 0.0, 0.0],\n        \"location\": \"counter\",\n        \"quantity\": \"1 bunch\",\n        \"purchase_date\": \"<current_timestamp>\",\n        \"action\": \"purchased and un-bagged\"\n      }\n    },\n    {\n      \"command\": \"CREATE\",\n      \"data\": {\n        \"primary_label\": \"Simple Truth Organic Firm Tofu\",\n        \"description\": \"Package of organic firm tofu being un-bagged and placed on the counter\",\n        \"visual_embedding\": [0.0, 0.0, 0.0],\n        \"location\": \"counter\",\n        \"quantity\": \"1 package\",\n        \"purchase_date\": \"<current_timestamp>\",\n        \"action\": \"purchased and un-bagged\"\n      }\n    },\n    {\n      \"command\": \"CREATE\",\n      \"data\": {\n        \"primary_label\": \"Garlic\",\n        \"description\": \"Bulb of garlic being un-bagged and placed on the counter\",\n        \"visual_embedding\": [0.0, 0.0, 0.0],\n        \"location\": \"counter\",\n        \"quantity\": \"1 bulb\",\n        \"purchase_date\": \"<current_timestamp>\",\n        \"action\": \"purchased and un-bagged\"\n      }\n    }\n  ]\n}\n```",
+      "parsed_output": {
+        "commands": [
+          {
+            "command": "CREATE",
+            "data": {
+              "primary_label": "Kroger Whole Milk Gallon",
+              "description": "Gallon of whole milk being un-bagged and placed in the refrigerator",
+              "visual_embedding": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "location": "refrigerator",
+              "quantity": "1 gallon",
+              "purchase_date": "<current_timestamp>",
+              "action": "purchased and un-bagged"
+            }
+          },
+          {
+            "command": "CREATE",
+            "data": {
+              "primary_label": "Kroger Peeled & Deveined Tail Off White Raw Shrimp",
+              "description": "Bag of raw shrimp being un-bagged and placed in the refrigerator",
+              "visual_embedding": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "location": "refrigerator",
+              "quantity": "1 bag",
+              "purchase_date": "<current_timestamp>",
+              "action": "purchased and un-bagged"
+            }
+          },
+          {
+            "command": "CREATE",
+            "data": {
+              "primary_label": "Fresh Bunch of Organic Bananas",
+              "description": "Bunch of organic bananas being un-bagged and placed on the counter",
+              "visual_embedding": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "location": "counter",
+              "quantity": "1 bunch",
+              "purchase_date": "<current_timestamp>",
+              "action": "purchased and un-bagged"
+            }
+          },
+          {
+            "command": "CREATE",
+            "data": {
+              "primary_label": "Simple Truth Organic Firm Tofu",
+              "description": "Package of organic firm tofu being un-bagged and placed on the counter",
+              "visual_embedding": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "location": "counter",
+              "quantity": "1 package",
+              "purchase_date": "<current_timestamp>",
+              "action": "purchased and un-bagged"
+            }
+          },
+          {
+            "command": "CREATE",
+            "data": {
+              "primary_label": "Garlic",
+              "description": "Bulb of garlic being un-bagged and placed on the counter",
+              "visual_embedding": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "location": "counter",
+              "quantity": "1 bulb",
+              "purchase_date": "<current_timestamp>",
+              "action": "purchased and un-bagged"
+            }
+          }
+        ],
+        "num_creates": 5,
+        "num_updates": 0
+      }
+    },
+    {
+      "event": "MEMORY_UPDATE",
+      "timestamp": "2025-10-30T15:09:07.965853",
+      "video_name": "20251029-192329.MOV",
+      "video_timestamp": "2025-10-29T19:23:29",
+      "clip_index": 1,
+      "commands": [
+        {
+          "command": "CREATE",
+          "data": {
+            "primary_label": "Kroger Whole Milk Gallon",
+            "description": "Gallon of whole milk being un-bagged and placed in the refrigerator",
+            "visual_embedding": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "location": "refrigerator",
+            "quantity": "1 gallon",
+            "purchase_date": "<current_timestamp>",
+            "action": "purchased and un-bagged"
+          }
+        },
+        {
+          "command": "CREATE",
+          "data": {
+            "primary_label": "Kroger Peeled & Deveined Tail Off White Raw Shrimp",
+            "description": "Bag of raw shrimp being un-bagged and placed in the refrigerator",
+            "visual_embedding": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "location": "refrigerator",
+            "quantity": "1 bag",
+            "purchase_date": "<current_timestamp>",
+            "action": "purchased and un-bagged"
+          }
+        },
+        {
+          "command": "CREATE",
+          "data": {
+            "primary_label": "Fresh Bunch of Organic Bananas",
+            "description": "Bunch of organic bananas being un-bagged and placed on the counter",
+            "visual_embedding": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "location": "counter",
+            "quantity": "1 bunch",
+            "purchase_date": "<current_timestamp>",
+            "action": "purchased and un-bagged"
+          }
+        },
+        {
+          "command": "CREATE",
+          "data": {
+            "primary_label": "Simple Truth Organic Firm Tofu",
+            "description": "Package of organic firm tofu being un-bagged and placed on the counter",
+            "visual_embedding": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "location": "counter",
+            "quantity": "1 package",
+            "purchase_date": "<current_timestamp>",
+            "action": "purchased and un-bagged"
+          }
+        },
+        {
+          "command": "CREATE",
+          "data": {
+            "primary_label": "Garlic",
+            "description": "Bulb of garlic being un-bagged and placed on the counter",
+            "visual_embedding": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "location": "counter",
+            "quantity": "1 bulb",
+            "purchase_date": "<current_timestamp>",
+            "action": "purchased and un-bagged"
+          }
+        }
+      ],
+      "execution_stats": {
+        "created": 5,
+        "updated": 0,
+        "failed": 0
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_1_DETECTION",
+      "timestamp": "2025-10-30T15:09:16.211063",
+      "video_name": "20251029-192329.MOV",
+      "clip_index": 2,
+      "clip_path": "clips/20251029-192329_clip_001.mp4",
+      "prompt": "You are a food tracker. Analyze this egocentric video clip and identify all food items the user *directly interacts with*.\n\nIMPORTANT RULES:\n- Only identify food items that the user physically touches, grasps, or manipulates\n- Ignore food in the background that is not being interacted with\n- Focus on direct physical contact with food items\n- Be specific about the food item (e.g., \"whole milk\" not just \"milk\", \"raw chicken breast\" not just \"chicken\")\n\nOutput ONLY a JSON object in this exact format:\n{\n  \"food_names\": [\"specific food item 1\", \"specific food item 2\", ...]\n}\n\nIf no food interactions are detected, return:\n{\n  \"food_names\": []\n}\n",
+      "raw_response": "{\n  \"food_names\": [\"bananas\", \"tofu\"]\n}",
+      "parsed_output": {
+        "food_names": [
+          "bananas",
+          "tofu"
+        ]
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_2_UPDATE",
+      "timestamp": "2025-10-30T15:09:25.802337",
+      "video_name": "20251029-192329.MOV",
+      "clip_index": 2,
+      "clip_path": "clips/20251029-192329_clip_001.mp4",
+      "mode": "STANDARD_INTERACTION",
+      "expected_items": null,
+      "context_provided": "CONTEXT: The food memory contains the following potentially relevant items:\n\n1. Fresh Bunch of Organic Bananas (ID: fresh_bunch_of_organic_bananas_082ef0ea)\n   Description: Bunch of organic bananas being un-bagged and placed on the counter\n   Current Location: counter\n   Current Quantity: 1 bunch\n   Purchased: 2025-10-30T15:09:07.965777\n   Last Interaction: purchased and un-bagged at 2025-10-29T19:23:29\n\n2. Simple Truth Organic Firm Tofu (ID: simple_truth_organic_firm_tofu_eb9bf7aa)\n   Description: Package of organic firm tofu being un-bagged and placed on the counter\n   Current Location: counter\n   Current Quantity: 1 package\n   Purchased: 2025-10-30T15:09:07.965802\n   Last Interaction: purchased and un-bagged at 2025-10-29T19:23:29\n",
+      "prompt": "You are a food memory manager. Analyze this video clip showing food interactions.\n\nCONTEXT: The food memory contains the following potentially relevant items:\n\n1. Fresh Bunch of Organic Bananas (ID: fresh_bunch_of_organic_bananas_082ef0ea)\n   Description: Bunch of organic bananas being un-bagged and placed on the counter\n   Current Location: counter\n   Current Quantity: 1 bunch\n   Purchased: 2025-10-30T15:09:07.965777\n   Last Interaction: purchased and un-bagged at 2025-10-29T19:23:29\n\n2. Simple Truth Organic Firm Tofu (ID: simple_truth_organic_firm_tofu_eb9bf7aa)\n   Description: Package of organic firm tofu being un-bagged and placed on the counter\n   Current Location: counter\n   Current Quantity: 1 package\n   Purchased: 2025-10-30T15:09:07.965802\n   Last Interaction: purchased and un-bagged at 2025-10-29T19:23:29\n\n\nTASK:\n1. Match the food items in the video to their IDs from the memory context above\n2. Identify the interaction (e.g., \"retrieve from fridge\", \"place in fridge\", \"cook\", \"eat\", \"store leftover\")\n3. Determine the new state (location, quantity)\n4. Output commands to update the memory\n\nOutput a JSON object with a list of commands:\n\n{\n  \"commands\": [\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"milk_abc123\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"half-full\",\n        \"action\": \"retrieve from fridge\"\n      }\n    },\n    {\n      \"command\": \"CREATE\",\n      \"data\": {\n        \"primary_label\": \"Leftover Pasta\",\n        \"description\": \"Container of leftover pasta\",\n        \"visual_embedding\": [0.0, 0.0, 0.0],\n        \"location\": \"counter\",\n        \"quantity\": \"1 container\",\n        \"purchase_date\": \"<current_timestamp>\",\n        \"action\": \"created from cooking\"\n      }\n    }\n  ]\n}\n\nRULES:\n- UPDATE existing items from context when you see them\n- CREATE new items only if they don't match anything in context\n- Be specific about actions (what is the user doing with the food?)\n- Update location and quantity based on what you observe\n- If no interactions detected, return empty commands list: {\"commands\": []}\n",
+      "raw_response": "```json\n{\n  \"commands\": [\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"fresh_bunch_of_organic_bananas_082ef0ea\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"1 bunch\",\n        \"action\": \"un-bagged and placed on counter\"\n      }\n    },\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"simple_truth_organic_firm_tofu_eb9bf7aa\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"1 package\",\n        \"action\": \"un-bagged and placed on counter\"\n      }\n    }\n  ]\n}\n```",
+      "parsed_output": {
+        "commands": [
+          {
+            "command": "UPDATE",
+            "food_id": "fresh_bunch_of_organic_bananas_082ef0ea",
+            "data": {
+              "location": "counter",
+              "quantity": "1 bunch",
+              "action": "un-bagged and placed on counter"
+            }
+          },
+          {
+            "command": "UPDATE",
+            "food_id": "simple_truth_organic_firm_tofu_eb9bf7aa",
+            "data": {
+              "location": "counter",
+              "quantity": "1 package",
+              "action": "un-bagged and placed on counter"
+            }
+          }
+        ],
+        "num_creates": 0,
+        "num_updates": 2
+      }
+    },
+    {
+      "event": "MEMORY_UPDATE",
+      "timestamp": "2025-10-30T15:09:25.812822",
+      "video_name": "20251029-192329.MOV",
+      "video_timestamp": "2025-10-29T19:23:29",
+      "clip_index": 2,
+      "commands": [
+        {
+          "command": "UPDATE",
+          "food_id": "fresh_bunch_of_organic_bananas_082ef0ea",
+          "data": {
+            "location": "counter",
+            "quantity": "1 bunch",
+            "action": "un-bagged and placed on counter"
+          }
+        },
+        {
+          "command": "UPDATE",
+          "food_id": "simple_truth_organic_firm_tofu_eb9bf7aa",
+          "data": {
+            "location": "counter",
+            "quantity": "1 package",
+            "action": "un-bagged and placed on counter"
+          }
+        }
+      ],
+      "execution_stats": {
+        "created": 0,
+        "updated": 2,
+        "failed": 0
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_1_DETECTION",
+      "timestamp": "2025-10-30T15:09:34.165937",
+      "video_name": "20251029-192329.MOV",
+      "clip_index": 3,
+      "clip_path": "clips/20251029-192329_clip_002.mp4",
+      "prompt": "You are a food tracker. Analyze this egocentric video clip and identify all food items the user *directly interacts with*.\n\nIMPORTANT RULES:\n- Only identify food items that the user physically touches, grasps, or manipulates\n- Ignore food in the background that is not being interacted with\n- Focus on direct physical contact with food items\n- Be specific about the food item (e.g., \"whole milk\" not just \"milk\", \"raw chicken breast\" not just \"chicken\")\n\nOutput ONLY a JSON object in this exact format:\n{\n  \"food_names\": [\"specific food item 1\", \"specific food item 2\", ...]\n}\n\nIf no food interactions are detected, return:\n{\n  \"food_names\": []\n}\n",
+      "raw_response": "{\n  \"food_names\": [\"rice\", \"bananas\"]\n}",
+      "parsed_output": {
+        "food_names": [
+          "rice",
+          "bananas"
+        ]
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_2_UPDATE",
+      "timestamp": "2025-10-30T15:09:43.352061",
+      "video_name": "20251029-192329.MOV",
+      "clip_index": 3,
+      "clip_path": "clips/20251029-192329_clip_002.mp4",
+      "mode": "STANDARD_INTERACTION",
+      "expected_items": null,
+      "context_provided": "CONTEXT: The food memory contains the following potentially relevant items:\n\n1. Fresh Bunch of Organic Bananas (ID: fresh_bunch_of_organic_bananas_082ef0ea)\n   Description: Bunch of organic bananas being un-bagged and placed on the counter\n   Current Location: counter\n   Current Quantity: 1 bunch\n   Purchased: 2025-10-30T15:09:07.965777\n   Last Interaction: un-bagged and placed on counter at 2025-10-29T19:23:29\n",
+      "prompt": "You are a food memory manager. Analyze this video clip showing food interactions.\n\nCONTEXT: The food memory contains the following potentially relevant items:\n\n1. Fresh Bunch of Organic Bananas (ID: fresh_bunch_of_organic_bananas_082ef0ea)\n   Description: Bunch of organic bananas being un-bagged and placed on the counter\n   Current Location: counter\n   Current Quantity: 1 bunch\n   Purchased: 2025-10-30T15:09:07.965777\n   Last Interaction: un-bagged and placed on counter at 2025-10-29T19:23:29\n\n\nTASK:\n1. Match the food items in the video to their IDs from the memory context above\n2. Identify the interaction (e.g., \"retrieve from fridge\", \"place in fridge\", \"cook\", \"eat\", \"store leftover\")\n3. Determine the new state (location, quantity)\n4. Output commands to update the memory\n\nOutput a JSON object with a list of commands:\n\n{\n  \"commands\": [\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"milk_abc123\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"half-full\",\n        \"action\": \"retrieve from fridge\"\n      }\n    },\n    {\n      \"command\": \"CREATE\",\n      \"data\": {\n        \"primary_label\": \"Leftover Pasta\",\n        \"description\": \"Container of leftover pasta\",\n        \"visual_embedding\": [0.0, 0.0, 0.0],\n        \"location\": \"counter\",\n        \"quantity\": \"1 container\",\n        \"purchase_date\": \"<current_timestamp>\",\n        \"action\": \"created from cooking\"\n      }\n    }\n  ]\n}\n\nRULES:\n- UPDATE existing items from context when you see them\n- CREATE new items only if they don't match anything in context\n- Be specific about actions (what is the user doing with the food?)\n- Update location and quantity based on what you observe\n- If no interactions detected, return empty commands list: {\"commands\": []}\n",
+      "raw_response": "```json\n{\n  \"commands\": [\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"fresh_bunch_of_organic_bananas_082ef0ea\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"1 bunch\",\n        \"action\": \"placed on counter\"\n      }\n    },\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"fresh_bunch_of_organic_bananas_082ef0ea\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"1 bunch\",\n        \"action\": \"moved to counter\"\n      }\n    }\n  ]\n}\n```",
+      "parsed_output": {
+        "commands": [
+          {
+            "command": "UPDATE",
+            "food_id": "fresh_bunch_of_organic_bananas_082ef0ea",
+            "data": {
+              "location": "counter",
+              "quantity": "1 bunch",
+              "action": "placed on counter"
+            }
+          },
+          {
+            "command": "UPDATE",
+            "food_id": "fresh_bunch_of_organic_bananas_082ef0ea",
+            "data": {
+              "location": "counter",
+              "quantity": "1 bunch",
+              "action": "moved to counter"
+            }
+          }
+        ],
+        "num_creates": 0,
+        "num_updates": 2
+      }
+    },
+    {
+      "event": "MEMORY_UPDATE",
+      "timestamp": "2025-10-30T15:09:43.362532",
+      "video_name": "20251029-192329.MOV",
+      "video_timestamp": "2025-10-29T19:23:29",
+      "clip_index": 3,
+      "commands": [
+        {
+          "command": "UPDATE",
+          "food_id": "fresh_bunch_of_organic_bananas_082ef0ea",
+          "data": {
+            "location": "counter",
+            "quantity": "1 bunch",
+            "action": "placed on counter"
+          }
+        },
+        {
+          "command": "UPDATE",
+          "food_id": "fresh_bunch_of_organic_bananas_082ef0ea",
+          "data": {
+            "location": "counter",
+            "quantity": "1 bunch",
+            "action": "moved to counter"
+          }
+        }
+      ],
+      "execution_stats": {
+        "created": 0,
+        "updated": 2,
+        "failed": 0
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_1_DETECTION",
+      "timestamp": "2025-10-30T15:09:51.509068",
+      "video_name": "20251029-192329.MOV",
+      "clip_index": 4,
+      "clip_path": "clips/20251029-192329_clip_003.mp4",
+      "prompt": "You are a food tracker. Analyze this egocentric video clip and identify all food items the user *directly interacts with*.\n\nIMPORTANT RULES:\n- Only identify food items that the user physically touches, grasps, or manipulates\n- Ignore food in the background that is not being interacted with\n- Focus on direct physical contact with food items\n- Be specific about the food item (e.g., \"whole milk\" not just \"milk\", \"raw chicken breast\" not just \"chicken\")\n\nOutput ONLY a JSON object in this exact format:\n{\n  \"food_names\": [\"specific food item 1\", \"specific food item 2\", ...]\n}\n\nIf no food interactions are detected, return:\n{\n  \"food_names\": []\n}\n",
+      "raw_response": "{\n  \"food_names\": [\n    \"rice\"\n  ]\n}",
+      "parsed_output": {
+        "food_names": [
+          "rice"
+        ]
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_2_UPDATE",
+      "timestamp": "2025-10-30T15:10:00.647206",
+      "video_name": "20251029-192329.MOV",
+      "clip_index": 4,
+      "clip_path": "clips/20251029-192329_clip_003.mp4",
+      "mode": "STANDARD_INTERACTION",
+      "expected_items": null,
+      "context_provided": "CONTEXT: No matching items found in memory. All detected items are likely new.",
+      "prompt": "You are a food memory manager. Analyze this video clip showing food interactions.\n\nCONTEXT: No matching items found in memory. All detected items are likely new.\n\nTASK:\n1. Match the food items in the video to their IDs from the memory context above\n2. Identify the interaction (e.g., \"retrieve from fridge\", \"place in fridge\", \"cook\", \"eat\", \"store leftover\")\n3. Determine the new state (location, quantity)\n4. Output commands to update the memory\n\nOutput a JSON object with a list of commands:\n\n{\n  \"commands\": [\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"milk_abc123\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"half-full\",\n        \"action\": \"retrieve from fridge\"\n      }\n    },\n    {\n      \"command\": \"CREATE\",\n      \"data\": {\n        \"primary_label\": \"Leftover Pasta\",\n        \"description\": \"Container of leftover pasta\",\n        \"visual_embedding\": [0.0, 0.0, 0.0],\n        \"location\": \"counter\",\n        \"quantity\": \"1 container\",\n        \"purchase_date\": \"<current_timestamp>\",\n        \"action\": \"created from cooking\"\n      }\n    }\n  ]\n}\n\nRULES:\n- UPDATE existing items from context when you see them\n- CREATE new items only if they don't match anything in context\n- Be specific about actions (what is the user doing with the food?)\n- Update location and quantity based on what you observe\n- If no interactions detected, return empty commands list: {\"commands\": []}\n",
+      "raw_response": "```json\n{\n  \"commands\": [\n    {\n      \"command\": \"CREATE\",\n      \"data\": {\n        \"primary_label\": \"Rice\",\n        \"description\": \"Rice being washed in a pot under running water\",\n        \"visual_embedding\": [0.0, 0.0, 0.0],\n        \"location\": \"sink\",\n        \"quantity\": \"1 pot\",\n        \"purchase_date\": \"2023-10-05\",\n        \"action\": \"washing\"\n      }\n    }\n  ]\n}\n```",
+      "parsed_output": {
+        "commands": [
+          {
+            "command": "CREATE",
+            "data": {
+              "primary_label": "Rice",
+              "description": "Rice being washed in a pot under running water",
+              "visual_embedding": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "location": "sink",
+              "quantity": "1 pot",
+              "purchase_date": "2023-10-05",
+              "action": "washing"
+            }
+          }
+        ],
+        "num_creates": 1,
+        "num_updates": 0
+      }
+    },
+    {
+      "event": "MEMORY_UPDATE",
+      "timestamp": "2025-10-30T15:10:00.656269",
+      "video_name": "20251029-192329.MOV",
+      "video_timestamp": "2025-10-29T19:23:29",
+      "clip_index": 4,
+      "commands": [
+        {
+          "command": "CREATE",
+          "data": {
+            "primary_label": "Rice",
+            "description": "Rice being washed in a pot under running water",
+            "visual_embedding": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "location": "sink",
+            "quantity": "1 pot",
+            "purchase_date": "2023-10-05",
+            "action": "washing"
+          }
+        }
+      ],
+      "execution_stats": {
+        "created": 1,
+        "updated": 0,
+        "failed": 0
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_1_DETECTION",
+      "timestamp": "2025-10-30T15:10:11.672184",
+      "video_name": "20251029-192329.MOV",
+      "clip_index": 5,
+      "clip_path": "clips/20251029-192329_clip_004.mp4",
+      "prompt": "You are a food tracker. Analyze this egocentric video clip and identify all food items the user *directly interacts with*.\n\nIMPORTANT RULES:\n- Only identify food items that the user physically touches, grasps, or manipulates\n- Ignore food in the background that is not being interacted with\n- Focus on direct physical contact with food items\n- Be specific about the food item (e.g., \"whole milk\" not just \"milk\", \"raw chicken breast\" not just \"chicken\")\n\nOutput ONLY a JSON object in this exact format:\n{\n  \"food_names\": [\"specific food item 1\", \"specific food item 2\", ...]\n}\n\nIf no food interactions are detected, return:\n{\n  \"food_names\": []\n}\n",
+      "raw_response": "{\n  \"food_names\": [\n    \"kimchi\",\n    \"banana\"\n  ]\n}",
+      "parsed_output": {
+        "food_names": [
+          "kimchi",
+          "banana"
+        ]
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_2_UPDATE",
+      "timestamp": "2025-10-30T15:10:16.725645",
+      "video_name": "20251029-192329.MOV",
+      "clip_index": 5,
+      "clip_path": "clips/20251029-192329_clip_004.mp4",
+      "mode": "STANDARD_INTERACTION",
+      "expected_items": null,
+      "context_provided": "CONTEXT: The food memory contains the following potentially relevant items:\n\n1. Fresh Bunch of Organic Bananas (ID: fresh_bunch_of_organic_bananas_082ef0ea)\n   Description: Bunch of organic bananas being un-bagged and placed on the counter\n   Current Location: counter\n   Current Quantity: 1 bunch\n   Purchased: 2025-10-30T15:09:07.965777\n   Last Interaction: moved to counter at 2025-10-29T19:23:29\n",
+      "prompt": "You are a food memory manager. Analyze this video clip showing food interactions.\n\nCONTEXT: The food memory contains the following potentially relevant items:\n\n1. Fresh Bunch of Organic Bananas (ID: fresh_bunch_of_organic_bananas_082ef0ea)\n   Description: Bunch of organic bananas being un-bagged and placed on the counter\n   Current Location: counter\n   Current Quantity: 1 bunch\n   Purchased: 2025-10-30T15:09:07.965777\n   Last Interaction: moved to counter at 2025-10-29T19:23:29\n\n\nTASK:\n1. Match the food items in the video to their IDs from the memory context above\n2. Identify the interaction (e.g., \"retrieve from fridge\", \"place in fridge\", \"cook\", \"eat\", \"store leftover\")\n3. Determine the new state (location, quantity)\n4. Output commands to update the memory\n\nOutput a JSON object with a list of commands:\n\n{\n  \"commands\": [\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"milk_abc123\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"half-full\",\n        \"action\": \"retrieve from fridge\"\n      }\n    },\n    {\n      \"command\": \"CREATE\",\n      \"data\": {\n        \"primary_label\": \"Leftover Pasta\",\n        \"description\": \"Container of leftover pasta\",\n        \"visual_embedding\": [0.0, 0.0, 0.0],\n        \"location\": \"counter\",\n        \"quantity\": \"1 container\",\n        \"purchase_date\": \"<current_timestamp>\",\n        \"action\": \"created from cooking\"\n      }\n    }\n  ]\n}\n\nRULES:\n- UPDATE existing items from context when you see them\n- CREATE new items only if they don't match anything in context\n- Be specific about actions (what is the user doing with the food?)\n- Update location and quantity based on what you observe\n- If no interactions detected, return empty commands list: {\"commands\": []}\n",
+      "raw_response": "```json\n{\n  \"commands\": [\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"fresh_bunch_of_organic_bananas_082ef0ea\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"1 bunch\",\n        \"action\": \"place on counter\"\n      }\n    },\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"kimchi_12345\",\n      \"data\": {\n        \"location\": \"refrigerator\",\n        \"quantity\": \"1 container\",\n        \"action\": \"store in fridge\"\n      }\n    }\n  ]\n}\n```",
+      "parsed_output": {
+        "commands": [
+          {
+            "command": "UPDATE",
+            "food_id": "fresh_bunch_of_organic_bananas_082ef0ea",
+            "data": {
+              "location": "counter",
+              "quantity": "1 bunch",
+              "action": "place on counter"
+            }
+          },
+          {
+            "command": "UPDATE",
+            "food_id": "kimchi_12345",
+            "data": {
+              "location": "refrigerator",
+              "quantity": "1 container",
+              "action": "store in fridge"
+            }
+          }
+        ],
+        "num_creates": 0,
+        "num_updates": 2
+      }
+    },
+    {
+      "event": "MEMORY_UPDATE",
+      "timestamp": "2025-10-30T15:10:16.733137",
+      "video_name": "20251029-192329.MOV",
+      "video_timestamp": "2025-10-29T19:23:29",
+      "clip_index": 5,
+      "commands": [
+        {
+          "command": "UPDATE",
+          "food_id": "fresh_bunch_of_organic_bananas_082ef0ea",
+          "data": {
+            "location": "counter",
+            "quantity": "1 bunch",
+            "action": "place on counter"
+          }
+        },
+        {
+          "command": "UPDATE",
+          "food_id": "kimchi_12345",
+          "data": {
+            "location": "refrigerator",
+            "quantity": "1 container",
+            "action": "store in fridge"
+          }
+        }
+      ],
+      "execution_stats": {
+        "created": 0,
+        "updated": 1,
+        "failed": 1
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_1_DETECTION",
+      "timestamp": "2025-10-30T15:10:36.575683",
+      "video_name": "20251029-192843.MOV",
+      "clip_index": 1,
+      "clip_path": "clips/20251029-192843_clip_000.mp4",
+      "prompt": "You are a food tracker. Analyze this egocentric video clip and identify all food items the user *directly interacts with*.\n\nIMPORTANT RULES:\n- Only identify food items that the user physically touches, grasps, or manipulates\n- Ignore food in the background that is not being interacted with\n- Focus on direct physical contact with food items\n- Be specific about the food item (e.g., \"whole milk\" not just \"milk\", \"raw chicken breast\" not just \"chicken\")\n\nOutput ONLY a JSON object in this exact format:\n{\n  \"food_names\": [\"specific food item 1\", \"specific food item 2\", ...]\n}\n\nIf no food interactions are detected, return:\n{\n  \"food_names\": []\n}\n",
+      "raw_response": "{\n  \"food_names\": [\"raw bacon\", \"bananas\", \"garlic\", \"onion\"]\n}",
+      "parsed_output": {
+        "food_names": [
+          "raw bacon",
+          "bananas",
+          "garlic",
+          "onion"
+        ]
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_2_UPDATE",
+      "timestamp": "2025-10-30T15:10:46.141232",
+      "video_name": "20251029-192843.MOV",
+      "clip_index": 1,
+      "clip_path": "clips/20251029-192843_clip_000.mp4",
+      "mode": "STANDARD_INTERACTION",
+      "expected_items": null,
+      "context_provided": "CONTEXT: The food memory contains the following potentially relevant items:\n\n1. Kroger Peeled & Deveined Tail Off White Raw Shrimp (ID: kroger_peeled_&_deveined_tail_off_white_raw_shrimp_549267f3)\n   Description: Bag of raw shrimp being un-bagged and placed in the refrigerator\n   Current Location: refrigerator\n   Current Quantity: 1 bag\n   Purchased: 2025-10-30T15:09:07.965749\n   Last Interaction: purchased and un-bagged at 2025-10-29T19:23:29\n\n2. Fresh Bunch of Organic Bananas (ID: fresh_bunch_of_organic_bananas_082ef0ea)\n   Description: Bunch of organic bananas being un-bagged and placed on the counter\n   Current Location: counter\n   Current Quantity: 1 bunch\n   Purchased: 2025-10-30T15:09:07.965777\n   Last Interaction: place on counter at 2025-10-29T19:23:29\n\n3. Garlic (ID: garlic_4cc2c3e1)\n   Description: Bulb of garlic being un-bagged and placed on the counter\n   Current Location: counter\n   Current Quantity: 1 bulb\n   Purchased: 2025-10-30T15:09:07.965827\n   Last Interaction: purchased and un-bagged at 2025-10-29T19:23:29\n",
+      "prompt": "You are a food memory manager. Analyze this video clip showing food interactions.\n\nCONTEXT: The food memory contains the following potentially relevant items:\n\n1. Kroger Peeled & Deveined Tail Off White Raw Shrimp (ID: kroger_peeled_&_deveined_tail_off_white_raw_shrimp_549267f3)\n   Description: Bag of raw shrimp being un-bagged and placed in the refrigerator\n   Current Location: refrigerator\n   Current Quantity: 1 bag\n   Purchased: 2025-10-30T15:09:07.965749\n   Last Interaction: purchased and un-bagged at 2025-10-29T19:23:29\n\n2. Fresh Bunch of Organic Bananas (ID: fresh_bunch_of_organic_bananas_082ef0ea)\n   Description: Bunch of organic bananas being un-bagged and placed on the counter\n   Current Location: counter\n   Current Quantity: 1 bunch\n   Purchased: 2025-10-30T15:09:07.965777\n   Last Interaction: place on counter at 2025-10-29T19:23:29\n\n3. Garlic (ID: garlic_4cc2c3e1)\n   Description: Bulb of garlic being un-bagged and placed on the counter\n   Current Location: counter\n   Current Quantity: 1 bulb\n   Purchased: 2025-10-30T15:09:07.965827\n   Last Interaction: purchased and un-bagged at 2025-10-29T19:23:29\n\n\nTASK:\n1. Match the food items in the video to their IDs from the memory context above\n2. Identify the interaction (e.g., \"retrieve from fridge\", \"place in fridge\", \"cook\", \"eat\", \"store leftover\")\n3. Determine the new state (location, quantity)\n4. Output commands to update the memory\n\nOutput a JSON object with a list of commands:\n\n{\n  \"commands\": [\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"milk_abc123\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"half-full\",\n        \"action\": \"retrieve from fridge\"\n      }\n    },\n    {\n      \"command\": \"CREATE\",\n      \"data\": {\n        \"primary_label\": \"Leftover Pasta\",\n        \"description\": \"Container of leftover pasta\",\n        \"visual_embedding\": [0.0, 0.0, 0.0],\n        \"location\": \"counter\",\n        \"quantity\": \"1 container\",\n        \"purchase_date\": \"<current_timestamp>\",\n        \"action\": \"created from cooking\"\n      }\n    }\n  ]\n}\n\nRULES:\n- UPDATE existing items from context when you see them\n- CREATE new items only if they don't match anything in context\n- Be specific about actions (what is the user doing with the food?)\n- Update location and quantity based on what you observe\n- If no interactions detected, return empty commands list: {\"commands\": []}\n",
+      "raw_response": "```json\n{\n  \"commands\": [\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"kroger_peeled_&_deveined_tail_off_white_raw_shrimp_549267f3\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"1 bag\",\n        \"action\": \"retrieve from fridge\"\n      }\n    },\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"fresh_bunch_of_organic_bananas_082ef0ea\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"1 bunch\",\n        \"action\": \"place on counter\"\n      }\n    },\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"garlic_4cc2c3e1\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"1 bulb\",\n        \"action\": \"place on counter\"\n      }\n    }\n  ]\n}\n```",
+      "parsed_output": {
+        "commands": [
+          {
+            "command": "UPDATE",
+            "food_id": "kroger_peeled_&_deveined_tail_off_white_raw_shrimp_549267f3",
+            "data": {
+              "location": "counter",
+              "quantity": "1 bag",
+              "action": "retrieve from fridge"
+            }
+          },
+          {
+            "command": "UPDATE",
+            "food_id": "fresh_bunch_of_organic_bananas_082ef0ea",
+            "data": {
+              "location": "counter",
+              "quantity": "1 bunch",
+              "action": "place on counter"
+            }
+          },
+          {
+            "command": "UPDATE",
+            "food_id": "garlic_4cc2c3e1",
+            "data": {
+              "location": "counter",
+              "quantity": "1 bulb",
+              "action": "place on counter"
+            }
+          }
+        ],
+        "num_creates": 0,
+        "num_updates": 3
+      }
+    },
+    {
+      "event": "MEMORY_UPDATE",
+      "timestamp": "2025-10-30T15:10:46.151782",
+      "video_name": "20251029-192843.MOV",
+      "video_timestamp": "2025-10-29T19:28:43",
+      "clip_index": 1,
+      "commands": [
+        {
+          "command": "UPDATE",
+          "food_id": "kroger_peeled_&_deveined_tail_off_white_raw_shrimp_549267f3",
+          "data": {
+            "location": "counter",
+            "quantity": "1 bag",
+            "action": "retrieve from fridge"
+          }
+        },
+        {
+          "command": "UPDATE",
+          "food_id": "fresh_bunch_of_organic_bananas_082ef0ea",
+          "data": {
+            "location": "counter",
+            "quantity": "1 bunch",
+            "action": "place on counter"
+          }
+        },
+        {
+          "command": "UPDATE",
+          "food_id": "garlic_4cc2c3e1",
+          "data": {
+            "location": "counter",
+            "quantity": "1 bulb",
+            "action": "place on counter"
+          }
+        }
+      ],
+      "execution_stats": {
+        "created": 0,
+        "updated": 3,
+        "failed": 0
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_1_DETECTION",
+      "timestamp": "2025-10-30T15:11:06.057968",
+      "video_name": "20251029-192843.MOV",
+      "clip_index": 2,
+      "clip_path": "clips/20251029-192843_clip_001.mp4",
+      "prompt": "You are a food tracker. Analyze this egocentric video clip and identify all food items the user *directly interacts with*.\n\nIMPORTANT RULES:\n- Only identify food items that the user physically touches, grasps, or manipulates\n- Ignore food in the background that is not being interacted with\n- Focus on direct physical contact with food items\n- Be specific about the food item (e.g., \"whole milk\" not just \"milk\", \"raw chicken breast\" not just \"chicken\")\n\nOutput ONLY a JSON object in this exact format:\n{\n  \"food_names\": [\"specific food item 1\", \"specific food item 2\", ...]\n}\n\nIf no food interactions are detected, return:\n{\n  \"food_names\": []\n}\n",
+      "raw_response": "{\n  \"food_names\": [\"raw meat\"]\n}",
+      "parsed_output": {
+        "food_names": [
+          "raw meat"
+        ]
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_2_UPDATE",
+      "timestamp": "2025-10-30T15:11:16.964273",
+      "video_name": "20251029-192843.MOV",
+      "clip_index": 2,
+      "clip_path": "clips/20251029-192843_clip_001.mp4",
+      "mode": "STANDARD_INTERACTION",
+      "expected_items": null,
+      "context_provided": "CONTEXT: The food memory contains the following potentially relevant items:\n\n1. Kroger Peeled & Deveined Tail Off White Raw Shrimp (ID: kroger_peeled_&_deveined_tail_off_white_raw_shrimp_549267f3)\n   Description: Bag of raw shrimp being un-bagged and placed in the refrigerator\n   Current Location: counter\n   Current Quantity: 1 bag\n   Purchased: 2025-10-30T15:09:07.965749\n   Last Interaction: retrieve from fridge at 2025-10-29T19:28:43\n",
+      "prompt": "You are a food memory manager. Analyze this video clip showing food interactions.\n\nCONTEXT: The food memory contains the following potentially relevant items:\n\n1. Kroger Peeled & Deveined Tail Off White Raw Shrimp (ID: kroger_peeled_&_deveined_tail_off_white_raw_shrimp_549267f3)\n   Description: Bag of raw shrimp being un-bagged and placed in the refrigerator\n   Current Location: counter\n   Current Quantity: 1 bag\n   Purchased: 2025-10-30T15:09:07.965749\n   Last Interaction: retrieve from fridge at 2025-10-29T19:28:43\n\n\nTASK:\n1. Match the food items in the video to their IDs from the memory context above\n2. Identify the interaction (e.g., \"retrieve from fridge\", \"place in fridge\", \"cook\", \"eat\", \"store leftover\")\n3. Determine the new state (location, quantity)\n4. Output commands to update the memory\n\nOutput a JSON object with a list of commands:\n\n{\n  \"commands\": [\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"milk_abc123\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"half-full\",\n        \"action\": \"retrieve from fridge\"\n      }\n    },\n    {\n      \"command\": \"CREATE\",\n      \"data\": {\n        \"primary_label\": \"Leftover Pasta\",\n        \"description\": \"Container of leftover pasta\",\n        \"visual_embedding\": [0.0, 0.0, 0.0],\n        \"location\": \"counter\",\n        \"quantity\": \"1 container\",\n        \"purchase_date\": \"<current_timestamp>\",\n        \"action\": \"created from cooking\"\n      }\n    }\n  ]\n}\n\nRULES:\n- UPDATE existing items from context when you see them\n- CREATE new items only if they don't match anything in context\n- Be specific about actions (what is the user doing with the food?)\n- Update location and quantity based on what you observe\n- If no interactions detected, return empty commands list: {\"commands\": []}\n",
+      "raw_response": "```json\n{\n  \"commands\": [\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"kroger_peeled_&_deveined_tail_off_white_raw_shrimp_549267f3\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"1 bag\",\n        \"action\": \"un-bagging\"\n      }\n    }\n  ]\n}\n```",
+      "parsed_output": {
+        "commands": [
+          {
+            "command": "UPDATE",
+            "food_id": "kroger_peeled_&_deveined_tail_off_white_raw_shrimp_549267f3",
+            "data": {
+              "location": "counter",
+              "quantity": "1 bag",
+              "action": "un-bagging"
+            }
+          }
+        ],
+        "num_creates": 0,
+        "num_updates": 1
+      }
+    },
+    {
+      "event": "MEMORY_UPDATE",
+      "timestamp": "2025-10-30T15:11:16.974751",
+      "video_name": "20251029-192843.MOV",
+      "video_timestamp": "2025-10-29T19:28:43",
+      "clip_index": 2,
+      "commands": [
+        {
+          "command": "UPDATE",
+          "food_id": "kroger_peeled_&_deveined_tail_off_white_raw_shrimp_549267f3",
+          "data": {
+            "location": "counter",
+            "quantity": "1 bag",
+            "action": "un-bagging"
+          }
+        }
+      ],
+      "execution_stats": {
+        "created": 0,
+        "updated": 1,
+        "failed": 0
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_1_DETECTION",
+      "timestamp": "2025-10-30T15:11:35.586366",
+      "video_name": "20251029-192843.MOV",
+      "clip_index": 3,
+      "clip_path": "clips/20251029-192843_clip_002.mp4",
+      "prompt": "You are a food tracker. Analyze this egocentric video clip and identify all food items the user *directly interacts with*.\n\nIMPORTANT RULES:\n- Only identify food items that the user physically touches, grasps, or manipulates\n- Ignore food in the background that is not being interacted with\n- Focus on direct physical contact with food items\n- Be specific about the food item (e.g., \"whole milk\" not just \"milk\", \"raw chicken breast\" not just \"chicken\")\n\nOutput ONLY a JSON object in this exact format:\n{\n  \"food_names\": [\"specific food item 1\", \"specific food item 2\", ...]\n}\n\nIf no food interactions are detected, return:\n{\n  \"food_names\": []\n}\n",
+      "raw_response": "{\n  \"food_names\": [\"raw meat\", \"salt\"]\n}",
+      "parsed_output": {
+        "food_names": [
+          "raw meat",
+          "salt"
+        ]
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_2_UPDATE",
+      "timestamp": "2025-10-30T15:11:45.333795",
+      "video_name": "20251029-192843.MOV",
+      "clip_index": 3,
+      "clip_path": "clips/20251029-192843_clip_002.mp4",
+      "mode": "STANDARD_INTERACTION",
+      "expected_items": null,
+      "context_provided": "CONTEXT: The food memory contains the following potentially relevant items:\n\n1. Kroger Peeled & Deveined Tail Off White Raw Shrimp (ID: kroger_peeled_&_deveined_tail_off_white_raw_shrimp_549267f3)\n   Description: Bag of raw shrimp being un-bagged and placed in the refrigerator\n   Current Location: counter\n   Current Quantity: 1 bag\n   Purchased: 2025-10-30T15:09:07.965749\n   Last Interaction: un-bagging at 2025-10-29T19:28:43\n",
+      "prompt": "You are a food memory manager. Analyze this video clip showing food interactions.\n\nCONTEXT: The food memory contains the following potentially relevant items:\n\n1. Kroger Peeled & Deveined Tail Off White Raw Shrimp (ID: kroger_peeled_&_deveined_tail_off_white_raw_shrimp_549267f3)\n   Description: Bag of raw shrimp being un-bagged and placed in the refrigerator\n   Current Location: counter\n   Current Quantity: 1 bag\n   Purchased: 2025-10-30T15:09:07.965749\n   Last Interaction: un-bagging at 2025-10-29T19:28:43\n\n\nTASK:\n1. Match the food items in the video to their IDs from the memory context above\n2. Identify the interaction (e.g., \"retrieve from fridge\", \"place in fridge\", \"cook\", \"eat\", \"store leftover\")\n3. Determine the new state (location, quantity)\n4. Output commands to update the memory\n\nOutput a JSON object with a list of commands:\n\n{\n  \"commands\": [\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"milk_abc123\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"half-full\",\n        \"action\": \"retrieve from fridge\"\n      }\n    },\n    {\n      \"command\": \"CREATE\",\n      \"data\": {\n        \"primary_label\": \"Leftover Pasta\",\n        \"description\": \"Container of leftover pasta\",\n        \"visual_embedding\": [0.0, 0.0, 0.0],\n        \"location\": \"counter\",\n        \"quantity\": \"1 container\",\n        \"purchase_date\": \"<current_timestamp>\",\n        \"action\": \"created from cooking\"\n      }\n    }\n  ]\n}\n\nRULES:\n- UPDATE existing items from context when you see them\n- CREATE new items only if they don't match anything in context\n- Be specific about actions (what is the user doing with the food?)\n- Update location and quantity based on what you observe\n- If no interactions detected, return empty commands list: {\"commands\": []}\n",
+      "raw_response": "```json\n{\n  \"commands\": [\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"kroger_peeled_&_deveined_tail_off_white_raw_shrimp_549267f3\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"1 bag\",\n        \"action\": \"un-bagging\"\n      }\n    }\n  ]\n}\n```",
+      "parsed_output": {
+        "commands": [
+          {
+            "command": "UPDATE",
+            "food_id": "kroger_peeled_&_deveined_tail_off_white_raw_shrimp_549267f3",
+            "data": {
+              "location": "counter",
+              "quantity": "1 bag",
+              "action": "un-bagging"
+            }
+          }
+        ],
+        "num_creates": 0,
+        "num_updates": 1
+      }
+    },
+    {
+      "event": "MEMORY_UPDATE",
+      "timestamp": "2025-10-30T15:11:45.344284",
+      "video_name": "20251029-192843.MOV",
+      "video_timestamp": "2025-10-29T19:28:43",
+      "clip_index": 3,
+      "commands": [
+        {
+          "command": "UPDATE",
+          "food_id": "kroger_peeled_&_deveined_tail_off_white_raw_shrimp_549267f3",
+          "data": {
+            "location": "counter",
+            "quantity": "1 bag",
+            "action": "un-bagging"
+          }
+        }
+      ],
+      "execution_stats": {
+        "created": 0,
+        "updated": 1,
+        "failed": 0
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_1_DETECTION",
+      "timestamp": "2025-10-30T15:12:05.067292",
+      "video_name": "20251029-192843.MOV",
+      "clip_index": 4,
+      "clip_path": "clips/20251029-192843_clip_003.mp4",
+      "prompt": "You are a food tracker. Analyze this egocentric video clip and identify all food items the user *directly interacts with*.\n\nIMPORTANT RULES:\n- Only identify food items that the user physically touches, grasps, or manipulates\n- Ignore food in the background that is not being interacted with\n- Focus on direct physical contact with food items\n- Be specific about the food item (e.g., \"whole milk\" not just \"milk\", \"raw chicken breast\" not just \"chicken\")\n\nOutput ONLY a JSON object in this exact format:\n{\n  \"food_names\": [\"specific food item 1\", \"specific food item 2\", ...]\n}\n\nIf no food interactions are detected, return:\n{\n  \"food_names\": []\n}\n",
+      "raw_response": "{\n  \"food_names\": [\"raw meat\"]\n}\n",
+      "parsed_output": {
+        "food_names": [
+          "raw meat"
+        ]
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_2_UPDATE",
+      "timestamp": "2025-10-30T15:12:14.039453",
+      "video_name": "20251029-192843.MOV",
+      "clip_index": 4,
+      "clip_path": "clips/20251029-192843_clip_003.mp4",
+      "mode": "STANDARD_INTERACTION",
+      "expected_items": null,
+      "context_provided": "CONTEXT: The food memory contains the following potentially relevant items:\n\n1. Kroger Peeled & Deveined Tail Off White Raw Shrimp (ID: kroger_peeled_&_deveined_tail_off_white_raw_shrimp_549267f3)\n   Description: Bag of raw shrimp being un-bagged and placed in the refrigerator\n   Current Location: counter\n   Current Quantity: 1 bag\n   Purchased: 2025-10-30T15:09:07.965749\n   Last Interaction: un-bagging at 2025-10-29T19:28:43\n",
+      "prompt": "You are a food memory manager. Analyze this video clip showing food interactions.\n\nCONTEXT: The food memory contains the following potentially relevant items:\n\n1. Kroger Peeled & Deveined Tail Off White Raw Shrimp (ID: kroger_peeled_&_deveined_tail_off_white_raw_shrimp_549267f3)\n   Description: Bag of raw shrimp being un-bagged and placed in the refrigerator\n   Current Location: counter\n   Current Quantity: 1 bag\n   Purchased: 2025-10-30T15:09:07.965749\n   Last Interaction: un-bagging at 2025-10-29T19:28:43\n\n\nTASK:\n1. Match the food items in the video to their IDs from the memory context above\n2. Identify the interaction (e.g., \"retrieve from fridge\", \"place in fridge\", \"cook\", \"eat\", \"store leftover\")\n3. Determine the new state (location, quantity)\n4. Output commands to update the memory\n\nOutput a JSON object with a list of commands:\n\n{\n  \"commands\": [\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"milk_abc123\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"half-full\",\n        \"action\": \"retrieve from fridge\"\n      }\n    },\n    {\n      \"command\": \"CREATE\",\n      \"data\": {\n        \"primary_label\": \"Leftover Pasta\",\n        \"description\": \"Container of leftover pasta\",\n        \"visual_embedding\": [0.0, 0.0, 0.0],\n        \"location\": \"counter\",\n        \"quantity\": \"1 container\",\n        \"purchase_date\": \"<current_timestamp>\",\n        \"action\": \"created from cooking\"\n      }\n    }\n  ]\n}\n\nRULES:\n- UPDATE existing items from context when you see them\n- CREATE new items only if they don't match anything in context\n- Be specific about actions (what is the user doing with the food?)\n- Update location and quantity based on what you observe\n- If no interactions detected, return empty commands list: {\"commands\": []}\n",
+      "raw_response": "```json\n{\n  \"commands\": [\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"kroger_peeled_&_deveined_tail_off_white_raw_shrimp_549267f3\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"1 bag\",\n        \"action\": \"un-bagging\"\n      }\n    }\n  ]\n}\n```",
+      "parsed_output": {
+        "commands": [
+          {
+            "command": "UPDATE",
+            "food_id": "kroger_peeled_&_deveined_tail_off_white_raw_shrimp_549267f3",
+            "data": {
+              "location": "counter",
+              "quantity": "1 bag",
+              "action": "un-bagging"
+            }
+          }
+        ],
+        "num_creates": 0,
+        "num_updates": 1
+      }
+    },
+    {
+      "event": "MEMORY_UPDATE",
+      "timestamp": "2025-10-30T15:12:14.049107",
+      "video_name": "20251029-192843.MOV",
+      "video_timestamp": "2025-10-29T19:28:43",
+      "clip_index": 4,
+      "commands": [
+        {
+          "command": "UPDATE",
+          "food_id": "kroger_peeled_&_deveined_tail_off_white_raw_shrimp_549267f3",
+          "data": {
+            "location": "counter",
+            "quantity": "1 bag",
+            "action": "un-bagging"
+          }
+        }
+      ],
+      "execution_stats": {
+        "created": 0,
+        "updated": 1,
+        "failed": 0
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_1_DETECTION",
+      "timestamp": "2025-10-30T15:12:33.822452",
+      "video_name": "20251029-192843.MOV",
+      "clip_index": 5,
+      "clip_path": "clips/20251029-192843_clip_004.mp4",
+      "prompt": "You are a food tracker. Analyze this egocentric video clip and identify all food items the user *directly interacts with*.\n\nIMPORTANT RULES:\n- Only identify food items that the user physically touches, grasps, or manipulates\n- Ignore food in the background that is not being interacted with\n- Focus on direct physical contact with food items\n- Be specific about the food item (e.g., \"whole milk\" not just \"milk\", \"raw chicken breast\" not just \"chicken\")\n\nOutput ONLY a JSON object in this exact format:\n{\n  \"food_names\": [\"specific food item 1\", \"specific food item 2\", ...]\n}\n\nIf no food interactions are detected, return:\n{\n  \"food_names\": []\n}\n",
+      "raw_response": "{\n  \"food_names\": [\"raw meat\"]\n}",
+      "parsed_output": {
+        "food_names": [
+          "raw meat"
+        ]
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_2_UPDATE",
+      "timestamp": "2025-10-30T15:12:44.428907",
+      "video_name": "20251029-192843.MOV",
+      "clip_index": 5,
+      "clip_path": "clips/20251029-192843_clip_004.mp4",
+      "mode": "STANDARD_INTERACTION",
+      "expected_items": null,
+      "context_provided": "CONTEXT: The food memory contains the following potentially relevant items:\n\n1. Kroger Peeled & Deveined Tail Off White Raw Shrimp (ID: kroger_peeled_&_deveined_tail_off_white_raw_shrimp_549267f3)\n   Description: Bag of raw shrimp being un-bagged and placed in the refrigerator\n   Current Location: counter\n   Current Quantity: 1 bag\n   Purchased: 2025-10-30T15:09:07.965749\n   Last Interaction: un-bagging at 2025-10-29T19:28:43\n",
+      "prompt": "You are a food memory manager. Analyze this video clip showing food interactions.\n\nCONTEXT: The food memory contains the following potentially relevant items:\n\n1. Kroger Peeled & Deveined Tail Off White Raw Shrimp (ID: kroger_peeled_&_deveined_tail_off_white_raw_shrimp_549267f3)\n   Description: Bag of raw shrimp being un-bagged and placed in the refrigerator\n   Current Location: counter\n   Current Quantity: 1 bag\n   Purchased: 2025-10-30T15:09:07.965749\n   Last Interaction: un-bagging at 2025-10-29T19:28:43\n\n\nTASK:\n1. Match the food items in the video to their IDs from the memory context above\n2. Identify the interaction (e.g., \"retrieve from fridge\", \"place in fridge\", \"cook\", \"eat\", \"store leftover\")\n3. Determine the new state (location, quantity)\n4. Output commands to update the memory\n\nOutput a JSON object with a list of commands:\n\n{\n  \"commands\": [\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"milk_abc123\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"half-full\",\n        \"action\": \"retrieve from fridge\"\n      }\n    },\n    {\n      \"command\": \"CREATE\",\n      \"data\": {\n        \"primary_label\": \"Leftover Pasta\",\n        \"description\": \"Container of leftover pasta\",\n        \"visual_embedding\": [0.0, 0.0, 0.0],\n        \"location\": \"counter\",\n        \"quantity\": \"1 container\",\n        \"purchase_date\": \"<current_timestamp>\",\n        \"action\": \"created from cooking\"\n      }\n    }\n  ]\n}\n\nRULES:\n- UPDATE existing items from context when you see them\n- CREATE new items only if they don't match anything in context\n- Be specific about actions (what is the user doing with the food?)\n- Update location and quantity based on what you observe\n- If no interactions detected, return empty commands list: {\"commands\": []}\n",
+      "raw_response": "```json\n{\n  \"commands\": [\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"kroger_peeled_&_deveined_tail_off_white_raw_shrimp_549267f3\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"1 bag\",\n        \"action\": \"un-bagging\"\n      }\n    }\n  ]\n}\n```",
+      "parsed_output": {
+        "commands": [
+          {
+            "command": "UPDATE",
+            "food_id": "kroger_peeled_&_deveined_tail_off_white_raw_shrimp_549267f3",
+            "data": {
+              "location": "counter",
+              "quantity": "1 bag",
+              "action": "un-bagging"
+            }
+          }
+        ],
+        "num_creates": 0,
+        "num_updates": 1
+      }
+    },
+    {
+      "event": "MEMORY_UPDATE",
+      "timestamp": "2025-10-30T15:12:44.438912",
+      "video_name": "20251029-192843.MOV",
+      "video_timestamp": "2025-10-29T19:28:43",
+      "clip_index": 5,
+      "commands": [
+        {
+          "command": "UPDATE",
+          "food_id": "kroger_peeled_&_deveined_tail_off_white_raw_shrimp_549267f3",
+          "data": {
+            "location": "counter",
+            "quantity": "1 bag",
+            "action": "un-bagging"
+          }
+        }
+      ],
+      "execution_stats": {
+        "created": 0,
+        "updated": 1,
+        "failed": 0
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_1_DETECTION",
+      "timestamp": "2025-10-30T15:13:05.693382",
+      "video_name": "20251029-192843.MOV",
+      "clip_index": 6,
+      "clip_path": "clips/20251029-192843_clip_005.mp4",
+      "prompt": "You are a food tracker. Analyze this egocentric video clip and identify all food items the user *directly interacts with*.\n\nIMPORTANT RULES:\n- Only identify food items that the user physically touches, grasps, or manipulates\n- Ignore food in the background that is not being interacted with\n- Focus on direct physical contact with food items\n- Be specific about the food item (e.g., \"whole milk\" not just \"milk\", \"raw chicken breast\" not just \"chicken\")\n\nOutput ONLY a JSON object in this exact format:\n{\n  \"food_names\": [\"specific food item 1\", \"specific food item 2\", ...]\n}\n\nIf no food interactions are detected, return:\n{\n  \"food_names\": []\n}\n",
+      "raw_response": "{\n  \"food_names\": [\"tofu\", \"raw meat\"]\n}",
+      "parsed_output": {
+        "food_names": [
+          "tofu",
+          "raw meat"
+        ]
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_2_UPDATE",
+      "timestamp": "2025-10-30T15:13:14.196658",
+      "video_name": "20251029-192843.MOV",
+      "clip_index": 6,
+      "clip_path": "clips/20251029-192843_clip_005.mp4",
+      "mode": "STANDARD_INTERACTION",
+      "expected_items": null,
+      "context_provided": "CONTEXT: The food memory contains the following potentially relevant items:\n\n1. Kroger Peeled & Deveined Tail Off White Raw Shrimp (ID: kroger_peeled_&_deveined_tail_off_white_raw_shrimp_549267f3)\n   Description: Bag of raw shrimp being un-bagged and placed in the refrigerator\n   Current Location: counter\n   Current Quantity: 1 bag\n   Purchased: 2025-10-30T15:09:07.965749\n   Last Interaction: un-bagging at 2025-10-29T19:28:43\n\n2. Simple Truth Organic Firm Tofu (ID: simple_truth_organic_firm_tofu_eb9bf7aa)\n   Description: Package of organic firm tofu being un-bagged and placed on the counter\n   Current Location: counter\n   Current Quantity: 1 package\n   Purchased: 2025-10-30T15:09:07.965802\n   Last Interaction: un-bagged and placed on counter at 2025-10-29T19:23:29\n",
+      "prompt": "You are a food memory manager. Analyze this video clip showing food interactions.\n\nCONTEXT: The food memory contains the following potentially relevant items:\n\n1. Kroger Peeled & Deveined Tail Off White Raw Shrimp (ID: kroger_peeled_&_deveined_tail_off_white_raw_shrimp_549267f3)\n   Description: Bag of raw shrimp being un-bagged and placed in the refrigerator\n   Current Location: counter\n   Current Quantity: 1 bag\n   Purchased: 2025-10-30T15:09:07.965749\n   Last Interaction: un-bagging at 2025-10-29T19:28:43\n\n2. Simple Truth Organic Firm Tofu (ID: simple_truth_organic_firm_tofu_eb9bf7aa)\n   Description: Package of organic firm tofu being un-bagged and placed on the counter\n   Current Location: counter\n   Current Quantity: 1 package\n   Purchased: 2025-10-30T15:09:07.965802\n   Last Interaction: un-bagged and placed on counter at 2025-10-29T19:23:29\n\n\nTASK:\n1. Match the food items in the video to their IDs from the memory context above\n2. Identify the interaction (e.g., \"retrieve from fridge\", \"place in fridge\", \"cook\", \"eat\", \"store leftover\")\n3. Determine the new state (location, quantity)\n4. Output commands to update the memory\n\nOutput a JSON object with a list of commands:\n\n{\n  \"commands\": [\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"milk_abc123\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"half-full\",\n        \"action\": \"retrieve from fridge\"\n      }\n    },\n    {\n      \"command\": \"CREATE\",\n      \"data\": {\n        \"primary_label\": \"Leftover Pasta\",\n        \"description\": \"Container of leftover pasta\",\n        \"visual_embedding\": [0.0, 0.0, 0.0],\n        \"location\": \"counter\",\n        \"quantity\": \"1 container\",\n        \"purchase_date\": \"<current_timestamp>\",\n        \"action\": \"created from cooking\"\n      }\n    }\n  ]\n}\n\nRULES:\n- UPDATE existing items from context when you see them\n- CREATE new items only if they don't match anything in context\n- Be specific about actions (what is the user doing with the food?)\n- Update location and quantity based on what you observe\n- If no interactions detected, return empty commands list: {\"commands\": []}\n",
+      "raw_response": "```json\n{\n  \"commands\": [\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"simple_truth_organic_firm_tofu_eb9bf7aa\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"1 package\",\n        \"action\": \"un-bagging\"\n      }\n    }\n  ]\n}\n```",
+      "parsed_output": {
+        "commands": [
+          {
+            "command": "UPDATE",
+            "food_id": "simple_truth_organic_firm_tofu_eb9bf7aa",
+            "data": {
+              "location": "counter",
+              "quantity": "1 package",
+              "action": "un-bagging"
+            }
+          }
+        ],
+        "num_creates": 0,
+        "num_updates": 1
+      }
+    },
+    {
+      "event": "MEMORY_UPDATE",
+      "timestamp": "2025-10-30T15:13:14.208030",
+      "video_name": "20251029-192843.MOV",
+      "video_timestamp": "2025-10-29T19:28:43",
+      "clip_index": 6,
+      "commands": [
+        {
+          "command": "UPDATE",
+          "food_id": "simple_truth_organic_firm_tofu_eb9bf7aa",
+          "data": {
+            "location": "counter",
+            "quantity": "1 package",
+            "action": "un-bagging"
+          }
+        }
+      ],
+      "execution_stats": {
+        "created": 0,
+        "updated": 1,
+        "failed": 0
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_1_DETECTION",
+      "timestamp": "2025-10-30T15:13:33.776108",
+      "video_name": "20251029-193215.MOV",
+      "clip_index": 1,
+      "clip_path": "clips/20251029-193215_clip_000.mp4",
+      "prompt": "You are a food tracker. Analyze this egocentric video clip and identify all food items the user *directly interacts with*.\n\nIMPORTANT RULES:\n- Only identify food items that the user physically touches, grasps, or manipulates\n- Ignore food in the background that is not being interacted with\n- Focus on direct physical contact with food items\n- Be specific about the food item (e.g., \"whole milk\" not just \"milk\", \"raw chicken breast\" not just \"chicken\")\n\nOutput ONLY a JSON object in this exact format:\n{\n  \"food_names\": [\"specific food item 1\", \"specific food item 2\", ...]\n}\n\nIf no food interactions are detected, return:\n{\n  \"food_names\": []\n}\n",
+      "raw_response": "{\n  \"food_names\": [\"napa cabbage\"]\n}",
+      "parsed_output": {
+        "food_names": [
+          "napa cabbage"
+        ]
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_2_UPDATE",
+      "timestamp": "2025-10-30T15:13:43.961917",
+      "video_name": "20251029-193215.MOV",
+      "clip_index": 1,
+      "clip_path": "clips/20251029-193215_clip_000.mp4",
+      "mode": "STANDARD_INTERACTION",
+      "expected_items": null,
+      "context_provided": "CONTEXT: The food memory contains the following potentially relevant items:\n\n1. Napa Cabbage (ID: napa_cabbage_81919888)\n   Description: A head of napa cabbage wrapped in plastic being un-bagged\n   Current Location: counter\n   Current Quantity: 1 head\n   Purchased: 2025-10-30T14:49:47.683461\n   Last Interaction: purchased and un-bagged at 2025-10-26T18:36:16\n\n2. Napa Cabbage (ID: napa_cabbage_6fd0b65e)\n   Description: A head of napa cabbage being un-bagged\n   Current Location: counter\n   Current Quantity: 1 head\n   Purchased: 2025-10-30T14:49:47.683512\n   Last Interaction: purchased and un-bagged at 2025-10-26T18:36:16\n",
+      "prompt": "You are a food memory manager. Analyze this video clip showing food interactions.\n\nCONTEXT: The food memory contains the following potentially relevant items:\n\n1. Napa Cabbage (ID: napa_cabbage_81919888)\n   Description: A head of napa cabbage wrapped in plastic being un-bagged\n   Current Location: counter\n   Current Quantity: 1 head\n   Purchased: 2025-10-30T14:49:47.683461\n   Last Interaction: purchased and un-bagged at 2025-10-26T18:36:16\n\n2. Napa Cabbage (ID: napa_cabbage_6fd0b65e)\n   Description: A head of napa cabbage being un-bagged\n   Current Location: counter\n   Current Quantity: 1 head\n   Purchased: 2025-10-30T14:49:47.683512\n   Last Interaction: purchased and un-bagged at 2025-10-26T18:36:16\n\n\nTASK:\n1. Match the food items in the video to their IDs from the memory context above\n2. Identify the interaction (e.g., \"retrieve from fridge\", \"place in fridge\", \"cook\", \"eat\", \"store leftover\")\n3. Determine the new state (location, quantity)\n4. Output commands to update the memory\n\nOutput a JSON object with a list of commands:\n\n{\n  \"commands\": [\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"milk_abc123\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"half-full\",\n        \"action\": \"retrieve from fridge\"\n      }\n    },\n    {\n      \"command\": \"CREATE\",\n      \"data\": {\n        \"primary_label\": \"Leftover Pasta\",\n        \"description\": \"Container of leftover pasta\",\n        \"visual_embedding\": [0.0, 0.0, 0.0],\n        \"location\": \"counter\",\n        \"quantity\": \"1 container\",\n        \"purchase_date\": \"<current_timestamp>\",\n        \"action\": \"created from cooking\"\n      }\n    }\n  ]\n}\n\nRULES:\n- UPDATE existing items from context when you see them\n- CREATE new items only if they don't match anything in context\n- Be specific about actions (what is the user doing with the food?)\n- Update location and quantity based on what you observe\n- If no interactions detected, return empty commands list: {\"commands\": []}\n",
+      "raw_response": "```json\n{\n  \"commands\": [\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"napa_cabbage_81919888\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"1 head\",\n        \"action\": \"retrieve from fridge\"\n      }\n    },\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"napa_cabbage_6fd0b65e\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"1 head\",\n        \"action\": \"retrieve from fridge\"\n      }\n    }\n  ]\n}\n```",
+      "parsed_output": {
+        "commands": [
+          {
+            "command": "UPDATE",
+            "food_id": "napa_cabbage_81919888",
+            "data": {
+              "location": "counter",
+              "quantity": "1 head",
+              "action": "retrieve from fridge"
+            }
+          },
+          {
+            "command": "UPDATE",
+            "food_id": "napa_cabbage_6fd0b65e",
+            "data": {
+              "location": "counter",
+              "quantity": "1 head",
+              "action": "retrieve from fridge"
+            }
+          }
+        ],
+        "num_creates": 0,
+        "num_updates": 2
+      }
+    },
+    {
+      "event": "MEMORY_UPDATE",
+      "timestamp": "2025-10-30T15:13:43.971682",
+      "video_name": "20251029-193215.MOV",
+      "video_timestamp": "2025-10-29T19:32:15",
+      "clip_index": 1,
+      "commands": [
+        {
+          "command": "UPDATE",
+          "food_id": "napa_cabbage_81919888",
+          "data": {
+            "location": "counter",
+            "quantity": "1 head",
+            "action": "retrieve from fridge"
+          }
+        },
+        {
+          "command": "UPDATE",
+          "food_id": "napa_cabbage_6fd0b65e",
+          "data": {
+            "location": "counter",
+            "quantity": "1 head",
+            "action": "retrieve from fridge"
+          }
+        }
+      ],
+      "execution_stats": {
+        "created": 0,
+        "updated": 2,
+        "failed": 0
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_1_DETECTION",
+      "timestamp": "2025-10-30T15:14:03.716325",
+      "video_name": "20251029-193215.MOV",
+      "clip_index": 2,
+      "clip_path": "clips/20251029-193215_clip_001.mp4",
+      "prompt": "You are a food tracker. Analyze this egocentric video clip and identify all food items the user *directly interacts with*.\n\nIMPORTANT RULES:\n- Only identify food items that the user physically touches, grasps, or manipulates\n- Ignore food in the background that is not being interacted with\n- Focus on direct physical contact with food items\n- Be specific about the food item (e.g., \"whole milk\" not just \"milk\", \"raw chicken breast\" not just \"chicken\")\n\nOutput ONLY a JSON object in this exact format:\n{\n  \"food_names\": [\"specific food item 1\", \"specific food item 2\", ...]\n}\n\nIf no food interactions are detected, return:\n{\n  \"food_names\": []\n}\n",
+      "raw_response": "{\n  \"food_names\": [\"napa cabbage\", \"raw meat\"]\n}",
+      "parsed_output": {
+        "food_names": [
+          "napa cabbage",
+          "raw meat"
+        ]
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_2_UPDATE",
+      "timestamp": "2025-10-30T15:14:13.554492",
+      "video_name": "20251029-193215.MOV",
+      "clip_index": 2,
+      "clip_path": "clips/20251029-193215_clip_001.mp4",
+      "mode": "STANDARD_INTERACTION",
+      "expected_items": null,
+      "context_provided": "CONTEXT: The food memory contains the following potentially relevant items:\n\n1. Napa Cabbage (ID: napa_cabbage_81919888)\n   Description: A head of napa cabbage wrapped in plastic being un-bagged\n   Current Location: counter\n   Current Quantity: 1 head\n   Purchased: 2025-10-30T14:49:47.683461\n   Last Interaction: retrieve from fridge at 2025-10-29T19:32:15\n\n2. Napa Cabbage (ID: napa_cabbage_6fd0b65e)\n   Description: A head of napa cabbage being un-bagged\n   Current Location: counter\n   Current Quantity: 1 head\n   Purchased: 2025-10-30T14:49:47.683512\n   Last Interaction: retrieve from fridge at 2025-10-29T19:32:15\n\n3. Kroger Peeled & Deveined Tail Off White Raw Shrimp (ID: kroger_peeled_&_deveined_tail_off_white_raw_shrimp_549267f3)\n   Description: Bag of raw shrimp being un-bagged and placed in the refrigerator\n   Current Location: counter\n   Current Quantity: 1 bag\n   Purchased: 2025-10-30T15:09:07.965749\n   Last Interaction: un-bagging at 2025-10-29T19:28:43\n",
+      "prompt": "You are a food memory manager. Analyze this video clip showing food interactions.\n\nCONTEXT: The food memory contains the following potentially relevant items:\n\n1. Napa Cabbage (ID: napa_cabbage_81919888)\n   Description: A head of napa cabbage wrapped in plastic being un-bagged\n   Current Location: counter\n   Current Quantity: 1 head\n   Purchased: 2025-10-30T14:49:47.683461\n   Last Interaction: retrieve from fridge at 2025-10-29T19:32:15\n\n2. Napa Cabbage (ID: napa_cabbage_6fd0b65e)\n   Description: A head of napa cabbage being un-bagged\n   Current Location: counter\n   Current Quantity: 1 head\n   Purchased: 2025-10-30T14:49:47.683512\n   Last Interaction: retrieve from fridge at 2025-10-29T19:32:15\n\n3. Kroger Peeled & Deveined Tail Off White Raw Shrimp (ID: kroger_peeled_&_deveined_tail_off_white_raw_shrimp_549267f3)\n   Description: Bag of raw shrimp being un-bagged and placed in the refrigerator\n   Current Location: counter\n   Current Quantity: 1 bag\n   Purchased: 2025-10-30T15:09:07.965749\n   Last Interaction: un-bagging at 2025-10-29T19:28:43\n\n\nTASK:\n1. Match the food items in the video to their IDs from the memory context above\n2. Identify the interaction (e.g., \"retrieve from fridge\", \"place in fridge\", \"cook\", \"eat\", \"store leftover\")\n3. Determine the new state (location, quantity)\n4. Output commands to update the memory\n\nOutput a JSON object with a list of commands:\n\n{\n  \"commands\": [\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"milk_abc123\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"half-full\",\n        \"action\": \"retrieve from fridge\"\n      }\n    },\n    {\n      \"command\": \"CREATE\",\n      \"data\": {\n        \"primary_label\": \"Leftover Pasta\",\n        \"description\": \"Container of leftover pasta\",\n        \"visual_embedding\": [0.0, 0.0, 0.0],\n        \"location\": \"counter\",\n        \"quantity\": \"1 container\",\n        \"purchase_date\": \"<current_timestamp>\",\n        \"action\": \"created from cooking\"\n      }\n    }\n  ]\n}\n\nRULES:\n- UPDATE existing items from context when you see them\n- CREATE new items only if they don't match anything in context\n- Be specific about actions (what is the user doing with the food?)\n- Update location and quantity based on what you observe\n- If no interactions detected, return empty commands list: {\"commands\": []}\n",
+      "raw_response": "```json\n{\n  \"commands\": [\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"napa_cabbage_81919888\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"1 head\",\n        \"action\": \"un-bagging\"\n      }\n    },\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"napa_cabbage_6fd0b65e\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"1 head\",\n        \"action\": \"un-bagging\"\n      }\n    }\n  ]\n}\n```",
+      "parsed_output": {
+        "commands": [
+          {
+            "command": "UPDATE",
+            "food_id": "napa_cabbage_81919888",
+            "data": {
+              "location": "counter",
+              "quantity": "1 head",
+              "action": "un-bagging"
+            }
+          },
+          {
+            "command": "UPDATE",
+            "food_id": "napa_cabbage_6fd0b65e",
+            "data": {
+              "location": "counter",
+              "quantity": "1 head",
+              "action": "un-bagging"
+            }
+          }
+        ],
+        "num_creates": 0,
+        "num_updates": 2
+      }
+    },
+    {
+      "event": "MEMORY_UPDATE",
+      "timestamp": "2025-10-30T15:14:13.564635",
+      "video_name": "20251029-193215.MOV",
+      "video_timestamp": "2025-10-29T19:32:15",
+      "clip_index": 2,
+      "commands": [
+        {
+          "command": "UPDATE",
+          "food_id": "napa_cabbage_81919888",
+          "data": {
+            "location": "counter",
+            "quantity": "1 head",
+            "action": "un-bagging"
+          }
+        },
+        {
+          "command": "UPDATE",
+          "food_id": "napa_cabbage_6fd0b65e",
+          "data": {
+            "location": "counter",
+            "quantity": "1 head",
+            "action": "un-bagging"
+          }
+        }
+      ],
+      "execution_stats": {
+        "created": 0,
+        "updated": 2,
+        "failed": 0
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_1_DETECTION",
+      "timestamp": "2025-10-30T15:14:33.842736",
+      "video_name": "20251029-193215.MOV",
+      "clip_index": 3,
+      "clip_path": "clips/20251029-193215_clip_002.mp4",
+      "prompt": "You are a food tracker. Analyze this egocentric video clip and identify all food items the user *directly interacts with*.\n\nIMPORTANT RULES:\n- Only identify food items that the user physically touches, grasps, or manipulates\n- Ignore food in the background that is not being interacted with\n- Focus on direct physical contact with food items\n- Be specific about the food item (e.g., \"whole milk\" not just \"milk\", \"raw chicken breast\" not just \"chicken\")\n\nOutput ONLY a JSON object in this exact format:\n{\n  \"food_names\": [\"specific food item 1\", \"specific food item 2\", ...]\n}\n\nIf no food interactions are detected, return:\n{\n  \"food_names\": []\n}\n",
+      "raw_response": "{\n  \"food_names\": [\"napa cabbage\", \"raw meat\"]\n}",
+      "parsed_output": {
+        "food_names": [
+          "napa cabbage",
+          "raw meat"
+        ]
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_2_UPDATE",
+      "timestamp": "2025-10-30T15:14:45.018690",
+      "video_name": "20251029-193215.MOV",
+      "clip_index": 3,
+      "clip_path": "clips/20251029-193215_clip_002.mp4",
+      "mode": "STANDARD_INTERACTION",
+      "expected_items": null,
+      "context_provided": "CONTEXT: The food memory contains the following potentially relevant items:\n\n1. Napa Cabbage (ID: napa_cabbage_81919888)\n   Description: A head of napa cabbage wrapped in plastic being un-bagged\n   Current Location: counter\n   Current Quantity: 1 head\n   Purchased: 2025-10-30T14:49:47.683461\n   Last Interaction: un-bagging at 2025-10-29T19:32:15\n\n2. Napa Cabbage (ID: napa_cabbage_6fd0b65e)\n   Description: A head of napa cabbage being un-bagged\n   Current Location: counter\n   Current Quantity: 1 head\n   Purchased: 2025-10-30T14:49:47.683512\n   Last Interaction: un-bagging at 2025-10-29T19:32:15\n\n3. Kroger Peeled & Deveined Tail Off White Raw Shrimp (ID: kroger_peeled_&_deveined_tail_off_white_raw_shrimp_549267f3)\n   Description: Bag of raw shrimp being un-bagged and placed in the refrigerator\n   Current Location: counter\n   Current Quantity: 1 bag\n   Purchased: 2025-10-30T15:09:07.965749\n   Last Interaction: un-bagging at 2025-10-29T19:28:43\n",
+      "prompt": "You are a food memory manager. Analyze this video clip showing food interactions.\n\nCONTEXT: The food memory contains the following potentially relevant items:\n\n1. Napa Cabbage (ID: napa_cabbage_81919888)\n   Description: A head of napa cabbage wrapped in plastic being un-bagged\n   Current Location: counter\n   Current Quantity: 1 head\n   Purchased: 2025-10-30T14:49:47.683461\n   Last Interaction: un-bagging at 2025-10-29T19:32:15\n\n2. Napa Cabbage (ID: napa_cabbage_6fd0b65e)\n   Description: A head of napa cabbage being un-bagged\n   Current Location: counter\n   Current Quantity: 1 head\n   Purchased: 2025-10-30T14:49:47.683512\n   Last Interaction: un-bagging at 2025-10-29T19:32:15\n\n3. Kroger Peeled & Deveined Tail Off White Raw Shrimp (ID: kroger_peeled_&_deveined_tail_off_white_raw_shrimp_549267f3)\n   Description: Bag of raw shrimp being un-bagged and placed in the refrigerator\n   Current Location: counter\n   Current Quantity: 1 bag\n   Purchased: 2025-10-30T15:09:07.965749\n   Last Interaction: un-bagging at 2025-10-29T19:28:43\n\n\nTASK:\n1. Match the food items in the video to their IDs from the memory context above\n2. Identify the interaction (e.g., \"retrieve from fridge\", \"place in fridge\", \"cook\", \"eat\", \"store leftover\")\n3. Determine the new state (location, quantity)\n4. Output commands to update the memory\n\nOutput a JSON object with a list of commands:\n\n{\n  \"commands\": [\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"milk_abc123\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"half-full\",\n        \"action\": \"retrieve from fridge\"\n      }\n    },\n    {\n      \"command\": \"CREATE\",\n      \"data\": {\n        \"primary_label\": \"Leftover Pasta\",\n        \"description\": \"Container of leftover pasta\",\n        \"visual_embedding\": [0.0, 0.0, 0.0],\n        \"location\": \"counter\",\n        \"quantity\": \"1 container\",\n        \"purchase_date\": \"<current_timestamp>\",\n        \"action\": \"created from cooking\"\n      }\n    }\n  ]\n}\n\nRULES:\n- UPDATE existing items from context when you see them\n- CREATE new items only if they don't match anything in context\n- Be specific about actions (what is the user doing with the food?)\n- Update location and quantity based on what you observe\n- If no interactions detected, return empty commands list: {\"commands\": []}\n",
+      "raw_response": "```json\n{\n  \"commands\": [\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"napa_cabbage_81919888\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"1 head\",\n        \"action\": \"un-bagging\"\n      }\n    },\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"napa_cabbage_6fd0b65e\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"1 head\",\n        \"action\": \"un-bagging\"\n      }\n    },\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"napa_cabbage_81919888\",\n      \"data\": {\n        \"location\": \"refrigerator\",\n        \"quantity\": \"1 head\",\n        \"action\": \"place in fridge\"\n      }\n    },\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"napa_cabbage_6fd0b65e\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"1 head\",\n        \"action\": \"wash\"\n      }\n    },\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"napa_cabbage_81919888\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"1 head\",\n        \"action\": \"wash\"\n      }\n    }\n  ]\n}\n```",
+      "parsed_output": {
+        "commands": [
+          {
+            "command": "UPDATE",
+            "food_id": "napa_cabbage_81919888",
+            "data": {
+              "location": "counter",
+              "quantity": "1 head",
+              "action": "un-bagging"
+            }
+          },
+          {
+            "command": "UPDATE",
+            "food_id": "napa_cabbage_6fd0b65e",
+            "data": {
+              "location": "counter",
+              "quantity": "1 head",
+              "action": "un-bagging"
+            }
+          },
+          {
+            "command": "UPDATE",
+            "food_id": "napa_cabbage_81919888",
+            "data": {
+              "location": "refrigerator",
+              "quantity": "1 head",
+              "action": "place in fridge"
+            }
+          },
+          {
+            "command": "UPDATE",
+            "food_id": "napa_cabbage_6fd0b65e",
+            "data": {
+              "location": "counter",
+              "quantity": "1 head",
+              "action": "wash"
+            }
+          },
+          {
+            "command": "UPDATE",
+            "food_id": "napa_cabbage_81919888",
+            "data": {
+              "location": "counter",
+              "quantity": "1 head",
+              "action": "wash"
+            }
+          }
+        ],
+        "num_creates": 0,
+        "num_updates": 5
+      }
+    },
+    {
+      "event": "MEMORY_UPDATE",
+      "timestamp": "2025-10-30T15:14:45.029499",
+      "video_name": "20251029-193215.MOV",
+      "video_timestamp": "2025-10-29T19:32:15",
+      "clip_index": 3,
+      "commands": [
+        {
+          "command": "UPDATE",
+          "food_id": "napa_cabbage_81919888",
+          "data": {
+            "location": "counter",
+            "quantity": "1 head",
+            "action": "un-bagging"
+          }
+        },
+        {
+          "command": "UPDATE",
+          "food_id": "napa_cabbage_6fd0b65e",
+          "data": {
+            "location": "counter",
+            "quantity": "1 head",
+            "action": "un-bagging"
+          }
+        },
+        {
+          "command": "UPDATE",
+          "food_id": "napa_cabbage_81919888",
+          "data": {
+            "location": "refrigerator",
+            "quantity": "1 head",
+            "action": "place in fridge"
+          }
+        },
+        {
+          "command": "UPDATE",
+          "food_id": "napa_cabbage_6fd0b65e",
+          "data": {
+            "location": "counter",
+            "quantity": "1 head",
+            "action": "wash"
+          }
+        },
+        {
+          "command": "UPDATE",
+          "food_id": "napa_cabbage_81919888",
+          "data": {
+            "location": "counter",
+            "quantity": "1 head",
+            "action": "wash"
+          }
+        }
+      ],
+      "execution_stats": {
+        "created": 0,
+        "updated": 5,
+        "failed": 0
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_1_DETECTION",
+      "timestamp": "2025-10-30T15:15:04.317882",
+      "video_name": "20251029-193215.MOV",
+      "clip_index": 4,
+      "clip_path": "clips/20251029-193215_clip_003.mp4",
+      "prompt": "You are a food tracker. Analyze this egocentric video clip and identify all food items the user *directly interacts with*.\n\nIMPORTANT RULES:\n- Only identify food items that the user physically touches, grasps, or manipulates\n- Ignore food in the background that is not being interacted with\n- Focus on direct physical contact with food items\n- Be specific about the food item (e.g., \"whole milk\" not just \"milk\", \"raw chicken breast\" not just \"chicken\")\n\nOutput ONLY a JSON object in this exact format:\n{\n  \"food_names\": [\"specific food item 1\", \"specific food item 2\", ...]\n}\n\nIf no food interactions are detected, return:\n{\n  \"food_names\": []\n}\n",
+      "raw_response": "{\n  \"food_names\": [\"napa cabbage\", \"raw meat\"]\n}",
+      "parsed_output": {
+        "food_names": [
+          "napa cabbage",
+          "raw meat"
+        ]
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_2_UPDATE",
+      "timestamp": "2025-10-30T15:15:14.956050",
+      "video_name": "20251029-193215.MOV",
+      "clip_index": 4,
+      "clip_path": "clips/20251029-193215_clip_003.mp4",
+      "mode": "STANDARD_INTERACTION",
+      "expected_items": null,
+      "context_provided": "CONTEXT: The food memory contains the following potentially relevant items:\n\n1. Napa Cabbage (ID: napa_cabbage_81919888)\n   Description: A head of napa cabbage wrapped in plastic being un-bagged\n   Current Location: counter\n   Current Quantity: 1 head\n   Purchased: 2025-10-30T14:49:47.683461\n   Last Interaction: wash at 2025-10-29T19:32:15\n\n2. Napa Cabbage (ID: napa_cabbage_6fd0b65e)\n   Description: A head of napa cabbage being un-bagged\n   Current Location: counter\n   Current Quantity: 1 head\n   Purchased: 2025-10-30T14:49:47.683512\n   Last Interaction: wash at 2025-10-29T19:32:15\n\n3. Kroger Peeled & Deveined Tail Off White Raw Shrimp (ID: kroger_peeled_&_deveined_tail_off_white_raw_shrimp_549267f3)\n   Description: Bag of raw shrimp being un-bagged and placed in the refrigerator\n   Current Location: counter\n   Current Quantity: 1 bag\n   Purchased: 2025-10-30T15:09:07.965749\n   Last Interaction: un-bagging at 2025-10-29T19:28:43\n",
+      "prompt": "You are a food memory manager. Analyze this video clip showing food interactions.\n\nCONTEXT: The food memory contains the following potentially relevant items:\n\n1. Napa Cabbage (ID: napa_cabbage_81919888)\n   Description: A head of napa cabbage wrapped in plastic being un-bagged\n   Current Location: counter\n   Current Quantity: 1 head\n   Purchased: 2025-10-30T14:49:47.683461\n   Last Interaction: wash at 2025-10-29T19:32:15\n\n2. Napa Cabbage (ID: napa_cabbage_6fd0b65e)\n   Description: A head of napa cabbage being un-bagged\n   Current Location: counter\n   Current Quantity: 1 head\n   Purchased: 2025-10-30T14:49:47.683512\n   Last Interaction: wash at 2025-10-29T19:32:15\n\n3. Kroger Peeled & Deveined Tail Off White Raw Shrimp (ID: kroger_peeled_&_deveined_tail_off_white_raw_shrimp_549267f3)\n   Description: Bag of raw shrimp being un-bagged and placed in the refrigerator\n   Current Location: counter\n   Current Quantity: 1 bag\n   Purchased: 2025-10-30T15:09:07.965749\n   Last Interaction: un-bagging at 2025-10-29T19:28:43\n\n\nTASK:\n1. Match the food items in the video to their IDs from the memory context above\n2. Identify the interaction (e.g., \"retrieve from fridge\", \"place in fridge\", \"cook\", \"eat\", \"store leftover\")\n3. Determine the new state (location, quantity)\n4. Output commands to update the memory\n\nOutput a JSON object with a list of commands:\n\n{\n  \"commands\": [\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"milk_abc123\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"half-full\",\n        \"action\": \"retrieve from fridge\"\n      }\n    },\n    {\n      \"command\": \"CREATE\",\n      \"data\": {\n        \"primary_label\": \"Leftover Pasta\",\n        \"description\": \"Container of leftover pasta\",\n        \"visual_embedding\": [0.0, 0.0, 0.0],\n        \"location\": \"counter\",\n        \"quantity\": \"1 container\",\n        \"purchase_date\": \"<current_timestamp>\",\n        \"action\": \"created from cooking\"\n      }\n    }\n  ]\n}\n\nRULES:\n- UPDATE existing items from context when you see them\n- CREATE new items only if they don't match anything in context\n- Be specific about actions (what is the user doing with the food?)\n- Update location and quantity based on what you observe\n- If no interactions detected, return empty commands list: {\"commands\": []}\n",
+      "raw_response": "```json\n{\n  \"commands\": [\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"napa_cabbage_81919888\",\n      \"data\": {\n        \"location\": \"sink\",\n        \"quantity\": \"1 head\",\n        \"action\": \"wash\"\n      }\n    },\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"napa_cabbage_6fd0b65e\",\n      \"data\": {\n        \"location\": \"sink\",\n        \"quantity\": \"1 head\",\n        \"action\": \"wash\"\n      }\n    },\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"napa_cabbage_81919888\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"1 head\",\n        \"action\": \"place on cutting board\"\n      }\n    },\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"napa_cabbage_6fd0b65e\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"1 head\",\n        \"action\": \"place on cutting board\"\n      }\n    }\n  ]\n}\n```",
+      "parsed_output": {
+        "commands": [
+          {
+            "command": "UPDATE",
+            "food_id": "napa_cabbage_81919888",
+            "data": {
+              "location": "sink",
+              "quantity": "1 head",
+              "action": "wash"
+            }
+          },
+          {
+            "command": "UPDATE",
+            "food_id": "napa_cabbage_6fd0b65e",
+            "data": {
+              "location": "sink",
+              "quantity": "1 head",
+              "action": "wash"
+            }
+          },
+          {
+            "command": "UPDATE",
+            "food_id": "napa_cabbage_81919888",
+            "data": {
+              "location": "counter",
+              "quantity": "1 head",
+              "action": "place on cutting board"
+            }
+          },
+          {
+            "command": "UPDATE",
+            "food_id": "napa_cabbage_6fd0b65e",
+            "data": {
+              "location": "counter",
+              "quantity": "1 head",
+              "action": "place on cutting board"
+            }
+          }
+        ],
+        "num_creates": 0,
+        "num_updates": 4
+      }
+    },
+    {
+      "event": "MEMORY_UPDATE",
+      "timestamp": "2025-10-30T15:15:14.966053",
+      "video_name": "20251029-193215.MOV",
+      "video_timestamp": "2025-10-29T19:32:15",
+      "clip_index": 4,
+      "commands": [
+        {
+          "command": "UPDATE",
+          "food_id": "napa_cabbage_81919888",
+          "data": {
+            "location": "sink",
+            "quantity": "1 head",
+            "action": "wash"
+          }
+        },
+        {
+          "command": "UPDATE",
+          "food_id": "napa_cabbage_6fd0b65e",
+          "data": {
+            "location": "sink",
+            "quantity": "1 head",
+            "action": "wash"
+          }
+        },
+        {
+          "command": "UPDATE",
+          "food_id": "napa_cabbage_81919888",
+          "data": {
+            "location": "counter",
+            "quantity": "1 head",
+            "action": "place on cutting board"
+          }
+        },
+        {
+          "command": "UPDATE",
+          "food_id": "napa_cabbage_6fd0b65e",
+          "data": {
+            "location": "counter",
+            "quantity": "1 head",
+            "action": "place on cutting board"
+          }
+        }
+      ],
+      "execution_stats": {
+        "created": 0,
+        "updated": 4,
+        "failed": 0
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_1_DETECTION",
+      "timestamp": "2025-10-30T15:15:30.559487",
+      "video_name": "20251029-193215.MOV",
+      "clip_index": 5,
+      "clip_path": "clips/20251029-193215_clip_004.mp4",
+      "prompt": "You are a food tracker. Analyze this egocentric video clip and identify all food items the user *directly interacts with*.\n\nIMPORTANT RULES:\n- Only identify food items that the user physically touches, grasps, or manipulates\n- Ignore food in the background that is not being interacted with\n- Focus on direct physical contact with food items\n- Be specific about the food item (e.g., \"whole milk\" not just \"milk\", \"raw chicken breast\" not just \"chicken\")\n\nOutput ONLY a JSON object in this exact format:\n{\n  \"food_names\": [\"specific food item 1\", \"specific food item 2\", ...]\n}\n\nIf no food interactions are detected, return:\n{\n  \"food_names\": []\n}\n",
+      "raw_response": "```json\n{\n  \"food_names\": [\n    \"napa cabbage\",\n    \"raw meat\"\n  ]\n}\n```",
+      "parsed_output": {
+        "food_names": [
+          "napa cabbage",
+          "raw meat"
+        ]
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_2_UPDATE",
+      "timestamp": "2025-10-30T15:15:38.251954",
+      "video_name": "20251029-193215.MOV",
+      "clip_index": 5,
+      "clip_path": "clips/20251029-193215_clip_004.mp4",
+      "mode": "STANDARD_INTERACTION",
+      "expected_items": null,
+      "context_provided": "CONTEXT: The food memory contains the following potentially relevant items:\n\n1. Napa Cabbage (ID: napa_cabbage_81919888)\n   Description: A head of napa cabbage wrapped in plastic being un-bagged\n   Current Location: counter\n   Current Quantity: 1 head\n   Purchased: 2025-10-30T14:49:47.683461\n   Last Interaction: place on cutting board at 2025-10-29T19:32:15\n\n2. Napa Cabbage (ID: napa_cabbage_6fd0b65e)\n   Description: A head of napa cabbage being un-bagged\n   Current Location: counter\n   Current Quantity: 1 head\n   Purchased: 2025-10-30T14:49:47.683512\n   Last Interaction: place on cutting board at 2025-10-29T19:32:15\n\n3. Kroger Peeled & Deveined Tail Off White Raw Shrimp (ID: kroger_peeled_&_deveined_tail_off_white_raw_shrimp_549267f3)\n   Description: Bag of raw shrimp being un-bagged and placed in the refrigerator\n   Current Location: counter\n   Current Quantity: 1 bag\n   Purchased: 2025-10-30T15:09:07.965749\n   Last Interaction: un-bagging at 2025-10-29T19:28:43\n",
+      "prompt": "You are a food memory manager. Analyze this video clip showing food interactions.\n\nCONTEXT: The food memory contains the following potentially relevant items:\n\n1. Napa Cabbage (ID: napa_cabbage_81919888)\n   Description: A head of napa cabbage wrapped in plastic being un-bagged\n   Current Location: counter\n   Current Quantity: 1 head\n   Purchased: 2025-10-30T14:49:47.683461\n   Last Interaction: place on cutting board at 2025-10-29T19:32:15\n\n2. Napa Cabbage (ID: napa_cabbage_6fd0b65e)\n   Description: A head of napa cabbage being un-bagged\n   Current Location: counter\n   Current Quantity: 1 head\n   Purchased: 2025-10-30T14:49:47.683512\n   Last Interaction: place on cutting board at 2025-10-29T19:32:15\n\n3. Kroger Peeled & Deveined Tail Off White Raw Shrimp (ID: kroger_peeled_&_deveined_tail_off_white_raw_shrimp_549267f3)\n   Description: Bag of raw shrimp being un-bagged and placed in the refrigerator\n   Current Location: counter\n   Current Quantity: 1 bag\n   Purchased: 2025-10-30T15:09:07.965749\n   Last Interaction: un-bagging at 2025-10-29T19:28:43\n\n\nTASK:\n1. Match the food items in the video to their IDs from the memory context above\n2. Identify the interaction (e.g., \"retrieve from fridge\", \"place in fridge\", \"cook\", \"eat\", \"store leftover\")\n3. Determine the new state (location, quantity)\n4. Output commands to update the memory\n\nOutput a JSON object with a list of commands:\n\n{\n  \"commands\": [\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"milk_abc123\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"half-full\",\n        \"action\": \"retrieve from fridge\"\n      }\n    },\n    {\n      \"command\": \"CREATE\",\n      \"data\": {\n        \"primary_label\": \"Leftover Pasta\",\n        \"description\": \"Container of leftover pasta\",\n        \"visual_embedding\": [0.0, 0.0, 0.0],\n        \"location\": \"counter\",\n        \"quantity\": \"1 container\",\n        \"purchase_date\": \"<current_timestamp>\",\n        \"action\": \"created from cooking\"\n      }\n    }\n  ]\n}\n\nRULES:\n- UPDATE existing items from context when you see them\n- CREATE new items only if they don't match anything in context\n- Be specific about actions (what is the user doing with the food?)\n- Update location and quantity based on what you observe\n- If no interactions detected, return empty commands list: {\"commands\": []}\n",
+      "raw_response": "```json\n{\n  \"commands\": [\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"napa_cabbage_81919888\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"1 head\",\n        \"action\": \"chopping\"\n      }\n    },\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"napa_cabbage_6fd0b65e\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"1 head\",\n        \"action\": \"chopping\"\n      }\n    }\n  ]\n}\n```",
+      "parsed_output": {
+        "commands": [
+          {
+            "command": "UPDATE",
+            "food_id": "napa_cabbage_81919888",
+            "data": {
+              "location": "counter",
+              "quantity": "1 head",
+              "action": "chopping"
+            }
+          },
+          {
+            "command": "UPDATE",
+            "food_id": "napa_cabbage_6fd0b65e",
+            "data": {
+              "location": "counter",
+              "quantity": "1 head",
+              "action": "chopping"
+            }
+          }
+        ],
+        "num_creates": 0,
+        "num_updates": 2
+      }
+    },
+    {
+      "event": "MEMORY_UPDATE",
+      "timestamp": "2025-10-30T15:15:38.260476",
+      "video_name": "20251029-193215.MOV",
+      "video_timestamp": "2025-10-29T19:32:15",
+      "clip_index": 5,
+      "commands": [
+        {
+          "command": "UPDATE",
+          "food_id": "napa_cabbage_81919888",
+          "data": {
+            "location": "counter",
+            "quantity": "1 head",
+            "action": "chopping"
+          }
+        },
+        {
+          "command": "UPDATE",
+          "food_id": "napa_cabbage_6fd0b65e",
+          "data": {
+            "location": "counter",
+            "quantity": "1 head",
+            "action": "chopping"
+          }
+        }
+      ],
+      "execution_stats": {
+        "created": 0,
+        "updated": 2,
+        "failed": 0
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_1_DETECTION",
+      "timestamp": "2025-10-30T15:15:59.612248",
+      "video_name": "20251029-193445.mov",
+      "clip_index": 1,
+      "clip_path": "clips/20251029-193445_clip_000.mp4",
+      "prompt": "You are a food tracker. Analyze this egocentric video clip and identify all food items the user *directly interacts with*.\n\nIMPORTANT RULES:\n- Only identify food items that the user physically touches, grasps, or manipulates\n- Ignore food in the background that is not being interacted with\n- Focus on direct physical contact with food items\n- Be specific about the food item (e.g., \"whole milk\" not just \"milk\", \"raw chicken breast\" not just \"chicken\")\n\nOutput ONLY a JSON object in this exact format:\n{\n  \"food_names\": [\"specific food item 1\", \"specific food item 2\", ...]\n}\n\nIf no food interactions are detected, return:\n{\n  \"food_names\": []\n}\n",
+      "raw_response": "```json\n{\n  \"food_names\": [\n    \"tofu\",\n    \"cabbage\",\n    \"raw meat\",\n    \"bananas\",\n    \"onion\",\n    \"garlic\",\n    \"ginger\"\n  ]\n}\n```",
+      "parsed_output": {
+        "food_names": [
+          "tofu",
+          "cabbage",
+          "raw meat",
+          "bananas",
+          "onion",
+          "garlic",
+          "ginger"
+        ]
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_2_UPDATE",
+      "timestamp": "2025-10-30T15:16:11.831177",
+      "video_name": "20251029-193445.mov",
+      "clip_index": 1,
+      "clip_path": "clips/20251029-193445_clip_000.mp4",
+      "mode": "STANDARD_INTERACTION",
+      "expected_items": null,
+      "context_provided": "CONTEXT: The food memory contains the following potentially relevant items:\n\n1. Napa Cabbage (ID: napa_cabbage_81919888)\n   Description: A head of napa cabbage wrapped in plastic being un-bagged\n   Current Location: counter\n   Current Quantity: 1 head\n   Purchased: 2025-10-30T14:49:47.683461\n   Last Interaction: chopping at 2025-10-29T19:32:15\n\n2. Napa Cabbage (ID: napa_cabbage_6fd0b65e)\n   Description: A head of napa cabbage being un-bagged\n   Current Location: counter\n   Current Quantity: 1 head\n   Purchased: 2025-10-30T14:49:47.683512\n   Last Interaction: chopping at 2025-10-29T19:32:15\n\n3. Simple Truth Organic Firm Tofu (ID: simple_truth_organic_firm_tofu_eb9bf7aa)\n   Description: Package of organic firm tofu being un-bagged and placed on the counter\n   Current Location: counter\n   Current Quantity: 1 package\n   Purchased: 2025-10-30T15:09:07.965802\n   Last Interaction: un-bagging at 2025-10-29T19:28:43\n\n4. Kroger Peeled & Deveined Tail Off White Raw Shrimp (ID: kroger_peeled_&_deveined_tail_off_white_raw_shrimp_549267f3)\n   Description: Bag of raw shrimp being un-bagged and placed in the refrigerator\n   Current Location: counter\n   Current Quantity: 1 bag\n   Purchased: 2025-10-30T15:09:07.965749\n   Last Interaction: un-bagging at 2025-10-29T19:28:43\n\n5. Fresh Bunch of Organic Bananas (ID: fresh_bunch_of_organic_bananas_082ef0ea)\n   Description: Bunch of organic bananas being un-bagged and placed on the counter\n   Current Location: counter\n   Current Quantity: 1 bunch\n   Purchased: 2025-10-30T15:09:07.965777\n   Last Interaction: place on counter at 2025-10-29T19:28:43\n\n6. Garlic (ID: garlic_4cc2c3e1)\n   Description: Bulb of garlic being un-bagged and placed on the counter\n   Current Location: counter\n   Current Quantity: 1 bulb\n   Purchased: 2025-10-30T15:09:07.965827\n   Last Interaction: place on counter at 2025-10-29T19:28:43\n",
+      "prompt": "You are a food memory manager. Analyze this video clip showing food interactions.\n\nCONTEXT: The food memory contains the following potentially relevant items:\n\n1. Napa Cabbage (ID: napa_cabbage_81919888)\n   Description: A head of napa cabbage wrapped in plastic being un-bagged\n   Current Location: counter\n   Current Quantity: 1 head\n   Purchased: 2025-10-30T14:49:47.683461\n   Last Interaction: chopping at 2025-10-29T19:32:15\n\n2. Napa Cabbage (ID: napa_cabbage_6fd0b65e)\n   Description: A head of napa cabbage being un-bagged\n   Current Location: counter\n   Current Quantity: 1 head\n   Purchased: 2025-10-30T14:49:47.683512\n   Last Interaction: chopping at 2025-10-29T19:32:15\n\n3. Simple Truth Organic Firm Tofu (ID: simple_truth_organic_firm_tofu_eb9bf7aa)\n   Description: Package of organic firm tofu being un-bagged and placed on the counter\n   Current Location: counter\n   Current Quantity: 1 package\n   Purchased: 2025-10-30T15:09:07.965802\n   Last Interaction: un-bagging at 2025-10-29T19:28:43\n\n4. Kroger Peeled & Deveined Tail Off White Raw Shrimp (ID: kroger_peeled_&_deveined_tail_off_white_raw_shrimp_549267f3)\n   Description: Bag of raw shrimp being un-bagged and placed in the refrigerator\n   Current Location: counter\n   Current Quantity: 1 bag\n   Purchased: 2025-10-30T15:09:07.965749\n   Last Interaction: un-bagging at 2025-10-29T19:28:43\n\n5. Fresh Bunch of Organic Bananas (ID: fresh_bunch_of_organic_bananas_082ef0ea)\n   Description: Bunch of organic bananas being un-bagged and placed on the counter\n   Current Location: counter\n   Current Quantity: 1 bunch\n   Purchased: 2025-10-30T15:09:07.965777\n   Last Interaction: place on counter at 2025-10-29T19:28:43\n\n6. Garlic (ID: garlic_4cc2c3e1)\n   Description: Bulb of garlic being un-bagged and placed on the counter\n   Current Location: counter\n   Current Quantity: 1 bulb\n   Purchased: 2025-10-30T15:09:07.965827\n   Last Interaction: place on counter at 2025-10-29T19:28:43\n\n\nTASK:\n1. Match the food items in the video to their IDs from the memory context above\n2. Identify the interaction (e.g., \"retrieve from fridge\", \"place in fridge\", \"cook\", \"eat\", \"store leftover\")\n3. Determine the new state (location, quantity)\n4. Output commands to update the memory\n\nOutput a JSON object with a list of commands:\n\n{\n  \"commands\": [\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"milk_abc123\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"half-full\",\n        \"action\": \"retrieve from fridge\"\n      }\n    },\n    {\n      \"command\": \"CREATE\",\n      \"data\": {\n        \"primary_label\": \"Leftover Pasta\",\n        \"description\": \"Container of leftover pasta\",\n        \"visual_embedding\": [0.0, 0.0, 0.0],\n        \"location\": \"counter\",\n        \"quantity\": \"1 container\",\n        \"purchase_date\": \"<current_timestamp>\",\n        \"action\": \"created from cooking\"\n      }\n    }\n  ]\n}\n\nRULES:\n- UPDATE existing items from context when you see them\n- CREATE new items only if they don't match anything in context\n- Be specific about actions (what is the user doing with the food?)\n- Update location and quantity based on what you observe\n- If no interactions detected, return empty commands list: {\"commands\": []}\n",
+      "raw_response": "```json\n{\n  \"commands\": [\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"simple_truth_organic_firm_tofu_eb9bf7aa\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"1 package\",\n        \"action\": \"un-bagging\"\n      }\n    },\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"simple_truth_organic_firm_tofu_eb9bf7aa\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"1 block\",\n        \"action\": \"cutting\"\n      }\n    }\n  ]\n}\n```",
+      "parsed_output": {
+        "commands": [
+          {
+            "command": "UPDATE",
+            "food_id": "simple_truth_organic_firm_tofu_eb9bf7aa",
+            "data": {
+              "location": "counter",
+              "quantity": "1 package",
+              "action": "un-bagging"
+            }
+          },
+          {
+            "command": "UPDATE",
+            "food_id": "simple_truth_organic_firm_tofu_eb9bf7aa",
+            "data": {
+              "location": "counter",
+              "quantity": "1 block",
+              "action": "cutting"
+            }
+          }
+        ],
+        "num_creates": 0,
+        "num_updates": 2
+      }
+    },
+    {
+      "event": "MEMORY_UPDATE",
+      "timestamp": "2025-10-30T15:16:11.841688",
+      "video_name": "20251029-193445.mov",
+      "video_timestamp": "2025-10-29T19:34:45",
+      "clip_index": 1,
+      "commands": [
+        {
+          "command": "UPDATE",
+          "food_id": "simple_truth_organic_firm_tofu_eb9bf7aa",
+          "data": {
+            "location": "counter",
+            "quantity": "1 package",
+            "action": "un-bagging"
+          }
+        },
+        {
+          "command": "UPDATE",
+          "food_id": "simple_truth_organic_firm_tofu_eb9bf7aa",
+          "data": {
+            "location": "counter",
+            "quantity": "1 block",
+            "action": "cutting"
+          }
+        }
+      ],
+      "execution_stats": {
+        "created": 0,
+        "updated": 2,
+        "failed": 0
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_1_DETECTION",
+      "timestamp": "2025-10-30T15:16:23.804929",
+      "video_name": "20251029-193445.mov",
+      "clip_index": 2,
+      "clip_path": "clips/20251029-193445_clip_001.mp4",
+      "prompt": "You are a food tracker. Analyze this egocentric video clip and identify all food items the user *directly interacts with*.\n\nIMPORTANT RULES:\n- Only identify food items that the user physically touches, grasps, or manipulates\n- Ignore food in the background that is not being interacted with\n- Focus on direct physical contact with food items\n- Be specific about the food item (e.g., \"whole milk\" not just \"milk\", \"raw chicken breast\" not just \"chicken\")\n\nOutput ONLY a JSON object in this exact format:\n{\n  \"food_names\": [\"specific food item 1\", \"specific food item 2\", ...]\n}\n\nIf no food interactions are detected, return:\n{\n  \"food_names\": []\n}\n",
+      "raw_response": "```json\n{\n  \"food_names\": [\n    \"tofu\",\n    \"cabbage\",\n    \"beef\",\n    \"bananas\",\n    \"garlic\",\n    \"onion\",\n    \"ginger\"\n  ]\n}\n```",
+      "parsed_output": {
+        "food_names": [
+          "tofu",
+          "cabbage",
+          "beef",
+          "bananas",
+          "garlic",
+          "onion",
+          "ginger"
+        ]
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_2_UPDATE",
+      "timestamp": "2025-10-30T15:16:31.908008",
+      "video_name": "20251029-193445.mov",
+      "clip_index": 2,
+      "clip_path": "clips/20251029-193445_clip_001.mp4",
+      "mode": "STANDARD_INTERACTION",
+      "expected_items": null,
+      "context_provided": "CONTEXT: The food memory contains the following potentially relevant items:\n\n1. Simple Truth Organic Firm Tofu (ID: simple_truth_organic_firm_tofu_eb9bf7aa)\n   Description: Package of organic firm tofu being un-bagged and placed on the counter\n   Current Location: counter\n   Current Quantity: 1 block\n   Purchased: 2025-10-30T15:09:07.965802\n   Last Interaction: cutting at 2025-10-29T19:34:45\n\n2. Napa Cabbage (ID: napa_cabbage_81919888)\n   Description: A head of napa cabbage wrapped in plastic being un-bagged\n   Current Location: counter\n   Current Quantity: 1 head\n   Purchased: 2025-10-30T14:49:47.683461\n   Last Interaction: chopping at 2025-10-29T19:32:15\n\n3. Napa Cabbage (ID: napa_cabbage_6fd0b65e)\n   Description: A head of napa cabbage being un-bagged\n   Current Location: counter\n   Current Quantity: 1 head\n   Purchased: 2025-10-30T14:49:47.683512\n   Last Interaction: chopping at 2025-10-29T19:32:15\n\n4. Fresh Bunch of Organic Bananas (ID: fresh_bunch_of_organic_bananas_082ef0ea)\n   Description: Bunch of organic bananas being un-bagged and placed on the counter\n   Current Location: counter\n   Current Quantity: 1 bunch\n   Purchased: 2025-10-30T15:09:07.965777\n   Last Interaction: place on counter at 2025-10-29T19:28:43\n\n5. Garlic (ID: garlic_4cc2c3e1)\n   Description: Bulb of garlic being un-bagged and placed on the counter\n   Current Location: counter\n   Current Quantity: 1 bulb\n   Purchased: 2025-10-30T15:09:07.965827\n   Last Interaction: place on counter at 2025-10-29T19:28:43\n",
+      "prompt": "You are a food memory manager. Analyze this video clip showing food interactions.\n\nCONTEXT: The food memory contains the following potentially relevant items:\n\n1. Simple Truth Organic Firm Tofu (ID: simple_truth_organic_firm_tofu_eb9bf7aa)\n   Description: Package of organic firm tofu being un-bagged and placed on the counter\n   Current Location: counter\n   Current Quantity: 1 block\n   Purchased: 2025-10-30T15:09:07.965802\n   Last Interaction: cutting at 2025-10-29T19:34:45\n\n2. Napa Cabbage (ID: napa_cabbage_81919888)\n   Description: A head of napa cabbage wrapped in plastic being un-bagged\n   Current Location: counter\n   Current Quantity: 1 head\n   Purchased: 2025-10-30T14:49:47.683461\n   Last Interaction: chopping at 2025-10-29T19:32:15\n\n3. Napa Cabbage (ID: napa_cabbage_6fd0b65e)\n   Description: A head of napa cabbage being un-bagged\n   Current Location: counter\n   Current Quantity: 1 head\n   Purchased: 2025-10-30T14:49:47.683512\n   Last Interaction: chopping at 2025-10-29T19:32:15\n\n4. Fresh Bunch of Organic Bananas (ID: fresh_bunch_of_organic_bananas_082ef0ea)\n   Description: Bunch of organic bananas being un-bagged and placed on the counter\n   Current Location: counter\n   Current Quantity: 1 bunch\n   Purchased: 2025-10-30T15:09:07.965777\n   Last Interaction: place on counter at 2025-10-29T19:28:43\n\n5. Garlic (ID: garlic_4cc2c3e1)\n   Description: Bulb of garlic being un-bagged and placed on the counter\n   Current Location: counter\n   Current Quantity: 1 bulb\n   Purchased: 2025-10-30T15:09:07.965827\n   Last Interaction: place on counter at 2025-10-29T19:28:43\n\n\nTASK:\n1. Match the food items in the video to their IDs from the memory context above\n2. Identify the interaction (e.g., \"retrieve from fridge\", \"place in fridge\", \"cook\", \"eat\", \"store leftover\")\n3. Determine the new state (location, quantity)\n4. Output commands to update the memory\n\nOutput a JSON object with a list of commands:\n\n{\n  \"commands\": [\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"milk_abc123\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"half-full\",\n        \"action\": \"retrieve from fridge\"\n      }\n    },\n    {\n      \"command\": \"CREATE\",\n      \"data\": {\n        \"primary_label\": \"Leftover Pasta\",\n        \"description\": \"Container of leftover pasta\",\n        \"visual_embedding\": [0.0, 0.0, 0.0],\n        \"location\": \"counter\",\n        \"quantity\": \"1 container\",\n        \"purchase_date\": \"<current_timestamp>\",\n        \"action\": \"created from cooking\"\n      }\n    }\n  ]\n}\n\nRULES:\n- UPDATE existing items from context when you see them\n- CREATE new items only if they don't match anything in context\n- Be specific about actions (what is the user doing with the food?)\n- Update location and quantity based on what you observe\n- If no interactions detected, return empty commands list: {\"commands\": []}\n",
+      "raw_response": "```json\n{\n  \"commands\": [\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"simple_truth_organic_firm_tofu_eb9bf7aa\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"1 block\",\n        \"action\": \"cutting\"\n      }\n    },\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"napa_cabbage_81919888\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"1 head\",\n        \"action\": \"adding to bowl\"\n      }\n    },\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"napa_cabbage_6fd0b65e\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"1 head\",\n        \"action\": \"adding to bowl\"\n      }\n    },\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"fresh_bunch_of_organic_bananas_082ef0ea\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"1 bunch\",\n        \"action\": \"placed on counter\"\n      }\n    },\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"garlic_4cc2c3e1\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"1 bulb\",\n        \"action\": \"placed on counter\"\n      }\n    }\n  ]\n}\n```",
+      "parsed_output": {
+        "commands": [
+          {
+            "command": "UPDATE",
+            "food_id": "simple_truth_organic_firm_tofu_eb9bf7aa",
+            "data": {
+              "location": "counter",
+              "quantity": "1 block",
+              "action": "cutting"
+            }
+          },
+          {
+            "command": "UPDATE",
+            "food_id": "napa_cabbage_81919888",
+            "data": {
+              "location": "counter",
+              "quantity": "1 head",
+              "action": "adding to bowl"
+            }
+          },
+          {
+            "command": "UPDATE",
+            "food_id": "napa_cabbage_6fd0b65e",
+            "data": {
+              "location": "counter",
+              "quantity": "1 head",
+              "action": "adding to bowl"
+            }
+          },
+          {
+            "command": "UPDATE",
+            "food_id": "fresh_bunch_of_organic_bananas_082ef0ea",
+            "data": {
+              "location": "counter",
+              "quantity": "1 bunch",
+              "action": "placed on counter"
+            }
+          },
+          {
+            "command": "UPDATE",
+            "food_id": "garlic_4cc2c3e1",
+            "data": {
+              "location": "counter",
+              "quantity": "1 bulb",
+              "action": "placed on counter"
+            }
+          }
+        ],
+        "num_creates": 0,
+        "num_updates": 5
+      }
+    },
+    {
+      "event": "MEMORY_UPDATE",
+      "timestamp": "2025-10-30T15:16:31.917314",
+      "video_name": "20251029-193445.mov",
+      "video_timestamp": "2025-10-29T19:34:45",
+      "clip_index": 2,
+      "commands": [
+        {
+          "command": "UPDATE",
+          "food_id": "simple_truth_organic_firm_tofu_eb9bf7aa",
+          "data": {
+            "location": "counter",
+            "quantity": "1 block",
+            "action": "cutting"
+          }
+        },
+        {
+          "command": "UPDATE",
+          "food_id": "napa_cabbage_81919888",
+          "data": {
+            "location": "counter",
+            "quantity": "1 head",
+            "action": "adding to bowl"
+          }
+        },
+        {
+          "command": "UPDATE",
+          "food_id": "napa_cabbage_6fd0b65e",
+          "data": {
+            "location": "counter",
+            "quantity": "1 head",
+            "action": "adding to bowl"
+          }
+        },
+        {
+          "command": "UPDATE",
+          "food_id": "fresh_bunch_of_organic_bananas_082ef0ea",
+          "data": {
+            "location": "counter",
+            "quantity": "1 bunch",
+            "action": "placed on counter"
+          }
+        },
+        {
+          "command": "UPDATE",
+          "food_id": "garlic_4cc2c3e1",
+          "data": {
+            "location": "counter",
+            "quantity": "1 bulb",
+            "action": "placed on counter"
+          }
+        }
+      ],
+      "execution_stats": {
+        "created": 0,
+        "updated": 5,
+        "failed": 0
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_1_DETECTION",
+      "timestamp": "2025-10-30T15:16:48.232564",
+      "video_name": "20251029-193627.MOV",
+      "clip_index": 1,
+      "clip_path": "clips/20251029-193627_clip_000.mp4",
+      "prompt": "You are a food tracker. Analyze this egocentric video clip and identify all food items the user *directly interacts with*.\n\nIMPORTANT RULES:\n- Only identify food items that the user physically touches, grasps, or manipulates\n- Ignore food in the background that is not being interacted with\n- Focus on direct physical contact with food items\n- Be specific about the food item (e.g., \"whole milk\" not just \"milk\", \"raw chicken breast\" not just \"chicken\")\n\nOutput ONLY a JSON object in this exact format:\n{\n  \"food_names\": [\"specific food item 1\", \"specific food item 2\", ...]\n}\n\nIf no food interactions are detected, return:\n{\n  \"food_names\": []\n}\n",
+      "raw_response": "{\n  \"food_names\": [\"tofu\", \"raw chicken breast\", \"cabbage\"]\n}",
+      "parsed_output": {
+        "food_names": [
+          "tofu",
+          "raw chicken breast",
+          "cabbage"
+        ]
+      }
+    },
+    {
+      "vlm_call": "VLM_CALL_2_UPDATE",
+      "timestamp": "2025-10-30T15:16:57.454681",
+      "video_name": "20251029-193627.MOV",
+      "clip_index": 1,
+      "clip_path": "clips/20251029-193627_clip_000.mp4",
+      "mode": "STANDARD_INTERACTION",
+      "expected_items": null,
+      "context_provided": "CONTEXT: The food memory contains the following potentially relevant items:\n\n1. Simple Truth Organic Firm Tofu (ID: simple_truth_organic_firm_tofu_eb9bf7aa)\n   Description: Package of organic firm tofu being un-bagged and placed on the counter\n   Current Location: counter\n   Current Quantity: 1 block\n   Purchased: 2025-10-30T15:09:07.965802\n   Last Interaction: cutting at 2025-10-29T19:34:45\n\n2. Napa Cabbage (ID: napa_cabbage_81919888)\n   Description: A head of napa cabbage wrapped in plastic being un-bagged\n   Current Location: counter\n   Current Quantity: 1 head\n   Purchased: 2025-10-30T14:49:47.683461\n   Last Interaction: adding to bowl at 2025-10-29T19:34:45\n\n3. Napa Cabbage (ID: napa_cabbage_6fd0b65e)\n   Description: A head of napa cabbage being un-bagged\n   Current Location: counter\n   Current Quantity: 1 head\n   Purchased: 2025-10-30T14:49:47.683512\n   Last Interaction: adding to bowl at 2025-10-29T19:34:45\n\n4. Kroger Peeled & Deveined Tail Off White Raw Shrimp (ID: kroger_peeled_&_deveined_tail_off_white_raw_shrimp_549267f3)\n   Description: Bag of raw shrimp being un-bagged and placed in the refrigerator\n   Current Location: counter\n   Current Quantity: 1 bag\n   Purchased: 2025-10-30T15:09:07.965749\n   Last Interaction: un-bagging at 2025-10-29T19:28:43\n",
+      "prompt": "You are a food memory manager. Analyze this video clip showing food interactions.\n\nCONTEXT: The food memory contains the following potentially relevant items:\n\n1. Simple Truth Organic Firm Tofu (ID: simple_truth_organic_firm_tofu_eb9bf7aa)\n   Description: Package of organic firm tofu being un-bagged and placed on the counter\n   Current Location: counter\n   Current Quantity: 1 block\n   Purchased: 2025-10-30T15:09:07.965802\n   Last Interaction: cutting at 2025-10-29T19:34:45\n\n2. Napa Cabbage (ID: napa_cabbage_81919888)\n   Description: A head of napa cabbage wrapped in plastic being un-bagged\n   Current Location: counter\n   Current Quantity: 1 head\n   Purchased: 2025-10-30T14:49:47.683461\n   Last Interaction: adding to bowl at 2025-10-29T19:34:45\n\n3. Napa Cabbage (ID: napa_cabbage_6fd0b65e)\n   Description: A head of napa cabbage being un-bagged\n   Current Location: counter\n   Current Quantity: 1 head\n   Purchased: 2025-10-30T14:49:47.683512\n   Last Interaction: adding to bowl at 2025-10-29T19:34:45\n\n4. Kroger Peeled & Deveined Tail Off White Raw Shrimp (ID: kroger_peeled_&_deveined_tail_off_white_raw_shrimp_549267f3)\n   Description: Bag of raw shrimp being un-bagged and placed in the refrigerator\n   Current Location: counter\n   Current Quantity: 1 bag\n   Purchased: 2025-10-30T15:09:07.965749\n   Last Interaction: un-bagging at 2025-10-29T19:28:43\n\n\nTASK:\n1. Match the food items in the video to their IDs from the memory context above\n2. Identify the interaction (e.g., \"retrieve from fridge\", \"place in fridge\", \"cook\", \"eat\", \"store leftover\")\n3. Determine the new state (location, quantity)\n4. Output commands to update the memory\n\nOutput a JSON object with a list of commands:\n\n{\n  \"commands\": [\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"milk_abc123\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"half-full\",\n        \"action\": \"retrieve from fridge\"\n      }\n    },\n    {\n      \"command\": \"CREATE\",\n      \"data\": {\n        \"primary_label\": \"Leftover Pasta\",\n        \"description\": \"Container of leftover pasta\",\n        \"visual_embedding\": [0.0, 0.0, 0.0],\n        \"location\": \"counter\",\n        \"quantity\": \"1 container\",\n        \"purchase_date\": \"<current_timestamp>\",\n        \"action\": \"created from cooking\"\n      }\n    }\n  ]\n}\n\nRULES:\n- UPDATE existing items from context when you see them\n- CREATE new items only if they don't match anything in context\n- Be specific about actions (what is the user doing with the food?)\n- Update location and quantity based on what you observe\n- If no interactions detected, return empty commands list: {\"commands\": []}\n",
+      "raw_response": "```json\n{\n  \"commands\": [\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"simple_truth_organic_firm_tofu_eb9bf7aa\",\n      \"data\": {\n        \"location\": \"refrigerator\",\n        \"quantity\": \"1 block\",\n        \"action\": \"place in fridge\"\n      }\n    },\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"napa_cabbage_81919888\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"1 head\",\n        \"action\": \"add to bowl\"\n      }\n    },\n    {\n      \"command\": \"UPDATE\",\n      \"food_id\": \"napa_cabbage_6fd0b65e\",\n      \"data\": {\n        \"location\": \"counter\",\n        \"quantity\": \"1 head\",\n        \"action\": \"add to bowl\"\n      }\n    }\n  ]\n}\n```",
+      "parsed_output": {
+        "commands": [
+          {
+            "command": "UPDATE",
+            "food_id": "simple_truth_organic_firm_tofu_eb9bf7aa",
+            "data": {
+              "location": "refrigerator",
+              "quantity": "1 block",
+              "action": "place in fridge"
+            }
+          },
+          {
+            "command": "UPDATE",
+            "food_id": "napa_cabbage_81919888",
+            "data": {
+              "location": "counter",
+              "quantity": "1 head",
+              "action": "add to bowl"
+            }
+          },
+          {
+            "command": "UPDATE",
+            "food_id": "napa_cabbage_6fd0b65e",
+            "data": {
+              "location": "counter",
+              "quantity": "1 head",
+              "action": "add to bowl"
+            }
+          }
+        ],
+        "num_creates": 0,
+        "num_updates": 3
+      }
+    },
+    {
+      "event": "MEMORY_UPDATE",
+      "timestamp": "2025-10-30T15:16:57.462627",
+      "video_name": "20251029-193627.MOV",
+      "video_timestamp": "2025-10-29T19:36:27",
+      "clip_index": 1,
+      "commands": [
+        {
+          "command": "UPDATE",
+          "food_id": "simple_truth_organic_firm_tofu_eb9bf7aa",
+          "data": {
+            "location": "refrigerator",
+            "quantity": "1 block",
+            "action": "place in fridge"
+          }
+        },
+        {
+          "command": "UPDATE",
+          "food_id": "napa_cabbage_81919888",
+          "data": {
+            "location": "counter",
+            "quantity": "1 head",
+            "action": "add to bowl"
+          }
+        },
+        {
+          "command": "UPDATE",
+          "food_id": "napa_cabbage_6fd0b65e",
+          "data": {
+            "location": "counter",
+            "quantity": "1 head",
+            "action": "add to bowl"
+          }
+        }
+      ],
+      "execution_stats": {
+        "created": 0,
+        "updated": 3,
+        "failed": 0
+      }
+    }
+  ]
+}

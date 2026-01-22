@@ -741,27 +741,32 @@ const VLMResultsView = forwardRef(({
                     </div>
 
                     {/* Remaining Amount */}
-                    {(segment.remaining_count !== null || segment.remaining_description || segment.remaining_fraction) && (
+                    {(segment.remaining_count != null || segment.remaining_description || segment.remaining_fraction != null) && (
                       <div style={{
                         ...styles.comparisonBox,
                         ...styles.remainingBox,
                         marginBottom: '8px',
                       }}>
                         <div style={styles.comparisonLabel}>Remaining</div>
-                        {segment.remaining_count !== null ? (
-                          <span style={styles.comparisonValue}>
-                            {segment.remaining_count}
+                        {segment.remaining_count != null && (
+                          <div>
+                            <span style={styles.comparisonValue}>{segment.remaining_count}</span>
                             <span style={styles.comparisonUnit}> left</span>
-                          </span>
-                        ) : segment.remaining_description ? (
+                          </div>
+                        )}
+                        {segment.remaining_description && (
                           <div style={styles.comparisonAmount}>
                             {segment.remaining_description}
                           </div>
-                        ) : segment.remaining_fraction ? (
-                          <span style={styles.comparisonValue}>
-                            {Math.round(segment.remaining_fraction * 100)}% left
-                          </span>
-                        ) : null}
+                        )}
+                        {segment.remaining_fraction != null && (
+                          <div>
+                            <span style={styles.comparisonValue}>
+                              {Math.round(segment.remaining_fraction * 100)}%
+                            </span>
+                            <span style={styles.comparisonUnit}> remaining</span>
+                          </div>
+                        )}
                       </div>
                     )}
 

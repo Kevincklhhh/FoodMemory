@@ -95,6 +95,7 @@ const styles = {
   gtBadge: { backgroundColor: '#e3f2fd', color: '#1565c0' },
   recipeBadge: { backgroundColor: '#fff8e1', color: '#ff8f00' },
   predBadge: { backgroundColor: '#f3e5f5', color: '#7b1fa2' },
+  remainingBadge: { backgroundColor: '#e0f2f1', color: '#00695c' },
   segmentsBadge: { backgroundColor: '#eceff1', color: '#455a64' },
   categoryDiscrete: { backgroundColor: '#e8f5e9', color: '#2e7d32' },
   categoryContinuous: { backgroundColor: '#fff3e0', color: '#e65100' },
@@ -208,6 +209,10 @@ const styles = {
   predBox: {
     backgroundColor: '#f3e5f5',
     border: '1px solid #ce93d8',
+  },
+  remainingBox: {
+    backgroundColor: '#e0f2f1',
+    border: '1px solid #80cbc4',
   },
   comparisonLabel: {
     fontSize: '9px',
@@ -734,6 +739,31 @@ const VLMResultsView = forwardRef(({
                         )}
                       </div>
                     </div>
+
+                    {/* Remaining Amount */}
+                    {(segment.remaining_count !== null || segment.remaining_description || segment.remaining_fraction) && (
+                      <div style={{
+                        ...styles.comparisonBox,
+                        ...styles.remainingBox,
+                        marginBottom: '8px',
+                      }}>
+                        <div style={styles.comparisonLabel}>Remaining</div>
+                        {segment.remaining_count !== null ? (
+                          <span style={styles.comparisonValue}>
+                            {segment.remaining_count}
+                            <span style={styles.comparisonUnit}> left</span>
+                          </span>
+                        ) : segment.remaining_description ? (
+                          <div style={styles.comparisonAmount}>
+                            {segment.remaining_description}
+                          </div>
+                        ) : segment.remaining_fraction ? (
+                          <span style={styles.comparisonValue}>
+                            {Math.round(segment.remaining_fraction * 100)}% left
+                          </span>
+                        ) : null}
+                      </div>
+                    )}
 
                     {/* Timestamps */}
                     <div style={styles.timestampRow}>

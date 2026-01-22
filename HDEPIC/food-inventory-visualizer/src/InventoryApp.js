@@ -266,6 +266,9 @@ function InventoryApp() {
         { key: 'gpt4o', files: [
           `${participant}_vlm_qa_gpt4o_results.json`,
         ]},
+        { key: 'baseline', files: [
+          `${participant}_vlm_baseline_qwen_results.json`,
+        ]},
       ];
       const loadedVlmData = {};
       let firstModel = null;

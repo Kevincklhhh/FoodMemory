@@ -96,7 +96,32 @@ const styles = {
   recipeBadge: { backgroundColor: '#fff8e1', color: '#ff8f00' },
   predBadge: { backgroundColor: '#f3e5f5', color: '#7b1fa2' },
   remainingBadge: { backgroundColor: '#e0f2f1', color: '#00695c' },
+  detectionBadge: { backgroundColor: '#e8eaf6', color: '#3949ab' },
+  wrongFoodBadge: { backgroundColor: '#ffcdd2', color: '#c62828' },
   segmentsBadge: { backgroundColor: '#eceff1', color: '#455a64' },
+  detectionCard: {
+    border: '1px solid #c5cae9',
+    borderRadius: '4px',
+    padding: '8px',
+    marginBottom: '6px',
+    backgroundColor: '#f5f5f5',
+  },
+  detectionHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: '4px',
+  },
+  detectionName: {
+    fontSize: '11px',
+    fontWeight: '600',
+  },
+  noDetections: {
+    padding: '8px',
+    color: '#999',
+    fontStyle: 'italic',
+    fontSize: '11px',
+  },
   categoryDiscrete: { backgroundColor: '#e8f5e9', color: '#2e7d32' },
   categoryContinuous: { backgroundColor: '#fff3e0', color: '#e65100' },
   errorPositive: { backgroundColor: '#ffcdd2', color: '#c62828' },
@@ -339,6 +364,9 @@ const VLMResultsView = forwardRef(({
   const videoRef = useRef(null);
   const [duration, setDuration] = useState(0);
 
+  // Check if this is baseline format (has method: "baseline")
+  const isBaseline = vlmData?.method === 'baseline';
+
   // Reset selected item when model/data changes
   useEffect(() => {
     setSelectedItem(null);
@@ -539,10 +567,18 @@ const VLMResultsView = forwardRef(({
                       Recipe: {item.recipe_amount.amount}{item.recipe_amount.unit}
                     </span>
                   ) : null}
-                  {item.total_predicted !== null && (
-                    <span style={{ ...styles.badge, ...styles.predBadge }}>
-                      Pred: {item.total_predicted}
-                    </span>
+                  {isBaseline ? (
+                    item.total_detections != null && (
+                      <span style={{ ...styles.badge, ...styles.detectionBadge }}>
+                        {item.total_detections} det
+                      </span>
+                    )
+                  ) : (
+                    item.total_predicted !== null && (
+                      <span style={{ ...styles.badge, ...styles.predBadge }}>
+                        Pred: {item.total_predicted}
+                      </span>
+                    )
                   )}
                   <span style={{ ...styles.badge, ...styles.segmentsBadge }}>
                     {numSegments} seg
@@ -611,10 +647,10 @@ const VLMResultsView = forwardRef(({
                   </span>
                 </div>
                 <div style={styles.statItem}>
-                  <span style={{ ...styles.statValue, color: '#7b1fa2' }}>
-                    {selectedItem.total_predicted ?? 'N/A'}
+                  <span style={{ ...styles.statValue, color: isBaseline ? '#3949ab' : '#7b1fa2' }}>
+                    {isBaseline ? (selectedItem.total_detections ?? 'N/A') : (selectedItem.total_predicted ?? 'N/A')}
                   </span>
-                  <span style={styles.statLabel}>Predicted</span>
+                  <span style={styles.statLabel}>{isBaseline ? 'Detections' : 'Predicted'}</span>
                 </div>
                 <div style={styles.statItem}>
                   <span style={styles.statValue}>{segments.length}</span>
@@ -719,29 +755,99 @@ const VLMResultsView = forwardRef(({
                           <span style={styles.comparisonValue}>N/A</span>
                         )}
                       </div>
-                      <div style={{ ...styles.comparisonBox, ...styles.predBox }}>
-                        <div style={styles.comparisonLabel}>Prediction</div>
-                        {segment.predicted_count !== null ? (
-                          <>
-                            <span style={styles.comparisonValue}>
-                              {segment.predicted_count}
-                            </span>
-                            <span style={styles.comparisonUnit}>
-                              {segment.predicted_unit || ''}
-                            </span>
-                          </>
-                        ) : segment.predicted_amount ? (
-                          <div style={styles.comparisonAmount}>
-                            {segment.predicted_amount}
-                          </div>
-                        ) : (
-                          <span style={styles.comparisonValue}>N/A</span>
-                        )}
-                      </div>
+                      {!isBaseline && (
+                        <div style={{ ...styles.comparisonBox, ...styles.predBox }}>
+                          <div style={styles.comparisonLabel}>Prediction</div>
+                          {segment.predicted_count !== null ? (
+                            <>
+                              <span style={styles.comparisonValue}>
+                                {segment.predicted_count}
+                              </span>
+                              <span style={styles.comparisonUnit}>
+                                {segment.predicted_unit || ''}
+                              </span>
+                            </>
+                          ) : segment.predicted_amount ? (
+                            <div style={styles.comparisonAmount}>
+                              {segment.predicted_amount}
+                            </div>
+                          ) : (
+                            <span style={styles.comparisonValue}>N/A</span>
+                          )}
+                        </div>
+                      )}
                     </div>
 
-                    {/* Remaining Amount */}
-                    {(segment.remaining_count != null || segment.remaining_description || segment.remaining_fraction != null) && (
+                    {/* Baseline Detections */}
+                    {isBaseline && segment.all_detections && (
+                      <div style={{ marginBottom: '8px' }}>
+                        <div style={styles.fieldLabel}>
+                          Detections ({segment.all_detections.length})
+                        </div>
+                        {segment.all_detections.length === 0 ? (
+                          <div style={styles.noDetections}>No detections in this segment</div>
+                        ) : (
+                          segment.all_detections.map((det, detIdx) => {
+                            const expectedFood = segment.ground_truth_food_name || selectedItem.food_name;
+                            const isWrongFood = det.item_name.toLowerCase() !== expectedFood.toLowerCase() &&
+                              !expectedFood.toLowerCase().includes(det.item_name.toLowerCase()) &&
+                              !det.item_name.toLowerCase().includes(expectedFood.toLowerCase().split(' ')[0]);
+                            return (
+                              <div key={detIdx} style={{
+                                ...styles.detectionCard,
+                                ...(isWrongFood ? { borderColor: '#ef9a9a', backgroundColor: '#ffebee' } : {}),
+                              }}>
+                                <div style={styles.detectionHeader}>
+                                  <span style={styles.detectionName}>
+                                    {det.item_name}
+                                    {isWrongFood && (
+                                      <span style={{ ...styles.badge, ...styles.wrongFoodBadge, marginLeft: '6px', fontSize: '8px' }}>
+                                        wrong food
+                                      </span>
+                                    )}
+                                  </span>
+                                  <span style={{
+                                    ...styles.badge,
+                                    ...(det.quantity_category === 'discrete' ? styles.categoryDiscrete : styles.categoryContinuous),
+                                    fontSize: '8px',
+                                  }}>
+                                    {det.quantity_category}
+                                  </span>
+                                </div>
+                                <div style={{ fontSize: '10px', marginBottom: '4px' }}>
+                                  {det.numeric_count != null ? (
+                                    <span><strong>{det.numeric_count}</strong> {det.unit_type}</span>
+                                  ) : det.amount_description ? (
+                                    <span style={{ fontStyle: 'italic' }}>{det.amount_description}</span>
+                                  ) : (
+                                    <span style={{ color: '#999' }}>No count</span>
+                                  )}
+                                  {det.confidence && (
+                                    <span style={{ marginLeft: '8px', color: '#666' }}>
+                                      ({det.confidence} confidence)
+                                    </span>
+                                  )}
+                                </div>
+                                {(det.remaining_count != null || det.remaining_description) && (
+                                  <div style={{ fontSize: '10px', color: '#00695c' }}>
+                                    Remaining: {det.remaining_count != null ? `${det.remaining_count} left` : ''}
+                                    {det.remaining_description && ` ${det.remaining_description}`}
+                                  </div>
+                                )}
+                                {det.visual_evidence && (
+                                  <div style={{ fontSize: '9px', color: '#666', marginTop: '4px', fontStyle: 'italic' }}>
+                                    {det.visual_evidence}
+                                  </div>
+                                )}
+                              </div>
+                            );
+                          })
+                        )}
+                      </div>
+                    )}
+
+                    {/* Remaining Amount (non-baseline) */}
+                    {!isBaseline && (segment.remaining_count != null || segment.remaining_description || segment.remaining_fraction != null) && (
                       <div style={{
                         ...styles.comparisonBox,
                         ...styles.remainingBox,

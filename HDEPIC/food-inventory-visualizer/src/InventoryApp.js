@@ -257,10 +257,11 @@ function InventoryApp() {
 
       // Load VLM QA results from multiple models
       // Try multiple file naming conventions for each model
+      // Note: Try _qwen_ naming first as it may have newer fields
       const vlmModels = [
         { key: 'qwen', files: [
-          `${participant}_vlm_qa_results.json`,
           `${participant}_vlm_qa_qwen_results.json`,
+          `${participant}_vlm_qa_results.json`,
         ]},
         { key: 'gpt4o', files: [
           `${participant}_vlm_qa_gpt4o_results.json`,

@@ -56,7 +56,7 @@ QWEN_MODEL = "Qwen/Qwen3-VL-30B-A3B-Instruct"
 
 
 ACTION_ESTIMATION_PROMPT = """You are a Visual Inventory Auditor.
-Analyze the video clip to estimate the quantity of the Target Food Item removed.
+Analyze the video clip to estimate the quantity of the Target Food Item removed AND how much remains.
 
 **INPUT:**
 - Target Item: "{item_name}"
@@ -64,23 +64,31 @@ Analyze the video clip to estimate the quantity of the Target Food Item removed.
 **INSTRUCTIONS:**
 1. Focus ONLY on the Target Item.
 2. Determine if the action is **Discrete** (countable items like eggs, distinct scoops) or **Continuous** (pouring liquid, approximate piles).
-3. Provide the estimate in the strictly defined JSON format below.
+3. Estimate BOTH the amount removed AND the amount remaining in the container/source.
+4. Provide the estimate in the strictly defined JSON format below.
 
 **OUTPUT SCHEMA (Strict JSON):**
 {{
   "item_name": "{item_name}",
   "quantity_category": "discrete" | "continuous" | "unknown",
-  
+
+  // AMOUNT REMOVED:
   // IF DISCRETE (Countable):
   "numeric_count": <integer or null>,  // e.g., 1, 2, 5. Null if continuous.
-  
   // IF CONTINUOUS (Fluids/Piles):
   "amount_description": <string>,      // e.g., "about half a cup", "a small splash"
-  "volume_fraction": <float or null>,  // Estimate 0.0 to 1.0 of container size if visible. Null if unknown.
-  
+  "volume_fraction": <float or null>,  // Fraction removed (0.0 to 1.0 of container). Null if unknown.
+
+  // AMOUNT REMAINING:
+  // IF DISCRETE (Countable):
+  "remaining_count": <integer or null>,  // How many items remain. Null if continuous or not visible.
+  // IF CONTINUOUS (Fluids/Piles):
+  "remaining_description": <string or null>,  // e.g., "about 3/4 full", "nearly empty"
+  "remaining_fraction": <float or null>,  // Fraction remaining (0.0 to 1.0 of container). Null if unknown.
+
   "unit_type": "unit" | "scoop" | "cup" | "splash" | "pinch" | "slice",
   "confidence": "high" | "medium" | "low",
-  "visual_evidence": "Brief description of visual proof."
+  "visual_evidence": "Brief description of visual proof for both removed and remaining."
 }}
 
 **EXAMPLES:**
@@ -92,9 +100,12 @@ Analyze the video clip to estimate the quantity of the Target Food Item removed.
   "numeric_count": 2,
   "amount_description": null,
   "volume_fraction": null,
+  "remaining_count": 4,
+  "remaining_description": null,
+  "remaining_fraction": null,
   "unit_type": "unit",
   "confidence": "high",
-  "visual_evidence": "User picked two distinct eggs from the carton."
+  "visual_evidence": "User picked two eggs from a carton that had 6 eggs, leaving 4 remaining."
 }}
 
 *Example 2 (Continuous):*
@@ -104,9 +115,12 @@ Analyze the video clip to estimate the quantity of the Target Food Item removed.
   "numeric_count": null,
   "amount_description": "approx 1/2 cup",
   "volume_fraction": 0.1,
+  "remaining_count": null,
+  "remaining_description": "about 3/4 of carton",
+  "remaining_fraction": 0.75,
   "unit_type": "cup",
   "confidence": "medium",
-  "visual_evidence": "Steady pour for 2 seconds into a small mug."
+  "visual_evidence": "Steady pour for 2 seconds. Carton appears mostly full after pouring."
 }}
 
 Return ONLY the raw JSON string. Do not use Markdown (```json).
@@ -387,6 +401,10 @@ def parse_vlm_response(response_text: str) -> Dict[str, Any]:
             'numeric_count': result.get('numeric_count'),
             'amount_description': result.get('amount_description'),
             'volume_fraction': result.get('volume_fraction'),
+            # Remaining quantity fields
+            'remaining_count': result.get('remaining_count'),
+            'remaining_description': result.get('remaining_description'),
+            'remaining_fraction': result.get('remaining_fraction'),
             'unit_type': result.get('unit_type'),
             'confidence': result.get('confidence', 'low'),
             'visual_evidence': result.get('visual_evidence', ''),
@@ -401,6 +419,9 @@ def parse_vlm_response(response_text: str) -> Dict[str, Any]:
             'numeric_count': int(count_match.group(1)),
             'amount_description': None,
             'volume_fraction': None,
+            'remaining_count': None,
+            'remaining_description': None,
+            'remaining_fraction': None,
             'unit_type': count_match.group(2),
             'confidence': 'low',
             'visual_evidence': 'Extracted from unstructured response'
@@ -411,6 +432,9 @@ def parse_vlm_response(response_text: str) -> Dict[str, Any]:
         'numeric_count': None,
         'amount_description': None,
         'volume_fraction': None,
+        'remaining_count': None,
+        'remaining_description': None,
+        'remaining_fraction': None,
         'unit_type': None,
         'confidence': 'low',
         'visual_evidence': f"Could not parse response: {response_text[:200]}"
@@ -642,10 +666,16 @@ def main():
             pred_unit = parsed.get('unit_type')
 
             # Display result based on category
+            remaining_count = parsed.get('remaining_count')
+            remaining_desc = parsed.get('remaining_description')
+            remaining_frac = parsed.get('remaining_fraction')
+
             if pred_category == 'discrete' and pred_count is not None:
-                print(f"predicted: {pred_count} {pred_unit or 'units'}")
+                remain_str = f", remaining: {remaining_count}" if remaining_count is not None else ""
+                print(f"predicted: {pred_count} {pred_unit or 'units'}{remain_str}")
             elif pred_category == 'continuous' and pred_amount:
-                print(f"predicted: {pred_amount} (continuous)")
+                remain_str = f", remaining: {remaining_desc or f'{remaining_frac:.0%}' if remaining_frac else ''}" if (remaining_desc or remaining_frac) else ""
+                print(f"predicted: {pred_amount} (continuous){remain_str}")
             else:
                 print(f"predicted: unknown")
 
@@ -669,6 +699,10 @@ def main():
                 'predicted_count': pred_count,
                 'predicted_amount': pred_amount,
                 'predicted_unit': pred_unit,
+                # Remaining quantity fields
+                'remaining_count': parsed.get('remaining_count'),
+                'remaining_description': parsed.get('remaining_description'),
+                'remaining_fraction': parsed.get('remaining_fraction'),
                 'confidence': parsed.get('confidence'),
                 'visual_evidence': parsed.get('visual_evidence'),
                 'match': evaluation.get('match'),
@@ -768,8 +802,8 @@ def main():
     print(f"\n{'='*70}")
     print(f"RESULTS TABLE")
     print(f"{'='*70}")
-    print(f"{'Food':<25} {'Diff':<6} {'GT':<8} {'Predicted':<20} {'Match':<12}")
-    print("-" * 75)
+    print(f"{'Food':<25} {'Diff':<6} {'GT':<8} {'Predicted':<15} {'Remaining':<15} {'Match':<10}")
+    print("-" * 85)
 
     for r in results:
         food = (r.get('food_name') or '')[:24]
@@ -779,14 +813,27 @@ def main():
 
         # Get prediction info from segments
         segments = r.get('segments', [])
+        remaining_str = '-'
         if segments:
             first_seg = segments[0]
             cat = first_seg.get('quantity_category', 'unknown')
             if cat == 'discrete':
                 pred = r.get('total_predicted')
                 pred_str = str(pred) if pred is not None else '-'
+                # Get remaining count (from last segment as it's most recent state)
+                last_seg = segments[-1]
+                rem_count = last_seg.get('remaining_count')
+                remaining_str = str(rem_count) if rem_count is not None else '-'
             elif cat == 'continuous':
-                pred_str = first_seg.get('predicted_amount', 'continuous')[:18]
+                pred_str = first_seg.get('predicted_amount', 'continuous')[:13]
+                # Get remaining description/fraction
+                last_seg = segments[-1]
+                rem_desc = last_seg.get('remaining_description')
+                rem_frac = last_seg.get('remaining_fraction')
+                if rem_desc:
+                    remaining_str = rem_desc[:13]
+                elif rem_frac is not None:
+                    remaining_str = f"{rem_frac:.0%}"
             else:
                 pred_str = 'unknown'
         else:
@@ -805,9 +852,9 @@ def main():
         elif abs(gt - pred_count) <= 1:
             match = 'close'
         else:
-            match = f'off by {pred_count - gt}'
+            match = f'off {pred_count - gt:+d}'
 
-        print(f"{food:<25} {diff:<6} {gt_str:<8} {pred_str:<20} {match:<12}")
+        print(f"{food:<25} {diff:<6} {gt_str:<8} {pred_str:<15} {remaining_str:<15} {match:<10}")
 
 
 if __name__ == '__main__':

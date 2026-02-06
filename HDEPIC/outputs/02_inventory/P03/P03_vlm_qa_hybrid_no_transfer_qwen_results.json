@@ -1,0 +1,1997 @@
+{
+  "participant": "P03",
+  "model": "qwen",
+  "tag": "hybrid_no_transfer_qwen",
+  "prompt_mode": "hybrid_no_transfer",
+  "task": "hybrid_no_transfer_selection",
+  "low_only": true,
+  "padding": 2.0,
+  "fps": null,
+  "max_frames": null,
+  "total_items": 19,
+  "items": [
+    {
+      "narration_id": "P03-20240216-084005-67",
+      "food_name": "bread (loaf/bag of bread)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240216-084005"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "slices",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_2bac7566",
+          "segment_idx": 0,
+          "video_id": "P03-20240216-084005",
+          "start_timestamp": 715.74,
+          "end_timestamp": 726.49,
+          "clip_start": 713.74,
+          "item_name": "bread (loaf/bag of bread)",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 713.74,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:10",
+              "timestamp_seconds": 10.0,
+              "absolute_timestamp": 723.74,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 717.74,
+              "description": "Destination before (delta=2)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:14",
+              "timestamp_seconds": 14.0,
+              "absolute_timestamp": 727.74,
+              "description": "Destination after (delta=2)",
+              "visibility_status": "clear_view"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"bread (loaf/bag of bread)\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:10\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:04\",\n    \"timestamp_after\": \"00:14\",\n    \"observed_delta\": 2,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 2,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 4,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"slice\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source was occluded. Dest was valid. Final count derived primarily from Path B.\"\n}",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "slices",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "slice",
+          "remaining_count": 4,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source was occluded. Dest was valid. Final count derived primarily from Path B.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:10",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 713.74,
+              "timestamp_after_seconds": 10.0,
+              "absolute_timestamp_after": 723.74
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:04",
+              "timestamp_after_raw": "00:14",
+              "observed_delta": 2,
+              "confidence": "high",
+              "timestamp_before_seconds": 4.0,
+              "absolute_timestamp_before": 717.74,
+              "timestamp_after_seconds": 14.0,
+              "absolute_timestamp_after": 727.74
+            }
+          }
+        }
+      ],
+      "total_predicted": 2,
+      "recipe_amount": null
+    },
+    {
+      "narration_id": "P03-20240216-185832-1024",
+      "food_name": "eggs",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240216-185832",
+        "P03-20240216-205923"
+      ],
+      "total_ground_truth": 8,
+      "total_ground_truth_unit": "eggs",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_f8b2a75d",
+          "segment_idx": 0,
+          "video_id": "P03-20240216-185832",
+          "start_timestamp": 2792.96,
+          "end_timestamp": 2825.9,
+          "clip_start": 2790.96,
+          "item_name": "eggs",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 2792.96,
+              "description": "Source before (delta=2)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 2798.96,
+              "description": "Source after (delta=2)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 2793.96,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:09",
+              "timestamp_seconds": 9.0,
+              "absolute_timestamp": 2799.96,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"eggs\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:02\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": 2,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_PILE\",\n    \"timestamp_before\": \"00:03\",\n    \"timestamp_after\": \"00:09\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": 2,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 4,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source was valid. Dest was a pile, making it unreliable. Final count derived primarily from Path A.\"\n}",
+          "ground_truth_count": 8,
+          "ground_truth_unit": "eggs",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 4,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source was valid. Dest was a pile, making it unreliable. Final count derived primarily from Path A.",
+          "match": "wrong",
+          "error": -6,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:02",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": 2,
+              "confidence": "high",
+              "timestamp_before_seconds": 2.0,
+              "absolute_timestamp_before": 2792.96,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 2798.96
+            },
+            "destination": {
+              "status": "INVALID_PILE",
+              "timestamp_before_raw": "00:03",
+              "timestamp_after_raw": "00:09",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 3.0,
+              "absolute_timestamp_before": 2793.96,
+              "timestamp_after_seconds": 9.0,
+              "absolute_timestamp_after": 2799.96
+            }
+          }
+        }
+      ],
+      "total_predicted": 2,
+      "recipe_amount": {
+        "ingredient": "eggs",
+        "amount": "330",
+        "unit": "g",
+        "recipe": "P03_R04"
+      }
+    },
+    {
+      "narration_id": "P03-20240216-185832-38",
+      "food_name": "bag of potatoes",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240216-185832",
+        "P03-20240216-205923"
+      ],
+      "total_ground_truth": 12,
+      "total_ground_truth_unit": "potatoes",
+      "num_segments": 2,
+      "segments": [
+        {
+          "segment_id": "seg_d38f9871",
+          "segment_idx": 0,
+          "video_id": "P03-20240216-185832",
+          "start_timestamp": 763.61,
+          "end_timestamp": 774.5,
+          "clip_start": 761.61,
+          "item_name": "bag of potatoes",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 761.61,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:14",
+              "timestamp_seconds": 14.0,
+              "absolute_timestamp": 775.61,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 761.61,
+              "description": "Destination before (delta=8)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:14",
+              "timestamp_seconds": 14.0,
+              "absolute_timestamp": 775.61,
+              "description": "Destination after (delta=8)",
+              "visibility_status": "clear_view"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"bag of potatoes\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:14\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:14\",\n    \"observed_delta\": 8,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 8,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 0,\n  \"remaining_description\": null,\n  \"remaining_fraction\": 0.0,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source was occluded by hands. Destination clearly showed 8 potatoes added to the counter. Final count derived primarily from Path B.\"\n}",
+          "ground_truth_count": 8,
+          "ground_truth_unit": "potatoes",
+          "quantity_category": "discrete",
+          "predicted_count": 8,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 0,
+          "remaining_description": null,
+          "remaining_fraction": 0.0,
+          "confidence": "high",
+          "visual_evidence": "Source was occluded by hands. Destination clearly showed 8 potatoes added to the counter. Final count derived primarily from Path B.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:14",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 761.61,
+              "timestamp_after_seconds": 14.0,
+              "absolute_timestamp_after": 775.61
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:14",
+              "observed_delta": 8,
+              "confidence": "high",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 761.61,
+              "timestamp_after_seconds": 14.0,
+              "absolute_timestamp_after": 775.61
+            }
+          }
+        },
+        {
+          "segment_id": "seg_7c631815",
+          "segment_idx": 1,
+          "video_id": "P03-20240216-185832",
+          "start_timestamp": 1251.98,
+          "end_timestamp": 1259.16,
+          "clip_start": 1249.98,
+          "item_name": "bag of potatoes",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 1249.98,
+              "description": "Source before (delta=4)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 1257.98,
+              "description": "Source after (delta=4)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 1249.98,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:10",
+              "timestamp_seconds": 10.0,
+              "absolute_timestamp": 1259.98,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"bag of potatoes\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": 4,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_PILE\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:10\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": 4,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 2,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source was valid. Dest was a pile, making it unreliable. Final count derived primarily from Path A.\"\n}",
+          "ground_truth_count": 4,
+          "ground_truth_unit": "potatoes",
+          "quantity_category": "discrete",
+          "predicted_count": 4,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 2,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source was valid. Dest was a pile, making it unreliable. Final count derived primarily from Path A.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": 4,
+              "confidence": "high",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 1249.98,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 1257.98
+            },
+            "destination": {
+              "status": "INVALID_PILE",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:10",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 1249.98,
+              "timestamp_after_seconds": 10.0,
+              "absolute_timestamp_after": 1259.98
+            }
+          }
+        }
+      ],
+      "total_predicted": 12,
+      "recipe_amount": {
+        "ingredient": "potatoes",
+        "amount": "1800",
+        "unit": "g",
+        "recipe": "P03_R04"
+      }
+    },
+    {
+      "narration_id": "P03-20240216-185832-63",
+      "food_name": "yeast (box)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240216-185832",
+        "P03-20240216-205923"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "sachets",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_13de44e1",
+          "segment_idx": 0,
+          "video_id": "P03-20240216-185832",
+          "start_timestamp": 2102.75,
+          "end_timestamp": 2106.03,
+          "clip_start": 2100.75,
+          "item_name": "yeast (box)",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 2100.75,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 2104.75,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 2105.75,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 2107.75,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "clear_view"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"yeast (box)\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:04\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:05\",\n    \"timestamp_after\": \"00:07\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 0,\n  \"remaining_description\": null,\n  \"remaining_fraction\": 0.0,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source was occluded by hand. Destination clearly showed one box placed on the counter. Final count derived primarily from Path B.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "sachets",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 0,
+          "remaining_description": null,
+          "remaining_fraction": 0.0,
+          "confidence": "high",
+          "visual_evidence": "Source was occluded by hand. Destination clearly showed one box placed on the counter. Final count derived primarily from Path B.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:04",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 2100.75,
+              "timestamp_after_seconds": 4.0,
+              "absolute_timestamp_after": 2104.75
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:05",
+              "timestamp_after_raw": "00:07",
+              "observed_delta": 1,
+              "confidence": "high",
+              "timestamp_before_seconds": 5.0,
+              "absolute_timestamp_before": 2105.75,
+              "timestamp_after_seconds": 7.0,
+              "absolute_timestamp_after": 2107.75
+            }
+          }
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "dried yeast",
+        "amount": "2",
+        "unit": "g",
+        "recipe": "P03_R05"
+      }
+    },
+    {
+      "narration_id": "P03-20240217-091657-304",
+      "food_name": "bread (in bag)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240217-091657"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "slices",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_965a98f5",
+          "segment_idx": 0,
+          "video_id": "P03-20240217-091657",
+          "start_timestamp": 645,
+          "end_timestamp": 659.47,
+          "clip_start": 643.0,
+          "item_name": "bread (in bag)",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 645.0,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 651.0,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 651.0,
+              "description": "Destination before (delta=2)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:15",
+              "timestamp_seconds": 15.0,
+              "absolute_timestamp": 658.0,
+              "description": "Destination after (delta=2)",
+              "visibility_status": "clear_view"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"bread (in bag)\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:02\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:08\",\n    \"timestamp_after\": \"00:15\",\n    \"observed_delta\": 2,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 2,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 3,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"slice\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source was occluded by hand. Destination clearly showed 2 slices added. Final count derived primarily from Path B.\"\n}",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "slices",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "slice",
+          "remaining_count": 3,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source was occluded by hand. Destination clearly showed 2 slices added. Final count derived primarily from Path B.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:02",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 2.0,
+              "absolute_timestamp_before": 645.0,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 651.0
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:08",
+              "timestamp_after_raw": "00:15",
+              "observed_delta": 2,
+              "confidence": "high",
+              "timestamp_before_seconds": 8.0,
+              "absolute_timestamp_before": 651.0,
+              "timestamp_after_seconds": 15.0,
+              "absolute_timestamp_after": 658.0
+            }
+          }
+        }
+      ],
+      "total_predicted": 2,
+      "recipe_amount": null
+    },
+    {
+      "narration_id": "P03-20240217-131219-490",
+      "food_name": "can of coconut milk",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240217-131219"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "cans",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_802c5a76",
+          "segment_idx": 0,
+          "video_id": "P03-20240217-131219",
+          "start_timestamp": 2008.94,
+          "end_timestamp": 2013.92,
+          "clip_start": 2006.94,
+          "item_name": "can of coconut milk",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 2006.94,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 2014.94,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 2006.94,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 2014.94,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "clear_view"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"can of coconut milk\",\n  \"quantity_category\": \"continuous\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": null,\n  \"amount_description\": \"a stream of white liquid\",\n  \"volume_fraction\": 0.5,\n  \"remaining_count\": null,\n  \"remaining_description\": \"about half a can\",\n  \"remaining_fraction\": 0.5,\n  \"unit_type\": \"cup\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source was valid. Dest was valid. Final count derived primarily from Path A.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "can",
+          "quantity_category": "continuous",
+          "predicted_count": null,
+          "predicted_amount": "a stream of white liquid",
+          "predicted_unit": "cup",
+          "remaining_count": null,
+          "remaining_description": "about half a can",
+          "remaining_fraction": 0.5,
+          "confidence": "high",
+          "visual_evidence": "Source was valid. Dest was valid. Final count derived primarily from Path A.",
+          "match": "continuous_estimate",
+          "error": null,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": 1,
+              "confidence": "high",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 2006.94,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 2014.94
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": 1,
+              "confidence": "high",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 2006.94,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 2014.94
+            }
+          }
+        }
+      ],
+      "total_predicted": null,
+      "recipe_amount": {
+        "ingredient": "coconut milk",
+        "amount": "400",
+        "unit": "ml",
+        "recipe": "P03_R01"
+      }
+    },
+    {
+      "narration_id": "P03-20240217-192543-10",
+      "food_name": "box of mushrooms",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240217-192543"
+      ],
+      "total_ground_truth": 5,
+      "total_ground_truth_unit": "mushrooms",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_7172e172",
+          "segment_idx": 0,
+          "video_id": "P03-20240217-192543",
+          "start_timestamp": 479.69,
+          "end_timestamp": 490,
+          "clip_start": 477.69,
+          "item_name": "box of mushrooms",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 477.69,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 485.69,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 477.69,
+              "description": "Destination before (delta=4)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 485.69,
+              "description": "Destination after (delta=4)",
+              "visibility_status": "clear_view"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"box of mushrooms\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": 4,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 4,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 3,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source was occluded by hand. Destination clearly showed 4 mushrooms added. Used Path B.\"\n}",
+          "ground_truth_count": 5,
+          "ground_truth_unit": "mushrooms",
+          "quantity_category": "discrete",
+          "predicted_count": 4,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 3,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source was occluded by hand. Destination clearly showed 4 mushrooms added. Used Path B.",
+          "match": "close",
+          "error": -1,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 477.69,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 485.69
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": 4,
+              "confidence": "high",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 477.69,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 485.69
+            }
+          }
+        }
+      ],
+      "total_predicted": 4,
+      "recipe_amount": {
+        "ingredient": "chestnut mushrooms",
+        "amount": "240",
+        "unit": "g",
+        "recipe": "P03_R09"
+      }
+    },
+    {
+      "narration_id": "P03-20240217-192543-335",
+      "food_name": "egg",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240217-192543"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "eggs",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_a5fac984",
+          "segment_idx": 0,
+          "video_id": "P03-20240217-192543",
+          "start_timestamp": 741.72,
+          "end_timestamp": 745.05,
+          "clip_start": 739.72,
+          "item_name": "egg",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 741.72,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 744.72,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 744.72,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 745.72,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"egg\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:02\",\n    \"timestamp_after\": \"00:05\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:05\",\n    \"timestamp_after\": \"00:06\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 5,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source was valid. Dest was occluded. Final count derived primarily from Path A.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "eggs",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 5,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source was valid. Dest was occluded. Final count derived primarily from Path A.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:02",
+              "timestamp_after_raw": "00:05",
+              "observed_delta": 1,
+              "confidence": "high",
+              "timestamp_before_seconds": 2.0,
+              "absolute_timestamp_before": 741.72,
+              "timestamp_after_seconds": 5.0,
+              "absolute_timestamp_after": 744.72
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:05",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 5.0,
+              "absolute_timestamp_before": 744.72,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 745.72
+            }
+          }
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "eggs",
+        "amount": "55",
+        "unit": "g",
+        "recipe": "P03_R07"
+      }
+    },
+    {
+      "narration_id": "P03-20240217-192543-353",
+      "food_name": "garlic cloves (in small cup)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240217-192543"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "cloves",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_29ba3d83",
+          "segment_idx": 0,
+          "video_id": "P03-20240217-192543",
+          "start_timestamp": 830.07,
+          "end_timestamp": 835.21,
+          "clip_start": 828.07,
+          "item_name": "garlic cloves (in small cup)",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "absolute_timestamp": 829.07,
+              "description": "Source before (delta=2)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 833.07,
+              "description": "Source after (delta=2)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "absolute_timestamp": 829.07,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 833.07,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"garlic cloves (in small cup)\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:01\",\n    \"timestamp_after\": \"00:05\",\n    \"observed_delta\": 2,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:01\",\n    \"timestamp_after\": \"00:05\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": 2,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 1,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source was valid. Dest was occluded by hand. Final count derived primarily from Path A.\"\n}",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "cloves",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 1,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source was valid. Dest was occluded by hand. Final count derived primarily from Path A.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:01",
+              "timestamp_after_raw": "00:05",
+              "observed_delta": 2,
+              "confidence": "high",
+              "timestamp_before_seconds": 1.0,
+              "absolute_timestamp_before": 829.07,
+              "timestamp_after_seconds": 5.0,
+              "absolute_timestamp_after": 833.07
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:01",
+              "timestamp_after_raw": "00:05",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 1.0,
+              "absolute_timestamp_before": 829.07,
+              "timestamp_after_seconds": 5.0,
+              "absolute_timestamp_after": 833.07
+            }
+          }
+        }
+      ],
+      "total_predicted": 2,
+      "recipe_amount": {
+        "ingredient": "garlic",
+        "amount": "16",
+        "unit": "g",
+        "recipe": "P03_R08"
+      }
+    },
+    {
+      "narration_id": "P03-20240217-192543-359",
+      "food_name": "whole garlic (garlic bulb in net)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240217-192543"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "bulbs",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_ad4bca5b",
+          "segment_idx": 0,
+          "video_id": "P03-20240217-192543",
+          "start_timestamp": 839,
+          "end_timestamp": 844.54,
+          "clip_start": 837.0,
+          "item_name": "whole garlic (garlic bulb in net)",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 837.0,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 843.0,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 845.0,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:09",
+              "timestamp_seconds": 9.0,
+              "absolute_timestamp": 846.0,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"whole garlic (garlic bulb in net)\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:06\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:08\",\n    \"timestamp_after\": \"00:09\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 1,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source was VALID. Dest was INVALID_OCCLUDED. Final count derived primarily from Path A.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "bulbs",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 1,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source was VALID. Dest was INVALID_OCCLUDED. Final count derived primarily from Path A.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": 1,
+              "confidence": "high",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 837.0,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 843.0
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:08",
+              "timestamp_after_raw": "00:09",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 8.0,
+              "absolute_timestamp_before": 845.0,
+              "timestamp_after_seconds": 9.0,
+              "absolute_timestamp_after": 846.0
+            }
+          }
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "garlic",
+        "amount": "16",
+        "unit": "g",
+        "recipe": "P03_R08"
+      }
+    },
+    {
+      "narration_id": "P03-20240217-192543-808",
+      "food_name": "mozzarella",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240217-192543"
+      ],
+      "total_ground_truth": null,
+      "total_ground_truth_unit": null,
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_81e632ff",
+          "segment_idx": 0,
+          "video_id": "P03-20240217-192543",
+          "start_timestamp": 2200.92,
+          "end_timestamp": 2205.01,
+          "clip_start": 2198.92,
+          "item_name": "mozzarella",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 2198.92,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 2202.92,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 2201.92,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 2204.92,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "clear_view"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"mozzarella\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:04\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:03\",\n    \"timestamp_after\": \"00:06\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 0,\n  \"remaining_description\": null,\n  \"remaining_fraction\": 0.0,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source was occluded by hands. Destination clearly showed one mozzarella ball removed. Final count derived primarily from Path B.\"\n}",
+          "ground_truth_count": null,
+          "ground_truth_unit": null,
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 0,
+          "remaining_description": null,
+          "remaining_fraction": 0.0,
+          "confidence": "high",
+          "visual_evidence": "Source was occluded by hands. Destination clearly showed one mozzarella ball removed. Final count derived primarily from Path B.",
+          "match": "gt_uncountable",
+          "error": null,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:04",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 2198.92,
+              "timestamp_after_seconds": 4.0,
+              "absolute_timestamp_after": 2202.92
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:03",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": 1,
+              "confidence": "high",
+              "timestamp_before_seconds": 3.0,
+              "absolute_timestamp_before": 2201.92,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 2204.92
+            }
+          }
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "mozzarella cheese",
+        "amount": "125",
+        "unit": "g",
+        "recipe": "P03_R07"
+      }
+    },
+    {
+      "narration_id": "P03-20240218-094452-16",
+      "food_name": "buns package",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-094452"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "buns",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_0fed962b",
+          "segment_idx": 0,
+          "video_id": "P03-20240218-094452",
+          "start_timestamp": 88.05,
+          "end_timestamp": 91.68,
+          "clip_start": 86.05,
+          "item_name": "buns package",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 86.05,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "absolute_timestamp": 87.05,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "absolute_timestamp": 87.05,
+              "description": "Destination before (delta=4)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 88.05,
+              "description": "Destination after (delta=4)",
+              "visibility_status": "clear_view"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"buns package\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:01\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:01\",\n    \"timestamp_after\": \"00:02\",\n    \"observed_delta\": 4,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 4,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 0,\n  \"remaining_description\": null,\n  \"remaining_fraction\": 0.0,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source was valid. Dest was valid. Final count derived primarily from Path B.\"\n}",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "buns",
+          "quantity_category": "discrete",
+          "predicted_count": 4,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 0,
+          "remaining_description": null,
+          "remaining_fraction": 0.0,
+          "confidence": "high",
+          "visual_evidence": "Source was valid. Dest was valid. Final count derived primarily from Path B.",
+          "match": "wrong",
+          "error": 2,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:01",
+              "observed_delta": 1,
+              "confidence": "high",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 86.05,
+              "timestamp_after_seconds": 1.0,
+              "absolute_timestamp_after": 87.05
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:01",
+              "timestamp_after_raw": "00:02",
+              "observed_delta": 4,
+              "confidence": "high",
+              "timestamp_before_seconds": 1.0,
+              "absolute_timestamp_before": 87.05,
+              "timestamp_after_seconds": 2.0,
+              "absolute_timestamp_after": 88.05
+            }
+          }
+        }
+      ],
+      "total_predicted": 4,
+      "recipe_amount": null
+    },
+    {
+      "narration_id": "P03-20240218-094452-390",
+      "food_name": "bread",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-094452"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "slices",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_ff2aef73",
+          "segment_idx": 0,
+          "video_id": "P03-20240218-094452",
+          "start_timestamp": 695.23,
+          "end_timestamp": 701.01,
+          "clip_start": 693.23,
+          "item_name": "bread",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 693.23,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 701.23,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 698.23,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 700.23,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "clear_view"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"bread\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:05\",\n    \"timestamp_after\": \"00:07\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 5,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"slice\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source was occluded by hand. Destination clearly showed 1 slice added. Final count derived primarily from Path B.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "slice",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "slice",
+          "remaining_count": 5,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source was occluded by hand. Destination clearly showed 1 slice added. Final count derived primarily from Path B.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 693.23,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 701.23
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:05",
+              "timestamp_after_raw": "00:07",
+              "observed_delta": 1,
+              "confidence": "high",
+              "timestamp_before_seconds": 5.0,
+              "absolute_timestamp_before": 698.23,
+              "timestamp_after_seconds": 7.0,
+              "absolute_timestamp_after": 700.23
+            }
+          }
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": null
+    },
+    {
+      "narration_id": "P03-20240218-140054-158",
+      "food_name": "garlic cloves",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-140054"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "cloves",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_4ef1e0c4",
+          "segment_idx": 0,
+          "video_id": "P03-20240218-140054",
+          "start_timestamp": 498.53,
+          "end_timestamp": 502.81,
+          "clip_start": 496.53,
+          "item_name": "garlic cloves",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "absolute_timestamp": 497.53,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 499.53,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 503.53,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 504.53,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "clear_view"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"garlic cloves\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:01\",\n    \"timestamp_after\": \"00:03\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:07\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 1,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source was occluded by hand. Destination clearly showed 1 clove added. Final count derived primarily from Path B.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "cloves",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 1,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source was occluded by hand. Destination clearly showed 1 clove added. Final count derived primarily from Path B.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:01",
+              "timestamp_after_raw": "00:03",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 1.0,
+              "absolute_timestamp_before": 497.53,
+              "timestamp_after_seconds": 3.0,
+              "absolute_timestamp_after": 499.53
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:07",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": 1,
+              "confidence": "high",
+              "timestamp_before_seconds": 7.0,
+              "absolute_timestamp_before": 503.53,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 504.53
+            }
+          }
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "garlic",
+        "amount": "4",
+        "unit": "g",
+        "recipe": "P03_R10"
+      }
+    },
+    {
+      "narration_id": "P03-20240218-190556-248",
+      "food_name": "plant-based burger",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-190556"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "burgers",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_1931a818",
+          "segment_idx": 0,
+          "video_id": "P03-20240218-190556",
+          "start_timestamp": 1290.46,
+          "end_timestamp": 1293.46,
+          "clip_start": 1288.46,
+          "item_name": "plant-based burger",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "absolute_timestamp": 1289.46,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 1292.46,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 1291.46,
+              "description": "Destination before (delta=2)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 1292.46,
+              "description": "Destination after (delta=2)",
+              "visibility_status": "clear_view"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"plant-based burger\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:01\",\n    \"timestamp_after\": \"00:04\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:03\",\n    \"timestamp_after\": \"00:04\",\n    \"observed_delta\": 2,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 2,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 1,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source was occluded by hands. Destination clearly showed 2 burgers placed on the board. Final count derived primarily from Path B.\"\n}",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "burgers",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 1,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source was occluded by hands. Destination clearly showed 2 burgers placed on the board. Final count derived primarily from Path B.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:01",
+              "timestamp_after_raw": "00:04",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 1.0,
+              "absolute_timestamp_before": 1289.46,
+              "timestamp_after_seconds": 4.0,
+              "absolute_timestamp_after": 1292.46
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:03",
+              "timestamp_after_raw": "00:04",
+              "observed_delta": 2,
+              "confidence": "high",
+              "timestamp_before_seconds": 3.0,
+              "absolute_timestamp_before": 1291.46,
+              "timestamp_after_seconds": 4.0,
+              "absolute_timestamp_after": 1292.46
+            }
+          }
+        }
+      ],
+      "total_predicted": 2,
+      "recipe_amount": {
+        "ingredient": "plant-based burgers",
+        "amount": "226",
+        "unit": "g",
+        "recipe": "P03_R02"
+      }
+    },
+    {
+      "narration_id": "P03-20240218-190556-269",
+      "food_name": "box of mushrooms (second box)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-190556"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "mushrooms",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_20ed4b5a",
+          "segment_idx": 0,
+          "video_id": "P03-20240218-190556",
+          "start_timestamp": 752,
+          "end_timestamp": 761.89,
+          "clip_start": 750.0,
+          "item_name": "box of mushrooms (second box)",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 750.0,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 758.0,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 752.0,
+              "description": "Destination before (delta=2)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 758.0,
+              "description": "Destination after (delta=2)",
+              "visibility_status": "clear_view"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"box of mushrooms (second box)\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:02\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": 2,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 2,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 4,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source was occluded by hand. Dest was clearly visible and showed 2 mushrooms added. Final count derived primarily from Path B.\"\n}",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "mushrooms",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 4,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source was occluded by hand. Dest was clearly visible and showed 2 mushrooms added. Final count derived primarily from Path B.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 750.0,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 758.0
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:02",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": 2,
+              "confidence": "high",
+              "timestamp_before_seconds": 2.0,
+              "absolute_timestamp_before": 752.0,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 758.0
+            }
+          }
+        }
+      ],
+      "total_predicted": 2,
+      "recipe_amount": {
+        "ingredient": "chestnut mushrooms",
+        "amount": "200",
+        "unit": "g",
+        "recipe": "P03_R02"
+      }
+    },
+    {
+      "narration_id": "P03-20240218-190556-411",
+      "food_name": "onion",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-190556"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "onions",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_210d4c9f",
+          "segment_idx": 0,
+          "video_id": "P03-20240218-190556",
+          "start_timestamp": 985.57,
+          "end_timestamp": 990.05,
+          "clip_start": 983.57,
+          "item_name": "onion",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 983.57,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 988.57,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 989.57,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 990.57,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"onion\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:05\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_PILE\",\n    \"timestamp_before\": \"00:06\",\n    \"timestamp_after\": \"00:07\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 1,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source was valid, showing one onion removed. Destination was a pile, making it unreliable. Final count derived primarily from Path A.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "onions",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 1,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source was valid, showing one onion removed. Destination was a pile, making it unreliable. Final count derived primarily from Path A.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:05",
+              "observed_delta": 1,
+              "confidence": "high",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 983.57,
+              "timestamp_after_seconds": 5.0,
+              "absolute_timestamp_after": 988.57
+            },
+            "destination": {
+              "status": "INVALID_PILE",
+              "timestamp_before_raw": "00:06",
+              "timestamp_after_raw": "00:07",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 6.0,
+              "absolute_timestamp_before": 989.57,
+              "timestamp_after_seconds": 7.0,
+              "absolute_timestamp_after": 990.57
+            }
+          }
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "onions",
+        "amount": "110",
+        "unit": "g",
+        "recipe": "P03_R02"
+      }
+    },
+    {
+      "narration_id": "P03-20240218-190556-7",
+      "food_name": "bag of potatoes",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-190556"
+      ],
+      "total_ground_truth": 6,
+      "total_ground_truth_unit": "potatoes",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_7fa725cb",
+          "segment_idx": 0,
+          "video_id": "P03-20240218-190556",
+          "start_timestamp": 98.51,
+          "end_timestamp": 115.63,
+          "clip_start": 96.51,
+          "item_name": "bag of potatoes",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 96.51,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 99.51,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 99.51,
+              "description": "Destination before (delta=6)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:09",
+              "timestamp_seconds": 9.0,
+              "absolute_timestamp": 105.51,
+              "description": "Destination after (delta=6)",
+              "visibility_status": "clear_view"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"bag of potatoes\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:03\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:03\",\n    \"timestamp_after\": \"00:09\",\n    \"observed_delta\": 6,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 6,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 4,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source was occluded by hands. Destination clearly showed 6 potatoes added. Final count derived primarily from Path B.\"\n}",
+          "ground_truth_count": 6,
+          "ground_truth_unit": "potatoes",
+          "quantity_category": "discrete",
+          "predicted_count": 6,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 4,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source was occluded by hands. Destination clearly showed 6 potatoes added. Final count derived primarily from Path B.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:03",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 96.51,
+              "timestamp_after_seconds": 3.0,
+              "absolute_timestamp_after": 99.51
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:03",
+              "timestamp_after_raw": "00:09",
+              "observed_delta": 6,
+              "confidence": "high",
+              "timestamp_before_seconds": 3.0,
+              "absolute_timestamp_before": 99.51,
+              "timestamp_after_seconds": 9.0,
+              "absolute_timestamp_after": 105.51
+            }
+          }
+        }
+      ],
+      "total_predicted": 6,
+      "recipe_amount": {
+        "ingredient": "potatoes",
+        "amount": "500",
+        "unit": "g",
+        "recipe": "P03_R02"
+      }
+    },
+    {
+      "narration_id": "P03-20240218-190556-8",
+      "food_name": "box of mushrooms",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-190556"
+      ],
+      "total_ground_truth": 7,
+      "total_ground_truth_unit": "mushrooms",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_db4d4e0a",
+          "segment_idx": 0,
+          "video_id": "P03-20240218-190556",
+          "start_timestamp": 728.61,
+          "end_timestamp": 742.32,
+          "clip_start": 726.61,
+          "item_name": "box of mushrooms",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 726.61,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:15",
+              "timestamp_seconds": 15.0,
+              "absolute_timestamp": 741.61,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 726.61,
+              "description": "Destination before (delta=6)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:15",
+              "timestamp_seconds": 15.0,
+              "absolute_timestamp": 741.61,
+              "description": "Destination after (delta=6)",
+              "visibility_status": "clear_view"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"box of mushrooms\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:15\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:15\",\n    \"observed_delta\": 6,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 6,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 0,\n  \"remaining_description\": null,\n  \"remaining_fraction\": 0.0,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source was occluded by hand. Destination clearly showed 6 mushrooms added. Final count derived primarily from Path B.\"\n}",
+          "ground_truth_count": 7,
+          "ground_truth_unit": "mushrooms",
+          "quantity_category": "discrete",
+          "predicted_count": 6,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 0,
+          "remaining_description": null,
+          "remaining_fraction": 0.0,
+          "confidence": "high",
+          "visual_evidence": "Source was occluded by hand. Destination clearly showed 6 mushrooms added. Final count derived primarily from Path B.",
+          "match": "close",
+          "error": -1,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:15",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 726.61,
+              "timestamp_after_seconds": 15.0,
+              "absolute_timestamp_after": 741.61
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:15",
+              "observed_delta": 6,
+              "confidence": "high",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 726.61,
+              "timestamp_after_seconds": 15.0,
+              "absolute_timestamp_after": 741.61
+            }
+          }
+        }
+      ],
+      "total_predicted": 6,
+      "recipe_amount": {
+        "ingredient": "chestnut mushrooms",
+        "amount": "200",
+        "unit": "g",
+        "recipe": "P03_R02"
+      }
+    }
+  ]
+}

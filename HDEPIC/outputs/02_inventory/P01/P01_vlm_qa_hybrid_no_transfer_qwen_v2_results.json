@@ -1,0 +1,2324 @@
+{
+  "participant": "P01",
+  "model": "qwen",
+  "tag": "hybrid_no_transfer_qwen_v2",
+  "prompt_mode": "hybrid_no_transfer",
+  "task": "hybrid_no_transfer_selection",
+  "low_only": true,
+  "padding": 2.0,
+  "fps": null,
+  "max_frames": null,
+  "total_items": 16,
+  "items": [
+    {
+      "narration_id": "P01-20240202-110250-29",
+      "food_name": "oranges (in mesh bag)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240202-110250"
+      ],
+      "total_ground_truth": 3,
+      "total_ground_truth_unit": "oranges",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_ff1d764e",
+          "segment_idx": 0,
+          "video_id": "P01-20240202-110250",
+          "start_timestamp": 53.31,
+          "end_timestamp": 60.531511,
+          "clip_start": 51.31,
+          "item_name": "oranges (in mesh bag)",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 51.31,
+              "description": "Source before (delta=3)",
+              "visibility_status": "clear_view",
+              "container_description": "Mesh bag of oranges"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 59.31,
+              "description": "Source after (delta=3)",
+              "visibility_status": "clear_view",
+              "container_description": "Mesh bag of oranges"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 51.31,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Countertop"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 59.31,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Countertop"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"oranges (in mesh bag)\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Mesh bag of oranges\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": 3,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"Countertop\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": 3,\n  \"amount_description\": null,\n  \"remaining_count\": 2,\n  \"remaining_description\": null,\n  \"remaining_fraction\": 0.4,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source [VALID]: Start(5) -> End(2). Dest [INVALID_OCCLUDED]: Start(0) -> End(3). Trusting Source for final count.\"\n}",
+          "ground_truth_count": 3,
+          "ground_truth_unit": "oranges",
+          "quantity_category": "discrete",
+          "predicted_count": 3,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 2,
+          "remaining_description": null,
+          "remaining_fraction": 0.4,
+          "confidence": "high",
+          "visual_evidence": "Source [VALID]: Start(5) -> End(2). Dest [INVALID_OCCLUDED]: Start(0) -> End(3). Trusting Source for final count.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": 3,
+              "confidence": "high",
+              "container_description": "Mesh bag of oranges",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 51.31,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 59.31
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": null,
+              "confidence": "low",
+              "container_description": "Countertop",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 51.31,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 59.31
+            }
+          }
+        }
+      ],
+      "total_predicted": 3,
+      "recipe_amount": null
+    },
+    {
+      "narration_id": "P01-20240203-093333-20",
+      "food_name": "coffee capsule",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240203-093333"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "capsules",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_cd6fce65",
+          "segment_idx": 0,
+          "video_id": "P01-20240203-093333",
+          "start_timestamp": 43.76,
+          "end_timestamp": 45.51,
+          "clip_start": 41.76,
+          "item_name": "coffee capsule",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 41.76,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Cardboard box"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 44.76,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Cardboard box"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 41.76,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Coffee machine"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 46.76,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Coffee machine"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"coffee capsule\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Cardboard box\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:03\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Coffee machine\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:05\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"remaining_count\": 11,\n  \"remaining_description\": null,\n  \"remaining_fraction\": 0.9167,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source [VALID]: Start(12) -> End(11). Dest [VALID]: Start(0) -> End(1). Trusting both Source and Destination paths.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "capsules",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 11,
+          "remaining_description": null,
+          "remaining_fraction": 0.9167,
+          "confidence": "high",
+          "visual_evidence": "Source [VALID]: Start(12) -> End(11). Dest [VALID]: Start(0) -> End(1). Trusting both Source and Destination paths.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:03",
+              "observed_delta": 1,
+              "confidence": "high",
+              "container_description": "Cardboard box",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 41.76,
+              "timestamp_after_seconds": 3.0,
+              "absolute_timestamp_after": 44.76
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:05",
+              "observed_delta": 1,
+              "confidence": "high",
+              "container_description": "Coffee machine",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 41.76,
+              "timestamp_after_seconds": 5.0,
+              "absolute_timestamp_after": 46.76
+            }
+          }
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "nespresso capsule",
+        "amount": "N/A",
+        "unit": "N/A",
+        "recipe": "P01_R01_C1"
+      }
+    },
+    {
+      "narration_id": "P01-20240203-121517-78",
+      "food_name": "onions (mesh bag)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240203-121517",
+        "P01-20240203-123350",
+        "P01-20240203-130505",
+        "P01-20240203-132119",
+        "P01-20240203-135502",
+        "P01-20240203-150506",
+        "P01-20240203-152323"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "onions",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_f40ed325",
+          "segment_idx": 0,
+          "video_id": "P01-20240203-123350",
+          "start_timestamp": 460.04,
+          "end_timestamp": 470.05,
+          "clip_start": 458.04,
+          "item_name": "onions (mesh bag)",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 458.04,
+              "description": "Source before (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "Mesh bag of onions"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:11",
+              "timestamp_seconds": 11.0,
+              "absolute_timestamp": 469.04,
+              "description": "Source after (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "Mesh bag of onions"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 458.04,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Blue cutting board"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:11",
+              "timestamp_seconds": 11.0,
+              "absolute_timestamp": 469.04,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Blue cutting board"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"onions (mesh bag)\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Mesh bag of onions\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:11\",\n    \"observed_delta\": 2,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"Blue cutting board\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:11\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": 2,\n  \"amount_description\": null,\n  \"remaining_count\": 2,\n  \"remaining_description\": null,\n  \"remaining_fraction\": 0.5,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source [VALID]: Start(4) -> End(2). Dest [INVALID_OCCLUDED]: Start(0) -> End(2). Trusting Source for final count.\"\n}",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "onions",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 2,
+          "remaining_description": null,
+          "remaining_fraction": 0.5,
+          "confidence": "high",
+          "visual_evidence": "Source [VALID]: Start(4) -> End(2). Dest [INVALID_OCCLUDED]: Start(0) -> End(2). Trusting Source for final count.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:11",
+              "observed_delta": 2,
+              "confidence": "high",
+              "container_description": "Mesh bag of onions",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 458.04,
+              "timestamp_after_seconds": 11.0,
+              "absolute_timestamp_after": 469.04
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:11",
+              "observed_delta": null,
+              "confidence": "low",
+              "container_description": "Blue cutting board",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 458.04,
+              "timestamp_after_seconds": 11.0,
+              "absolute_timestamp_after": 469.04
+            }
+          }
+        }
+      ],
+      "total_predicted": 2,
+      "recipe_amount": {
+        "ingredient": "onions",
+        "amount": "257",
+        "unit": "g",
+        "recipe": "P01_R06"
+      }
+    },
+    {
+      "narration_id": "P01-20240203-121517-72",
+      "food_name": "carrots (bag)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240203-121517",
+        "P01-20240203-123350",
+        "P01-20240203-130505",
+        "P01-20240203-132119",
+        "P01-20240203-135502",
+        "P01-20240203-150506",
+        "P01-20240203-152323",
+        "P01-20240203-161757"
+      ],
+      "total_ground_truth": 9,
+      "total_ground_truth_unit": "carrots",
+      "num_segments": 7,
+      "segments": [
+        {
+          "segment_id": "seg_7b8495c1",
+          "segment_idx": 0,
+          "video_id": "P01-20240203-123350",
+          "start_timestamp": 1341.68,
+          "end_timestamp": 1344.045349,
+          "clip_start": 1339.68,
+          "item_name": "carrots (bag)",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 1341.68,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Plastic bag of carrots"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 1344.68,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Plastic bag of carrots"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 1341.68,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Countertop"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 1344.68,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Countertop"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"carrots (bag)\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Plastic bag of carrots\",\n    \"timestamp_before\": \"00:02\",\n    \"timestamp_after\": \"00:05\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"Countertop\",\n    \"timestamp_before\": \"00:02\",\n    \"timestamp_after\": \"00:05\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"remaining_count\": 4,\n  \"remaining_description\": null,\n  \"remaining_fraction\": 0.8,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source [VALID]: Start(5) -> End(4). Dest [INVALID_OCCLUDED]: Start(0) -> End(1). Trusting Source Path.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "carrots",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 4,
+          "remaining_description": null,
+          "remaining_fraction": 0.8,
+          "confidence": "high",
+          "visual_evidence": "Source [VALID]: Start(5) -> End(4). Dest [INVALID_OCCLUDED]: Start(0) -> End(1). Trusting Source Path.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:02",
+              "timestamp_after_raw": "00:05",
+              "observed_delta": 1,
+              "confidence": "high",
+              "container_description": "Plastic bag of carrots",
+              "timestamp_before_seconds": 2.0,
+              "absolute_timestamp_before": 1341.68,
+              "timestamp_after_seconds": 5.0,
+              "absolute_timestamp_after": 1344.68
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:02",
+              "timestamp_after_raw": "00:05",
+              "observed_delta": null,
+              "confidence": "low",
+              "container_description": "Countertop",
+              "timestamp_before_seconds": 2.0,
+              "absolute_timestamp_before": 1341.68,
+              "timestamp_after_seconds": 5.0,
+              "absolute_timestamp_after": 1344.68
+            }
+          }
+        },
+        {
+          "segment_id": "seg_11b59ca5",
+          "segment_idx": 1,
+          "video_id": "P01-20240203-123350",
+          "start_timestamp": 1458.0,
+          "end_timestamp": 1470.2,
+          "clip_start": 1456.0,
+          "item_name": "carrots (bag)",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 1456.0,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Plastic bag of carrots"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 1460.0,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Plastic bag of carrots"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 1456.0,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Clear plastic container"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:15",
+              "timestamp_seconds": 15.0,
+              "absolute_timestamp": 1471.0,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Clear plastic container"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"carrots (bag)\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Plastic bag of carrots\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:04\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"Clear plastic container\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:15\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"remaining_count\": 3,\n  \"remaining_description\": \"about 3/4 full\",\n  \"remaining_fraction\": 0.75,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source [VALID]: Start(4) -> End(3). Dest [INVALID_OCCLUDED]: Start(0) -> End(1). Trusting Source Path.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "carrots",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 3,
+          "remaining_description": "about 3/4 full",
+          "remaining_fraction": 0.75,
+          "confidence": "high",
+          "visual_evidence": "Source [VALID]: Start(4) -> End(3). Dest [INVALID_OCCLUDED]: Start(0) -> End(1). Trusting Source Path.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:04",
+              "observed_delta": 1,
+              "confidence": "high",
+              "container_description": "Plastic bag of carrots",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 1456.0,
+              "timestamp_after_seconds": 4.0,
+              "absolute_timestamp_after": 1460.0
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:15",
+              "observed_delta": null,
+              "confidence": "low",
+              "container_description": "Clear plastic container",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 1456.0,
+              "timestamp_after_seconds": 15.0,
+              "absolute_timestamp_after": 1471.0
+            }
+          }
+        },
+        {
+          "segment_id": "seg_86469115",
+          "segment_idx": 2,
+          "video_id": "P01-20240203-123350",
+          "start_timestamp": 1473,
+          "end_timestamp": 1489,
+          "clip_start": 1471.0,
+          "item_name": "carrots (bag)",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 1471.0,
+              "description": "Source before (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "Plastic bag of carrots"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:19",
+              "timestamp_seconds": 19.0,
+              "absolute_timestamp": 1490.0,
+              "description": "Source after (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "Plastic bag of carrots"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 1471.0,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Clear plastic container"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:19",
+              "timestamp_seconds": 19.0,
+              "absolute_timestamp": 1490.0,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Clear plastic container"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"carrots (bag)\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Plastic bag of carrots\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:19\",\n    \"observed_delta\": 2,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"Clear plastic container\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:19\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": 2,\n  \"amount_description\": null,\n  \"remaining_count\": 4,\n  \"remaining_description\": null,\n  \"remaining_fraction\": 0.5,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source [VALID]: Start(6) -> End(4). Dest [INVALID_OCCLUDED]: Start(0) -> End(2). Trusting Source for final count.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "carrots",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 4,
+          "remaining_description": null,
+          "remaining_fraction": 0.5,
+          "confidence": "high",
+          "visual_evidence": "Source [VALID]: Start(6) -> End(4). Dest [INVALID_OCCLUDED]: Start(0) -> End(2). Trusting Source for final count.",
+          "match": "close",
+          "error": 1,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:19",
+              "observed_delta": 2,
+              "confidence": "high",
+              "container_description": "Plastic bag of carrots",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 1471.0,
+              "timestamp_after_seconds": 19.0,
+              "absolute_timestamp_after": 1490.0
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:19",
+              "observed_delta": null,
+              "confidence": "low",
+              "container_description": "Clear plastic container",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 1471.0,
+              "timestamp_after_seconds": 19.0,
+              "absolute_timestamp_after": 1490.0
+            }
+          }
+        },
+        {
+          "segment_id": "seg_6bac6cd9",
+          "segment_idx": 3,
+          "video_id": "P01-20240203-123350",
+          "start_timestamp": 1492,
+          "end_timestamp": 1497,
+          "clip_start": 1490.0,
+          "item_name": "carrots (bag)",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 1490.0,
+              "description": "Source before (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "Plastic bag of carrots"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 1498.0,
+              "description": "Source after (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "Plastic bag of carrots"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 1490.0,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Clear plastic container"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 1498.0,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Clear plastic container"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"carrots (bag)\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Plastic bag of carrots\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": 2,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"Clear plastic container\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": 2,\n  \"amount_description\": null,\n  \"remaining_count\": 4,\n  \"remaining_description\": null,\n  \"remaining_fraction\": 0.5,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source [VALID]: Start(6) -> End(4). Dest [INVALID_OCCLUDED]: Start(0) -> End(2). Trusting Source Path.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "carrots",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 4,
+          "remaining_description": null,
+          "remaining_fraction": 0.5,
+          "confidence": "high",
+          "visual_evidence": "Source [VALID]: Start(6) -> End(4). Dest [INVALID_OCCLUDED]: Start(0) -> End(2). Trusting Source Path.",
+          "match": "close",
+          "error": 1,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": 2,
+              "confidence": "high",
+              "container_description": "Plastic bag of carrots",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 1490.0,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 1498.0
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": null,
+              "confidence": "low",
+              "container_description": "Clear plastic container",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 1490.0,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 1498.0
+            }
+          }
+        },
+        {
+          "segment_id": "seg_2f369e42",
+          "segment_idx": 4,
+          "video_id": "P01-20240203-123350",
+          "start_timestamp": 1512,
+          "end_timestamp": 1518,
+          "clip_start": 1510.0,
+          "item_name": "carrots (bag)",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 1510.0,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Plastic bag of carrots"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 1517.0,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Plastic bag of carrots"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 1510.0,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Plastic container"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:09",
+              "timestamp_seconds": 9.0,
+              "absolute_timestamp": 1519.0,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Plastic container"
+            }
+          ],
+          "raw_vlm_response": "```json\n{\n  \"item_name\": \"carrots (bag)\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Plastic bag of carrots\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:07\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"Plastic container\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:09\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"remaining_count\": 2,\n  \"remaining_description\": null,\n  \"remaining_fraction\": 0.67,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source [VALID]: Start(3) -> End(2). Dest [INVALID_OCCLUDED]: View blocked by hand. Trusting Source Path.\"\n}\n```",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "carrots",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 2,
+          "remaining_description": null,
+          "remaining_fraction": 0.67,
+          "confidence": "high",
+          "visual_evidence": "Source [VALID]: Start(3) -> End(2). Dest [INVALID_OCCLUDED]: View blocked by hand. Trusting Source Path.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:07",
+              "observed_delta": 1,
+              "confidence": "high",
+              "container_description": "Plastic bag of carrots",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 1510.0,
+              "timestamp_after_seconds": 7.0,
+              "absolute_timestamp_after": 1517.0
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:09",
+              "observed_delta": null,
+              "confidence": "low",
+              "container_description": "Plastic container",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 1510.0,
+              "timestamp_after_seconds": 9.0,
+              "absolute_timestamp_after": 1519.0
+            }
+          }
+        },
+        {
+          "segment_id": "seg_8a553234",
+          "segment_idx": 5,
+          "video_id": "P01-20240203-123350",
+          "start_timestamp": 1540,
+          "end_timestamp": 1544,
+          "clip_start": 1538.0,
+          "item_name": "carrots (bag)",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 1538.0,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Plastic bag of carrots"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 1542.0,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Plastic bag of carrots"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 1538.0,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Plastic container with shredded carrots"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 1545.0,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Plastic container with shredded carrots"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"carrots (bag)\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Plastic bag of carrots\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:04\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"Plastic container with shredded carrots\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:07\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"remaining_count\": 3,\n  \"remaining_description\": \"about 3/4 full\",\n  \"remaining_fraction\": 0.75,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source [VALID]: Start(4) -> End(3). Dest [INVALID_OCCLUDED]: View blocked by hand. Trusting Source Path.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "carrots",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 3,
+          "remaining_description": "about 3/4 full",
+          "remaining_fraction": 0.75,
+          "confidence": "high",
+          "visual_evidence": "Source [VALID]: Start(4) -> End(3). Dest [INVALID_OCCLUDED]: View blocked by hand. Trusting Source Path.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:04",
+              "observed_delta": 1,
+              "confidence": "high",
+              "container_description": "Plastic bag of carrots",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 1538.0,
+              "timestamp_after_seconds": 4.0,
+              "absolute_timestamp_after": 1542.0
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:07",
+              "observed_delta": null,
+              "confidence": "low",
+              "container_description": "Plastic container with shredded carrots",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 1538.0,
+              "timestamp_after_seconds": 7.0,
+              "absolute_timestamp_after": 1545.0
+            }
+          }
+        },
+        {
+          "segment_id": "seg_381f25fd",
+          "segment_idx": 6,
+          "video_id": "P01-20240203-123350",
+          "start_timestamp": 1657.66,
+          "end_timestamp": 1704.66,
+          "clip_start": 1655.66,
+          "item_name": "carrots (bag)",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 1659.66,
+              "description": "Source before (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "Plastic bag of carrots"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:27",
+              "timestamp_seconds": 27.0,
+              "absolute_timestamp": 1682.66,
+              "description": "Source after (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "Plastic bag of carrots"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 1659.66,
+              "description": "Destination before (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "Clear plastic container"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:49",
+              "timestamp_seconds": 49.0,
+              "absolute_timestamp": 1704.66,
+              "description": "Destination after (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "Clear plastic container"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"carrots (bag)\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Plastic bag of carrots\",\n    \"timestamp_before\": \"00:04\",\n    \"timestamp_after\": \"00:27\",\n    \"observed_delta\": 2,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Clear plastic container\",\n    \"timestamp_before\": \"00:04\",\n    \"timestamp_after\": \"00:49\",\n    \"observed_delta\": 2,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 2,\n  \"amount_description\": null,\n  \"remaining_count\": 2,\n  \"remaining_description\": null,\n  \"remaining_fraction\": 0.5,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source [VALID]: Start(4) -> End(2). Dest [VALID]: Start(0) -> End(2). Trusting both Source and Destination paths.\"\n}",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "carrots",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 2,
+          "remaining_description": null,
+          "remaining_fraction": 0.5,
+          "confidence": "high",
+          "visual_evidence": "Source [VALID]: Start(4) -> End(2). Dest [VALID]: Start(0) -> End(2). Trusting both Source and Destination paths.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:04",
+              "timestamp_after_raw": "00:27",
+              "observed_delta": 2,
+              "confidence": "high",
+              "container_description": "Plastic bag of carrots",
+              "timestamp_before_seconds": 4.0,
+              "absolute_timestamp_before": 1659.66,
+              "timestamp_after_seconds": 27.0,
+              "absolute_timestamp_after": 1682.66
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:04",
+              "timestamp_after_raw": "00:49",
+              "observed_delta": 2,
+              "confidence": "high",
+              "container_description": "Clear plastic container",
+              "timestamp_before_seconds": 4.0,
+              "absolute_timestamp_before": 1659.66,
+              "timestamp_after_seconds": 49.0,
+              "absolute_timestamp_after": 1704.66
+            }
+          }
+        }
+      ],
+      "total_predicted": 10,
+      "recipe_amount": {
+        "ingredient": "carrots",
+        "amount": "736",
+        "unit": "g",
+        "recipe": "P01_R06"
+      }
+    },
+    {
+      "narration_id": "P01-20240203-121517-70",
+      "food_name": "chicken stock (box)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240203-121517",
+        "P01-20240203-123350",
+        "P01-20240203-130505",
+        "P01-20240203-135502",
+        "P01-20240203-150506",
+        "P01-20240203-152323"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "stock cube",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_21f5c968",
+          "segment_idx": 0,
+          "video_id": "P01-20240203-123350",
+          "start_timestamp": 1173.41,
+          "end_timestamp": 1175.51,
+          "clip_start": 1171.41,
+          "item_name": "chicken stock (box)",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 1171.41,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Orange box of chicken stock"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 1175.41,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Orange box of chicken stock"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 1175.41,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Counter"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 1176.41,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Counter"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"chicken stock (box)\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Orange box of chicken stock\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:04\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"Counter\",\n    \"timestamp_before\": \"00:04\",\n    \"timestamp_after\": \"00:05\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"remaining_count\": 0,\n  \"remaining_description\": \"0 remaining\",\n  \"remaining_fraction\": 0.0,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source [Status]: Start(1) -> End(0). Dest [Status]: Start(0) -> End(1). Trusting Source Path.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "stock cube",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 0,
+          "remaining_description": "0 remaining",
+          "remaining_fraction": 0.0,
+          "confidence": "high",
+          "visual_evidence": "Source [Status]: Start(1) -> End(0). Dest [Status]: Start(0) -> End(1). Trusting Source Path.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:04",
+              "observed_delta": 1,
+              "confidence": "high",
+              "container_description": "Orange box of chicken stock",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 1171.41,
+              "timestamp_after_seconds": 4.0,
+              "absolute_timestamp_after": 1175.41
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:04",
+              "timestamp_after_raw": "00:05",
+              "observed_delta": null,
+              "confidence": "low",
+              "container_description": "Counter",
+              "timestamp_before_seconds": 4.0,
+              "absolute_timestamp_before": 1175.41,
+              "timestamp_after_seconds": 5.0,
+              "absolute_timestamp_after": 1176.41
+            }
+          }
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": null
+    },
+    {
+      "narration_id": "P01-20240203-123350-326",
+      "food_name": "chicken stock cubes",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240203-123350",
+        "P01-20240203-130505",
+        "P01-20240203-132119",
+        "P01-20240203-135502"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "cubes",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_dd730d53",
+          "segment_idx": 0,
+          "video_id": "P01-20240203-132119",
+          "start_timestamp": 65.17,
+          "end_timestamp": 68.334418,
+          "clip_start": 63.17,
+          "item_name": "chicken stock cubes",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 63.17,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Red box of chicken stock cubes"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 67.17,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Red box of chicken stock cubes"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 63.17,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Pot of soup"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 69.17,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Pot of soup"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"chicken stock cubes\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Red box of chicken stock cubes\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:04\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"Pot of soup\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:06\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"remaining_count\": 3,\n  \"remaining_description\": null,\n  \"remaining_fraction\": 0.75,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source [VALID]: Start(4) -> End(3). Dest [INVALID_OCCLUDED]: View blocked by hand. Trusting Source Path.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "cubes",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 3,
+          "remaining_description": null,
+          "remaining_fraction": 0.75,
+          "confidence": "high",
+          "visual_evidence": "Source [VALID]: Start(4) -> End(3). Dest [INVALID_OCCLUDED]: View blocked by hand. Trusting Source Path.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:04",
+              "observed_delta": 1,
+              "confidence": "high",
+              "container_description": "Red box of chicken stock cubes",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 63.17,
+              "timestamp_after_seconds": 4.0,
+              "absolute_timestamp_after": 67.17
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": null,
+              "confidence": "low",
+              "container_description": "Pot of soup",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 63.17,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 69.17
+            }
+          }
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "chicken stock cube",
+        "amount": "1",
+        "unit": "cube",
+        "recipe": "P01_R06"
+      }
+    },
+    {
+      "narration_id": "P01-20240203-161757-113",
+      "food_name": "pies",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240203-132119",
+        "P01-20240203-135502",
+        "P01-20240203-161757"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "pies",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_904f7f75",
+          "segment_idx": 0,
+          "video_id": "P01-20240203-161757",
+          "start_timestamp": 184.68,
+          "end_timestamp": 196.33,
+          "clip_start": 182.68,
+          "item_name": "pies",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 182.68,
+              "description": "Source before (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "Clear plastic container"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:14",
+              "timestamp_seconds": 14.0,
+              "absolute_timestamp": 196.68,
+              "description": "Source after (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "Clear plastic container"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 182.68,
+              "description": "Destination before (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "Blue and white plate"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:14",
+              "timestamp_seconds": 14.0,
+              "absolute_timestamp": 196.68,
+              "description": "Destination after (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "Blue and white plate"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"pies\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Clear plastic container\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:14\",\n    \"observed_delta\": 2,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Blue and white plate\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:14\",\n    \"observed_delta\": 2,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 2,\n  \"amount_description\": null,\n  \"remaining_count\": 2,\n  \"remaining_description\": null,\n  \"remaining_fraction\": 0.5,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source [VALID]: Start(4) -> End(2). Dest [VALID]: Start(0) -> End(2). Trusting both Source and Destination paths for final count.\"\n}",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "pies",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 2,
+          "remaining_description": null,
+          "remaining_fraction": 0.5,
+          "confidence": "high",
+          "visual_evidence": "Source [VALID]: Start(4) -> End(2). Dest [VALID]: Start(0) -> End(2). Trusting both Source and Destination paths for final count.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:14",
+              "observed_delta": 2,
+              "confidence": "high",
+              "container_description": "Clear plastic container",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 182.68,
+              "timestamp_after_seconds": 14.0,
+              "absolute_timestamp_after": 196.68
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:14",
+              "observed_delta": 2,
+              "confidence": "high",
+              "container_description": "Blue and white plate",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 182.68,
+              "timestamp_after_seconds": 14.0,
+              "absolute_timestamp_after": 196.68
+            }
+          }
+        }
+      ],
+      "total_predicted": 2,
+      "recipe_amount": null
+    },
+    {
+      "narration_id": "P01-20240204-142301-162",
+      "food_name": "onions (in mesh bag)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240203-184214",
+        "P01-20240204-120411",
+        "P01-20240204-142301",
+        "P01-20240204-145458",
+        "P01-20240204-152537"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "onions",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_6e4aedcf",
+          "segment_idx": 0,
+          "video_id": "P01-20240204-142301",
+          "start_timestamp": 425.91,
+          "end_timestamp": 427.9,
+          "clip_start": 423.91,
+          "item_name": "onions (in mesh bag)",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 423.91,
+              "description": "Source before (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "Mesh bag of onions"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 428.91,
+              "description": "Source after (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "Mesh bag of onions"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 423.91,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Black cutting board"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 428.91,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Black cutting board"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"onions (in mesh bag)\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Mesh bag of onions\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:05\",\n    \"observed_delta\": 2,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"Black cutting board\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:05\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": 2,\n  \"amount_description\": null,\n  \"remaining_count\": 2,\n  \"remaining_description\": null,\n  \"remaining_fraction\": 0.5,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source [Status]: Start(4) -> End(2). Dest [Status]: Start(0) -> End(2). Trusting Source Path.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "onions",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 2,
+          "remaining_description": null,
+          "remaining_fraction": 0.5,
+          "confidence": "high",
+          "visual_evidence": "Source [Status]: Start(4) -> End(2). Dest [Status]: Start(0) -> End(2). Trusting Source Path.",
+          "match": "close",
+          "error": 1,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:05",
+              "observed_delta": 2,
+              "confidence": "high",
+              "container_description": "Mesh bag of onions",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 423.91,
+              "timestamp_after_seconds": 5.0,
+              "absolute_timestamp_after": 428.91
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:05",
+              "observed_delta": null,
+              "confidence": "low",
+              "container_description": "Black cutting board",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 423.91,
+              "timestamp_after_seconds": 5.0,
+              "absolute_timestamp_after": 428.91
+            }
+          }
+        }
+      ],
+      "total_predicted": 2,
+      "recipe_amount": null
+    },
+    {
+      "narration_id": "P01-20240203-184214-15",
+      "food_name": "chicken (in plastic container)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240203-184214",
+        "P01-20240204-142301",
+        "P01-20240204-152537"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "pieces",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_5f6a9cfd",
+          "segment_idx": 0,
+          "video_id": "P01-20240203-184214",
+          "start_timestamp": 39.3,
+          "end_timestamp": 58.04,
+          "clip_start": 37.3,
+          "item_name": "chicken (in plastic container)",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 37.3,
+              "description": "Source before (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "Plastic container with raw chicken"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:22",
+              "timestamp_seconds": 22.0,
+              "absolute_timestamp": 59.3,
+              "description": "Source after (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "Plastic container with raw chicken"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 37.3,
+              "description": "Destination before (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "White bowl"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:18",
+              "timestamp_seconds": 18.0,
+              "absolute_timestamp": 55.3,
+              "description": "Destination after (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "White bowl"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"chicken (in plastic container)\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Plastic container with raw chicken\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:22\",\n    \"observed_delta\": 2,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"White bowl\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:18\",\n    \"observed_delta\": 2,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 2,\n  \"amount_description\": null,\n  \"remaining_count\": 4,\n  \"remaining_description\": null,\n  \"remaining_fraction\": 0.67,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source [VALID]: Start(6) -> End(4). Dest [VALID]: Start(0) -> End(2). Trusting both Source and Destination paths for final count.\"\n}",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "pieces",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 4,
+          "remaining_description": null,
+          "remaining_fraction": 0.67,
+          "confidence": "high",
+          "visual_evidence": "Source [VALID]: Start(6) -> End(4). Dest [VALID]: Start(0) -> End(2). Trusting both Source and Destination paths for final count.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:22",
+              "observed_delta": 2,
+              "confidence": "high",
+              "container_description": "Plastic container with raw chicken",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 37.3,
+              "timestamp_after_seconds": 22.0,
+              "absolute_timestamp_after": 59.3
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:18",
+              "observed_delta": 2,
+              "confidence": "high",
+              "container_description": "White bowl",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 37.3,
+              "timestamp_after_seconds": 18.0,
+              "absolute_timestamp_after": 55.3
+            }
+          }
+        }
+      ],
+      "total_predicted": 2,
+      "recipe_amount": null
+    },
+    {
+      "narration_id": "P01-20240203-184214-193",
+      "food_name": "garlic (head/bulb)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240203-184214",
+        "P01-20240204-142301",
+        "P01-20240204-152537"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "cloves",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_c3cd7d59",
+          "segment_idx": 0,
+          "video_id": "P01-20240203-184214",
+          "start_timestamp": 468.54,
+          "end_timestamp": 471.22,
+          "clip_start": 466.54,
+          "item_name": "garlic (head/bulb)",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 466.54,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Cabinet under the counter"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 468.54,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Cabinet under the counter"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 466.54,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "White bowl with meat"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 472.54,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "White bowl with meat"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"garlic (head/bulb)\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Cabinet under the counter\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:02\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"White bowl with meat\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:06\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"remaining_count\": 0,\n  \"remaining_description\": \"None\",\n  \"remaining_fraction\": 0.0,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source [VALID]: Start(1) -> End(0). Dest [INVALID_OCCLUDED]: View blocked by hands. Trusting Source Path.\"\n}",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "cloves",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 0,
+          "remaining_description": "None",
+          "remaining_fraction": 0.0,
+          "confidence": "high",
+          "visual_evidence": "Source [VALID]: Start(1) -> End(0). Dest [INVALID_OCCLUDED]: View blocked by hands. Trusting Source Path.",
+          "match": "close",
+          "error": -1,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:02",
+              "observed_delta": 1,
+              "confidence": "high",
+              "container_description": "Cabinet under the counter",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 466.54,
+              "timestamp_after_seconds": 2.0,
+              "absolute_timestamp_after": 468.54
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": null,
+              "confidence": "low",
+              "container_description": "White bowl with meat",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 466.54,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 472.54
+            }
+          }
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": null
+    },
+    {
+      "narration_id": "P01-20240204-095114-11",
+      "food_name": "coffee capsule",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240204-095114"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "capsules",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_e6468f07",
+          "segment_idx": 0,
+          "video_id": "P01-20240204-095114",
+          "start_timestamp": 21.75,
+          "end_timestamp": 23.23,
+          "clip_start": 19.75,
+          "item_name": "coffee capsule",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 21.75,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Box of coffee capsules"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 23.75,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Box of coffee capsules"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 19.75,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Coffee machine"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 24.75,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Coffee machine"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"coffee capsule\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Box of coffee capsules\",\n    \"timestamp_before\": \"00:02\",\n    \"timestamp_after\": \"00:04\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"Coffee machine\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:05\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"remaining_count\": 5,\n  \"remaining_description\": null,\n  \"remaining_fraction\": 0.83,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source [VALID]: Start(6) -> End(5). Dest [INVALID_OCCLUDED]: Start(0) -> End(1). Trusting Source for final count.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "capsules",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 5,
+          "remaining_description": null,
+          "remaining_fraction": 0.83,
+          "confidence": "high",
+          "visual_evidence": "Source [VALID]: Start(6) -> End(5). Dest [INVALID_OCCLUDED]: Start(0) -> End(1). Trusting Source for final count.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:02",
+              "timestamp_after_raw": "00:04",
+              "observed_delta": 1,
+              "confidence": "high",
+              "container_description": "Box of coffee capsules",
+              "timestamp_before_seconds": 2.0,
+              "absolute_timestamp_before": 21.75,
+              "timestamp_after_seconds": 4.0,
+              "absolute_timestamp_after": 23.75
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:05",
+              "observed_delta": null,
+              "confidence": "low",
+              "container_description": "Coffee machine",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 19.75,
+              "timestamp_after_seconds": 5.0,
+              "absolute_timestamp_after": 24.75
+            }
+          }
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": null
+    },
+    {
+      "narration_id": "P01-20240204-142301-125",
+      "food_name": "box of chicken stock cubes",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240204-120411",
+        "P01-20240204-142301",
+        "P01-20240204-145458",
+        "P01-20240204-152537"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "cubes",
+      "num_segments": 2,
+      "segments": [
+        {
+          "segment_id": "seg_83bb8004",
+          "segment_idx": 0,
+          "video_id": "P01-20240204-142301",
+          "start_timestamp": 1316.86,
+          "end_timestamp": 1319.408228,
+          "clip_start": 1314.86,
+          "item_name": "box of chicken stock cubes",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 1314.86,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Orange box of chicken stock cubes"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 1319.86,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Orange box of chicken stock cubes"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 1314.86,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Counter"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 1320.86,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Counter"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"box of chicken stock cubes\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Orange box of chicken stock cubes\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:05\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"Counter\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:06\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"remaining_count\": 1,\n  \"remaining_description\": null,\n  \"remaining_fraction\": 0.5,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source [VALID]: Start(00:00) -> End(00:05). Dest [INVALID_OCCLUDED]: Start(00:00) -> End(00:06). Trusting Source for final count.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "cubes",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 1,
+          "remaining_description": null,
+          "remaining_fraction": 0.5,
+          "confidence": "high",
+          "visual_evidence": "Source [VALID]: Start(00:00) -> End(00:05). Dest [INVALID_OCCLUDED]: Start(00:00) -> End(00:06). Trusting Source for final count.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:05",
+              "observed_delta": 1,
+              "confidence": "high",
+              "container_description": "Orange box of chicken stock cubes",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 1314.86,
+              "timestamp_after_seconds": 5.0,
+              "absolute_timestamp_after": 1319.86
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": null,
+              "confidence": "low",
+              "container_description": "Counter",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 1314.86,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 1320.86
+            }
+          }
+        },
+        {
+          "segment_id": "seg_78e59fea",
+          "segment_idx": 1,
+          "video_id": "P01-20240204-145458",
+          "start_timestamp": 228.52,
+          "end_timestamp": 233.193142,
+          "clip_start": 226.52,
+          "item_name": "box of chicken stock cubes",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "absolute_timestamp": 227.52,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Red box of chicken stock cubes on the refrigerator door shelf"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 233.52,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Red box of chicken stock cubes on the refrigerator door shelf"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 226.52,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Counter"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 234.52,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Counter"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"box of chicken stock cubes\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Red box of chicken stock cubes on the refrigerator door shelf\",\n    \"timestamp_before\": \"00:01\",\n    \"timestamp_after\": \"00:07\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"Counter\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"remaining_count\": 3,\n  \"remaining_description\": \"about 3/4 full\",\n  \"remaining_fraction\": 0.75,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source [VALID]: Start(4) -> End(3). Dest [INVALID_OCCLUDED]: View blocked by hand. Trusting Source Path.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "cubes",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 3,
+          "remaining_description": "about 3/4 full",
+          "remaining_fraction": 0.75,
+          "confidence": "high",
+          "visual_evidence": "Source [VALID]: Start(4) -> End(3). Dest [INVALID_OCCLUDED]: View blocked by hand. Trusting Source Path.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:01",
+              "timestamp_after_raw": "00:07",
+              "observed_delta": 1,
+              "confidence": "high",
+              "container_description": "Red box of chicken stock cubes on the refrigerator door shelf",
+              "timestamp_before_seconds": 1.0,
+              "absolute_timestamp_before": 227.52,
+              "timestamp_after_seconds": 7.0,
+              "absolute_timestamp_after": 233.52
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": null,
+              "confidence": "low",
+              "container_description": "Counter",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 226.52,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 234.52
+            }
+          }
+        }
+      ],
+      "total_predicted": 2,
+      "recipe_amount": null
+    },
+    {
+      "narration_id": "P01-20240204-142301-163",
+      "food_name": "garlic bulb",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240204-120411",
+        "P01-20240204-142301",
+        "P01-20240204-145458",
+        "P01-20240204-152537"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "cloves",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_9a613708",
+          "segment_idx": 0,
+          "video_id": "P01-20240204-142301",
+          "start_timestamp": 407.25,
+          "end_timestamp": 414.166909,
+          "clip_start": 405.25,
+          "item_name": "garlic bulb",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 405.25,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Pack of onions and garlic"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:09",
+              "timestamp_seconds": 9.0,
+              "absolute_timestamp": 414.25,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Pack of onions and garlic"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 405.25,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Black baking tray"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:09",
+              "timestamp_seconds": 9.0,
+              "absolute_timestamp": 414.25,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Black baking tray"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"garlic bulb\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Pack of onions and garlic\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:09\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"Black baking tray\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:09\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"remaining_count\": 1,\n  \"remaining_description\": null,\n  \"remaining_fraction\": 0.5,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source [VALID]: Start(2) -> End(1). Dest [INVALID_OCCLUDED]: View blocked by hand. Trusting Source Path.\"\n}",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "cloves",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 1,
+          "remaining_description": null,
+          "remaining_fraction": 0.5,
+          "confidence": "high",
+          "visual_evidence": "Source [VALID]: Start(2) -> End(1). Dest [INVALID_OCCLUDED]: View blocked by hand. Trusting Source Path.",
+          "match": "close",
+          "error": -1,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:09",
+              "observed_delta": 1,
+              "confidence": "high",
+              "container_description": "Pack of onions and garlic",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 405.25,
+              "timestamp_after_seconds": 9.0,
+              "absolute_timestamp_after": 414.25
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:09",
+              "observed_delta": null,
+              "confidence": "low",
+              "container_description": "Black baking tray",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 405.25,
+              "timestamp_after_seconds": 9.0,
+              "absolute_timestamp_after": 414.25
+            }
+          }
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": null
+    },
+    {
+      "narration_id": "P01-20240204-145458-46",
+      "food_name": "bag of vermicelli",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240204-120411",
+        "P01-20240204-142301",
+        "P01-20240204-145458",
+        "P01-20240204-152537"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "nests",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_eb350607",
+          "segment_idx": 0,
+          "video_id": "P01-20240204-145458",
+          "start_timestamp": 137.14,
+          "end_timestamp": 143.548804,
+          "clip_start": 135.14,
+          "item_name": "bag of vermicelli",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 135.14,
+              "description": "Source before (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "Plastic bag of vermicelli"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 143.14,
+              "description": "Source after (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "Plastic bag of vermicelli"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 135.14,
+              "description": "Destination before (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "Red and white patterned bowl"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 143.14,
+              "description": "Destination after (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "Red and white patterned bowl"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"bag of vermicelli\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Plastic bag of vermicelli\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": 2,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Red and white patterned bowl\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": 2,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 2,\n  \"amount_description\": null,\n  \"remaining_count\": 4,\n  \"remaining_description\": null,\n  \"remaining_fraction\": 0.5,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source [VALID]: Start(6) -> End(4). Dest [VALID]: Start(0) -> End(2). Trusting both Source and Destination paths for final count.\"\n}",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "nests",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 4,
+          "remaining_description": null,
+          "remaining_fraction": 0.5,
+          "confidence": "high",
+          "visual_evidence": "Source [VALID]: Start(6) -> End(4). Dest [VALID]: Start(0) -> End(2). Trusting both Source and Destination paths for final count.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": 2,
+              "confidence": "high",
+              "container_description": "Plastic bag of vermicelli",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 135.14,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 143.14
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": 2,
+              "confidence": "high",
+              "container_description": "Red and white patterned bowl",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 135.14,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 143.14
+            }
+          }
+        }
+      ],
+      "total_predicted": 2,
+      "recipe_amount": null
+    },
+    {
+      "narration_id": "P01-20240204-121042-256",
+      "food_name": "oranges",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240204-121042",
+        "P01-20240204-124504",
+        "P01-20240204-130448"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "oranges",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_5a1d3e47",
+          "segment_idx": 0,
+          "video_id": "P01-20240204-130448",
+          "start_timestamp": 483.25,
+          "end_timestamp": 492.731994,
+          "clip_start": 481.25,
+          "item_name": "oranges",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 481.25,
+              "description": "Source before (delta=6)",
+              "visibility_status": "clear_view",
+              "container_description": "Mesh bag of oranges on the counter"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:10",
+              "timestamp_seconds": 10.0,
+              "absolute_timestamp": 491.25,
+              "description": "Source after (delta=6)",
+              "visibility_status": "clear_view",
+              "container_description": "Mesh bag of oranges on the counter"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 481.25,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Hand holding oranges"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:11",
+              "timestamp_seconds": 11.0,
+              "absolute_timestamp": 492.25,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Hand holding oranges"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"oranges\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Mesh bag of oranges on the counter\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:10\",\n    \"observed_delta\": 6,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"Hand holding oranges\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:11\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": 6,\n  \"amount_description\": null,\n  \"remaining_count\": 0,\n  \"remaining_description\": \"All oranges removed from the bag\",\n  \"remaining_fraction\": 0.0,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source [Status]: Start(6) -> End(0). Dest [Status]: Start(0) -> End(6). Trusting Source Path.\"\n}",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "oranges",
+          "quantity_category": "discrete",
+          "predicted_count": 6,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 0,
+          "remaining_description": "All oranges removed from the bag",
+          "remaining_fraction": 0.0,
+          "confidence": "high",
+          "visual_evidence": "Source [Status]: Start(6) -> End(0). Dest [Status]: Start(0) -> End(6). Trusting Source Path.",
+          "match": "wrong",
+          "error": 4,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:10",
+              "observed_delta": 6,
+              "confidence": "high",
+              "container_description": "Mesh bag of oranges on the counter",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 481.25,
+              "timestamp_after_seconds": 10.0,
+              "absolute_timestamp_after": 491.25
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:11",
+              "observed_delta": null,
+              "confidence": "low",
+              "container_description": "Hand holding oranges",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 481.25,
+              "timestamp_after_seconds": 11.0,
+              "absolute_timestamp_after": 492.25
+            }
+          }
+        }
+      ],
+      "total_predicted": 6,
+      "recipe_amount": null
+    },
+    {
+      "narration_id": "P01-20240204-121042-278",
+      "food_name": "biscuits",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240204-121042",
+        "P01-20240204-124504",
+        "P01-20240204-130448"
+      ],
+      "total_ground_truth": 7,
+      "total_ground_truth_unit": "biscuits",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_e89cbe24",
+          "segment_idx": 0,
+          "video_id": "P01-20240204-121042",
+          "start_timestamp": 652.5,
+          "end_timestamp": 660.08,
+          "clip_start": 650.5,
+          "item_name": "biscuits",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 650.5,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Blue cylindrical package"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:10",
+              "timestamp_seconds": 10.0,
+              "absolute_timestamp": 660.5,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Blue cylindrical package"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 650.5,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Glass food processor bowl"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:10",
+              "timestamp_seconds": 10.0,
+              "absolute_timestamp": 660.5,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Glass food processor bowl"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"biscuits\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Blue cylindrical package\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:10\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Glass food processor bowl\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:10\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"remaining_count\": 4,\n  \"remaining_description\": \"about 3/4 full\",\n  \"remaining_fraction\": 0.75,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source [VALID]: Start(5) -> End(4). Dest [VALID]: Start(0) -> End(1). Trusting both Source and Destination paths.\"\n}",
+          "ground_truth_count": 7,
+          "ground_truth_unit": "biscuits",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 4,
+          "remaining_description": "about 3/4 full",
+          "remaining_fraction": 0.75,
+          "confidence": "high",
+          "visual_evidence": "Source [VALID]: Start(5) -> End(4). Dest [VALID]: Start(0) -> End(1). Trusting both Source and Destination paths.",
+          "match": "wrong",
+          "error": -6,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:10",
+              "observed_delta": 1,
+              "confidence": "high",
+              "container_description": "Blue cylindrical package",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 650.5,
+              "timestamp_after_seconds": 10.0,
+              "absolute_timestamp_after": 660.5
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:10",
+              "observed_delta": 1,
+              "confidence": "high",
+              "container_description": "Glass food processor bowl",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 650.5,
+              "timestamp_after_seconds": 10.0,
+              "absolute_timestamp_after": 660.5
+            }
+          }
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "biscuits",
+        "amount": "192",
+        "unit": "g",
+        "recipe": "P01_R09"
+      }
+    }
+  ]
+}

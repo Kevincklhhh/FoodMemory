@@ -1,0 +1,1321 @@
+{
+  "participant": "P06",
+  "model": "qwen",
+  "tag": "frame_only_qwen_v1",
+  "source_tag": "hybrid_gemini3_batch_low",
+  "prompt_mode": "frame_only",
+  "task": "frame_only_counting",
+  "low_only": true,
+  "total_items": 9,
+  "items": [
+    {
+      "narration_id": "P06-20240510-090328-10",
+      "food_name": "pack of tomatoes",
+      "difficulty": "LOW",
+      "video_range": [
+        "P06-20240510-090328",
+        "P06-20240510-094438",
+        "P06-20240510-100047"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "tomatoes",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_18e637a5",
+          "segment_idx": 0,
+          "video_id": "P06-20240510-090328",
+          "start_timestamp": 123.41499999999999,
+          "end_timestamp": 128.415,
+          "clip_start": 121.41499999999999,
+          "item_name": "pack of tomatoes",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "absolute_timestamp": 121.41,
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Clear plastic bag of tomatoes, visible in both images"
+            },
+            {
+              "role": "source_after",
+              "absolute_timestamp": 129.41,
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Clear plastic bag of tomatoes, visible in both images"
+            },
+            {
+              "role": "dest_before",
+              "absolute_timestamp": 128.41,
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "occluded",
+              "container_description": "Drawer is open but contents are obscured and indistinct"
+            },
+            {
+              "role": "dest_after",
+              "absolute_timestamp": 129.41,
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "occluded",
+              "container_description": "Drawer is open but contents are obscured and indistinct"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"pack of tomatoes\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Clear plastic bag of tomatoes, visible in both images\",\n    \"observed_start_count\": 5,\n    \"observed_end_count\": 5,\n    \"calculated_delta\": 0,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"Drawer is open but contents are obscured and indistinct\",\n    \"observed_start_count\": null,\n    \"observed_end_count\": null,\n    \"calculated_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": 0,\n  \"amount_description\": null,\n  \"volume_fraction\": 0.0,\n  \"remaining_count\": 5,\n  \"remaining_description\": null,\n  \"remaining_fraction\": 1.0,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source view was clear and showed no change in count (5 tomatoes). Destination view was occluded. Trusting Source Path.\"\n}",
+          "quantity_category": "discrete",
+          "predicted_count": 0,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 5,
+          "remaining_description": null,
+          "remaining_fraction": 1.0,
+          "confidence": "high",
+          "visual_evidence": "Source view was clear and showed no change in count (5 tomatoes). Destination view was occluded. Trusting Source Path.",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "tomatoes",
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "container_description": "Clear plastic bag of tomatoes, visible in both images",
+              "observed_start_count": 5,
+              "observed_end_count": 5,
+              "observed_delta": 0,
+              "confidence": "high"
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "container_description": "Drawer is open but contents are obscured and indistinct",
+              "observed_start_count": null,
+              "observed_end_count": null,
+              "observed_delta": null,
+              "confidence": "low"
+            }
+          },
+          "match": "close",
+          "error": -1,
+          "abs_error": 1
+        }
+      ],
+      "total_predicted": null,
+      "recipe_amount": {
+        "ingredient": "tomatoes",
+        "amount": "68",
+        "unit": "g",
+        "recipe": "P06_R01"
+      }
+    },
+    {
+      "narration_id": "P06-20240510-104642-22",
+      "food_name": "coriander stems",
+      "difficulty": "LOW",
+      "video_range": [
+        "P06-20240510-104642",
+        "P06-20240510-115307",
+        "P06-20240510-121619",
+        "P06-20240510-135423"
+      ],
+      "total_ground_truth": null,
+      "total_ground_truth_unit": null,
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_72a3a7b3",
+          "segment_idx": 0,
+          "video_id": "P06-20240510-104642",
+          "start_timestamp": 54.165,
+          "end_timestamp": 59.165,
+          "clip_start": 52.165,
+          "item_name": "coriander stems",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "absolute_timestamp": 52.16,
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Plastic bag containing coriander stems, partially obscured by hands in both images"
+            },
+            {
+              "role": "source_after",
+              "absolute_timestamp": 56.16,
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Plastic bag containing coriander stems, partially obscured by hands in both images"
+            },
+            {
+              "role": "dest_before",
+              "absolute_timestamp": 52.16,
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "description": "Destination before (delta=3)",
+              "visibility_status": "clear_view",
+              "container_description": "Black countertop next to the stove"
+            },
+            {
+              "role": "dest_after",
+              "absolute_timestamp": 55.16,
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "description": "Destination after (delta=3)",
+              "visibility_status": "clear_view",
+              "container_description": "Black countertop next to the stove"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"coriander stems\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"Plastic bag containing coriander stems, partially obscured by hands in both images\",\n    \"observed_start_count\": null,\n    \"observed_end_count\": null,\n    \"calculated_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Black countertop next to the stove\",\n    \"observed_start_count\": 0,\n    \"observed_end_count\": 2,\n    \"calculated_delta\": 2,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 2,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 0,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source view was blocked by hands (Invalid). Dest view clearly showed 2 distinct coriander stems added. Using Path B count.\"\n}",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 0,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source view was blocked by hands (Invalid). Dest view clearly showed 2 distinct coriander stems added. Using Path B count.",
+          "ground_truth_count": null,
+          "ground_truth_unit": null,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "container_description": "Plastic bag containing coriander stems, partially obscured by hands in both images",
+              "observed_start_count": null,
+              "observed_end_count": null,
+              "observed_delta": null,
+              "confidence": "low"
+            },
+            "destination": {
+              "status": "VALID",
+              "container_description": "Black countertop next to the stove",
+              "observed_start_count": 0,
+              "observed_end_count": 2,
+              "observed_delta": 2,
+              "confidence": "high"
+            }
+          }
+        }
+      ],
+      "total_predicted": 2,
+      "recipe_amount": null
+    },
+    {
+      "narration_id": "P06-20240510-104642-23",
+      "food_name": "tomatoes (pack)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P06-20240510-104642",
+        "P06-20240510-115307",
+        "P06-20240510-121619",
+        "P06-20240510-135423"
+      ],
+      "total_ground_truth": 5,
+      "total_ground_truth_unit": "tomatoes",
+      "num_segments": 2,
+      "segments": [
+        {
+          "segment_id": "seg_6eefc0d8",
+          "segment_idx": 0,
+          "video_id": "P06-20240510-104642",
+          "start_timestamp": 375.36,
+          "end_timestamp": 383.34,
+          "clip_start": 373.36,
+          "item_name": "tomatoes (pack)",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "absolute_timestamp": 374.36,
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "description": "Source before (delta=4)",
+              "visibility_status": "clear_view",
+              "container_description": "Clear plastic bag with red tomatoes, visible in both images"
+            },
+            {
+              "role": "source_after",
+              "absolute_timestamp": 384.36,
+              "timestamp_raw": "00:11",
+              "timestamp_seconds": 11.0,
+              "description": "Source after (delta=4)",
+              "visibility_status": "clear_view",
+              "container_description": "Clear plastic bag with red tomatoes, visible in both images"
+            },
+            {
+              "role": "dest_before",
+              "absolute_timestamp": 374.36,
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "description": "Destination before (delta=4)",
+              "visibility_status": "clear_view",
+              "container_description": "Wooden cutting board on the counter"
+            },
+            {
+              "role": "dest_after",
+              "absolute_timestamp": 383.36,
+              "timestamp_raw": "00:10",
+              "timestamp_seconds": 10.0,
+              "description": "Destination after (delta=4)",
+              "visibility_status": "clear_view",
+              "container_description": "Wooden cutting board on the counter"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"tomatoes (pack)\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Clear plastic bag with red tomatoes, visible in both images\",\n    \"observed_start_count\": 4,\n    \"observed_end_count\": 0,\n    \"calculated_delta\": 4,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Wooden cutting board on the counter\",\n    \"observed_start_count\": 0,\n    \"observed_end_count\": 4,\n    \"calculated_delta\": 4,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 4,\n  \"amount_description\": null,\n  \"volume_fraction\": 1.0,\n  \"remaining_count\": 0,\n  \"remaining_description\": null,\n  \"remaining_fraction\": 0.0,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Both source and destination paths are valid and show a clear count of 4 tomatoes removed from the pack and placed on the board. The counts from both paths agree.\"\n}",
+          "quantity_category": "discrete",
+          "predicted_count": 4,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 0,
+          "remaining_description": null,
+          "remaining_fraction": 0.0,
+          "confidence": "high",
+          "visual_evidence": "Both source and destination paths are valid and show a clear count of 4 tomatoes removed from the pack and placed on the board. The counts from both paths agree.",
+          "ground_truth_count": 4,
+          "ground_truth_unit": "tomatoes",
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "container_description": "Clear plastic bag with red tomatoes, visible in both images",
+              "observed_start_count": 4,
+              "observed_end_count": 0,
+              "observed_delta": 4,
+              "confidence": "high"
+            },
+            "destination": {
+              "status": "VALID",
+              "container_description": "Wooden cutting board on the counter",
+              "observed_start_count": 0,
+              "observed_end_count": 4,
+              "observed_delta": 4,
+              "confidence": "high"
+            }
+          },
+          "match": "exact",
+          "error": 0,
+          "abs_error": 0
+        },
+        {
+          "segment_id": "seg_034a9f16",
+          "segment_idx": 1,
+          "video_id": "P06-20240510-104642",
+          "start_timestamp": 2123.495,
+          "end_timestamp": 2128.495,
+          "clip_start": 2121.495,
+          "item_name": "tomatoes (pack)",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "absolute_timestamp": 2123.49,
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "description": "Source before (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "Clear plastic bag with red branding, partially filled with red items (tomatoes)."
+            },
+            {
+              "role": "source_after",
+              "absolute_timestamp": 2129.49,
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "description": "Source after (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "Clear plastic bag with red branding, partially filled with red items (tomatoes)."
+            },
+            {
+              "role": "dest_before",
+              "absolute_timestamp": 2127.49,
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "description": "Destination before (delta=2)",
+              "visibility_status": "occluded",
+              "container_description": "The destination is not visible in the images."
+            },
+            {
+              "role": "dest_after",
+              "absolute_timestamp": 2129.49,
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "description": "Destination after (delta=2)",
+              "visibility_status": "occluded",
+              "container_description": "The destination is not visible in the images."
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"tomatoes (pack)\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Clear plastic bag with red branding, partially filled with red items (tomatoes).\",\n    \"observed_start_count\": 1,\n    \"observed_end_count\": 0,\n    \"calculated_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"The destination is not visible in the images.\",\n    \"observed_start_count\": null,\n    \"observed_end_count\": null,\n    \"calculated_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": 1.0,\n  \"remaining_count\": 0,\n  \"remaining_description\": null,\n  \"remaining_fraction\": 0.0,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source view was clear and showed a single pack being used. Destination view was not visible. Trusting Source Path.\"\n}",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 0,
+          "remaining_description": null,
+          "remaining_fraction": 0.0,
+          "confidence": "high",
+          "visual_evidence": "Source view was clear and showed a single pack being used. Destination view was not visible. Trusting Source Path.",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "tomatoes",
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "container_description": "Clear plastic bag with red branding, partially filled with red items (tomatoes).",
+              "observed_start_count": 1,
+              "observed_end_count": 0,
+              "observed_delta": 1,
+              "confidence": "high"
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "container_description": "The destination is not visible in the images.",
+              "observed_start_count": null,
+              "observed_end_count": null,
+              "observed_delta": null,
+              "confidence": "low"
+            }
+          },
+          "match": "exact",
+          "error": 0,
+          "abs_error": 0
+        }
+      ],
+      "total_predicted": 5,
+      "recipe_amount": {
+        "ingredient": "tomatoes",
+        "amount": "309",
+        "unit": "g",
+        "recipe": "P06_R03"
+      }
+    },
+    {
+      "narration_id": "P06-20240510-104642-282",
+      "food_name": "garlic (fresh)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P06-20240510-104642",
+        "P06-20240510-115307",
+        "P06-20240510-121619",
+        "P06-20240510-135423"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "cloves",
+      "num_segments": 2,
+      "segments": [
+        {
+          "segment_id": "seg_eba4903c",
+          "segment_idx": 0,
+          "video_id": "P06-20240510-104642",
+          "start_timestamp": 642.895,
+          "end_timestamp": 647.895,
+          "clip_start": 640.895,
+          "item_name": "garlic (fresh)",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "absolute_timestamp": 641.89,
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "description": "Source before (delta=None)",
+              "visibility_status": "clear_view",
+              "container_description": "A bulb of garlic being held by hands, with cloves visible."
+            },
+            {
+              "role": "source_after",
+              "absolute_timestamp": 643.89,
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "description": "Source after (delta=None)",
+              "visibility_status": "clear_view",
+              "container_description": "A bulb of garlic being held by hands, with cloves visible."
+            },
+            {
+              "role": "dest_before",
+              "absolute_timestamp": 647.89,
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "occluded",
+              "container_description": "A wooden cutting board with chopped tomatoes, no visible garlic."
+            },
+            {
+              "role": "dest_after",
+              "absolute_timestamp": 648.89,
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "occluded",
+              "container_description": "A wooden cutting board with chopped tomatoes, no visible garlic."
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"garlic (fresh)\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"A bulb of garlic being held by hands, with cloves visible.\",\n    \"observed_start_count\": 1,\n    \"observed_end_count\": 1,\n    \"calculated_delta\": 0,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"A wooden cutting board with chopped tomatoes, no visible garlic.\",\n    \"observed_start_count\": 0,\n    \"observed_end_count\": 0,\n    \"calculated_delta\": 0,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 1,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"low\",\n  \"visual_evidence\": \"Source view was blocked by hands, making it difficult to count cloves. Destination view showed no garlic. However, the action of peeling a clove is visible in the sequence, indicating one clove was removed from the bulb. The source path is invalid due to occlusion, so the destination path is used to confirm the action, but the count is inferred from the action rather than direct observation.\"\n}",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 1,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "low",
+          "visual_evidence": "Source view was blocked by hands, making it difficult to count cloves. Destination view showed no garlic. However, the action of peeling a clove is visible in the sequence, indicating one clove was removed from the bulb. The source path is invalid due to occlusion, so the destination path is used to confirm the action, but the count is inferred from the action rather than direct observation.",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "cloves",
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "container_description": "A bulb of garlic being held by hands, with cloves visible.",
+              "observed_start_count": 1,
+              "observed_end_count": 1,
+              "observed_delta": 0,
+              "confidence": "low"
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "container_description": "A wooden cutting board with chopped tomatoes, no visible garlic.",
+              "observed_start_count": 0,
+              "observed_end_count": 0,
+              "observed_delta": 0,
+              "confidence": "low"
+            }
+          },
+          "match": "exact",
+          "error": 0,
+          "abs_error": 0
+        },
+        {
+          "segment_id": "seg_f24b6c1a",
+          "segment_idx": 1,
+          "video_id": "P06-20240510-115307",
+          "start_timestamp": 350.22,
+          "end_timestamp": 361.3,
+          "clip_start": 348.22,
+          "item_name": "garlic (fresh)",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "absolute_timestamp": 348.22,
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "The garlic is inside a drawer, and the view is obstructed by a hand and other items, making it impossible to count the number of cloves before and after the action."
+            },
+            {
+              "role": "source_after",
+              "absolute_timestamp": 361.22,
+              "timestamp_raw": "00:13",
+              "timestamp_seconds": 13.0,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "The garlic is inside a drawer, and the view is obstructed by a hand and other items, making it impossible to count the number of cloves before and after the action."
+            },
+            {
+              "role": "dest_before",
+              "absolute_timestamp": 348.22,
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "The garlic cloves are being held in the person's hands after being removed from the drawer."
+            },
+            {
+              "role": "dest_after",
+              "absolute_timestamp": 359.22,
+              "timestamp_raw": "00:11",
+              "timestamp_seconds": 11.0,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "The garlic cloves are being held in the person's hands after being removed from the drawer."
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"garlic (fresh)\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"The garlic is inside a drawer, and the view is obstructed by a hand and other items, making it impossible to count the number of cloves before and after the action.\",\n    \"observed_start_count\": null,\n    \"observed_end_count\": null,\n    \"calculated_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"The garlic cloves are being held in the person's hands after being removed from the drawer.\",\n    \"observed_start_count\": 0,\n    \"observed_end_count\": 2,\n    \"calculated_delta\": 2,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 2,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source view was obstructed (Invalid). Dest view clearly showed 2 distinct garlic cloves being held. Using Path B count.\"\n}",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source view was obstructed (Invalid). Dest view clearly showed 2 distinct garlic cloves being held. Using Path B count.",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "cloves",
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "container_description": "The garlic is inside a drawer, and the view is obstructed by a hand and other items, making it impossible to count the number of cloves before and after the action.",
+              "observed_start_count": null,
+              "observed_end_count": null,
+              "observed_delta": null,
+              "confidence": "low"
+            },
+            "destination": {
+              "status": "VALID",
+              "container_description": "The garlic cloves are being held in the person's hands after being removed from the drawer.",
+              "observed_start_count": 0,
+              "observed_end_count": 2,
+              "observed_delta": 2,
+              "confidence": "high"
+            }
+          },
+          "match": "close",
+          "error": 1,
+          "abs_error": 1
+        }
+      ],
+      "total_predicted": 3,
+      "recipe_amount": {
+        "ingredient": "garlic",
+        "amount": "2.83",
+        "unit": "g",
+        "recipe": "P06_R03"
+      }
+    },
+    {
+      "narration_id": "P06-20240510-104642-45",
+      "food_name": "onion",
+      "difficulty": "LOW",
+      "video_range": [
+        "P06-20240510-104642",
+        "P06-20240510-115307",
+        "P06-20240510-121619",
+        "P06-20240510-135423"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "onions",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_077213bf",
+          "segment_idx": 0,
+          "video_id": "P06-20240510-104642",
+          "start_timestamp": 149.785,
+          "end_timestamp": 154.785,
+          "clip_start": 147.785,
+          "item_name": "onion",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "absolute_timestamp": 147.78,
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Red mesh bag containing red onions, visible in both images"
+            },
+            {
+              "role": "source_after",
+              "absolute_timestamp": 154.78,
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Red mesh bag containing red onions, visible in both images"
+            },
+            {
+              "role": "dest_before",
+              "absolute_timestamp": 147.78,
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "occluded",
+              "container_description": "Wooden cutting board with onion pieces, but obscured by hands and motion blur"
+            },
+            {
+              "role": "dest_after",
+              "absolute_timestamp": 155.78,
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "occluded",
+              "container_description": "Wooden cutting board with onion pieces, but obscured by hands and motion blur"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"onion\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Red mesh bag containing red onions, visible in both images\",\n    \"observed_start_count\": 1,\n    \"observed_end_count\": 0,\n    \"calculated_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"Wooden cutting board with onion pieces, but obscured by hands and motion blur\",\n    \"observed_start_count\": 0,\n    \"observed_end_count\": 2,\n    \"calculated_delta\": 2,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 0,\n  \"remaining_description\": null,\n  \"remaining_fraction\": 0.0,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source view was clear and unobstructed, showing one onion removed from the mesh bag. Destination view was heavily occluded by hands and motion blur, making the count unreliable. Trusting Source Path.\"\n}",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 0,
+          "remaining_description": null,
+          "remaining_fraction": 0.0,
+          "confidence": "high",
+          "visual_evidence": "Source view was clear and unobstructed, showing one onion removed from the mesh bag. Destination view was heavily occluded by hands and motion blur, making the count unreliable. Trusting Source Path.",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "onions",
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "container_description": "Red mesh bag containing red onions, visible in both images",
+              "observed_start_count": 1,
+              "observed_end_count": 0,
+              "observed_delta": 1,
+              "confidence": "high"
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "container_description": "Wooden cutting board with onion pieces, but obscured by hands and motion blur",
+              "observed_start_count": 0,
+              "observed_end_count": 2,
+              "observed_delta": 2,
+              "confidence": "low"
+            }
+          },
+          "match": "exact",
+          "error": 0,
+          "abs_error": 0
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "onions",
+        "amount": "93.5",
+        "unit": "g",
+        "recipe": "P06_R03"
+      }
+    },
+    {
+      "narration_id": "P06-20240510-104642-8",
+      "food_name": "green chillies",
+      "difficulty": "LOW",
+      "video_range": [
+        "P06-20240510-104642",
+        "P06-20240510-115307",
+        "P06-20240510-121619",
+        "P06-20240510-135423"
+      ],
+      "total_ground_truth": 7,
+      "total_ground_truth_unit": "chillies",
+      "num_segments": 3,
+      "segments": [
+        {
+          "segment_id": "seg_c26b9d95",
+          "segment_idx": 0,
+          "video_id": "P06-20240510-104642",
+          "start_timestamp": 33.66,
+          "end_timestamp": 39.13,
+          "clip_start": 31.659999999999997,
+          "item_name": "green chillies",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "absolute_timestamp": 33.66,
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "description": "Source before (delta=2)",
+              "visibility_status": "occluded",
+              "container_description": "The source container is not visible. The hand is reaching into the door compartment, obscuring the view of the items inside."
+            },
+            {
+              "role": "source_after",
+              "absolute_timestamp": 40.66,
+              "timestamp_raw": "00:09",
+              "timestamp_seconds": 9.0,
+              "description": "Source after (delta=2)",
+              "visibility_status": "occluded",
+              "container_description": "The source container is not visible. The hand is reaching into the door compartment, obscuring the view of the items inside."
+            },
+            {
+              "role": "dest_before",
+              "absolute_timestamp": 33.66,
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "The destination is the refrigerator door compartment. The view is obstructed by a hand and the items are not clearly visible."
+            },
+            {
+              "role": "dest_after",
+              "absolute_timestamp": 40.66,
+              "timestamp_raw": "00:09",
+              "timestamp_seconds": 9.0,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "The destination is the refrigerator door compartment. The view is obstructed by a hand and the items are not clearly visible."
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"green chillies\",\n  \"quantity_category\": \"unknown\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"The source container is not visible. The hand is reaching into the door compartment, obscuring the view of the items inside.\",\n    \"observed_start_count\": null,\n    \"observed_end_count\": null,\n    \"calculated_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"The destination is the refrigerator door compartment. The view is obstructed by a hand and the items are not clearly visible.\",\n    \"observed_start_count\": null,\n    \"observed_end_count\": null,\n    \"calculated_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": null,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"low\",\n  \"visual_evidence\": \"Both the source and destination views are obstructed by a hand, making it impossible to reliably count the green chillies. The item is not clearly visible in either frame. Therefore, no reliable estimation can be made.\"\n}",
+          "quantity_category": "unknown",
+          "predicted_count": null,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "low",
+          "visual_evidence": "Both the source and destination views are obstructed by a hand, making it impossible to reliably count the green chillies. The item is not clearly visible in either frame. Therefore, no reliable estimation can be made.",
+          "ground_truth_count": 3,
+          "ground_truth_unit": "chillies",
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "container_description": "The source container is not visible. The hand is reaching into the door compartment, obscuring the view of the items inside.",
+              "observed_start_count": null,
+              "observed_end_count": null,
+              "observed_delta": null,
+              "confidence": "low"
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "container_description": "The destination is the refrigerator door compartment. The view is obstructed by a hand and the items are not clearly visible.",
+              "observed_start_count": null,
+              "observed_end_count": null,
+              "observed_delta": null,
+              "confidence": "low"
+            }
+          },
+          "match": "pred_unknown",
+          "error": null,
+          "abs_error": null
+        },
+        {
+          "segment_id": "seg_58c26296",
+          "segment_idx": 1,
+          "video_id": "P06-20240510-104642",
+          "start_timestamp": 813.87,
+          "end_timestamp": 818.87,
+          "clip_start": 811.87,
+          "item_name": "green chillies",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "absolute_timestamp": 811.87,
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Plastic bag containing green chillies, partially obscured by a hand in both images"
+            },
+            {
+              "role": "source_after",
+              "absolute_timestamp": 819.87,
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Plastic bag containing green chillies, partially obscured by a hand in both images"
+            },
+            {
+              "role": "dest_before",
+              "absolute_timestamp": 811.87,
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Black countertop, where green chillies are placed"
+            },
+            {
+              "role": "dest_after",
+              "absolute_timestamp": 819.87,
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Black countertop, where green chillies are placed"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"green chillies\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"Plastic bag containing green chillies, partially obscured by a hand in both images\",\n    \"observed_start_count\": null,\n    \"observed_end_count\": null,\n    \"calculated_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Black countertop, where green chillies are placed\",\n    \"observed_start_count\": 0,\n    \"observed_end_count\": 1,\n    \"calculated_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 0,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source view was blocked by a hand (Invalid). Dest view clearly showed 1 distinct green chilli added. Using Path B count.\"\n}",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 0,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source view was blocked by a hand (Invalid). Dest view clearly showed 1 distinct green chilli added. Using Path B count.",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "chillies",
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "container_description": "Plastic bag containing green chillies, partially obscured by a hand in both images",
+              "observed_start_count": null,
+              "observed_end_count": null,
+              "observed_delta": null,
+              "confidence": "low"
+            },
+            "destination": {
+              "status": "VALID",
+              "container_description": "Black countertop, where green chillies are placed",
+              "observed_start_count": 0,
+              "observed_end_count": 1,
+              "observed_delta": 1,
+              "confidence": "high"
+            }
+          },
+          "match": "close",
+          "error": -1,
+          "abs_error": 1
+        },
+        {
+          "segment_id": "seg_092e5250",
+          "segment_idx": 2,
+          "video_id": "P06-20240510-115307",
+          "start_timestamp": 60.995000000000005,
+          "end_timestamp": 65.995,
+          "clip_start": 58.995000000000005,
+          "item_name": "green chillies",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "absolute_timestamp": 59.0,
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "description": "Source before (delta=4)",
+              "visibility_status": "occluded",
+              "container_description": "Clear plastic bag containing green chillies, but the view is obstructed by hands and the bag's contents are not clearly visible."
+            },
+            {
+              "role": "source_after",
+              "absolute_timestamp": 67.0,
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "description": "Source after (delta=4)",
+              "visibility_status": "occluded",
+              "container_description": "Clear plastic bag containing green chillies, but the view is obstructed by hands and the bag's contents are not clearly visible."
+            },
+            {
+              "role": "dest_before",
+              "absolute_timestamp": 60.0,
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "description": "Destination before (delta=4)",
+              "visibility_status": "clear_view",
+              "container_description": "Black countertop, which is the destination for the green chillies."
+            },
+            {
+              "role": "dest_after",
+              "absolute_timestamp": 67.0,
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "description": "Destination after (delta=4)",
+              "visibility_status": "clear_view",
+              "container_description": "Black countertop, which is the destination for the green chillies."
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"green chillies\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"Clear plastic bag containing green chillies, but the view is obstructed by hands and the bag's contents are not clearly visible.\",\n    \"observed_start_count\": null,\n    \"observed_end_count\": null,\n    \"calculated_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Black countertop, which is the destination for the green chillies.\",\n    \"observed_start_count\": 0,\n    \"observed_end_count\": 2,\n    \"calculated_delta\": 2,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 2,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 0,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source view was blocked by hands and the plastic bag (Invalid). Dest view clearly showed 2 distinct green chillies added to the counter. Using Path B count.\"\n}",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 0,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source view was blocked by hands and the plastic bag (Invalid). Dest view clearly showed 2 distinct green chillies added to the counter. Using Path B count.",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "chillies",
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "container_description": "Clear plastic bag containing green chillies, but the view is obstructed by hands and the bag's contents are not clearly visible.",
+              "observed_start_count": null,
+              "observed_end_count": null,
+              "observed_delta": null,
+              "confidence": "low"
+            },
+            "destination": {
+              "status": "VALID",
+              "container_description": "Black countertop, which is the destination for the green chillies.",
+              "observed_start_count": 0,
+              "observed_end_count": 2,
+              "observed_delta": 2,
+              "confidence": "high"
+            }
+          },
+          "match": "exact",
+          "error": 0,
+          "abs_error": 0
+        }
+      ],
+      "total_predicted": 3,
+      "recipe_amount": {
+        "ingredient": "green chillies",
+        "amount": "11.33",
+        "unit": "g",
+        "recipe": "P06_R03"
+      }
+    },
+    {
+      "narration_id": "P06-20240511-102207-15",
+      "food_name": "bread",
+      "difficulty": "LOW",
+      "video_range": [
+        "P06-20240511-102207"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "pieces",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_c80e944b",
+          "segment_idx": 0,
+          "video_id": "P06-20240511-102207",
+          "start_timestamp": 501.35,
+          "end_timestamp": 515.884492,
+          "clip_start": 499.35,
+          "item_name": "bread",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "absolute_timestamp": 499.35,
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Orange plastic bag of bread, but the view is obstructed by hands and the bag's opening, making it impossible to count the remaining slices."
+            },
+            {
+              "role": "source_after",
+              "absolute_timestamp": 515.35,
+              "timestamp_raw": "00:16",
+              "timestamp_seconds": 16.0,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Orange plastic bag of bread, but the view is obstructed by hands and the bag's opening, making it impossible to count the remaining slices."
+            },
+            {
+              "role": "dest_before",
+              "absolute_timestamp": 510.35,
+              "timestamp_raw": "00:11",
+              "timestamp_seconds": 11.0,
+              "description": "Destination before (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "A single slice of bread is placed on a digital kitchen scale."
+            },
+            {
+              "role": "dest_after",
+              "absolute_timestamp": 515.35,
+              "timestamp_raw": "00:16",
+              "timestamp_seconds": 16.0,
+              "description": "Destination after (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "A single slice of bread is placed on a digital kitchen scale."
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"bread\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"Orange plastic bag of bread, but the view is obstructed by hands and the bag's opening, making it impossible to count the remaining slices.\",\n    \"observed_start_count\": null,\n    \"observed_end_count\": null,\n    \"calculated_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"A single slice of bread is placed on a digital kitchen scale.\",\n    \"observed_start_count\": 0,\n    \"observed_end_count\": 1,\n    \"calculated_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 5,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"slice\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source view was blocked (Invalid). Dest view clearly showed 1 distinct slice added. Using Path B count.\"\n}",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "slice",
+          "remaining_count": 5,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source view was blocked (Invalid). Dest view clearly showed 1 distinct slice added. Using Path B count.",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "pieces",
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "container_description": "Orange plastic bag of bread, but the view is obstructed by hands and the bag's opening, making it impossible to count the remaining slices.",
+              "observed_start_count": null,
+              "observed_end_count": null,
+              "observed_delta": null,
+              "confidence": "low"
+            },
+            "destination": {
+              "status": "VALID",
+              "container_description": "A single slice of bread is placed on a digital kitchen scale.",
+              "observed_start_count": 0,
+              "observed_end_count": 1,
+              "observed_delta": 1,
+              "confidence": "high"
+            }
+          },
+          "match": "close",
+          "error": -1,
+          "abs_error": 1
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "white bread",
+        "amount": "297.67",
+        "unit": "g",
+        "recipe": "P06_R06"
+      }
+    },
+    {
+      "narration_id": "P06-20240511-102207-43",
+      "food_name": "onion",
+      "difficulty": "LOW",
+      "video_range": [
+        "P06-20240511-102207"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "onions",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_fb70d35c",
+          "segment_idx": 0,
+          "video_id": "P06-20240511-102207",
+          "start_timestamp": 120.595,
+          "end_timestamp": 125.595,
+          "clip_start": 118.595,
+          "item_name": "onion",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "absolute_timestamp": 120.59,
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "description": "Source before (delta=1)",
+              "visibility_status": "occluded",
+              "container_description": "Orange bag of 'Toastie' bread, hand is obstructing the view of the contents"
+            },
+            {
+              "role": "source_after",
+              "absolute_timestamp": 125.59,
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "description": "Source after (delta=1)",
+              "visibility_status": "occluded",
+              "container_description": "Orange bag of 'Toastie' bread, hand is obstructing the view of the contents"
+            },
+            {
+              "role": "dest_before",
+              "absolute_timestamp": 120.59,
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "occluded",
+              "container_description": "Black stovetop with a pan, hand is obstructing the view of the pan's contents"
+            },
+            {
+              "role": "dest_after",
+              "absolute_timestamp": 126.59,
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "occluded",
+              "container_description": "Black stovetop with a pan, hand is obstructing the view of the pan's contents"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"onion\",\n  \"quantity_category\": \"unknown\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"Orange bag of 'Toastie' bread, hand is obstructing the view of the contents\",\n    \"observed_start_count\": null,\n    \"observed_end_count\": null,\n    \"calculated_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"Black stovetop with a pan, hand is obstructing the view of the pan's contents\",\n    \"observed_start_count\": null,\n    \"observed_end_count\": null,\n    \"calculated_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": null,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"low\",\n  \"visual_evidence\": \"Neither the source container nor the destination pan is clearly visible due to obstruction by a hand. Both paths are invalid. No visual evidence of onion usage can be determined.\"\n}",
+          "quantity_category": "unknown",
+          "predicted_count": null,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "low",
+          "visual_evidence": "Neither the source container nor the destination pan is clearly visible due to obstruction by a hand. Both paths are invalid. No visual evidence of onion usage can be determined.",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "onions",
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "container_description": "Orange bag of 'Toastie' bread, hand is obstructing the view of the contents",
+              "observed_start_count": null,
+              "observed_end_count": null,
+              "observed_delta": null,
+              "confidence": "low"
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "container_description": "Black stovetop with a pan, hand is obstructing the view of the pan's contents",
+              "observed_start_count": null,
+              "observed_end_count": null,
+              "observed_delta": null,
+              "confidence": "low"
+            }
+          },
+          "match": "pred_unknown",
+          "error": null,
+          "abs_error": null
+        }
+      ],
+      "total_predicted": null,
+      "recipe_amount": {
+        "ingredient": "onions",
+        "amount": "36.85",
+        "unit": "g",
+        "recipe": "P06_R06"
+      }
+    },
+    {
+      "narration_id": "P06-20240511-102207-8",
+      "food_name": "eggs",
+      "difficulty": "LOW",
+      "video_range": [
+        "P06-20240511-102207"
+      ],
+      "total_ground_truth": 4,
+      "total_ground_truth_unit": "eggs",
+      "num_segments": 2,
+      "segments": [
+        {
+          "segment_id": "seg_2c114a95",
+          "segment_idx": 0,
+          "video_id": "P06-20240511-102207",
+          "start_timestamp": 271.79,
+          "end_timestamp": 299.670174,
+          "clip_start": 269.79,
+          "item_name": "eggs",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "absolute_timestamp": 271.79,
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "description": "Source before (delta=3)",
+              "visibility_status": "clear_view",
+              "container_description": "White egg carton, clearly visible with eggs inside"
+            },
+            {
+              "role": "source_after",
+              "absolute_timestamp": 300.79,
+              "timestamp_raw": "00:31",
+              "timestamp_seconds": 31.0,
+              "description": "Source after (delta=3)",
+              "visibility_status": "clear_view",
+              "container_description": "White egg carton, clearly visible with eggs inside"
+            },
+            {
+              "role": "dest_before",
+              "absolute_timestamp": 272.79,
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "description": "Destination before (delta=3)",
+              "visibility_status": "occluded",
+              "container_description": "White bowl on a scale, partially obscured by hand and arm"
+            },
+            {
+              "role": "dest_after",
+              "absolute_timestamp": 300.79,
+              "timestamp_raw": "00:31",
+              "timestamp_seconds": 31.0,
+              "description": "Destination after (delta=3)",
+              "visibility_status": "occluded",
+              "container_description": "White bowl on a scale, partially obscured by hand and arm"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"eggs\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"White egg carton, clearly visible with eggs inside\",\n    \"observed_start_count\": 6,\n    \"observed_end_count\": 4,\n    \"calculated_delta\": 2,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"White bowl on a scale, partially obscured by hand and arm\",\n    \"observed_start_count\": null,\n    \"observed_end_count\": null,\n    \"calculated_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": 2,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 4,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source carton clearly showed 6->4 eggs. Dest view was blocked by hand. Trusting Source Path.\"\n}",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 4,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source carton clearly showed 6->4 eggs. Dest view was blocked by hand. Trusting Source Path.",
+          "ground_truth_count": 3,
+          "ground_truth_unit": "eggs",
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "container_description": "White egg carton, clearly visible with eggs inside",
+              "observed_start_count": 6,
+              "observed_end_count": 4,
+              "observed_delta": 2,
+              "confidence": "high"
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "container_description": "White bowl on a scale, partially obscured by hand and arm",
+              "observed_start_count": null,
+              "observed_end_count": null,
+              "observed_delta": null,
+              "confidence": "low"
+            }
+          },
+          "match": "close",
+          "error": -1,
+          "abs_error": 1
+        },
+        {
+          "segment_id": "seg_962d79c4",
+          "segment_idx": 1,
+          "video_id": "P06-20240511-102207",
+          "start_timestamp": 306.46595,
+          "end_timestamp": 309.19,
+          "clip_start": 304.46595,
+          "item_name": "eggs",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "absolute_timestamp": 304.47,
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "White egg carton on the right side of the counter, with a clear view of the eggs inside."
+            },
+            {
+              "role": "source_after",
+              "absolute_timestamp": 310.47,
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "White egg carton on the right side of the counter, with a clear view of the eggs inside."
+            },
+            {
+              "role": "dest_before",
+              "absolute_timestamp": 304.47,
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "White bowl on a digital scale, containing cracked eggs."
+            },
+            {
+              "role": "dest_after",
+              "absolute_timestamp": 310.47,
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "White bowl on a digital scale, containing cracked eggs."
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"eggs\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"White egg carton on the right side of the counter, with a clear view of the eggs inside.\",\n    \"observed_start_count\": 3,\n    \"observed_end_count\": 2,\n    \"calculated_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"White bowl on a digital scale, containing cracked eggs.\",\n    \"observed_start_count\": 0,\n    \"observed_end_count\": 1,\n    \"calculated_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 2,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Both source and destination paths are valid. The source carton clearly shows a reduction from 3 to 2 eggs. The destination bowl clearly shows the addition of 1 egg. The counts from both paths agree, confirming the usage of 1 egg.\"\n}",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 2,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Both source and destination paths are valid. The source carton clearly shows a reduction from 3 to 2 eggs. The destination bowl clearly shows the addition of 1 egg. The counts from both paths agree, confirming the usage of 1 egg.",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "eggs",
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "container_description": "White egg carton on the right side of the counter, with a clear view of the eggs inside.",
+              "observed_start_count": 3,
+              "observed_end_count": 2,
+              "observed_delta": 1,
+              "confidence": "high"
+            },
+            "destination": {
+              "status": "VALID",
+              "container_description": "White bowl on a digital scale, containing cracked eggs.",
+              "observed_start_count": 0,
+              "observed_end_count": 1,
+              "observed_delta": 1,
+              "confidence": "high"
+            }
+          },
+          "match": "exact",
+          "error": 0,
+          "abs_error": 0
+        }
+      ],
+      "total_predicted": 3,
+      "recipe_amount": {
+        "ingredient": "eggs",
+        "amount": "195.6",
+        "unit": "g",
+        "recipe": "P06_R06"
+      }
+    }
+  ]
+}

@@ -9,6 +9,7 @@ Contains:
 - Common prompts
 """
 
+import hashlib
 import os
 import json
 import pickle
@@ -32,6 +33,51 @@ DEFAULT_PICKLE_PATH = _PROJECT_ROOT / "data" / "hd-epic-annotations" / "narratio
 
 # Cache for pickle data
 _PICKLE_CACHE = None
+
+
+# ============================================================
+# SEGMENT ID GENERATION
+# ============================================================
+
+def generate_segment_id(narration_id: str, video_id: str, start_ts: float, end_ts: float) -> str:
+    """
+    Generate a stable segment ID using hash of immutable properties.
+
+    Args:
+        narration_id: Parent item's narration ID (e.g., 'P03-20240216-185832-1024')
+        video_id: Video ID for this segment (e.g., 'P03-20240216-185832')
+        start_ts: Start timestamp in seconds
+        end_ts: End timestamp in seconds
+
+    Returns:
+        Segment ID like 'seg_a3b8c92f' (8-char hex hash)
+    """
+    # Use 2 decimal places for timestamps to ensure stability
+    key = f"{narration_id}:{video_id}:{start_ts:.2f}:{end_ts:.2f}"
+    hash_hex = hashlib.sha256(key.encode()).hexdigest()[:8]
+    return f"seg_{hash_hex}"
+
+
+def add_segment_ids_to_item(item: Dict) -> Dict:
+    """
+    Add segment_id to each dispensal_segment in an item.
+
+    Args:
+        item: Item dict with narration_id and dispensal_segments
+
+    Returns:
+        Item dict with segment_ids added to segments
+    """
+    narration_id = item.get('narration_id', '')
+    segments = item.get('dispensal_segments', [])
+
+    for seg in segments:
+        video_id = seg.get('video_id', '')
+        start_ts = seg.get('start_timestamp', 0)
+        end_ts = seg.get('end_timestamp', 0)
+        seg['segment_id'] = generate_segment_id(narration_id, video_id, start_ts, end_ts)
+
+    return item
 
 
 class GPTClient:

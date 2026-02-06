@@ -1,0 +1,1043 @@
+{
+  "participant": "P08",
+  "model": "qwen",
+  "tag": "block30s",
+  "method": "baseline",
+  "block_duration": 30.0,
+  "low_only": true,
+  "total_items": 21,
+  "items": [
+    {
+      "narration_id": "P08-20240613-123547-41",
+      "food_name": "cherry tomatoes",
+      "difficulty": "LOW",
+      "video_range": [
+        "P08-20240613-123547"
+      ],
+      "total_ground_truth": 4,
+      "total_ground_truth_unit": "tomatoes",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_1b61d79b",
+          "segment_idx": 0,
+          "video_id": "P08-20240613-123547",
+          "start_timestamp": 230.04,
+          "end_timestamp": 247.97,
+          "ground_truth_count": 4,
+          "ground_truth_unit": "tomatoes",
+          "quantity_category": "discrete",
+          "predicted_count": 3,
+          "predicted_amount": "three cherry tomatoes",
+          "predicted_unit": "unit",
+          "detected_item_name": "cherry tomatoes",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "close",
+          "error": -1,
+          "blocks_queried": [
+            7,
+            8
+          ],
+          "aggregation_used": true,
+          "aggregation_reasoning": "Both Block 7 and Block 8 detected cherry tomatoes with high confidence. Block 7 observed three cherry tomatoes being moved to a bowl, with two remaining, indicating three were handled. Block 8 observed three cherry tomatoes on the cutting board, all of which were sliced, with one remaining whole, confirming three were present and acted upon. The counts are consistent across both blocks, and the item is clearly identified. Therefore, the final count is aggregated as three discrete cherry tomatoes.",
+          "num_blocks_aggregated": 2
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "cherry tomatoes",
+        "amount": "3",
+        "unit": "quantity",
+        "recipe": "P08_R02"
+      },
+      "total_predicted": 3
+    },
+    {
+      "narration_id": "P08-20240614-085000-22",
+      "food_name": "red onion",
+      "difficulty": "LOW",
+      "video_range": [
+        "P08-20240614-085000"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "onions",
+      "num_segments": 2,
+      "segments": [
+        {
+          "segment_id": "seg_7fb65c39",
+          "segment_idx": 0,
+          "video_id": "P08-20240614-085000",
+          "start_timestamp": 53.14,
+          "end_timestamp": 58.14,
+          "ground_truth_count": 1,
+          "ground_truth_unit": "onions",
+          "quantity_category": "continuous",
+          "predicted_count": null,
+          "predicted_amount": "a full bag",
+          "predicted_unit": "unit",
+          "detected_item_name": "bag of spinach",
+          "item_match": false,
+          "item_similarity": 0.40483126044273376,
+          "confidence": "high",
+          "match": "item_mismatch",
+          "error": null,
+          "blocks_queried": [
+            1
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 1,
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": 1.0,
+          "visual_evidence": "The bag of spinach was fully removed from the refrigerator and placed on the counter. The refrigerator door was closed, and the bag was no longer visible in the fridge, indicating it was completely removed."
+        },
+        {
+          "segment_id": "seg_4b882a01",
+          "segment_idx": 1,
+          "video_id": "P08-20240614-085000",
+          "start_timestamp": 308.06,
+          "end_timestamp": 313.06,
+          "ground_truth_count": 1,
+          "ground_truth_unit": "onions",
+          "quantity_category": "discrete",
+          "predicted_count": 3,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "carton of eggs",
+          "item_match": false,
+          "item_similarity": 0.1344202607870102,
+          "confidence": "high",
+          "match": "item_mismatch",
+          "error": 2,
+          "blocks_queried": [
+            10
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 10,
+          "remaining_count": 4,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "visual_evidence": "Carton started with 7 eggs. Hand blocked view during pick up. After hand left, 4 eggs remaining in carton."
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "red onions",
+        "amount": "45",
+        "unit": "g",
+        "recipe": "P08_R03"
+      },
+      "total_predicted": 3
+    },
+    {
+      "narration_id": "P08-20240614-085000-4",
+      "food_name": "carton of eggs",
+      "difficulty": "LOW",
+      "video_range": [
+        "P08-20240614-085000"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "eggs",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_9b1cdf2e",
+          "segment_idx": 0,
+          "video_id": "P08-20240614-085000",
+          "start_timestamp": 313.13,
+          "end_timestamp": 326.917068,
+          "ground_truth_count": 2,
+          "ground_truth_unit": "eggs",
+          "quantity_category": "discrete",
+          "predicted_count": 3,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "carton of eggs",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "close",
+          "error": 1,
+          "blocks_queried": [
+            10
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 10,
+          "remaining_count": 4,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "visual_evidence": "Carton started with 7 eggs. Hand blocked view during pick up. After hand left, 4 eggs remaining in carton."
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "eggs",
+        "amount": "99.2",
+        "unit": "g",
+        "recipe": "P08_R03"
+      },
+      "total_predicted": 3
+    },
+    {
+      "narration_id": "P08-20240614-125650-22",
+      "food_name": "chicken thigh",
+      "difficulty": "LOW",
+      "video_range": [
+        "P08-20240614-125650",
+        "P08-20240614-132938"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "chicken thigh",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_a5339749",
+          "segment_idx": 0,
+          "video_id": "P08-20240614-125650",
+          "start_timestamp": 88.1,
+          "end_timestamp": 93.1,
+          "ground_truth_count": 1,
+          "ground_truth_unit": "chicken thigh",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": "304g",
+          "predicted_unit": "unit",
+          "detected_item_name": "chicken thigh",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "exact",
+          "error": 0,
+          "blocks_queried": [
+            2,
+            3
+          ],
+          "aggregation_used": true,
+          "aggregation_reasoning": "Block 2 detected a chicken thigh with high confidence and provided a specific weight measurement. Block 3 detected salt being used, but this appears to be a seasoning action applied to the chicken rather than a primary dispensing event. Since the chicken thigh is the only item with a discrete count and clear measurement, it is the primary item dispensed. The salt usage is secondary and does not represent a standalone dispensing event.",
+          "num_blocks_aggregated": 2
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "chicken thighs",
+        "amount": "300",
+        "unit": "g",
+        "recipe": "P08_R04"
+      },
+      "total_predicted": 1
+    },
+    {
+      "narration_id": "P08-20240614-184945-3",
+      "food_name": "salmon skewers (package)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P08-20240614-184945"
+      ],
+      "total_ground_truth": null,
+      "total_ground_truth_unit": "skewers",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_67cec657",
+          "segment_idx": 0,
+          "video_id": "P08-20240614-184945",
+          "start_timestamp": 94.63999999999999,
+          "end_timestamp": 99.63999999999999,
+          "ground_truth_count": null,
+          "ground_truth_unit": "skewers",
+          "quantity_category": "discrete",
+          "predicted_count": 6,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "salmon skewers (package)",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "gt_uncountable",
+          "error": null,
+          "blocks_queried": [
+            3
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 3,
+          "remaining_count": 6,
+          "remaining_description": null,
+          "remaining_fraction": 0.5,
+          "visual_evidence": "The container started with 12 skewers. The user removed 6 skewers and placed them on the foil-lined tray. The container now has 6 skewers remaining."
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "teriyaki salmon kebabs",
+        "amount": "230",
+        "unit": "g",
+        "recipe": "P08_R05"
+      },
+      "total_predicted": 6
+    },
+    {
+      "narration_id": "P08-20240614-184945-71",
+      "food_name": "frozen broccoli (bag)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P08-20240614-184945"
+      ],
+      "total_ground_truth": 5,
+      "total_ground_truth_unit": "broccoli",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_4efc055d",
+          "segment_idx": 0,
+          "video_id": "P08-20240614-184945",
+          "start_timestamp": 221.22,
+          "end_timestamp": 236.64275,
+          "ground_truth_count": 5,
+          "ground_truth_unit": "broccoli",
+          "quantity_category": "continuous",
+          "predicted_count": null,
+          "predicted_amount": "142 grams",
+          "predicted_unit": "gram",
+          "detected_item_name": "frozen broccoli",
+          "item_match": true,
+          "item_similarity": 0.9034892916679382,
+          "confidence": "high",
+          "match": "continuous_estimate",
+          "error": null,
+          "blocks_queried": [
+            7
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 7,
+          "remaining_count": null,
+          "remaining_description": "about 2/3 of the bag",
+          "remaining_fraction": 0.67,
+          "visual_evidence": "A bag of frozen broccoli is the source. The user removes several florets and places them on a scale, which reads 142 grams. The bag is visibly less full after the action."
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "broccoli",
+        "amount": "142",
+        "unit": "g",
+        "recipe": "P08_R05"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P08-20240617-130401-19",
+      "food_name": "tomatoes",
+      "difficulty": "LOW",
+      "video_range": [
+        "P08-20240617-130401"
+      ],
+      "total_ground_truth": 6,
+      "total_ground_truth_unit": "tomato",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_3726adaa",
+          "segment_idx": 0,
+          "video_id": "P08-20240617-130401",
+          "start_timestamp": 315.08500000000004,
+          "end_timestamp": 323,
+          "ground_truth_count": 6,
+          "ground_truth_unit": "tomato",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "cherry tomatoes",
+          "item_match": true,
+          "item_similarity": 0.8315181732177734,
+          "confidence": "high",
+          "match": "wrong",
+          "error": -5,
+          "blocks_queried": [
+            10
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 10,
+          "remaining_count": 6,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "visual_evidence": "A white bowl containing cherry tomatoes is on the counter. A hand picks up one cherry tomato from the bowl and places it on the counter. The bowl initially contains 7 cherry tomatoes, and after the action, 6 remain in the bowl."
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "cherry tomatoes",
+        "amount": "4",
+        "unit": "quantity",
+        "recipe": "P08_R06"
+      },
+      "total_predicted": 1
+    },
+    {
+      "narration_id": "P08-20240617-130401-200",
+      "food_name": "celery",
+      "difficulty": "LOW",
+      "video_range": [
+        "P08-20240617-130401"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "stalk",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_61c1e301",
+          "segment_idx": 0,
+          "video_id": "P08-20240617-130401",
+          "start_timestamp": 493.855,
+          "end_timestamp": 498.855,
+          "ground_truth_count": 1,
+          "ground_truth_unit": "stalk",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "celery",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "exact",
+          "error": 0,
+          "blocks_queried": [
+            16
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 16,
+          "remaining_count": 5,
+          "remaining_description": null,
+          "remaining_fraction": 0.9,
+          "visual_evidence": "A bag of celery was on the counter. The user took out one stalk and placed it on the cutting board. The bag still contains several stalks."
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "celery",
+        "amount": "31",
+        "unit": "g",
+        "recipe": "P08_R06"
+      },
+      "total_predicted": 1
+    },
+    {
+      "narration_id": "P08-20240617-130401-254",
+      "food_name": "can of tuna",
+      "difficulty": "LOW",
+      "video_range": [
+        "P08-20240617-130401"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "cans",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_2ed3b5f1",
+          "segment_idx": 0,
+          "video_id": "P08-20240617-130401",
+          "start_timestamp": 1395.96,
+          "end_timestamp": 1417.61,
+          "ground_truth_count": 1,
+          "ground_truth_unit": "can",
+          "quantity_category": "continuous",
+          "predicted_count": 100,
+          "predicted_amount": "approximately 100g",
+          "predicted_unit": "scoop",
+          "detected_item_name": "can of tuna",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "continuous_estimate",
+          "error": null,
+          "blocks_queried": [
+            46,
+            47
+          ],
+          "aggregation_used": true,
+          "aggregation_reasoning": "Both Block 46 and Block 47 detected 'can of tuna' with high confidence. Block 47 provided a specific measurement of approximately 100g being dispensed, which is consistent with the action described in Block 46. The continuous nature of the dispensing action and the consistent detection across both blocks support aggregating the count to 100g.",
+          "num_blocks_aggregated": 2
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "tuna",
+        "amount": "51",
+        "unit": "g",
+        "recipe": "P08_R06"
+      },
+      "total_predicted": 100
+    },
+    {
+      "narration_id": "P08-20240617-130401-260",
+      "food_name": "carrots",
+      "difficulty": "LOW",
+      "video_range": [
+        "P08-20240617-130401"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "carrots",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_13f0ed72",
+          "segment_idx": 0,
+          "video_id": "P08-20240617-130401",
+          "start_timestamp": 632.625,
+          "end_timestamp": 637.625,
+          "ground_truth_count": 1,
+          "ground_truth_unit": "carrots",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "carrots",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "exact",
+          "error": 0,
+          "blocks_queried": [
+            21
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 21,
+          "remaining_count": 7,
+          "remaining_description": null,
+          "remaining_fraction": 0.875,
+          "visual_evidence": "A bag of carrots is on the counter. The user takes one carrot out of the bag and places it on the cutting board. The bag initially appears to contain 8 carrots, and after the action, 7 are left in the bag."
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "carrots",
+        "amount": "70",
+        "unit": "g",
+        "recipe": "P08_R06"
+      },
+      "total_predicted": 1
+    },
+    {
+      "narration_id": "P08-20240617-184909-191",
+      "food_name": "chili peppers",
+      "difficulty": "LOW",
+      "video_range": [
+        "P08-20240617-184909"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "chili peppers",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_00225c8f",
+          "segment_idx": 0,
+          "video_id": "P08-20240617-184909",
+          "start_timestamp": 484.395,
+          "end_timestamp": 489.395,
+          "ground_truth_count": 1,
+          "ground_truth_unit": "chili pepper",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "chili peppers",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "exact",
+          "error": 0,
+          "blocks_queried": [
+            16
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 16,
+          "remaining_count": 7,
+          "remaining_description": null,
+          "remaining_fraction": 0.875,
+          "visual_evidence": "A container with 8 chili peppers is visible. A hand picks up one green chili pepper. After the action, 7 chili peppers remain in the container."
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "green chilli",
+        "amount": "3",
+        "unit": "g",
+        "recipe": "P08_R07"
+      },
+      "total_predicted": 1
+    },
+    {
+      "narration_id": "P08-20240617-184909-266",
+      "food_name": "garlic",
+      "difficulty": "LOW",
+      "video_range": [
+        "P08-20240617-184909"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "cloves",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_65e1b415",
+          "segment_idx": 0,
+          "video_id": "P08-20240617-184909",
+          "start_timestamp": 680.31,
+          "end_timestamp": 693.133589,
+          "ground_truth_count": 2,
+          "ground_truth_unit": "cloves",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": "2 cloves of garlic",
+          "predicted_unit": "unit",
+          "detected_item_name": "garlic",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "exact",
+          "error": 0,
+          "blocks_queried": [
+            22,
+            23
+          ],
+          "aggregation_used": true,
+          "aggregation_reasoning": "Both Block 22 and Block 23 detected garlic with high confidence. Block 22 shows one clove taken from a bag, and Block 23 shows one clove taken from a bulb. Since both blocks independently confirm the use of garlic cloves and the actions are consistent with dispensing discrete units, the total count is aggregated to 2 cloves. The item is clearly identified as garlic, and no conflicting items are detected.",
+          "num_blocks_aggregated": 2
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "garlic",
+        "amount": "5",
+        "unit": "g",
+        "recipe": "P08_R07"
+      },
+      "total_predicted": 2
+    },
+    {
+      "narration_id": "P08-20240617-184909-3",
+      "food_name": "fish cakes",
+      "difficulty": "LOW",
+      "video_range": [
+        "P08-20240617-184909"
+      ],
+      "total_ground_truth": 3,
+      "total_ground_truth_unit": "fish cakes",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_7fe2ec57",
+          "segment_idx": 0,
+          "video_id": "P08-20240617-184909",
+          "start_timestamp": 43.63,
+          "end_timestamp": 59.9,
+          "ground_truth_count": 3,
+          "ground_truth_unit": "fish cakes",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "fish cakes",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "close",
+          "error": -1,
+          "blocks_queried": [
+            1
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 1,
+          "remaining_count": 2,
+          "remaining_description": null,
+          "remaining_fraction": 0.5,
+          "visual_evidence": "The container started with 4 fish cakes. The user removed two fish cakes and placed them on the foil-lined tray. The container now has 2 fish cakes remaining."
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "cod fishcakes; salmon fishcakes",
+        "amount": "3",
+        "unit": "fish cake",
+        "recipe": "P08_R07"
+      },
+      "total_predicted": 2
+    },
+    {
+      "narration_id": "P08-20240618-163547-105",
+      "food_name": "yellow onion",
+      "difficulty": "LOW",
+      "video_range": [
+        "P08-20240618-163547",
+        "P08-20240618-171546"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "onions",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_e49d57dd",
+          "segment_idx": 0,
+          "video_id": "P08-20240618-163547",
+          "start_timestamp": 244.625,
+          "end_timestamp": 249.625,
+          "ground_truth_count": 1,
+          "ground_truth_unit": "onions",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "cherry tomatoes",
+          "item_match": false,
+          "item_similarity": 0.3568984866142273,
+          "confidence": "high",
+          "match": "item_mismatch",
+          "error": 0,
+          "blocks_queried": [
+            8
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 8,
+          "remaining_count": 11,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "visual_evidence": "A container of cherry tomatoes is visible on the counter. A hand picks up one cherry tomato from the container and places it into a white bowl. The container originally appeared to have 12 tomatoes, and after the action, 11 are visible."
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "yellow onions",
+        "amount": "171",
+        "unit": "g",
+        "recipe": "P08_R08"
+      },
+      "total_predicted": 1
+    },
+    {
+      "narration_id": "P08-20240618-163547-235",
+      "food_name": "cherry tomatoes",
+      "difficulty": "LOW",
+      "video_range": [
+        "P08-20240618-163547",
+        "P08-20240618-171546"
+      ],
+      "total_ground_truth": null,
+      "total_ground_truth_unit": null,
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_d7d9c355",
+          "segment_idx": 0,
+          "video_id": "P08-20240618-163547",
+          "start_timestamp": 614.95,
+          "end_timestamp": 640.25,
+          "ground_truth_count": null,
+          "ground_truth_unit": null,
+          "quantity_category": "discrete",
+          "predicted_count": 12,
+          "predicted_amount": "12 cherry tomatoes",
+          "predicted_unit": "unit",
+          "detected_item_name": "cherry tomatoes",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "gt_uncountable",
+          "error": null,
+          "blocks_queried": [
+            20,
+            21
+          ],
+          "aggregation_used": true,
+          "aggregation_reasoning": "Both Block 20 and Block 21 detected cherry tomatoes with high confidence. Block 20 reported 8 tomatoes and Block 21 reported 4 tomatoes, both as discrete items. The actions described (taking tomatoes from a container and placing them on a cutting board or into a bowl) are consistent with dispensing discrete units. The counts are combined to give a total of 12 cherry tomatoes.",
+          "num_blocks_aggregated": 2
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "cherry tomatoes",
+        "amount": "160",
+        "unit": "g",
+        "recipe": "P08_R08"
+      },
+      "total_predicted": 12
+    },
+    {
+      "narration_id": "P08-20240618-163547-24",
+      "food_name": "celery stalks",
+      "difficulty": "LOW",
+      "video_range": [
+        "P08-20240618-163547",
+        "P08-20240618-171546"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "stalks",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_36fa5283",
+          "segment_idx": 0,
+          "video_id": "P08-20240618-163547",
+          "start_timestamp": 686.37,
+          "end_timestamp": 691.37,
+          "ground_truth_count": 1,
+          "ground_truth_unit": "stalks",
+          "quantity_category": "discrete",
+          "predicted_count": 3,
+          "predicted_amount": "Three celery stalks were removed from the bag and placed on the counter and cutting board.",
+          "predicted_unit": "unit",
+          "detected_item_name": "celery stalks",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "wrong",
+          "error": 2,
+          "blocks_queried": [
+            22,
+            23
+          ],
+          "aggregation_used": true,
+          "aggregation_reasoning": "Both Block 22 and Block 23 detected celery stalks, with high confidence. Block 22 reported 2 stalks removed, and Block 23 reported 1 stalk removed. The items are consistent (celery stalks), and the counts are discrete and additive. Therefore, the total count is 3 discrete celery stalks.",
+          "num_blocks_aggregated": 2
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "celery",
+        "amount": "51",
+        "unit": "g",
+        "recipe": "P08_R08"
+      },
+      "total_predicted": 3
+    },
+    {
+      "narration_id": "P08-20240618-163547-291",
+      "food_name": "carrot",
+      "difficulty": "LOW",
+      "video_range": [
+        "P08-20240618-163547",
+        "P08-20240618-171546"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "carrots",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_78bf04cb",
+          "segment_idx": 0,
+          "video_id": "P08-20240618-163547",
+          "start_timestamp": 772.5899999999999,
+          "end_timestamp": 777.5899999999999,
+          "ground_truth_count": 1,
+          "ground_truth_unit": "carrots",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "carrots",
+          "item_match": true,
+          "item_similarity": 0.8897356986999512,
+          "confidence": "high",
+          "match": "exact",
+          "error": 0,
+          "blocks_queried": [
+            25
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 25,
+          "remaining_count": 4,
+          "remaining_description": null,
+          "remaining_fraction": 0.8,
+          "visual_evidence": "A bag of carrots is visible on the counter. The user's hand reaches in and takes one carrot. The bag appears to have been full before the action and now has one less carrot."
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "carrots",
+        "amount": "87",
+        "unit": "g",
+        "recipe": "P08_R08"
+      },
+      "total_predicted": 1
+    },
+    {
+      "narration_id": "P08-20240618-163547-390",
+      "food_name": "green chilies (chilli peppers)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P08-20240618-163547",
+        "P08-20240618-171546"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "peppers",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_a04dcc54",
+          "segment_idx": 0,
+          "video_id": "P08-20240618-163547",
+          "start_timestamp": 1505.8400000000001,
+          "end_timestamp": 1510.8400000000001,
+          "ground_truth_count": 1,
+          "ground_truth_unit": "peppers",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "green chilies (chilli peppers)",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "exact",
+          "error": 0,
+          "blocks_queried": [
+            50
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 50,
+          "remaining_count": 2,
+          "remaining_description": null,
+          "remaining_fraction": 0.6,
+          "visual_evidence": "A container with green chilies is visible. A single green chili is picked up, sliced, and added to the pan. The container now has fewer chilies, indicating one was removed."
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "green chilli",
+        "amount": "3",
+        "unit": "g",
+        "recipe": "P08_R08"
+      },
+      "total_predicted": 1
+    },
+    {
+      "narration_id": "P08-20240618-163547-397",
+      "food_name": "mushrooms",
+      "difficulty": "LOW",
+      "video_range": [
+        "P08-20240618-163547",
+        "P08-20240618-171546"
+      ],
+      "total_ground_truth": null,
+      "total_ground_truth_unit": "pieces",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_63a07773",
+          "segment_idx": 0,
+          "video_id": "P08-20240618-163547",
+          "start_timestamp": 1161.76,
+          "end_timestamp": 1168.79,
+          "ground_truth_count": null,
+          "ground_truth_unit": "pieces",
+          "quantity_category": "discrete",
+          "predicted_count": 10,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "mushrooms",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "gt_uncountable",
+          "error": null,
+          "blocks_queried": [
+            38
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 38,
+          "remaining_count": 10,
+          "remaining_description": null,
+          "remaining_fraction": 0.5,
+          "visual_evidence": "A box of mushrooms is shown on the counter. The user takes a handful of mushrooms and places them into a red colander in the sink. The box appears to be about half full before and after the action."
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "chestnut mushrooms",
+        "amount": "177",
+        "unit": "g",
+        "recipe": "P08_R08"
+      },
+      "total_predicted": 10
+    },
+    {
+      "narration_id": "P08-20240618-163547-64",
+      "food_name": "canned chopped tomatoes",
+      "difficulty": "LOW",
+      "video_range": [
+        "P08-20240618-163547",
+        "P08-20240618-171546"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "can",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_c2a5885a",
+          "segment_idx": 0,
+          "video_id": "P08-20240618-171546",
+          "start_timestamp": 855.9549999999999,
+          "end_timestamp": 860.9549999999999,
+          "ground_truth_count": 1,
+          "ground_truth_unit": "can",
+          "quantity_category": "continuous",
+          "predicted_count": null,
+          "predicted_amount": "a significant portion of the can's contents",
+          "predicted_unit": "can",
+          "detected_item_name": "canned chopped tomatoes",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "continuous_estimate",
+          "error": null,
+          "blocks_queried": [
+            28
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 28,
+          "remaining_count": null,
+          "remaining_description": "about 1/3 of the can remaining",
+          "remaining_fraction": 0.3,
+          "visual_evidence": "The can is initially full. The person pours the entire contents of the can into the pan. After pouring, the can is visibly empty."
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "chopped tomato",
+        "amount": "400",
+        "unit": "g",
+        "recipe": "P08_R08"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P08-20240622-141902-93",
+      "food_name": "garlic",
+      "difficulty": "LOW",
+      "video_range": [
+        "P08-20240622-141902"
+      ],
+      "total_ground_truth": 4,
+      "total_ground_truth_unit": "cloves",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_c27f458d",
+          "segment_idx": 0,
+          "video_id": "P08-20240622-141902",
+          "start_timestamp": 339.78,
+          "end_timestamp": 352.989694,
+          "ground_truth_count": 4,
+          "ground_truth_unit": "cloves",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "garlic",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "wrong",
+          "error": -2,
+          "blocks_queried": [
+            11
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 11,
+          "remaining_count": 2,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "visual_evidence": "A hand picks up two cloves of garlic from a bowl of lemons on a dining table. The hand then places the two cloves on a cutting board in the kitchen. The original bowl is not visible after the action, but the two cloves are clearly placed on the cutting board."
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "garlic",
+        "amount": "4",
+        "unit": "cloves",
+        "recipe": "P08_R09"
+      },
+      "total_predicted": 2
+    }
+  ]
+}

@@ -1,0 +1,366 @@
+{
+  "participant": "P01",
+  "model": "gpt5",
+  "tag": "hybrid_no_transfer_gpt5_v2",
+  "prompt_mode": "hybrid_no_transfer",
+  "task": "hybrid_no_transfer_selection",
+  "low_only": true,
+  "padding": 2.0,
+  "fps": 1.0,
+  "max_frames": 40,
+  "total_items": 3,
+  "items": [
+    {
+      "narration_id": "P01-20240202-110250-29",
+      "food_name": "oranges (in mesh bag)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240202-110250"
+      ],
+      "total_ground_truth": 3,
+      "total_ground_truth_unit": "oranges",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_ff1d764e",
+          "segment_idx": 0,
+          "video_id": "P01-20240202-110250",
+          "start_timestamp": 53.31,
+          "end_timestamp": 60.531511,
+          "clip_start": 51.31,
+          "item_name": "oranges (in mesh bag)",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 51.31,
+              "description": "Source before (delta=3)",
+              "visibility_status": "clear_view",
+              "container_description": "orange mesh bag on wooden countertop",
+              "snapped_to_frame": 1
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 59.31,
+              "description": "Source after (delta=3)",
+              "visibility_status": "clear_view",
+              "container_description": "orange mesh bag on wooden countertop",
+              "snapped_to_frame": 9
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 51.31,
+              "description": "Destination before (delta=3)",
+              "visibility_status": "clear_view",
+              "container_description": "wooden countertop (loose oranges placed next to the bag)",
+              "snapped_to_frame": 1
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 59.31,
+              "description": "Destination after (delta=3)",
+              "visibility_status": "clear_view",
+              "container_description": "wooden countertop (loose oranges placed next to the bag)",
+              "snapped_to_frame": 9
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"oranges (in mesh bag)\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"orange mesh bag on wooden countertop\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": 3,\n    \"confidence\": \"medium\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"wooden countertop (loose oranges placed next to the bag)\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": 3,\n    \"confidence\": \"medium\"\n  },\n  \"numeric_count\": 3,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 3,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source [VALID]: Start(~6 oranges in mesh bag at 00:00) -> End(~3 in bag at 00:08), delta 3 removed. Dest [VALID]: Start(0 loose at 00:00) -> End(3 loose oranges on counter at 00:08), delta 3 added. Counts are slightly uncertain due to net/perspective, but both paths agree on 3.\"\n}",
+          "ground_truth_count": 3,
+          "ground_truth_unit": "oranges",
+          "quantity_category": "discrete",
+          "predicted_count": 3,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 3,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "medium",
+          "visual_evidence": "Source [VALID]: Start(~6 oranges in mesh bag at 00:00) -> End(~3 in bag at 00:08), delta 3 removed. Dest [VALID]: Start(0 loose at 00:00) -> End(3 loose oranges on counter at 00:08), delta 3 added. Counts are slightly uncertain due to net/perspective, but both paths agree on 3.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": 3,
+              "confidence": "medium",
+              "container_description": "orange mesh bag on wooden countertop",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 51.31,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 59.31,
+              "snapped_to_frame_after": 9
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": 3,
+              "confidence": "medium",
+              "container_description": "wooden countertop (loose oranges placed next to the bag)",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 51.31,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 59.31,
+              "snapped_to_frame_after": 9
+            }
+          },
+          "num_frames": 12,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 3,
+      "recipe_amount": null
+    },
+    {
+      "narration_id": "P01-20240203-093333-20",
+      "food_name": "coffee capsule",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240203-093333"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "capsules",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_cd6fce65",
+          "segment_idx": 0,
+          "video_id": "P01-20240203-093333",
+          "start_timestamp": 43.76,
+          "end_timestamp": 45.51,
+          "clip_start": 41.76,
+          "item_name": "coffee capsule",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 41.76,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Coffee capsule pack/tray on the countertop (partially visible, very dark and covered by hands)",
+              "snapped_to_frame": 1
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 43.76,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Coffee capsule pack/tray on the countertop (partially visible, very dark and covered by hands)",
+              "snapped_to_frame": 3
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 44.76,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Coffee machine capsule inlet/chamber area (hands block view; capsule not clearly seen seated)",
+              "snapped_to_frame": 4
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 46.76,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Coffee machine capsule inlet/chamber area (hands block view; capsule not clearly seen seated)",
+              "snapped_to_frame": 6
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"coffee capsule\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"Coffee capsule pack/tray on the countertop (partially visible, very dark and covered by hands)\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:02\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"Coffee machine capsule inlet/chamber area (hands block view; capsule not clearly seen seated)\",\n    \"timestamp_before\": \"00:03\",\n    \"timestamp_after\": \"00:05\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"low\",\n  \"visual_evidence\": \"Source [INVALID_OCCLUDED]: capsule pack/tray is too dark/covered to count at Start(00:00) or End(00:02). Dest [INVALID_OCCLUDED]: coffee machine area is blocked and capsule placement is not clearly visible. One capsule handling/insertion action is implied near the machine by the final frames, so estimating 1 used.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "capsules",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "low",
+          "visual_evidence": "Source [INVALID_OCCLUDED]: capsule pack/tray is too dark/covered to count at Start(00:00) or End(00:02). Dest [INVALID_OCCLUDED]: coffee machine area is blocked and capsule placement is not clearly visible. One capsule handling/insertion action is implied near the machine by the final frames, so estimating 1 used.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:02",
+              "observed_delta": null,
+              "confidence": "low",
+              "container_description": "Coffee capsule pack/tray on the countertop (partially visible, very dark and covered by hands)",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 41.76,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 2.0,
+              "absolute_timestamp_after": 43.76,
+              "snapped_to_frame_after": 3
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:03",
+              "timestamp_after_raw": "00:05",
+              "observed_delta": null,
+              "confidence": "low",
+              "container_description": "Coffee machine capsule inlet/chamber area (hands block view; capsule not clearly seen seated)",
+              "timestamp_before_seconds": 3.0,
+              "absolute_timestamp_before": 44.76,
+              "snapped_to_frame_before": 4,
+              "timestamp_after_seconds": 5.0,
+              "absolute_timestamp_after": 46.76,
+              "snapped_to_frame_after": 6
+            }
+          },
+          "num_frames": 6,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "nespresso capsule",
+        "amount": "N/A",
+        "unit": "N/A",
+        "recipe": "P01_R01_C1"
+      }
+    },
+    {
+      "narration_id": "P01-20240203-121517-78",
+      "food_name": "onions (mesh bag)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240203-121517",
+        "P01-20240203-123350",
+        "P01-20240203-130505",
+        "P01-20240203-132119",
+        "P01-20240203-135502",
+        "P01-20240203-150506",
+        "P01-20240203-152323"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "onions",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_f40ed325",
+          "segment_idx": 0,
+          "video_id": "P01-20240203-123350",
+          "start_timestamp": 460.04,
+          "end_timestamp": 470.05,
+          "clip_start": 458.04,
+          "item_name": "onions (mesh bag)",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 462.04,
+              "description": "Source before (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "orange mesh produce bag holding onions",
+              "snapped_to_frame": 5
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:10",
+              "timestamp_seconds": 10.0,
+              "absolute_timestamp": 468.04,
+              "description": "Source after (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "orange mesh produce bag holding onions",
+              "snapped_to_frame": 11
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 460.04,
+              "description": "Destination before (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "blue cutting board on countertop",
+              "snapped_to_frame": 3
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:10",
+              "timestamp_seconds": 10.0,
+              "absolute_timestamp": 468.04,
+              "description": "Destination after (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "blue cutting board on countertop",
+              "snapped_to_frame": 11
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"onions (mesh bag)\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"orange mesh produce bag holding onions\",\n    \"timestamp_before\": \"00:04\",\n    \"timestamp_after\": \"00:10\",\n    \"observed_delta\": 2,\n    \"confidence\": \"medium\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"blue cutting board on countertop\",\n    \"timestamp_before\": \"00:02\",\n    \"timestamp_after\": \"00:10\",\n    \"observed_delta\": 2,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 2,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 0,\n  \"remaining_description\": \"mesh bag appears empty\",\n  \"remaining_fraction\": 0.0,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source [VALID]: Start(~2 onions visible in mesh bag at 00:04) -> End(appears empty at 00:10). Dest [VALID]: Start(0 onions on cutting board at 00:02) -> End(2 whole onions on board at 00:10). Trusting Destination Path for final count.\"\n}",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "onions",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 0,
+          "remaining_description": "mesh bag appears empty",
+          "remaining_fraction": 0.0,
+          "confidence": "high",
+          "visual_evidence": "Source [VALID]: Start(~2 onions visible in mesh bag at 00:04) -> End(appears empty at 00:10). Dest [VALID]: Start(0 onions on cutting board at 00:02) -> End(2 whole onions on board at 00:10). Trusting Destination Path for final count.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:04",
+              "timestamp_after_raw": "00:10",
+              "observed_delta": 2,
+              "confidence": "medium",
+              "container_description": "orange mesh produce bag holding onions",
+              "timestamp_before_seconds": 4.0,
+              "absolute_timestamp_before": 462.04,
+              "snapped_to_frame_before": 5,
+              "timestamp_after_seconds": 10.0,
+              "absolute_timestamp_after": 468.04,
+              "snapped_to_frame_after": 11
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:02",
+              "timestamp_after_raw": "00:10",
+              "observed_delta": 2,
+              "confidence": "high",
+              "container_description": "blue cutting board on countertop",
+              "timestamp_before_seconds": 2.0,
+              "absolute_timestamp_before": 460.04,
+              "snapped_to_frame_before": 3,
+              "timestamp_after_seconds": 10.0,
+              "absolute_timestamp_after": 468.04,
+              "snapped_to_frame_after": 11
+            }
+          },
+          "num_frames": 15,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 2,
+      "recipe_amount": {
+        "ingredient": "onions",
+        "amount": "257",
+        "unit": "g",
+        "recipe": "P01_R06"
+      }
+    }
+  ]
+}

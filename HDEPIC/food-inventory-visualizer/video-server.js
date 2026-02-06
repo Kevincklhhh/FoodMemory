@@ -10,7 +10,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const PORT = 3001;
+const PORT = 4001;
 // Absolute path to HDEPIC data
 const HDEPIC_ROOT = path.resolve(__dirname, '..');
 
@@ -21,6 +21,9 @@ const MIME_TYPES = {
   '.mov': 'video/quicktime',
   '.json': 'application/json',
   '.csv': 'text/csv',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.png': 'image/png',
 };
 
 const server = http.createServer((req, res) => {
@@ -104,11 +107,67 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // Route: /ping - simple health check
+  if (pathname === '/ping') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ status: 'ok', time: new Date().toISOString(), routes: ['/vlm-tags/', '/videos/', '/data/', '/list/', '/failure-cases'] }));
+    return;
+  }
+
   // Route: /narrations - serve all narration timestamps
   if (pathname === '/narrations') {
     const filePath = path.join(HDEPIC_ROOT, 'data', 'hd-epic-annotations', 'narrations_timestamps.json');
     serveFile(res, filePath);
     return;
+  }
+
+  // Route: /vlm-tags/{participant} - list available VLM result tags
+  if (pathname.startsWith('/vlm-tags/')) {
+    const participant = pathname.replace('/vlm-tags/', '');
+    const dirPath = path.join(HDEPIC_ROOT, 'outputs', '02_inventory', participant);
+    listVlmTags(res, dirPath, participant);
+    return;
+  }
+
+  // Route: /failure-cases - list all failure_cases*.json files
+  if (pathname === '/failure-cases') {
+    const dirPath = path.join(HDEPIC_ROOT, 'outputs', '02_inventory', 'failure_cases');
+    listFailureCases(res, dirPath);
+    return;
+  }
+
+  // Route: /hands23/{participant} - get hands23 detection results
+  if (pathname.startsWith('/hands23/')) {
+    const participant = pathname.replace('/hands23/', '');
+    const filePath = path.join(HDEPIC_ROOT, 'outputs', '02_inventory', participant, 'hands23_detection', `${participant}_hands23_results.json`);
+    serveFile(res, filePath);
+    return;
+  }
+
+  // Route: /frames/{participant}/{videoId}/{filename} - serve raw frame images
+  if (pathname.startsWith('/frames/')) {
+    const parts = pathname.replace('/frames/', '').split('/');
+    if (parts.length >= 3) {
+      const participant = parts[0];
+      const videoId = parts[1];
+      const filename = parts.slice(2).join('/');
+      const filePath = path.join(HDEPIC_ROOT, 'outputs', '02_inventory', participant, 'hands23_detection', videoId, 'frames', filename);
+      serveFile(res, filePath);
+      return;
+    }
+  }
+
+  // Route: /visualizations/{participant}/{videoId}/{filename} - serve HOI visualization images
+  if (pathname.startsWith('/visualizations/')) {
+    const parts = pathname.replace('/visualizations/', '').split('/');
+    if (parts.length >= 3) {
+      const participant = parts[0];
+      const videoId = parts[1];
+      const filename = parts.slice(2).join('/');
+      const filePath = path.join(HDEPIC_ROOT, 'outputs', '02_inventory', participant, 'hands23_detection', videoId, 'visualizations', filename);
+      serveFile(res, filePath);
+      return;
+    }
   }
 
   // Default: 404
@@ -192,6 +251,86 @@ function listVideos(res, dirPath, participant) {
   res.end(JSON.stringify({ participant, videos: files }));
 }
 
+function listVlmTags(res, dirPath, participant) {
+  if (!fs.existsSync(dirPath)) {
+    res.writeHead(404, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ error: 'Directory not found', tags: [] }));
+    return;
+  }
+
+  // Find all VLM result files: _vlm_qa_{tag}_results.json and _vlm_frame_{tag}_results.json
+  const qaPattern = new RegExp(`^${participant}_vlm_qa_(.+)_results\\.json$`);
+  const framePattern = new RegExp(`^${participant}_vlm_frame_(.+)_results\\.json$`);
+  const files = fs.readdirSync(dirPath);
+
+  const tags = files
+    .map(f => {
+      const qaMatch = f.match(qaPattern);
+      if (qaMatch) return { tag: qaMatch[1], filename: f };
+      const frameMatch = f.match(framePattern);
+      if (frameMatch) return { tag: `frame:${frameMatch[1]}`, filename: f };
+      return null;
+    })
+    .filter(Boolean)
+    .sort((a, b) => a.tag.localeCompare(b.tag));
+
+  res.writeHead(200, { 'Content-Type': 'application/json' });
+  res.end(JSON.stringify({ participant, tags }));
+}
+
+function listFailureCases(res, dirPath) {
+  if (!fs.existsSync(dirPath)) {
+    res.writeHead(404, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ error: 'Directory not found', files: [] }));
+    return;
+  }
+
+  // Find all failure_cases*.json files
+  const pattern = /^failure_cases_(.+)\.json$/;
+  const files = fs.readdirSync(dirPath);
+
+  const failureCases = files
+    .map(f => {
+      const match = f.match(pattern);
+      if (!match) return null;
+
+      // Try to read file to get metadata
+      const filePath = path.join(dirPath, f);
+      try {
+        const content = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+        return {
+          filename: `failure_cases/${f}`,
+          name: match[1],
+          description: content.description || '',
+          tag: content.tag || '',
+          totalItems: content.total_items || content.items?.length || 0,
+          createdAt: content.created_at || null,
+          rerunTag: content.rerun_tag || null,
+        };
+      } catch (err) {
+        return { filename: `failure_cases/${f}`, name: match[1], error: err.message };
+      }
+    })
+    .filter(Boolean)
+    .sort((a, b) => {
+      // Sort by name, with versions in order
+      if (a.name === b.name) return 0;
+      // Extract base name and version for proper sorting
+      const aMatch = a.name.match(/^(.+?)(?:_v(\d+))?$/);
+      const bMatch = b.name.match(/^(.+?)(?:_v(\d+))?$/);
+      if (aMatch && bMatch && aMatch[1] === bMatch[1]) {
+        // Same base name, sort by version
+        const aVer = parseInt(aMatch[2] || '1', 10);
+        const bVer = parseInt(bMatch[2] || '1', 10);
+        return aVer - bVer;
+      }
+      return a.name.localeCompare(b.name);
+    });
+
+  res.writeHead(200, { 'Content-Type': 'application/json' });
+  res.end(JSON.stringify({ files: failureCases }));
+}
+
 server.listen(PORT, () => {
   console.log(`\n🎬 Video Server running at http://localhost:${PORT}`);
   console.log(`\nAvailable endpoints:`);
@@ -199,9 +338,16 @@ server.listen(PORT, () => {
   console.log(`  GET  /data/{path}                          - Serve JSON/CSV files`);
   console.log(`  PUT  /data/{path}                          - Save JSON files`);
   console.log(`  GET  /list/{participant}                   - List available videos`);
+  console.log(`  GET  /vlm-tags/{participant}               - List VLM result tags`);
+  console.log(`  GET  /failure-cases                        - List failure case files`);
+  console.log(`  GET  /hands23/{participant}                - Get hands23 detection results`);
+  console.log(`  GET  /frames/{participant}/{videoId}/{filename}        - Serve raw frames`);
+  console.log(`  GET  /visualizations/{participant}/{videoId}/{filename} - Serve HOI vis`);
   console.log(`\nExample:`);
   console.log(`  http://localhost:${PORT}/videos/P01/P01-20240202-110250.mp4`);
   console.log(`  http://localhost:${PORT}/list/P01`);
   console.log(`  http://localhost:${PORT}/data/outputs/02_inventory/P01/P01_known_quantities.json`);
+  console.log(`  http://localhost:${PORT}/failure-cases`);
+  console.log(`  http://localhost:${PORT}/hands23/P03`);
   console.log(`\nPress Ctrl+C to stop\n`);
 });

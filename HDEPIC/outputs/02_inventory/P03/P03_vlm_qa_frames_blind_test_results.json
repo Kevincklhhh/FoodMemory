@@ -1,0 +1,953 @@
+{
+  "participant": "P03",
+  "model": "qwen",
+  "tag": "frames_blind_test",
+  "low_only": false,
+  "blind_mode": true,
+  "frame_select_mode": true,
+  "total_items": 47,
+  "items": [
+    {
+      "narration_id": "P03-20240216-084005-67",
+      "food_name": "bread (loaf/bag of bread)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240216-084005"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "slices",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_2bac7566",
+          "segment_idx": 0,
+          "video_id": "P03-20240216-084005",
+          "start_timestamp": 715.74,
+          "end_timestamp": 726.49,
+          "ground_truth_count": 2,
+          "ground_truth_unit": "slices",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": "2 slices of bread",
+          "predicted_unit": null,
+          "detected_item_name": "bread",
+          "item_match": true,
+          "item_similarity": 0.8042206764221191,
+          "remaining_count": null,
+          "remaining_description": "The remaining number of bread slices in the bag is unknown",
+          "remaining_fraction": null,
+          "confidence": "medium",
+          "visual_evidence": "A person holds a bag of bread, then places two slices into a toaster.",
+          "match": "exact",
+          "error": 0,
+          "clip_path": null,
+          "raw_vlm_response": "{\n  \"detected_item_name\": \"bread\",\n  \"quantity_category\": \"discrete\",\n  \"reasoning_trace\": {\n    \"image_1_observation\": \"Saw a person holding a plastic bag containing a loaf of bread. The bag is partially open, and the bread is visible inside.\",\n    \"image_2_observation\": \"Saw a toaster with two slices of bread inside, indicating that two slices have been removed from the bag.\",\n    \"calculation_logic\": \"The source container (bag) initially contained a loaf of bread. The destination (toaster) shows two slices. Assuming the loaf was whole and the person took two slices, the remaining count is the total number of slices in the loaf minus two. However, the total number of slices in the loaf is not visible, so the remaining count cannot be determined precisely. The action is the removal of two slices.\",\n    \"visual_description\": \"A person holds a bag of bread, then places two slices into a toaster.\"\n  },\n  \"removed\": {\n    \"count\": 2,\n    \"description\": \"2 slices of bread\"\n  },\n  \"remaining\": {\n    \"count\": null,\n    \"description\": \"The remaining number of bread slices in the bag is unknown\"\n  },\n  \"confidence\": \"medium\"\n}",
+          "frame_timestamps": [
+            717,
+            732
+          ],
+          "num_frames": 2
+        }
+      ],
+      "recipe_amount": null,
+      "total_predicted": 2
+    },
+    {
+      "narration_id": "P03-20240216-185832-1024",
+      "food_name": "eggs",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240216-185832",
+        "P03-20240216-205923"
+      ],
+      "total_ground_truth": 8,
+      "total_ground_truth_unit": "eggs",
+      "num_segments": 1,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "eggs",
+        "amount": "330",
+        "unit": "g",
+        "recipe": "P03_R04"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240216-185832-38",
+      "food_name": "bag of potatoes",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240216-185832",
+        "P03-20240216-205923"
+      ],
+      "total_ground_truth": 12,
+      "total_ground_truth_unit": "potatoes",
+      "num_segments": 2,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "potatoes",
+        "amount": "1800",
+        "unit": "g",
+        "recipe": "P03_R04"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240216-185832-63",
+      "food_name": "yeast (box)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240216-185832",
+        "P03-20240216-205923"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "sachets",
+      "num_segments": 1,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "dried yeast",
+        "amount": "2",
+        "unit": "g",
+        "recipe": "P03_R05"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240217-091657-304",
+      "food_name": "bread (in bag)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240217-091657"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "slices",
+      "num_segments": 1,
+      "segments": [],
+      "recipe_amount": null,
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240217-131219-490",
+      "food_name": "can of coconut milk",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240217-131219"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "cans",
+      "num_segments": 1,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "coconut milk",
+        "amount": "400",
+        "unit": "ml",
+        "recipe": "P03_R01"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240217-192543-10",
+      "food_name": "box of mushrooms",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240217-192543"
+      ],
+      "total_ground_truth": 5,
+      "total_ground_truth_unit": "mushrooms",
+      "num_segments": 1,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "chestnut mushrooms",
+        "amount": "240",
+        "unit": "g",
+        "recipe": "P03_R09"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240217-192543-335",
+      "food_name": "egg",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240217-192543"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "eggs",
+      "num_segments": 1,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "eggs",
+        "amount": "55",
+        "unit": "g",
+        "recipe": "P03_R07"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240217-192543-353",
+      "food_name": "garlic cloves (in small cup)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240217-192543"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "cloves",
+      "num_segments": 1,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "garlic",
+        "amount": "16",
+        "unit": "g",
+        "recipe": "P03_R08"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240217-192543-359",
+      "food_name": "whole garlic (garlic bulb in net)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240217-192543"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "bulbs",
+      "num_segments": 1,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "garlic",
+        "amount": "16",
+        "unit": "g",
+        "recipe": "P03_R08"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240217-192543-808",
+      "food_name": "mozzarella",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240217-192543"
+      ],
+      "total_ground_truth": null,
+      "total_ground_truth_unit": null,
+      "num_segments": 1,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "mozzarella cheese",
+        "amount": "125",
+        "unit": "g",
+        "recipe": "P03_R07"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240218-094452-16",
+      "food_name": "buns package",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-094452"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "buns",
+      "num_segments": 1,
+      "segments": [],
+      "recipe_amount": null,
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240218-094452-390",
+      "food_name": "bread",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-094452"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "slices",
+      "num_segments": 1,
+      "segments": [],
+      "recipe_amount": null,
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240218-140054-158",
+      "food_name": "garlic cloves",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-140054"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "cloves",
+      "num_segments": 1,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "garlic",
+        "amount": "4",
+        "unit": "g",
+        "recipe": "P03_R10"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240218-190556-248",
+      "food_name": "plant-based burger",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-190556"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "burgers",
+      "num_segments": 1,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "plant-based burgers",
+        "amount": "226",
+        "unit": "g",
+        "recipe": "P03_R02"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240218-190556-269",
+      "food_name": "box of mushrooms (second box)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-190556"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "mushrooms",
+      "num_segments": 1,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "chestnut mushrooms",
+        "amount": "200",
+        "unit": "g",
+        "recipe": "P03_R02"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240218-190556-411",
+      "food_name": "onion",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-190556"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "onions",
+      "num_segments": 1,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "onions",
+        "amount": "110",
+        "unit": "g",
+        "recipe": "P03_R02"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240218-190556-7",
+      "food_name": "bag of potatoes",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-190556"
+      ],
+      "total_ground_truth": 6,
+      "total_ground_truth_unit": "potatoes",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_7fa725cb",
+          "segment_idx": 0,
+          "video_id": "P03-20240218-190556",
+          "start_timestamp": 98.51,
+          "end_timestamp": 115.63,
+          "ground_truth_count": 6,
+          "ground_truth_unit": "potatoes",
+          "quantity_category": "discrete",
+          "predicted_count": null,
+          "predicted_amount": "a quantity of potatoes transferred to a bowl",
+          "predicted_unit": null,
+          "detected_item_name": "bag of potatoes",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "remaining_count": null,
+          "remaining_description": "unknown number of potatoes remaining in the bag",
+          "remaining_fraction": null,
+          "confidence": "medium",
+          "visual_evidence": "User holds a bag of potatoes, then a bowl of potatoes is on a scale.",
+          "match": "pred_unknown",
+          "error": null,
+          "clip_path": null,
+          "raw_vlm_response": "```json\n{\n  \"detected_item_name\": \"bag of potatoes\",\n  \"quantity_category\": \"discrete\",\n  \"reasoning_trace\": {\n    \"image_1_observation\": \"Saw a crumpled bag of potatoes on the counter, being held by the user.\",\n    \"image_2_observation\": \"Saw a white bowl on a digital scale containing several small, round potatoes.\",\n    \"calculation_logic\": \"The bag of potatoes is the source container. The bowl is the destination. The action is transferring potatoes from the bag to the bowl. The bag is no longer visible in the second image, indicating the potatoes have been removed. The bowl contains a quantity of potatoes, but the original count in the bag cannot be determined from the images. Therefore, the remaining count in the bag is unknown.\",\n    \"visual_description\": \"User holds a bag of potatoes, then a bowl of potatoes is on a scale.\"\n  },\n  \"removed\": {\n    \"count\": null,\n    \"description\": \"a quantity of potatoes transferred to a bowl\"\n  },\n  \"remaining\": {\n    \"count\": null,\n    \"description\": \"unknown number of potatoes remaining in the bag\"\n  },\n  \"confidence\": \"medium\"\n}\n```",
+          "frame_timestamps": [
+            99,
+            116
+          ],
+          "num_frames": 2
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "potatoes",
+        "amount": "500",
+        "unit": "g",
+        "recipe": "P03_R02"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240218-190556-8",
+      "food_name": "box of mushrooms",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-190556"
+      ],
+      "total_ground_truth": 7,
+      "total_ground_truth_unit": "mushrooms",
+      "num_segments": 1,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "chestnut mushrooms",
+        "amount": "200",
+        "unit": "g",
+        "recipe": "P03_R02"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240217-131219-423",
+      "food_name": "bag of spring greens",
+      "difficulty": "MID",
+      "video_range": [
+        "P03-20240217-131219"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "bunch",
+      "num_segments": 1,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "spring greens",
+        "amount": "100",
+        "unit": "g",
+        "recipe": "P03_R01"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240217-131219-717",
+      "food_name": "garlic and coconut paste (recipe kit yellow tub)",
+      "difficulty": "MID",
+      "video_range": [
+        "P03-20240217-131219"
+      ],
+      "total_ground_truth": 3,
+      "total_ground_truth_unit": "scoops",
+      "num_segments": 1,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "spicy garlic & coconut paste, ginger lentil stock and dhal spice mix",
+        "amount": "1",
+        "unit": "small tub",
+        "recipe": "P03_R01"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240217-131219-800",
+      "food_name": "ginger lentil stock (recipe kit green tub)",
+      "difficulty": "MID",
+      "video_range": [
+        "P03-20240217-131219"
+      ],
+      "total_ground_truth": 3,
+      "total_ground_truth_unit": "scoops",
+      "num_segments": 1,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "spicy garlic & coconut paste, ginger lentil stock and dhal spice mix",
+        "amount": "1",
+        "unit": "small tub",
+        "recipe": "P03_R01"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240217-192543-17",
+      "food_name": "bowl of plant-based ragu",
+      "difficulty": "MID",
+      "video_range": [
+        "P03-20240217-192543"
+      ],
+      "total_ground_truth": 3,
+      "total_ground_truth_unit": "spoonfuls",
+      "num_segments": 1,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "plant-based burger",
+        "amount": "226",
+        "unit": "g",
+        "recipe": "P03_R09"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240217-192543-7",
+      "food_name": "aubergine",
+      "difficulty": "MID",
+      "video_range": [
+        "P03-20240217-192543"
+      ],
+      "total_ground_truth": 13,
+      "total_ground_truth_unit": "handfuls",
+      "num_segments": 4,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "aubergine",
+        "amount": "240",
+        "unit": "g",
+        "recipe": "P03_R07"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240218-190556-472",
+      "food_name": "butter",
+      "difficulty": "MID",
+      "video_range": [
+        "P03-20240218-190556"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "slabs",
+      "num_segments": 2,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "butter",
+        "amount": "20",
+        "unit": "g",
+        "recipe": "P03_R02"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240218-190556-644",
+      "food_name": "sunflower oil bottle",
+      "difficulty": "MID",
+      "video_range": [
+        "P03-20240218-190556"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "teaspoons",
+      "num_segments": 1,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "sunflower oil",
+        "amount": "10",
+        "unit": "ml",
+        "recipe": "P03_R02"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240218-190556-759",
+      "food_name": "sour cream",
+      "difficulty": "MID",
+      "video_range": [
+        "P03-20240218-190556"
+      ],
+      "total_ground_truth": 4,
+      "total_ground_truth_unit": "scoops",
+      "num_segments": 1,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "sour cream",
+        "amount": "150",
+        "unit": "ml",
+        "recipe": "P03_R02"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240216-185832-4",
+      "food_name": "bag of kale",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P03-20240216-185832",
+        "P03-20240216-205923"
+      ],
+      "total_ground_truth": null,
+      "total_ground_truth_unit": null,
+      "num_segments": 1,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "kale",
+        "amount": "100",
+        "unit": "g",
+        "recipe": "P03_R06"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240216-185832-637",
+      "food_name": "olive oil (can)",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P03-20240216-185832",
+        "P03-20240216-205923"
+      ],
+      "total_ground_truth": null,
+      "total_ground_truth_unit": null,
+      "num_segments": 4,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "olive oil",
+        "amount": "100",
+        "unit": "ml",
+        "recipe": "P03_R04"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240216-185832-642",
+      "food_name": "salt",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P03-20240216-185832",
+        "P03-20240216-205923"
+      ],
+      "total_ground_truth": null,
+      "total_ground_truth_unit": null,
+      "num_segments": 4,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "salt",
+        "amount": "3",
+        "unit": "g",
+        "recipe": "P03_R06"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240216-185832-772",
+      "food_name": "bag of flour",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P03-20240216-185832",
+        "P03-20240216-205923"
+      ],
+      "total_ground_truth": null,
+      "total_ground_truth_unit": null,
+      "num_segments": 1,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "flour",
+        "amount": "320",
+        "unit": "g",
+        "recipe": "P03_R05"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240217-131219-10",
+      "food_name": "pack of lentils",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P03-20240217-131219"
+      ],
+      "total_ground_truth": null,
+      "total_ground_truth_unit": null,
+      "num_segments": 1,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "split red lentils",
+        "amount": "120",
+        "unit": "g",
+        "recipe": "P03_R01"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240217-131219-571",
+      "food_name": "sunflower oil bottle",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P03-20240217-131219"
+      ],
+      "total_ground_truth": null,
+      "total_ground_truth_unit": null,
+      "num_segments": 1,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "sunflower oil",
+        "amount": "15",
+        "unit": "ml",
+        "recipe": "P03_R01"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240217-131219-760",
+      "food_name": "dahl spice mix (recipe kit pink tub)",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P03-20240217-131219"
+      ],
+      "total_ground_truth": null,
+      "total_ground_truth_unit": null,
+      "num_segments": 1,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "spicy garlic & coconut paste, ginger lentil stock and dhal spice mix",
+        "amount": "1",
+        "unit": "small tub",
+        "recipe": "P03_R01"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240217-192543-125",
+      "food_name": "sunflower oil",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P03-20240217-192543"
+      ],
+      "total_ground_truth": null,
+      "total_ground_truth_unit": null,
+      "num_segments": 1,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "sunflower oil",
+        "amount": "28",
+        "unit": "ml",
+        "recipe": "P03_R07"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240217-192543-134",
+      "food_name": "tomato sauce",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P03-20240217-192543"
+      ],
+      "total_ground_truth": null,
+      "total_ground_truth_unit": null,
+      "num_segments": 1,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "tomato sauce",
+        "amount": "2",
+        "unit": "tbsp",
+        "recipe": "P03_R07"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240217-192543-170",
+      "food_name": "salt",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P03-20240217-192543"
+      ],
+      "total_ground_truth": null,
+      "total_ground_truth_unit": null,
+      "num_segments": 2,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "salt",
+        "amount": "1",
+        "unit": "g",
+        "recipe": "P03_R07"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240217-192543-174",
+      "food_name": "black pepper (pepper grinder)",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P03-20240217-192543"
+      ],
+      "total_ground_truth": null,
+      "total_ground_truth_unit": null,
+      "num_segments": 2,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "black pepper",
+        "amount": "1",
+        "unit": "g",
+        "recipe": "P03_R07"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240217-192543-404",
+      "food_name": "ground garlic",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P03-20240217-192543"
+      ],
+      "total_ground_truth": null,
+      "total_ground_truth_unit": null,
+      "num_segments": 1,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "garlic",
+        "amount": "16",
+        "unit": "g",
+        "recipe": "P03_R08"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240217-192543-549",
+      "food_name": "olive oil",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P03-20240217-192543"
+      ],
+      "total_ground_truth": null,
+      "total_ground_truth_unit": null,
+      "num_segments": 1,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "olive oil",
+        "amount": "14",
+        "unit": "ml",
+        "recipe": "P03_R08"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240217-192543-736",
+      "food_name": "semolina flour",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P03-20240217-192543"
+      ],
+      "total_ground_truth": null,
+      "total_ground_truth_unit": null,
+      "num_segments": 2,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "semolina flour",
+        "amount": "5",
+        "unit": "tbsp",
+        "recipe": "P03_R07"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240218-140054-132",
+      "food_name": "sesame oil",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P03-20240218-140054"
+      ],
+      "total_ground_truth": null,
+      "total_ground_truth_unit": null,
+      "num_segments": 1,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "sesame oil",
+        "amount": "5",
+        "unit": "ml",
+        "recipe": "P03_R10"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240218-140054-142",
+      "food_name": "soy sauce",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P03-20240218-140054"
+      ],
+      "total_ground_truth": null,
+      "total_ground_truth_unit": null,
+      "num_segments": 1,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "soy sauce",
+        "amount": "30",
+        "unit": "ml",
+        "recipe": "P03_R10"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240218-190556-468",
+      "food_name": "tomato puree tube",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P03-20240218-190556"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "spoonful",
+      "num_segments": 1,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "tomato puree",
+        "amount": "1",
+        "unit": "tbsp",
+        "recipe": "P03_R02"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240218-190556-612",
+      "food_name": "stroganoff seasoning tub (yellow recipe tub)",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P03-20240218-190556"
+      ],
+      "total_ground_truth": null,
+      "total_ground_truth_unit": null,
+      "num_segments": 2,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "stroganoff seasoning, mushroom stock and horseradish seasoning",
+        "amount": "1",
+        "unit": "small tub",
+        "recipe": "P03_R02"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240218-190556-831",
+      "food_name": "mushroom stock (pink recipe tub)",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P03-20240218-190556"
+      ],
+      "total_ground_truth": 4,
+      "total_ground_truth_unit": "scoops",
+      "num_segments": 1,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "stroganoff seasoning, mushroom stock and horseradish seasoning",
+        "amount": "1",
+        "unit": "small tub",
+        "recipe": "P03_R02"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240218-190556-957",
+      "food_name": "horseradish (green recipe tub)",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P03-20240218-190556"
+      ],
+      "total_ground_truth": null,
+      "total_ground_truth_unit": null,
+      "num_segments": 1,
+      "segments": [],
+      "recipe_amount": {
+        "ingredient": "stroganoff seasoning, mushroom stock and horseradish seasoning",
+        "amount": "1",
+        "unit": "small tub",
+        "recipe": "P03_R02"
+      },
+      "total_predicted": null
+    }
+  ]
+}

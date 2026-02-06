@@ -1,0 +1,1737 @@
+{
+  "participant": "P09",
+  "model": "gemini-3-flash",
+  "tag": "hybrid_gemini3_batch_low",
+  "prompt_mode": "hybrid",
+  "task": "hybrid_selection",
+  "low_only": true,
+  "padding": 2.0,
+  "fps": null,
+  "max_frames": null,
+  "total_items": 10,
+  "items": [
+    {
+      "narration_id": "P09-20240621-093545-386",
+      "food_name": "pack of chillies",
+      "difficulty": "LOW",
+      "video_range": [
+        "P09-20240621-093545"
+      ],
+      "total_ground_truth": 7,
+      "total_ground_truth_unit": "chillies",
+      "num_segments": 2,
+      "segments": [
+        {
+          "segment_id": "seg_ddfa50e4",
+          "segment_idx": 0,
+          "video_id": "P09-20240621-093545",
+          "start_timestamp": 793.52,
+          "end_timestamp": 800.62,
+          "clip_start": 791.52,
+          "item_name": "pack of chillies",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "absolute_timestamp": 792.52,
+              "description": "Source before (delta=4)",
+              "visibility_status": "clear_view",
+              "container_description": "Clear plastic bag with chillies and herbs"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:09",
+              "timestamp_seconds": 9.0,
+              "absolute_timestamp": 800.52,
+              "description": "Source after (delta=4)",
+              "visibility_status": "clear_view",
+              "container_description": "Clear plastic bag with chillies and herbs"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "absolute_timestamp": 792.52,
+              "description": "Destination before (delta=4)",
+              "visibility_status": "clear_view",
+              "container_description": "Person's palm"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 798.52,
+              "description": "Destination after (delta=4)",
+              "visibility_status": "clear_view",
+              "container_description": "Person's palm"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 793.52,
+              "description": "First chili removed",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 794.52,
+              "description": "Second chili removed",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 795.52,
+              "description": "Two more chillies removed",
+              "visibility_status": "clear_view",
+              "visible_count": 2
+            }
+          ],
+          "raw_vlm_response": "{\"item_name\": \"pack of chillies\", \"quantity_category\": \"discrete\", \"path_source\": {\"status\": \"VALID\", \"container_description\": \"Clear plastic bag with chillies and herbs\", \"timestamp_before\": \"00:01\", \"timestamp_after\": \"00:09\", \"observed_delta\": 4, \"confidence\": \"high\"}, \"path_destination\": {\"status\": \"VALID\", \"container_description\": \"Person's palm\", \"timestamp_before\": \"00:01\", \"timestamp_after\": \"00:07\", \"observed_delta\": 4, \"confidence\": \"high\"}, \"path_transfer\": {\"status\": \"VALID\", \"transfer_events\": [{\"timestamp\": \"00:02\", \"description\": \"First chili removed\", \"visible_count\": 1}, {\"timestamp\": \"00:03\", \"description\": \"Second chili removed\", \"visible_count\": 1}, {\"timestamp\": \"00:04\", \"description\": \"Two more chillies removed\", \"visible_count\": 2}], \"total_transfer_count\": 4, \"confidence\": \"high\"}, \"numeric_count\": 4, \"amount_description\": null, \"volume_fraction\": null, \"remaining_count\": null, \"remaining_description\": \"Several chillies remain in the bag\", \"remaining_fraction\": null, \"unit_type\": \"unit\", \"confidence\": \"high\", \"visual_evidence\": \"Source was a clear bag allowing visibility of removal. Destination was the palm where 4 chillies were clearly displayed at 00:07. Transfer events confirmed the removal of 4 individual units. Final count derived from Path B and C.\"}",
+          "ground_truth_count": 5,
+          "ground_truth_unit": "chillies",
+          "quantity_category": "discrete",
+          "predicted_count": 4,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": "Several chillies remain in the bag",
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source was a clear bag allowing visibility of removal. Destination was the palm where 4 chillies were clearly displayed at 00:07. Transfer events confirmed the removal of 4 individual units. Final count derived from Path B and C.",
+          "error": -1,
+          "abs_error": 1,
+          "match": "close",
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:01",
+              "timestamp_after_raw": "00:09",
+              "observed_delta": 4,
+              "confidence": "high",
+              "container_description": "Clear plastic bag with chillies and herbs",
+              "timestamp_before_seconds": 1.0,
+              "absolute_timestamp_before": 792.52,
+              "timestamp_after_seconds": 9.0,
+              "absolute_timestamp_after": 800.52
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:01",
+              "timestamp_after_raw": "00:07",
+              "observed_delta": 4,
+              "confidence": "high",
+              "container_description": "Person's palm",
+              "timestamp_before_seconds": 1.0,
+              "absolute_timestamp_before": 792.52,
+              "timestamp_after_seconds": 7.0,
+              "absolute_timestamp_after": 798.52
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:02",
+                  "description": "First chili removed",
+                  "visible_count": 1,
+                  "timestamp_seconds": 2.0,
+                  "absolute_timestamp": 793.52
+                },
+                {
+                  "timestamp_raw": "00:03",
+                  "description": "Second chili removed",
+                  "visible_count": 1,
+                  "timestamp_seconds": 3.0,
+                  "absolute_timestamp": 794.52
+                },
+                {
+                  "timestamp_raw": "00:04",
+                  "description": "Two more chillies removed",
+                  "visible_count": 2,
+                  "timestamp_seconds": 4.0,
+                  "absolute_timestamp": 795.52
+                }
+              ],
+              "total_transfer_count": 4,
+              "confidence": "high"
+            }
+          }
+        },
+        {
+          "segment_id": "seg_e1eb7bfd",
+          "segment_idx": 1,
+          "video_id": "P09-20240621-093545",
+          "start_timestamp": 2048.33,
+          "end_timestamp": 2053.33,
+          "clip_start": 2046.33,
+          "item_name": "pack of chillies",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 2048.33,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "kitchen counter"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 2050.33,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "kitchen counter"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 2048.33,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "person's hand"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 2050.33,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "person's hand"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 2049.33,
+              "description": "The person picks up the pack of chillies from the counter",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"pack of chillies\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"kitchen counter\",\n    \"timestamp_before\": \"00:02\",\n    \"timestamp_after\": \"00:04\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"person's hand\",\n    \"timestamp_before\": \"00:02\",\n    \"timestamp_after\": \"00:04\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:03\",\n        \"description\": \"The person picks up the pack of chillies from the counter\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 1,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 0,\n  \"remaining_description\": \"No other packs of chillies are visible on the counter after the pick-up\",\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source was VALID (counter). Dest was VALID (hand). Transfer was VALID (mid-air). Final count derived primarily from Path C as the pack is clearly seen being picked up and held.\"\n}",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "chillies",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 0,
+          "remaining_description": "No other packs of chillies are visible on the counter after the pick-up",
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source was VALID (counter). Dest was VALID (hand). Transfer was VALID (mid-air). Final count derived primarily from Path C as the pack is clearly seen being picked up and held.",
+          "error": -1,
+          "abs_error": 1,
+          "match": "close",
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:02",
+              "timestamp_after_raw": "00:04",
+              "observed_delta": 1,
+              "confidence": "high",
+              "container_description": "kitchen counter",
+              "timestamp_before_seconds": 2.0,
+              "absolute_timestamp_before": 2048.33,
+              "timestamp_after_seconds": 4.0,
+              "absolute_timestamp_after": 2050.33
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:02",
+              "timestamp_after_raw": "00:04",
+              "observed_delta": 1,
+              "confidence": "high",
+              "container_description": "person's hand",
+              "timestamp_before_seconds": 2.0,
+              "absolute_timestamp_before": 2048.33,
+              "timestamp_after_seconds": 4.0,
+              "absolute_timestamp_after": 2050.33
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:03",
+                  "description": "The person picks up the pack of chillies from the counter",
+                  "visible_count": 1,
+                  "timestamp_seconds": 3.0,
+                  "absolute_timestamp": 2049.33
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "high"
+            }
+          }
+        }
+      ],
+      "total_predicted": 5,
+      "recipe_amount": {
+        "ingredient": "chilli",
+        "amount": "10",
+        "unit": "g",
+        "recipe": "P09_R01"
+      }
+    },
+    {
+      "narration_id": "P09-20240621-093545-9",
+      "food_name": "pack of chicken breasts",
+      "difficulty": "LOW",
+      "video_range": [
+        "P09-20240621-093545"
+      ],
+      "total_ground_truth": 4,
+      "total_ground_truth_unit": "chicken breasts",
+      "num_segments": 2,
+      "segments": [
+        {
+          "segment_id": "seg_af0ab364",
+          "segment_idx": 0,
+          "video_id": "P09-20240621-093545",
+          "start_timestamp": 63.54,
+          "end_timestamp": 69.38,
+          "clip_start": 61.54,
+          "item_name": "pack of chicken breasts",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 61.54,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "plastic tray"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 68.54,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "plastic tray"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 61.54,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "white cutting board"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 68.54,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "white cutting board"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 64.54,
+              "description": "hand picks up one chicken breast from the tray",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\"item_name\": \"pack of chicken breasts\", \"quantity_category\": \"discrete\", \"path_source\": {\"status\": \"VALID\", \"container_description\": \"plastic tray\", \"timestamp_before\": \"00:00\", \"timestamp_after\": \"00:07\", \"observed_delta\": 1, \"confidence\": \"high\"}, \"path_destination\": {\"status\": \"VALID\", \"container_description\": \"white cutting board\", \"timestamp_before\": \"00:00\", \"timestamp_after\": \"00:07\", \"observed_delta\": 1, \"confidence\": \"high\"}, \"path_transfer\": {\"status\": \"VALID\", \"transfer_events\": [{\"timestamp\": \"00:03\", \"description\": \"hand picks up one chicken breast from the tray\", \"visible_count\": 1}], \"total_transfer_count\": 1, \"confidence\": \"high\"}, \"numeric_count\": 1, \"amount_description\": null, \"volume_fraction\": null, \"remaining_count\": 2, \"remaining_description\": \"two chicken breasts left in the tray\", \"remaining_fraction\": null, \"unit_type\": \"unit\", \"confidence\": \"high\", \"visual_evidence\": \"Source tray clearly shows one breast removed (3 down to 2). Destination cutting board shows one breast added. Transfer shows a single breast being moved by hand. All paths align.\"}",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "chicken breasts",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 2,
+          "remaining_description": "two chicken breasts left in the tray",
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source tray clearly shows one breast removed (3 down to 2). Destination cutting board shows one breast added. Transfer shows a single breast being moved by hand. All paths align.",
+          "error": -1,
+          "abs_error": 1,
+          "match": "close",
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:07",
+              "observed_delta": 1,
+              "confidence": "high",
+              "container_description": "plastic tray",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 61.54,
+              "timestamp_after_seconds": 7.0,
+              "absolute_timestamp_after": 68.54
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:07",
+              "observed_delta": 1,
+              "confidence": "high",
+              "container_description": "white cutting board",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 61.54,
+              "timestamp_after_seconds": 7.0,
+              "absolute_timestamp_after": 68.54
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:03",
+                  "description": "hand picks up one chicken breast from the tray",
+                  "visible_count": 1,
+                  "timestamp_seconds": 3.0,
+                  "absolute_timestamp": 64.54
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "high"
+            }
+          }
+        },
+        {
+          "segment_id": "seg_956cd5d1",
+          "segment_idx": 1,
+          "video_id": "P09-20240621-093545",
+          "start_timestamp": 208.12,
+          "end_timestamp": 217.34,
+          "clip_start": 206.12,
+          "item_name": "pack of chicken breasts",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "absolute_timestamp": 207.12,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "plastic tray"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:12",
+              "timestamp_seconds": 12.0,
+              "absolute_timestamp": 218.12,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "plastic tray"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "absolute_timestamp": 207.12,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "clear plastic bag"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:12",
+              "timestamp_seconds": 12.0,
+              "absolute_timestamp": 218.12,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "clear plastic bag"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 214.12,
+              "description": "one chicken breast being moved from the tray to the bag",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\"item_name\": \"pack of chicken breasts\", \"quantity_category\": \"discrete\", \"path_source\": {\"status\": \"VALID\", \"container_description\": \"plastic tray\", \"timestamp_before\": \"00:01\", \"timestamp_after\": \"00:12\", \"observed_delta\": 1, \"confidence\": \"high\"}, \"path_destination\": {\"status\": \"VALID\", \"container_description\": \"clear plastic bag\", \"timestamp_before\": \"00:01\", \"timestamp_after\": \"00:12\", \"observed_delta\": 1, \"confidence\": \"high\"}, \"path_transfer\": {\"status\": \"VALID\", \"transfer_events\": [{\"timestamp\": \"00:08\", \"description\": \"one chicken breast being moved from the tray to the bag\", \"visible_count\": 1}], \"total_transfer_count\": 1, \"confidence\": \"high\"}, \"numeric_count\": 1, \"amount_description\": null, \"volume_fraction\": null, \"remaining_count\": 2, \"remaining_description\": \"two chicken breasts remaining in the tray\", \"remaining_fraction\": null, \"unit_type\": \"unit\", \"confidence\": \"high\", \"visual_evidence\": \"The person is seen taking one chicken breast from the plastic tray (Source) and placing it into a clear plastic bag (Destination). The transfer is clearly visible at 00:08. Both the source tray and the destination bag confirm a delta of 1 unit.\"}",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "chicken breasts",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 2,
+          "remaining_description": "two chicken breasts remaining in the tray",
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "The person is seen taking one chicken breast from the plastic tray (Source) and placing it into a clear plastic bag (Destination). The transfer is clearly visible at 00:08. Both the source tray and the destination bag confirm a delta of 1 unit.",
+          "error": -1,
+          "abs_error": 1,
+          "match": "close",
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:01",
+              "timestamp_after_raw": "00:12",
+              "observed_delta": 1,
+              "confidence": "high",
+              "container_description": "plastic tray",
+              "timestamp_before_seconds": 1.0,
+              "absolute_timestamp_before": 207.12,
+              "timestamp_after_seconds": 12.0,
+              "absolute_timestamp_after": 218.12
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:01",
+              "timestamp_after_raw": "00:12",
+              "observed_delta": 1,
+              "confidence": "high",
+              "container_description": "clear plastic bag",
+              "timestamp_before_seconds": 1.0,
+              "absolute_timestamp_before": 207.12,
+              "timestamp_after_seconds": 12.0,
+              "absolute_timestamp_after": 218.12
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:08",
+                  "description": "one chicken breast being moved from the tray to the bag",
+                  "visible_count": 1,
+                  "timestamp_seconds": 8.0,
+                  "absolute_timestamp": 214.12
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "high"
+            }
+          }
+        }
+      ],
+      "total_predicted": 2,
+      "recipe_amount": {
+        "ingredient": "chicken breasts",
+        "amount": "308",
+        "unit": "g",
+        "recipe": "P09_R01"
+      }
+    },
+    {
+      "narration_id": "P09-20240621-153208-0-9",
+      "food_name": "ginger",
+      "difficulty": "LOW",
+      "video_range": [
+        "P09-20240621-153208"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "piece",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_1b4f16d3",
+          "segment_idx": 0,
+          "video_id": "P09-20240621-153208",
+          "start_timestamp": 17.795,
+          "end_timestamp": 22.795,
+          "clip_start": 15.795000000000002,
+          "item_name": "ginger",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "absolute_timestamp": 16.8,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "White mesh bag"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 21.8,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "White mesh bag"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "absolute_timestamp": 16.8,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Hands"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 23.8,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Hands"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 20.8,
+              "description": "Ginger pulled out of bag",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\"item_name\": \"ginger\", \"quantity_category\": \"discrete\", \"path_source\": {\"status\": \"VALID\", \"container_description\": \"White mesh bag\", \"timestamp_before\": \"00:01\", \"timestamp_after\": \"00:06\", \"observed_delta\": 1, \"confidence\": \"high\"}, \"path_destination\": {\"status\": \"VALID\", \"container_description\": \"Hands\", \"timestamp_before\": \"00:01\", \"timestamp_after\": \"00:08\", \"observed_delta\": 1, \"confidence\": \"high\"}, \"path_transfer\": {\"status\": \"VALID\", \"transfer_events\": [{\"timestamp\": \"00:05\", \"description\": \"Ginger pulled out of bag\", \"visible_count\": 1}], \"total_transfer_count\": 1, \"confidence\": \"high\"}, \"numeric_count\": 1, \"amount_description\": \"one piece of ginger\", \"volume_fraction\": null, \"remaining_count\": null, \"remaining_description\": \"at least one more piece in the bag\", \"remaining_fraction\": null, \"unit_type\": \"unit\", \"confidence\": \"high\", \"visual_evidence\": \"Source showed one piece removed from the mesh bag. Destination showed one piece in hand. Transfer clearly showed one piece being pulled out. All paths align.\"}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "piece",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": "one piece of ginger",
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": "at least one more piece in the bag",
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source showed one piece removed from the mesh bag. Destination showed one piece in hand. Transfer clearly showed one piece being pulled out. All paths align.",
+          "error": 0,
+          "abs_error": 0,
+          "match": "exact",
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:01",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": 1,
+              "confidence": "high",
+              "container_description": "White mesh bag",
+              "timestamp_before_seconds": 1.0,
+              "absolute_timestamp_before": 16.8,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 21.8
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:01",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": 1,
+              "confidence": "high",
+              "container_description": "Hands",
+              "timestamp_before_seconds": 1.0,
+              "absolute_timestamp_before": 16.8,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 23.8
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:05",
+                  "description": "Ginger pulled out of bag",
+                  "visible_count": 1,
+                  "timestamp_seconds": 5.0,
+                  "absolute_timestamp": 20.8
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "high"
+            }
+          }
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "ginger",
+        "amount": "49",
+        "unit": "g",
+        "recipe": "P09_R03_C0"
+      }
+    },
+    {
+      "narration_id": "P09-20240622-150155-11",
+      "food_name": "bag of chicken",
+      "difficulty": "LOW",
+      "video_range": [
+        "P09-20240622-150155",
+        "P09-20240622-154652",
+        "P09-20240622-162302",
+        "P09-20240622-194642"
+      ],
+      "total_ground_truth": null,
+      "total_ground_truth_unit": null,
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_9514ba39",
+          "segment_idx": 0,
+          "video_id": "P09-20240622-150155",
+          "start_timestamp": 40.51,
+          "end_timestamp": 45.51,
+          "clip_start": 38.51,
+          "item_name": "bag of chicken",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 38.51,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "plastic bag"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 46.51,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "plastic bag"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 38.51,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "right hand"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 46.51,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "right hand"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 44.51,
+              "description": "one piece of chicken pulled out of the bag",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\"item_name\": \"bag of chicken\", \"quantity_category\": \"discrete\", \"path_source\": {\"status\": \"VALID\", \"container_description\": \"plastic bag\", \"timestamp_before\": \"00:00\", \"timestamp_after\": \"00:08\", \"observed_delta\": 1, \"confidence\": \"medium\"}, \"path_destination\": {\"status\": \"VALID\", \"container_description\": \"right hand\", \"timestamp_before\": \"00:00\", \"timestamp_after\": \"00:08\", \"observed_delta\": 1, \"confidence\": \"high\"}, \"path_transfer\": {\"status\": \"VALID\", \"transfer_events\": [{\"timestamp\": \"00:06\", \"description\": \"one piece of chicken pulled out of the bag\", \"visible_count\": 1}], \"total_transfer_count\": 1, \"confidence\": \"high\"}, \"numeric_count\": 1, \"amount_description\": null, \"volume_fraction\": null, \"remaining_count\": null, \"remaining_description\": \"multiple pieces remaining in bag\", \"remaining_fraction\": null, \"unit_type\": \"unit\", \"confidence\": \"high\", \"visual_evidence\": \"Source was a plastic bag held in the left hand. Destination was the right hand. Transfer was clearly observed at 00:06 when a single piece of chicken was extracted from the bag. Final count derived primarily from Path C.\"}",
+          "ground_truth_count": null,
+          "ground_truth_unit": null,
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": "multiple pieces remaining in bag",
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source was a plastic bag held in the left hand. Destination was the right hand. Transfer was clearly observed at 00:06 when a single piece of chicken was extracted from the bag. Final count derived primarily from Path C.",
+          "match": "gt_uncountable",
+          "error": null,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": 1,
+              "confidence": "medium",
+              "container_description": "plastic bag",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 38.51,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 46.51
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": 1,
+              "confidence": "high",
+              "container_description": "right hand",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 38.51,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 46.51
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:06",
+                  "description": "one piece of chicken pulled out of the bag",
+                  "visible_count": 1,
+                  "timestamp_seconds": 6.0,
+                  "absolute_timestamp": 44.51
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "high"
+            }
+          }
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "chicken breasts",
+        "amount": "300",
+        "unit": "g",
+        "recipe": "P09_R02"
+      }
+    },
+    {
+      "narration_id": "P09-20240623-120359-282-2",
+      "food_name": "green chillies",
+      "difficulty": "LOW",
+      "video_range": [
+        "P09-20240623-120359"
+      ],
+      "total_ground_truth": null,
+      "total_ground_truth_unit": null,
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_c2bc642c",
+          "segment_idx": 0,
+          "video_id": "P09-20240623-120359",
+          "start_timestamp": 967.81,
+          "end_timestamp": 973.14,
+          "clip_start": 965.81,
+          "item_name": "green chillies",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "absolute_timestamp": 966.81,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "plastic punnet on the counter"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 973.81,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "plastic punnet on the counter"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 965.81,
+              "description": "Destination before (delta=3)",
+              "visibility_status": "clear_view",
+              "container_description": "blender"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 973.81,
+              "description": "Destination after (delta=3)",
+              "visibility_status": "clear_view",
+              "container_description": "blender"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 969.81,
+              "description": "Holding three green chillies in hands before dropping them",
+              "visibility_status": "clear_view",
+              "visible_count": 3
+            }
+          ],
+          "raw_vlm_response": "{\"item_name\": \"green chillies\", \"quantity_category\": \"discrete\", \"path_source\": {\"status\": \"INVALID_OCCLUDED\", \"container_description\": \"plastic punnet on the counter\", \"timestamp_before\": \"00:01\", \"timestamp_after\": \"00:08\", \"observed_delta\": null, \"confidence\": \"low\"}, \"path_destination\": {\"status\": \"VALID\", \"container_description\": \"blender\", \"timestamp_before\": \"00:00\", \"timestamp_after\": \"00:08\", \"observed_delta\": 3, \"confidence\": \"medium\"}, \"path_transfer\": {\"status\": \"VALID\", \"transfer_events\": [{\"timestamp\": \"00:04\", \"description\": \"Holding three green chillies in hands before dropping them\", \"visible_count\": 3}], \"total_transfer_count\": 3, \"confidence\": \"high\"}, \"numeric_count\": 3, \"amount_description\": null, \"volume_fraction\": null, \"remaining_count\": null, \"remaining_description\": \"several chillies remaining in the punnet\", \"remaining_fraction\": null, \"unit_type\": \"unit\", \"confidence\": \"high\", \"visual_evidence\": \"Source container was partially occluded by other items. Destination was the blender where the items were dropped. Transfer path (Path C) provided the clearest view, showing 3 green chillies held in the hands at 00:04 before being added to the blender.\"}",
+          "ground_truth_count": null,
+          "ground_truth_unit": null,
+          "quantity_category": "discrete",
+          "predicted_count": 3,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": "several chillies remaining in the punnet",
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source container was partially occluded by other items. Destination was the blender where the items were dropped. Transfer path (Path C) provided the clearest view, showing 3 green chillies held in the hands at 00:04 before being added to the blender.",
+          "match": "gt_uncountable",
+          "error": null,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:01",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": null,
+              "confidence": "low",
+              "container_description": "plastic punnet on the counter",
+              "timestamp_before_seconds": 1.0,
+              "absolute_timestamp_before": 966.81,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 973.81
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": 3,
+              "confidence": "medium",
+              "container_description": "blender",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 965.81,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 973.81
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:04",
+                  "description": "Holding three green chillies in hands before dropping them",
+                  "visible_count": 3,
+                  "timestamp_seconds": 4.0,
+                  "absolute_timestamp": 969.81
+                }
+              ],
+              "total_transfer_count": 3,
+              "confidence": "high"
+            }
+          }
+        }
+      ],
+      "total_predicted": 3,
+      "recipe_amount": {
+        "ingredient": "chilli",
+        "amount": "28",
+        "unit": "g",
+        "recipe": "P09_R04"
+      }
+    },
+    {
+      "narration_id": "P09-20240624-160737-353",
+      "food_name": "potatoes",
+      "difficulty": "LOW",
+      "video_range": [
+        "P09-20240624-160737",
+        "P09-20240624-165332"
+      ],
+      "total_ground_truth": 3,
+      "total_ground_truth_unit": "potatoes",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_ad03fdd1",
+          "segment_idx": 0,
+          "video_id": "P09-20240624-160737",
+          "start_timestamp": 819.19,
+          "end_timestamp": 840.035964,
+          "clip_start": 817.19,
+          "item_name": "potatoes",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 817.19,
+              "description": "Source before (delta=3)",
+              "visibility_status": "clear_view",
+              "container_description": "Plastic bag"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:24",
+              "timestamp_seconds": 24.0,
+              "absolute_timestamp": 841.19,
+              "description": "Source after (delta=3)",
+              "visibility_status": "clear_view",
+              "container_description": "Plastic bag"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:12",
+              "timestamp_seconds": 12.0,
+              "absolute_timestamp": 829.19,
+              "description": "Destination before (delta=3)",
+              "visibility_status": "clear_view",
+              "container_description": "Black digital scale"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:24",
+              "timestamp_seconds": 24.0,
+              "absolute_timestamp": 841.19,
+              "description": "Destination after (delta=3)",
+              "visibility_status": "clear_view",
+              "container_description": "Black digital scale"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:14",
+              "timestamp_seconds": 14.0,
+              "absolute_timestamp": 831.19,
+              "description": "First potato placed on scale",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:16",
+              "timestamp_seconds": 16.0,
+              "absolute_timestamp": 833.19,
+              "description": "Second potato placed on scale",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:21",
+              "timestamp_seconds": 21.0,
+              "absolute_timestamp": 838.19,
+              "description": "Third potato placed on scale",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\"item_name\": \"potatoes\", \"quantity_category\": \"discrete\", \"path_source\": {\"status\": \"VALID\", \"container_description\": \"Plastic bag\", \"timestamp_before\": \"00:00\", \"timestamp_after\": \"00:24\", \"observed_delta\": 3, \"confidence\": \"medium\"}, \"path_destination\": {\"status\": \"VALID\", \"container_description\": \"Black digital scale\", \"timestamp_before\": \"00:12\", \"timestamp_after\": \"00:24\", \"observed_delta\": 3, \"confidence\": \"high\"}, \"path_transfer\": {\"status\": \"VALID\", \"transfer_events\": [{\"timestamp\": \"00:14\", \"description\": \"First potato placed on scale\", \"visible_count\": 1}, {\"timestamp\": \"00:16\", \"description\": \"Second potato placed on scale\", \"visible_count\": 1}, {\"timestamp\": \"00:21\", \"description\": \"Third potato placed on scale\", \"visible_count\": 1}], \"total_transfer_count\": 3, \"confidence\": \"high\"}, \"numeric_count\": 3, \"amount_description\": null, \"volume_fraction\": null, \"remaining_count\": null, \"remaining_description\": \"Several potatoes remaining in the bag\", \"remaining_fraction\": null, \"unit_type\": \"unit\", \"confidence\": \"high\", \"visual_evidence\": \"Source bag is partially visible. Destination scale clearly shows 3 potatoes being added one by one. Transfer events confirm 3 potatoes moved. Final count derived from Path B and C.\"}",
+          "ground_truth_count": 3,
+          "ground_truth_unit": "potatoes",
+          "quantity_category": "discrete",
+          "predicted_count": 3,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": "Several potatoes remaining in the bag",
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source bag is partially visible. Destination scale clearly shows 3 potatoes being added one by one. Transfer events confirm 3 potatoes moved. Final count derived from Path B and C.",
+          "error": 0,
+          "abs_error": 0,
+          "match": "exact",
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:24",
+              "observed_delta": 3,
+              "confidence": "medium",
+              "container_description": "Plastic bag",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 817.19,
+              "timestamp_after_seconds": 24.0,
+              "absolute_timestamp_after": 841.19
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:12",
+              "timestamp_after_raw": "00:24",
+              "observed_delta": 3,
+              "confidence": "high",
+              "container_description": "Black digital scale",
+              "timestamp_before_seconds": 12.0,
+              "absolute_timestamp_before": 829.19,
+              "timestamp_after_seconds": 24.0,
+              "absolute_timestamp_after": 841.19
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:14",
+                  "description": "First potato placed on scale",
+                  "visible_count": 1,
+                  "timestamp_seconds": 14.0,
+                  "absolute_timestamp": 831.19
+                },
+                {
+                  "timestamp_raw": "00:16",
+                  "description": "Second potato placed on scale",
+                  "visible_count": 1,
+                  "timestamp_seconds": 16.0,
+                  "absolute_timestamp": 833.19
+                },
+                {
+                  "timestamp_raw": "00:21",
+                  "description": "Third potato placed on scale",
+                  "visible_count": 1,
+                  "timestamp_seconds": 21.0,
+                  "absolute_timestamp": 838.19
+                }
+              ],
+              "total_transfer_count": 3,
+              "confidence": "high"
+            }
+          }
+        }
+      ],
+      "total_predicted": 3,
+      "recipe_amount": {
+        "ingredient": "potatoes",
+        "amount": "604",
+        "unit": "g",
+        "recipe": "P09_R06"
+      }
+    },
+    {
+      "narration_id": "P09-20240624-160737-40",
+      "food_name": "onions",
+      "difficulty": "LOW",
+      "video_range": [
+        "P09-20240624-160737",
+        "P09-20240624-165332"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "onions",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_a3b63468",
+          "segment_idx": 0,
+          "video_id": "P09-20240624-160737",
+          "start_timestamp": 245.485,
+          "end_timestamp": 250.485,
+          "clip_start": 243.485,
+          "item_name": "onions",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 246.49,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Black bowl on the counter"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 251.49,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Black bowl on the counter"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 246.49,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Person's hand"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 251.49,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Person's hand"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 248.49,
+              "description": "Picking up one onion from the bowl",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\"item_name\": \"onions\", \"quantity_category\": \"discrete\", \"path_source\": {\"status\": \"VALID\", \"container_description\": \"Black bowl on the counter\", \"timestamp_before\": \"00:03\", \"timestamp_after\": \"00:08\", \"observed_delta\": 1, \"confidence\": \"high\"}, \"path_destination\": {\"status\": \"VALID\", \"container_description\": \"Person's hand\", \"timestamp_before\": \"00:03\", \"timestamp_after\": \"00:08\", \"observed_delta\": 1, \"confidence\": \"high\"}, \"path_transfer\": {\"status\": \"VALID\", \"transfer_events\": [{\"timestamp\": \"00:05\", \"description\": \"Picking up one onion from the bowl\", \"visible_count\": 1}], \"total_transfer_count\": 1, \"confidence\": \"high\"}, \"numeric_count\": 1, \"amount_description\": null, \"volume_fraction\": null, \"remaining_count\": 1, \"remaining_description\": \"One onion left in the bowl\", \"remaining_fraction\": 0.5, \"unit_type\": \"unit\", \"confidence\": \"high\", \"visual_evidence\": \"Source bowl clearly showed two onions at 00:03 and one at 00:08. Transfer of one onion was visible at 00:05. All paths align.\"}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "onions",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 1,
+          "remaining_description": "One onion left in the bowl",
+          "remaining_fraction": 0.5,
+          "confidence": "high",
+          "visual_evidence": "Source bowl clearly showed two onions at 00:03 and one at 00:08. Transfer of one onion was visible at 00:05. All paths align.",
+          "error": 0,
+          "abs_error": 0,
+          "match": "exact",
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:03",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": 1,
+              "confidence": "high",
+              "container_description": "Black bowl on the counter",
+              "timestamp_before_seconds": 3.0,
+              "absolute_timestamp_before": 246.49,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 251.49
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:03",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": 1,
+              "confidence": "high",
+              "container_description": "Person's hand",
+              "timestamp_before_seconds": 3.0,
+              "absolute_timestamp_before": 246.49,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 251.49
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:05",
+                  "description": "Picking up one onion from the bowl",
+                  "visible_count": 1,
+                  "timestamp_seconds": 5.0,
+                  "absolute_timestamp": 248.49
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "high"
+            }
+          }
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "onions",
+        "amount": "170",
+        "unit": "g",
+        "recipe": "P09_R06"
+      }
+    },
+    {
+      "narration_id": "P09-20240624-160737-41",
+      "food_name": "tomatoes",
+      "difficulty": "LOW",
+      "video_range": [
+        "P09-20240624-160737",
+        "P09-20240624-165332"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "tomatoes",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_2b4812c0",
+          "segment_idx": 0,
+          "video_id": "P09-20240624-160737",
+          "start_timestamp": 119.91,
+          "end_timestamp": 125.75,
+          "clip_start": 117.91,
+          "item_name": "tomatoes",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 117.91,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Cardboard produce basket"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 123.91,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Cardboard produce basket"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 120.91,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Person's hand"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 122.91,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Person's hand"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 121.91,
+              "description": "Picking up one tomato from the basket",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\"item_name\": \"tomatoes\", \"quantity_category\": \"discrete\", \"path_source\": {\"status\": \"VALID\", \"container_description\": \"Cardboard produce basket\", \"timestamp_before\": \"00:00\", \"timestamp_after\": \"00:06\", \"observed_delta\": 1, \"confidence\": \"high\"}, \"path_destination\": {\"status\": \"VALID\", \"container_description\": \"Person's hand\", \"timestamp_before\": \"00:03\", \"timestamp_after\": \"00:05\", \"observed_delta\": 1, \"confidence\": \"high\"}, \"path_transfer\": {\"status\": \"VALID\", \"transfer_events\": [{\"timestamp\": \"00:04\", \"description\": \"Picking up one tomato from the basket\", \"visible_count\": 1}], \"total_transfer_count\": 1, \"confidence\": \"high\"}, \"numeric_count\": 1, \"amount_description\": null, \"volume_fraction\": null, \"remaining_count\": 2, \"remaining_description\": null, \"remaining_fraction\": null, \"unit_type\": \"unit\", \"confidence\": \"high\", \"visual_evidence\": \"The source basket clearly contained 3 tomatoes at the start (00:00) and 2 tomatoes after the action (00:06). The transfer event at 00:04 shows a single tomato being picked up. All paths are consistent and clearly visible.\"}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "tomatoes",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 2,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "The source basket clearly contained 3 tomatoes at the start (00:00) and 2 tomatoes after the action (00:06). The transfer event at 00:04 shows a single tomato being picked up. All paths are consistent and clearly visible.",
+          "error": 0,
+          "abs_error": 0,
+          "match": "exact",
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": 1,
+              "confidence": "high",
+              "container_description": "Cardboard produce basket",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 117.91,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 123.91
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:03",
+              "timestamp_after_raw": "00:05",
+              "observed_delta": 1,
+              "confidence": "high",
+              "container_description": "Person's hand",
+              "timestamp_before_seconds": 3.0,
+              "absolute_timestamp_before": 120.91,
+              "timestamp_after_seconds": 5.0,
+              "absolute_timestamp_after": 122.91
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:04",
+                  "description": "Picking up one tomato from the basket",
+                  "visible_count": 1,
+                  "timestamp_seconds": 4.0,
+                  "absolute_timestamp": 121.91
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "high"
+            }
+          }
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "tomatoes",
+        "amount": "122",
+        "unit": "g",
+        "recipe": "P09_R06"
+      }
+    },
+    {
+      "narration_id": "P09-20240624-160737-88",
+      "food_name": "scotch bonnet peppers",
+      "difficulty": "LOW",
+      "video_range": [
+        "P09-20240624-160737",
+        "P09-20240624-165332"
+      ],
+      "total_ground_truth": null,
+      "total_ground_truth_unit": "peppers",
+      "num_segments": 2,
+      "segments": [
+        {
+          "segment_id": "seg_f6ec74ce",
+          "segment_idx": 0,
+          "video_id": "P09-20240624-160737",
+          "start_timestamp": 167.35,
+          "end_timestamp": 172.45,
+          "clip_start": 165.35,
+          "item_name": "scotch bonnet peppers",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 167.35,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "small cardboard punnet"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 171.35,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "small cardboard punnet"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 172.35,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "white cutting board"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 173.35,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "white cutting board"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 168.35,
+              "description": "Picking up one scotch bonnet pepper from the box",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\"item_name\": \"scotch bonnet peppers\", \"quantity_category\": \"discrete\", \"path_source\": {\"status\": \"VALID\", \"container_description\": \"small cardboard punnet\", \"timestamp_before\": \"00:02\", \"timestamp_after\": \"00:06\", \"observed_delta\": 1, \"confidence\": \"high\"}, \"path_destination\": {\"status\": \"VALID\", \"container_description\": \"white cutting board\", \"timestamp_before\": \"00:07\", \"timestamp_after\": \"00:08\", \"observed_delta\": 1, \"confidence\": \"high\"}, \"path_transfer\": {\"status\": \"VALID\", \"transfer_events\": [{\"timestamp\": \"00:03\", \"description\": \"Picking up one scotch bonnet pepper from the box\", \"visible_count\": 1}], \"total_transfer_count\": 1, \"confidence\": \"high\"}, \"numeric_count\": 1, \"amount_description\": null, \"volume_fraction\": null, \"remaining_count\": 4, \"remaining_description\": \"four peppers remaining in the punnet\", \"remaining_fraction\": null, \"unit_type\": \"unit\", \"confidence\": \"high\", \"visual_evidence\": \"The source container (punnet) clearly showed one pepper being removed between 00:02 and 00:06. The transfer of a single pepper was visible in the hand at 00:03. Finally, the pepper was placed on the cutting board at 00:08. All three paths confirm a count of 1.\"}",
+          "ground_truth_count": null,
+          "ground_truth_unit": "peppers",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 4,
+          "remaining_description": "four peppers remaining in the punnet",
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "The source container (punnet) clearly showed one pepper being removed between 00:02 and 00:06. The transfer of a single pepper was visible in the hand at 00:03. Finally, the pepper was placed on the cutting board at 00:08. All three paths confirm a count of 1.",
+          "match": "gt_uncountable",
+          "error": null,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:02",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": 1,
+              "confidence": "high",
+              "container_description": "small cardboard punnet",
+              "timestamp_before_seconds": 2.0,
+              "absolute_timestamp_before": 167.35,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 171.35
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:07",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": 1,
+              "confidence": "high",
+              "container_description": "white cutting board",
+              "timestamp_before_seconds": 7.0,
+              "absolute_timestamp_before": 172.35,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 173.35
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:03",
+                  "description": "Picking up one scotch bonnet pepper from the box",
+                  "visible_count": 1,
+                  "timestamp_seconds": 3.0,
+                  "absolute_timestamp": 168.35
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "high"
+            }
+          }
+        },
+        {
+          "segment_id": "seg_a1502ae2",
+          "segment_idx": 1,
+          "video_id": "P09-20240624-160737",
+          "start_timestamp": 450.07,
+          "end_timestamp": 455.07,
+          "clip_start": 448.07,
+          "item_name": "scotch bonnet peppers",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 452.07,
+              "description": "Source before (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "plastic punnet on the wooden counter"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 454.07,
+              "description": "Source after (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "plastic punnet on the wooden counter"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 452.07,
+              "description": "Destination before (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "person's hand"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 454.07,
+              "description": "Destination after (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "person's hand"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 453.07,
+              "description": "picking up the first pepper",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 454.07,
+              "description": "picking up the second pepper",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\"item_name\": \"scotch bonnet peppers\", \"quantity_category\": \"discrete\", \"path_source\": {\"status\": \"VALID\", \"container_description\": \"plastic punnet on the wooden counter\", \"timestamp_before\": \"00:04\", \"timestamp_after\": \"00:06\", \"observed_delta\": 2, \"confidence\": \"medium\"}, \"path_destination\": {\"status\": \"VALID\", \"container_description\": \"person's hand\", \"timestamp_before\": \"00:04\", \"timestamp_after\": \"00:06\", \"observed_delta\": 2, \"confidence\": \"high\"}, \"path_transfer\": {\"status\": \"VALID\", \"transfer_events\": [{\"timestamp\": \"00:05\", \"description\": \"picking up the first pepper\", \"visible_count\": 1}, {\"timestamp\": \"00:06\", \"description\": \"picking up the second pepper\", \"visible_count\": 1}], \"total_transfer_count\": 2, \"confidence\": \"high\"}, \"numeric_count\": 2, \"amount_description\": null, \"volume_fraction\": null, \"remaining_count\": 3, \"remaining_description\": \"peppers remaining in the punnet\", \"remaining_fraction\": null, \"unit_type\": \"unit\", \"confidence\": \"high\", \"visual_evidence\": \"The person is seen picking up two individual scotch bonnet peppers from a punnet on the counter. Path C (Transfer) clearly shows two items being moved sequentially. Path B (Destination) confirms two items held in the hand before moving to the sink.\"}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "peppers",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 3,
+          "remaining_description": "peppers remaining in the punnet",
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "The person is seen picking up two individual scotch bonnet peppers from a punnet on the counter. Path C (Transfer) clearly shows two items being moved sequentially. Path B (Destination) confirms two items held in the hand before moving to the sink.",
+          "error": 1,
+          "abs_error": 1,
+          "match": "close",
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:04",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": 2,
+              "confidence": "medium",
+              "container_description": "plastic punnet on the wooden counter",
+              "timestamp_before_seconds": 4.0,
+              "absolute_timestamp_before": 452.07,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 454.07
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:04",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": 2,
+              "confidence": "high",
+              "container_description": "person's hand",
+              "timestamp_before_seconds": 4.0,
+              "absolute_timestamp_before": 452.07,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 454.07
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:05",
+                  "description": "picking up the first pepper",
+                  "visible_count": 1,
+                  "timestamp_seconds": 5.0,
+                  "absolute_timestamp": 453.07
+                },
+                {
+                  "timestamp_raw": "00:06",
+                  "description": "picking up the second pepper",
+                  "visible_count": 1,
+                  "timestamp_seconds": 6.0,
+                  "absolute_timestamp": 454.07
+                }
+              ],
+              "total_transfer_count": 2,
+              "confidence": "high"
+            }
+          }
+        }
+      ],
+      "total_predicted": 3,
+      "recipe_amount": {
+        "ingredient": "scotch bonnet chilli",
+        "amount": "23",
+        "unit": "g",
+        "recipe": "P09_R06"
+      }
+    },
+    {
+      "narration_id": "P09-20240624-165332-446",
+      "food_name": "tea (tea bags)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P09-20240624-160737",
+        "P09-20240624-165332"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "tea bags",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_4a8c42c9",
+          "segment_idx": 0,
+          "video_id": "P09-20240624-165332",
+          "start_timestamp": 1103.815,
+          "end_timestamp": 1108.815,
+          "clip_start": 1101.815,
+          "item_name": "tea (tea bags)",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 1101.82,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Blue tea bag box"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 1107.82,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Blue tea bag box"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 1103.82,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Black mug"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 1109.82,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Black mug"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 1106.82,
+              "description": "One tea bag held in hand and dropped into mug",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\"item_name\": \"tea (tea bags)\", \"quantity_category\": \"discrete\", \"path_source\": {\"status\": \"INVALID_OPAQUE\", \"container_description\": \"Blue tea bag box\", \"timestamp_before\": \"00:00\", \"timestamp_after\": \"00:06\", \"observed_delta\": null, \"confidence\": \"low\"}, \"path_destination\": {\"status\": \"VALID\", \"container_description\": \"Black mug\", \"timestamp_before\": \"00:02\", \"timestamp_after\": \"00:08\", \"observed_delta\": 1, \"confidence\": \"medium\"}, \"path_transfer\": {\"status\": \"VALID\", \"transfer_events\": [{\"timestamp\": \"00:05\", \"description\": \"One tea bag held in hand and dropped into mug\", \"visible_count\": 1}], \"total_transfer_count\": 1, \"confidence\": \"high\"}, \"numeric_count\": 1, \"amount_description\": null, \"volume_fraction\": null, \"remaining_count\": null, \"remaining_description\": \"Unknown number of tea bags remaining in the box\", \"remaining_fraction\": null, \"unit_type\": \"unit\", \"confidence\": \"high\", \"visual_evidence\": \"Source box was opaque. Transfer clearly showed 1 tea bag being removed and placed into the destination mug. Final count derived primarily from Path C.\"}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "tea bags",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": "Unknown number of tea bags remaining in the box",
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source box was opaque. Transfer clearly showed 1 tea bag being removed and placed into the destination mug. Final count derived primarily from Path C.",
+          "error": 0,
+          "abs_error": 0,
+          "match": "exact",
+          "paths": {
+            "source": {
+              "status": "INVALID_OPAQUE",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": null,
+              "confidence": "low",
+              "container_description": "Blue tea bag box",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 1101.82,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 1107.82
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:02",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": 1,
+              "confidence": "medium",
+              "container_description": "Black mug",
+              "timestamp_before_seconds": 2.0,
+              "absolute_timestamp_before": 1103.82,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 1109.82
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:05",
+                  "description": "One tea bag held in hand and dropped into mug",
+                  "visible_count": 1,
+                  "timestamp_seconds": 5.0,
+                  "absolute_timestamp": 1106.82
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "high"
+            }
+          }
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": null
+    }
+  ]
+}

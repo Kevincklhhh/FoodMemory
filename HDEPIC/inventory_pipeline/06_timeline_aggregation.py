@@ -35,6 +35,7 @@ from inventory_utils import (
     DEFAULT_PICKLE_PATH,
     GPTClient,
     extract_json_from_response,
+    add_segment_ids_to_item,
 )
 
 
@@ -54,12 +55,17 @@ Identify dispensing segments for the Target Ingredient. Each segment has:
 - **Count:** If the item is countable, the number of units dispensed in that segment.
 
 GUIDELINES:
-- **Merge Fragmented Actions:** The log often breaks a single action into multiple lines (e.g., "Pick egg 1", "Pick egg 2", "Pick egg 3"). Treat these as ONE continuous segment.
-- **Split into Multiple Segments:** If dispensing actions are separated by MORE THAN 30 SECONDS, output them as SEPARATE segments. For example:
-  - Actions at 100s, 105s, 110s -> ONE segment [100s - 110s]
-  - Actions at 100s, 105s, then 200s -> TWO segments [100s - 105s] and [200s - 200s]
-- **Different Videos = Different Segments:** Actions from DIFFERENT video IDs must be in SEPARATE segments.
-- **Time Range:** Each segment's range [start, end] should cover all continuous actions within 30 seconds of each other.
+- **Merge Fragmented Actions:** The log often breaks a single action into multiple lines (e.g., "Pick egg 1", "Pick egg 2", "Pick egg 3"). Merge these into continuous segments.
+- **Maximum Segment Duration:** Each segment MUST be LESS THAN 30 SECONDS in duration (end - start < 30). If continuous actions span longer than 30 seconds, split them into multiple segments.
+- **Split Rules:** Create a NEW segment when:
+  1. The current segment would exceed 30 seconds duration, OR
+  2. There is a gap of MORE THAN 30 SECONDS between actions, OR
+  3. Actions are from DIFFERENT video IDs
+- **Splitting Long Sequences:** For example:
+  - Actions at 100s, 105s, 110s -> ONE segment [100s - 110s] (duration = 10s < 30s)
+  - Actions at 100s, 105s, then 200s -> TWO segments [100s - 105s] and [200s - 200s] (gap > 30s)
+  - Actions at 100s, 110s, 120s, 135s, 145s -> TWO segments [100s - 120s] and [135s - 145s] (first would be 45s if merged)
+- **Different Videos = Different Segments:** Actions from DIFFERENT video IDs must ALWAYS be in SEPARATE segments.
 - **Count Logic:** Look for quantifiers in the text:
   - "one egg" -> +1
   - "two more eggs" -> +2
@@ -145,6 +151,45 @@ def extract_video_id_from_narration(narration_id: str) -> str:
     """Extract video_id from narration_id (e.g., 'P03-20240216-185832-38' -> 'P03-20240216-185832')."""
     parts = narration_id.rsplit('-', 1)
     return parts[0] if len(parts) > 1 else narration_id
+
+
+def pad_short_segments(segments: List[Dict], min_duration: float = 5.0) -> List[Dict]:
+    """
+    Pad segments shorter than min_duration to min_duration.
+
+    Padding is applied equally to start and end, ensuring start >= 0.
+
+    Args:
+        segments: List of segment dictionaries with start_timestamp and end_timestamp
+        min_duration: Minimum segment duration in seconds (default: 5.0)
+
+    Returns:
+        List of segments with short ones padded
+    """
+    padded_segments = []
+    for seg in segments:
+        start = seg.get('start_timestamp', 0)
+        end = seg.get('end_timestamp', 0)
+        duration = end - start
+
+        if duration < min_duration:
+            # Calculate padding needed
+            padding_needed = min_duration - duration
+            padding_each_side = padding_needed / 2
+
+            # Apply padding, ensuring start doesn't go below 0
+            new_start = max(0, start - padding_each_side)
+            # If we couldn't pad fully on start side, add extra to end
+            actual_start_padding = start - new_start
+            extra_end_padding = padding_each_side - actual_start_padding
+            new_end = end + padding_each_side + extra_end_padding
+
+            padded_seg = {**seg, 'start_timestamp': new_start, 'end_timestamp': new_end}
+            padded_segments.append(padded_seg)
+        else:
+            padded_segments.append(seg)
+
+    return padded_segments
 
 
 def run_timeline_aggregation(
@@ -351,6 +396,9 @@ def main():
             total_count = result.get('total_count')
             count_unit = result.get('count_unit')
 
+            # Pad short segments to minimum 5 seconds
+            segments = pad_short_segments(segments, min_duration=5.0)
+
             # Display segments
             count_str = f"{total_count} {count_unit}" if total_count is not None else "uncountable"
             if len(segments) == 1:
@@ -367,8 +415,8 @@ def main():
             if args.verbose and result.get('reasoning'):
                 print(f"  Reasoning: {result.get('reasoning')[:200]}...")
 
-            # Store result
-            results.append({
+            # Store result with segment_ids
+            result_item = {
                 'narration_id': narr_id,
                 'food_name': food_name,
                 'difficulty': difficulty,
@@ -380,7 +428,10 @@ def main():
                 'num_dispensing_events': len(dispensing_events),
                 'num_segments': len(segments),
                 'matched_ingredient_weight': item.get('matched_ingredient_weight')
-            })
+            }
+            # Add segment_ids to each segment
+            add_segment_ids_to_item(result_item)
+            results.append(result_item)
         else:
             print("FAILED")
             results.append({

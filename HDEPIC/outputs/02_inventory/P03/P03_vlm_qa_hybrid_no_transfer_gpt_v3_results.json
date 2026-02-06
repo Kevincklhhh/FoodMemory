@@ -1,0 +1,2229 @@
+{
+  "participant": "P03",
+  "model": "gpt5",
+  "tag": "hybrid_no_transfer_gpt_v3",
+  "prompt_mode": "hybrid_no_transfer",
+  "task": "hybrid_no_transfer_selection",
+  "low_only": true,
+  "padding": 2.0,
+  "fps": 1.0,
+  "max_frames": 40,
+  "total_items": 19,
+  "items": [
+    {
+      "narration_id": "P03-20240216-084005-67",
+      "food_name": "bread (loaf/bag of bread)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240216-084005"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "slices",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_2bac7566",
+          "segment_idx": 0,
+          "video_id": "P03-20240216-084005",
+          "start_timestamp": 715.74,
+          "end_timestamp": 726.49,
+          "clip_start": 713.74,
+          "error": "No VLM response"
+        }
+      ],
+      "total_predicted": null,
+      "recipe_amount": null
+    },
+    {
+      "narration_id": "P03-20240216-185832-1024",
+      "food_name": "eggs",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240216-185832",
+        "P03-20240216-205923"
+      ],
+      "total_ground_truth": 8,
+      "total_ground_truth_unit": "eggs",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_f8b2a75d",
+          "segment_idx": 0,
+          "video_id": "P03-20240216-185832",
+          "start_timestamp": 2792.96,
+          "end_timestamp": 2825.9,
+          "clip_start": 2790.96,
+          "item_name": "eggs",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 2797.96,
+              "description": "Source before (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "Green cardboard egg carton in the refrigerator door shelf",
+              "snapped_to_frame": 8
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 2798.96,
+              "description": "Source after (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "Green cardboard egg carton in the refrigerator door shelf",
+              "snapped_to_frame": 9
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:19",
+              "timestamp_seconds": 19.0,
+              "absolute_timestamp": 2809.96,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Mixing bowl on the kitchen counter",
+              "snapped_to_frame": 20
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:21",
+              "timestamp_seconds": 21.0,
+              "absolute_timestamp": 2811.96,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Mixing bowl on the kitchen counter",
+              "snapped_to_frame": 22
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"eggs\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Green cardboard egg carton in the refrigerator door shelf\",\n    \"timestamp_before\": \"00:07\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": 2,\n    \"confidence\": \"medium\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"Mixing bowl on the kitchen counter\",\n    \"timestamp_before\": \"00:19\",\n    \"timestamp_after\": \"00:21\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": 2,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 8,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source [VALID]: Egg carton visibly full rowed at 00:07, then at 00:08 two eggs are in-hand and two slots are empty (delta 2). Dest [INVALID_OCCLUDED]: Bowl contents not clearly visible between 00:19 and 00:21. Trusting Source Path for final count.\"\n}",
+          "ground_truth_count": 8,
+          "ground_truth_unit": "eggs",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 8,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "medium",
+          "visual_evidence": "Source [VALID]: Egg carton visibly full rowed at 00:07, then at 00:08 two eggs are in-hand and two slots are empty (delta 2). Dest [INVALID_OCCLUDED]: Bowl contents not clearly visible between 00:19 and 00:21. Trusting Source Path for final count.",
+          "match": "wrong",
+          "error": -6,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:07",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": 2,
+              "confidence": "medium",
+              "container_description": "Green cardboard egg carton in the refrigerator door shelf",
+              "timestamp_before_seconds": 7.0,
+              "absolute_timestamp_before": 2797.96,
+              "snapped_to_frame_before": 8,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 2798.96,
+              "snapped_to_frame_after": 9
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:19",
+              "timestamp_after_raw": "00:21",
+              "observed_delta": null,
+              "confidence": "low",
+              "container_description": "Mixing bowl on the kitchen counter",
+              "timestamp_before_seconds": 19.0,
+              "absolute_timestamp_before": 2809.96,
+              "snapped_to_frame_before": 20,
+              "timestamp_after_seconds": 21.0,
+              "absolute_timestamp_after": 2811.96,
+              "snapped_to_frame_after": 22
+            }
+          },
+          "num_frames": 37,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 2,
+      "recipe_amount": {
+        "ingredient": "eggs",
+        "amount": "330",
+        "unit": "g",
+        "recipe": "P03_R04"
+      }
+    },
+    {
+      "narration_id": "P03-20240216-185832-38",
+      "food_name": "bag of potatoes",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240216-185832",
+        "P03-20240216-205923"
+      ],
+      "total_ground_truth": 12,
+      "total_ground_truth_unit": "potatoes",
+      "num_segments": 2,
+      "segments": [
+        {
+          "segment_id": "seg_d38f9871",
+          "segment_idx": 0,
+          "video_id": "P03-20240216-185832",
+          "start_timestamp": 763.61,
+          "end_timestamp": 774.5,
+          "clip_start": 761.61,
+          "item_name": "bag of potatoes",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 761.61,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Plastic bag of small potatoes on the countertop",
+              "snapped_to_frame": 1
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:14",
+              "timestamp_seconds": 14.0,
+              "absolute_timestamp": 775.61,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Plastic bag of small potatoes on the countertop",
+              "snapped_to_frame": 15
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 761.61,
+              "description": "Destination before (delta=11)",
+              "visibility_status": "clear_view",
+              "container_description": "Loose potato pile on the right side of the countertop (near kettle/microwave)",
+              "snapped_to_frame": 1
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:14",
+              "timestamp_seconds": 14.0,
+              "absolute_timestamp": 775.61,
+              "description": "Destination after (delta=11)",
+              "visibility_status": "clear_view",
+              "container_description": "Loose potato pile on the right side of the countertop (near kettle/microwave)",
+              "snapped_to_frame": 15
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"bag of potatoes\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"Plastic bag of small potatoes on the countertop\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:14\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Loose potato pile on the right side of the countertop (near kettle/microwave)\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:14\",\n    \"observed_delta\": 11,\n    \"confidence\": \"medium\"\n  },\n  \"numeric_count\": 11,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": \"some potatoes still left in the bag\",\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source [INVALID_OCCLUDED]: Bag contents not reliably countable start(00:00) -> end(00:14). Dest [VALID]: Counter pile start(0 at 00:00) -> end(~11 at 00:14). Trusting Destination Path for final count.\"\n}",
+          "ground_truth_count": 8,
+          "ground_truth_unit": "potatoes",
+          "quantity_category": "discrete",
+          "predicted_count": 11,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": "some potatoes still left in the bag",
+          "remaining_fraction": null,
+          "confidence": "medium",
+          "visual_evidence": "Source [INVALID_OCCLUDED]: Bag contents not reliably countable start(00:00) -> end(00:14). Dest [VALID]: Counter pile start(0 at 00:00) -> end(~11 at 00:14). Trusting Destination Path for final count.",
+          "match": "wrong",
+          "error": 3,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:14",
+              "observed_delta": null,
+              "confidence": "low",
+              "container_description": "Plastic bag of small potatoes on the countertop",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 761.61,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 14.0,
+              "absolute_timestamp_after": 775.61,
+              "snapped_to_frame_after": 15
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:14",
+              "observed_delta": 11,
+              "confidence": "medium",
+              "container_description": "Loose potato pile on the right side of the countertop (near kettle/microwave)",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 761.61,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 14.0,
+              "absolute_timestamp_after": 775.61,
+              "snapped_to_frame_after": 15
+            }
+          },
+          "num_frames": 15,
+          "frame_fps": 1.0
+        },
+        {
+          "segment_id": "seg_7c631815",
+          "segment_idx": 1,
+          "video_id": "P03-20240216-185832",
+          "start_timestamp": 1251.98,
+          "end_timestamp": 1259.16,
+          "clip_start": 1249.98,
+          "item_name": "bag of potatoes",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 1249.98,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Net/plastic bag of small potatoes on countertop",
+              "snapped_to_frame": 1
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 1257.98,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Net/plastic bag of small potatoes on countertop",
+              "snapped_to_frame": 9
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 1254.98,
+              "description": "Destination before (delta=4)",
+              "visibility_status": "clear_view",
+              "container_description": "Countertop staging area to the right of the bag (near colander/rice cooker)",
+              "snapped_to_frame": 6
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 1257.98,
+              "description": "Destination after (delta=4)",
+              "visibility_status": "clear_view",
+              "container_description": "Countertop staging area to the right of the bag (near colander/rice cooker)",
+              "snapped_to_frame": 9
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"bag of potatoes\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"Net/plastic bag of small potatoes on countertop\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Countertop staging area to the right of the bag (near colander/rice cooker)\",\n    \"timestamp_before\": \"00:05\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": 4,\n    \"confidence\": \"medium\"\n  },\n  \"numeric_count\": 4,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": \"bag still contains many potatoes (more than half remaining)\",\n  \"remaining_fraction\": 0.6,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source [INVALID_OCCLUDED]: bag contents are hard to count due to occlusion and many potatoes. Dest [VALID]: countertop shows 0 potatoes at 00:05 and about 4 set aside by 00:08. Trusting Destination Path for final count.\"\n}",
+          "ground_truth_count": 4,
+          "ground_truth_unit": "potatoes",
+          "quantity_category": "discrete",
+          "predicted_count": 4,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": "bag still contains many potatoes (more than half remaining)",
+          "remaining_fraction": 0.6,
+          "confidence": "medium",
+          "visual_evidence": "Source [INVALID_OCCLUDED]: bag contents are hard to count due to occlusion and many potatoes. Dest [VALID]: countertop shows 0 potatoes at 00:05 and about 4 set aside by 00:08. Trusting Destination Path for final count.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": null,
+              "confidence": "low",
+              "container_description": "Net/plastic bag of small potatoes on countertop",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 1249.98,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 1257.98,
+              "snapped_to_frame_after": 9
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:05",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": 4,
+              "confidence": "medium",
+              "container_description": "Countertop staging area to the right of the bag (near colander/rice cooker)",
+              "timestamp_before_seconds": 5.0,
+              "absolute_timestamp_before": 1254.98,
+              "snapped_to_frame_before": 6,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 1257.98,
+              "snapped_to_frame_after": 9
+            }
+          },
+          "num_frames": 12,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 15,
+      "recipe_amount": {
+        "ingredient": "potatoes",
+        "amount": "1800",
+        "unit": "g",
+        "recipe": "P03_R04"
+      }
+    },
+    {
+      "narration_id": "P03-20240216-185832-63",
+      "food_name": "yeast (box)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240216-185832",
+        "P03-20240216-205923"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "sachets",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_13de44e1",
+          "segment_idx": 0,
+          "video_id": "P03-20240216-185832",
+          "start_timestamp": 2102.75,
+          "end_timestamp": 2106.03,
+          "clip_start": 2100.75,
+          "item_name": "yeast (box)",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 2100.75,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Lower cabinet pull-out bin/shelf storage (under countertop, right-side cabinet)",
+              "snapped_to_frame": 1
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 2105.75,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Lower cabinet pull-out bin/shelf storage (under countertop, right-side cabinet)",
+              "snapped_to_frame": 6
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 2106.75,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Kitchen countertop (near mixing bowl/scale area)",
+              "snapped_to_frame": 7
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 2107.75,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Kitchen countertop (near mixing bowl/scale area)",
+              "snapped_to_frame": 8
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"yeast (box)\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Lower cabinet pull-out bin/shelf storage (under countertop, right-side cabinet)\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:05\",\n    \"observed_delta\": 1,\n    \"confidence\": \"medium\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Kitchen countertop (near mixing bowl/scale area)\",\n    \"timestamp_before\": \"00:06\",\n    \"timestamp_after\": \"00:07\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": \"Box no longer visible in the cabinet bin after removal (bin contents cluttered)\",\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source [VALID]: Cabinet bin shows a yellow box among items at start (00:00) and it is removed/absent by 00:05. Dest [VALID]: Countertop has no yellow yeast box at 00:06 and the yellow yeast box is placed on the counter by 00:07. Trusting Destination for final count.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "sachets",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": "Box no longer visible in the cabinet bin after removal (bin contents cluttered)",
+          "remaining_fraction": null,
+          "confidence": "medium",
+          "visual_evidence": "Source [VALID]: Cabinet bin shows a yellow box among items at start (00:00) and it is removed/absent by 00:05. Dest [VALID]: Countertop has no yellow yeast box at 00:06 and the yellow yeast box is placed on the counter by 00:07. Trusting Destination for final count.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:05",
+              "observed_delta": 1,
+              "confidence": "medium",
+              "container_description": "Lower cabinet pull-out bin/shelf storage (under countertop, right-side cabinet)",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 2100.75,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 5.0,
+              "absolute_timestamp_after": 2105.75,
+              "snapped_to_frame_after": 6
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:06",
+              "timestamp_after_raw": "00:07",
+              "observed_delta": 1,
+              "confidence": "high",
+              "container_description": "Kitchen countertop (near mixing bowl/scale area)",
+              "timestamp_before_seconds": 6.0,
+              "absolute_timestamp_before": 2106.75,
+              "snapped_to_frame_before": 7,
+              "timestamp_after_seconds": 7.0,
+              "absolute_timestamp_after": 2107.75,
+              "snapped_to_frame_after": 8
+            }
+          },
+          "num_frames": 8,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "dried yeast",
+        "amount": "2",
+        "unit": "g",
+        "recipe": "P03_R05"
+      }
+    },
+    {
+      "narration_id": "P03-20240217-091657-304",
+      "food_name": "bread (in bag)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240217-091657"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "slices",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_965a98f5",
+          "segment_idx": 0,
+          "video_id": "P03-20240217-091657",
+          "start_timestamp": 645,
+          "end_timestamp": 659.47,
+          "clip_start": 643.0,
+          "item_name": "bread (in bag)",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 647.0,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Plastic bread bag (Hovis wholemeal loaf)",
+              "snapped_to_frame": 5
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:18",
+              "timestamp_seconds": 18.0,
+              "absolute_timestamp": 661.0,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Plastic bread bag (Hovis wholemeal loaf)",
+              "snapped_to_frame": 19
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:09",
+              "timestamp_seconds": 9.0,
+              "absolute_timestamp": 652.0,
+              "description": "Destination before (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "Two-slot toaster",
+              "snapped_to_frame": 10
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:15",
+              "timestamp_seconds": 15.0,
+              "absolute_timestamp": 658.0,
+              "description": "Destination after (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "Two-slot toaster",
+              "snapped_to_frame": 16
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"bread (in bag)\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OPAQUE\",\n    \"container_description\": \"Plastic bread bag (Hovis wholemeal loaf)\",\n    \"timestamp_before\": \"00:04\",\n    \"timestamp_after\": \"00:18\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Two-slot toaster\",\n    \"timestamp_before\": \"00:09\",\n    \"timestamp_after\": \"00:15\",\n    \"observed_delta\": 2,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 2,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"slice\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source [INVALID_OPAQUE]: Bread bag contents not countable from views (00:04 -> 00:18). Dest [VALID]: Toaster shows bread being inserted\u2014first slice placed around 00:10-00:11 and second slice placed around 00:14-00:15; final state shows 2 slices in toaster. Trusting Destination Path for final count.\"\n}",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "slices",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "slice",
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source [INVALID_OPAQUE]: Bread bag contents not countable from views (00:04 -> 00:18). Dest [VALID]: Toaster shows bread being inserted\u2014first slice placed around 00:10-00:11 and second slice placed around 00:14-00:15; final state shows 2 slices in toaster. Trusting Destination Path for final count.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_OPAQUE",
+              "timestamp_before_raw": "00:04",
+              "timestamp_after_raw": "00:18",
+              "observed_delta": null,
+              "confidence": "low",
+              "container_description": "Plastic bread bag (Hovis wholemeal loaf)",
+              "timestamp_before_seconds": 4.0,
+              "absolute_timestamp_before": 647.0,
+              "snapped_to_frame_before": 5,
+              "timestamp_after_seconds": 18.0,
+              "absolute_timestamp_after": 661.0,
+              "snapped_to_frame_after": 19
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:09",
+              "timestamp_after_raw": "00:15",
+              "observed_delta": 2,
+              "confidence": "high",
+              "container_description": "Two-slot toaster",
+              "timestamp_before_seconds": 9.0,
+              "absolute_timestamp_before": 652.0,
+              "snapped_to_frame_before": 10,
+              "timestamp_after_seconds": 15.0,
+              "absolute_timestamp_after": 658.0,
+              "snapped_to_frame_after": 16
+            }
+          },
+          "num_frames": 19,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 2,
+      "recipe_amount": null
+    },
+    {
+      "narration_id": "P03-20240217-131219-490",
+      "food_name": "can of coconut milk",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240217-131219"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "cans",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_802c5a76",
+          "segment_idx": 0,
+          "video_id": "P03-20240217-131219",
+          "start_timestamp": 2008.94,
+          "end_timestamp": 2013.92,
+          "clip_start": 2006.94,
+          "item_name": "can of coconut milk",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 2006.94,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Metal can of coconut milk held in hands",
+              "snapped_to_frame": 1
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 2014.94,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Metal can of coconut milk held in hands",
+              "snapped_to_frame": 9
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 2006.94,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "clear_view",
+              "container_description": "Frying pan on black glass stovetop containing curry mixture",
+              "snapped_to_frame": 1
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 2014.94,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "clear_view",
+              "container_description": "Frying pan on black glass stovetop containing curry mixture",
+              "snapped_to_frame": 9
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"can of coconut milk\",\n  \"quantity_category\": \"continuous\",\n  \"path_source\": {\n    \"status\": \"INVALID_OPAQUE\",\n    \"container_description\": \"Metal can of coconut milk held in hands\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Frying pan on black glass stovetop containing curry mixture\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": null,\n    \"confidence\": \"medium\"\n  },\n  \"numeric_count\": null,\n  \"amount_description\": \"coconut milk poured into the pan, forming a visible white pool on top of the mixture\",\n  \"volume_fraction\": 0.75,\n  \"remaining_count\": null,\n  \"remaining_description\": \"can appears partially emptied after pouring (remaining not clearly visible due to can opacity/angle)\",\n  \"remaining_fraction\": 0.25,\n  \"unit_type\": \"cup\",\n  \"confidence\": \"low\",\n  \"visual_evidence\": \"Source [INVALID_OPAQUE]: Can contents not measurable visually. Dest [VALID]: Pan shows no white coconut milk at 00:00, then a substantial white coconut milk pool added during pouring by 00:04-00:08. Trusting Dest for estimating ~3/4 can used.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "can",
+          "quantity_category": "continuous",
+          "predicted_count": null,
+          "predicted_amount": "coconut milk poured into the pan, forming a visible white pool on top of the mixture",
+          "predicted_unit": "cup",
+          "remaining_count": null,
+          "remaining_description": "can appears partially emptied after pouring (remaining not clearly visible due to can opacity/angle)",
+          "remaining_fraction": 0.25,
+          "confidence": "low",
+          "visual_evidence": "Source [INVALID_OPAQUE]: Can contents not measurable visually. Dest [VALID]: Pan shows no white coconut milk at 00:00, then a substantial white coconut milk pool added during pouring by 00:04-00:08. Trusting Dest for estimating ~3/4 can used.",
+          "match": "continuous_estimate",
+          "error": null,
+          "paths": {
+            "source": {
+              "status": "INVALID_OPAQUE",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": null,
+              "confidence": "low",
+              "container_description": "Metal can of coconut milk held in hands",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 2006.94,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 2014.94,
+              "snapped_to_frame_after": 9
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": null,
+              "confidence": "medium",
+              "container_description": "Frying pan on black glass stovetop containing curry mixture",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 2006.94,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 2014.94,
+              "snapped_to_frame_after": 9
+            }
+          },
+          "num_frames": 9,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": null,
+      "recipe_amount": {
+        "ingredient": "coconut milk",
+        "amount": "400",
+        "unit": "ml",
+        "recipe": "P03_R01"
+      }
+    },
+    {
+      "narration_id": "P03-20240217-192543-10",
+      "food_name": "box of mushrooms",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240217-192543"
+      ],
+      "total_ground_truth": 5,
+      "total_ground_truth_unit": "mushrooms",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_7172e172",
+          "segment_idx": 0,
+          "video_id": "P03-20240217-192543",
+          "start_timestamp": 479.69,
+          "end_timestamp": 490,
+          "clip_start": 477.69,
+          "item_name": "box of mushrooms",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 477.69,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "clear plastic box/carton holding mushrooms",
+              "snapped_to_frame": 1
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:12",
+              "timestamp_seconds": 12.0,
+              "absolute_timestamp": 489.69,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "clear plastic box/carton holding mushrooms",
+              "snapped_to_frame": 13
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 477.69,
+              "description": "Destination before (delta=4)",
+              "visibility_status": "clear_view",
+              "container_description": "countertop prep area next to the sink/colander",
+              "snapped_to_frame": 1
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:12",
+              "timestamp_seconds": 12.0,
+              "absolute_timestamp": 489.69,
+              "description": "Destination after (delta=4)",
+              "visibility_status": "clear_view",
+              "container_description": "countertop prep area next to the sink/colander",
+              "snapped_to_frame": 13
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"box of mushrooms\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"clear plastic box/carton holding mushrooms\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:12\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"countertop prep area next to the sink/colander\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:12\",\n    \"observed_delta\": 4,\n    \"confidence\": \"medium\"\n  },\n  \"numeric_count\": 4,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": \"box still appears mostly filled\",\n  \"remaining_fraction\": 0.75,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source [INVALID_OCCLUDED]: mushrooms inside box not countable reliably. Dest [VALID]: Start(0 on counter at 00:00) -> End(4 whole mushrooms visible on counter at 00:12). Trusting Destination Path for final count.\"\n}",
+          "ground_truth_count": 5,
+          "ground_truth_unit": "mushrooms",
+          "quantity_category": "discrete",
+          "predicted_count": 4,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": "box still appears mostly filled",
+          "remaining_fraction": 0.75,
+          "confidence": "medium",
+          "visual_evidence": "Source [INVALID_OCCLUDED]: mushrooms inside box not countable reliably. Dest [VALID]: Start(0 on counter at 00:00) -> End(4 whole mushrooms visible on counter at 00:12). Trusting Destination Path for final count.",
+          "match": "close",
+          "error": -1,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:12",
+              "observed_delta": null,
+              "confidence": "low",
+              "container_description": "clear plastic box/carton holding mushrooms",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 477.69,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 12.0,
+              "absolute_timestamp_after": 489.69,
+              "snapped_to_frame_after": 13
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:12",
+              "observed_delta": 4,
+              "confidence": "medium",
+              "container_description": "countertop prep area next to the sink/colander",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 477.69,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 12.0,
+              "absolute_timestamp_after": 489.69,
+              "snapped_to_frame_after": 13
+            }
+          },
+          "num_frames": 15,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 4,
+      "recipe_amount": {
+        "ingredient": "chestnut mushrooms",
+        "amount": "240",
+        "unit": "g",
+        "recipe": "P03_R09"
+      }
+    },
+    {
+      "narration_id": "P03-20240217-192543-335",
+      "food_name": "egg",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240217-192543"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "eggs",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_a5fac984",
+          "segment_idx": 0,
+          "video_id": "P03-20240217-192543",
+          "start_timestamp": 741.72,
+          "end_timestamp": 745.05,
+          "clip_start": 739.72,
+          "item_name": "egg",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 742.72,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Green egg carton on refrigerator door shelf",
+              "snapped_to_frame": 4
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 744.72,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Green egg carton on refrigerator door shelf",
+              "snapped_to_frame": 6
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 743.72,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Destination container not shown (egg removed from carton but not placed in view)",
+              "snapped_to_frame": 5
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 746.72,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Destination container not shown (egg removed from carton but not placed in view)",
+              "snapped_to_frame": 8
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"egg\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"Green egg carton on refrigerator door shelf\",\n    \"timestamp_before\": \"00:03\",\n    \"timestamp_after\": \"00:05\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"Destination container not shown (egg removed from carton but not placed in view)\",\n    \"timestamp_before\": \"00:04\",\n    \"timestamp_after\": \"00:07\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"low\",\n  \"visual_evidence\": \"Source [INVALID_OCCLUDED]: Egg carton is opened and a hand reaches in and appears to remove a single egg (00:04-00:05), but a clear before/after egg count in the carton is not readable and the carton is closed afterward. Dest [INVALID_OCCLUDED]: No receiving container is visible. Estimating 1 egg removed based on hand action.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "eggs",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "low",
+          "visual_evidence": "Source [INVALID_OCCLUDED]: Egg carton is opened and a hand reaches in and appears to remove a single egg (00:04-00:05), but a clear before/after egg count in the carton is not readable and the carton is closed afterward. Dest [INVALID_OCCLUDED]: No receiving container is visible. Estimating 1 egg removed based on hand action.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:03",
+              "timestamp_after_raw": "00:05",
+              "observed_delta": null,
+              "confidence": "low",
+              "container_description": "Green egg carton on refrigerator door shelf",
+              "timestamp_before_seconds": 3.0,
+              "absolute_timestamp_before": 742.72,
+              "snapped_to_frame_before": 4,
+              "timestamp_after_seconds": 5.0,
+              "absolute_timestamp_after": 744.72,
+              "snapped_to_frame_after": 6
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:04",
+              "timestamp_after_raw": "00:07",
+              "observed_delta": null,
+              "confidence": "low",
+              "container_description": "Destination container not shown (egg removed from carton but not placed in view)",
+              "timestamp_before_seconds": 4.0,
+              "absolute_timestamp_before": 743.72,
+              "snapped_to_frame_before": 5,
+              "timestamp_after_seconds": 7.0,
+              "absolute_timestamp_after": 746.72,
+              "snapped_to_frame_after": 8
+            }
+          },
+          "num_frames": 8,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "eggs",
+        "amount": "55",
+        "unit": "g",
+        "recipe": "P03_R07"
+      }
+    },
+    {
+      "narration_id": "P03-20240217-192543-353",
+      "food_name": "garlic cloves (in small cup)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240217-192543"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "cloves",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_29ba3d83",
+          "segment_idx": 0,
+          "video_id": "P03-20240217-192543",
+          "start_timestamp": 830.07,
+          "end_timestamp": 835.21,
+          "clip_start": 828.07,
+          "item_name": "garlic cloves (in small cup)",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 830.07,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "small white ceramic cup held in hand",
+              "snapped_to_frame": 3
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 834.07,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "small white ceramic cup held in hand",
+              "snapped_to_frame": 7
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 830.07,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "frying pan with mixed chopped vegetables",
+              "snapped_to_frame": 3
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 832.07,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "frying pan with mixed chopped vegetables",
+              "snapped_to_frame": 5
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"garlic cloves (in small cup)\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"small white ceramic cup held in hand\",\n    \"timestamp_before\": \"00:02\",\n    \"timestamp_after\": \"00:06\",\n    \"observed_delta\": 1,\n    \"confidence\": \"medium\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_PILE\",\n    \"container_description\": \"frying pan with mixed chopped vegetables\",\n    \"timestamp_before\": \"00:02\",\n    \"timestamp_after\": \"00:04\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 0,\n  \"remaining_description\": \"cup appears emptied (contents not clearly visible after dispensing)\",\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source [VALID]: Start shows ~1 garlic clove in the small cup (00:02) and the clove is pinched/removed (00:04); by 00:06 the cup is set down and appears empty. Dest [INVALID_PILE]: pan contents are a mixed pile, garlic pieces not reliably distinguishable. Trusting Source Path for final count.\"\n}",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "cloves",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 0,
+          "remaining_description": "cup appears emptied (contents not clearly visible after dispensing)",
+          "remaining_fraction": null,
+          "confidence": "medium",
+          "visual_evidence": "Source [VALID]: Start shows ~1 garlic clove in the small cup (00:02) and the clove is pinched/removed (00:04); by 00:06 the cup is set down and appears empty. Dest [INVALID_PILE]: pan contents are a mixed pile, garlic pieces not reliably distinguishable. Trusting Source Path for final count.",
+          "match": "close",
+          "error": -1,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:02",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": 1,
+              "confidence": "medium",
+              "container_description": "small white ceramic cup held in hand",
+              "timestamp_before_seconds": 2.0,
+              "absolute_timestamp_before": 830.07,
+              "snapped_to_frame_before": 3,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 834.07,
+              "snapped_to_frame_after": 7
+            },
+            "destination": {
+              "status": "INVALID_PILE",
+              "timestamp_before_raw": "00:02",
+              "timestamp_after_raw": "00:04",
+              "observed_delta": null,
+              "confidence": "low",
+              "container_description": "frying pan with mixed chopped vegetables",
+              "timestamp_before_seconds": 2.0,
+              "absolute_timestamp_before": 830.07,
+              "snapped_to_frame_before": 3,
+              "timestamp_after_seconds": 4.0,
+              "absolute_timestamp_after": 832.07,
+              "snapped_to_frame_after": 5
+            }
+          },
+          "num_frames": 10,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "garlic",
+        "amount": "16",
+        "unit": "g",
+        "recipe": "P03_R08"
+      }
+    },
+    {
+      "narration_id": "P03-20240217-192543-359",
+      "food_name": "whole garlic (garlic bulb in net)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240217-192543"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "bulbs",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_ad4bca5b",
+          "segment_idx": 0,
+          "video_id": "P03-20240217-192543",
+          "start_timestamp": 839,
+          "end_timestamp": 844.54,
+          "clip_start": 837.0,
+          "item_name": "whole garlic (garlic bulb in net)",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 837.0,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Lower bin/shelf of a white kitchen rack next to the refrigerator (mixed bags/items inside)",
+              "snapped_to_frame": 1
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 843.0,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Lower bin/shelf of a white kitchen rack next to the refrigerator (mixed bags/items inside)",
+              "snapped_to_frame": 7
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 845.0,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Stovetop/counter area to the right of the cooktop (destination not clearly shown receiving the netted garlic)",
+              "snapped_to_frame": 9
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:09",
+              "timestamp_seconds": 9.0,
+              "absolute_timestamp": 846.0,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Stovetop/counter area to the right of the cooktop (destination not clearly shown receiving the netted garlic)",
+              "snapped_to_frame": 10
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"whole garlic (garlic bulb in net)\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"Lower bin/shelf of a white kitchen rack next to the refrigerator (mixed bags/items inside)\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:06\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"Stovetop/counter area to the right of the cooktop (destination not clearly shown receiving the netted garlic)\",\n    \"timestamp_before\": \"00:08\",\n    \"timestamp_after\": \"00:09\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"low\",\n  \"visual_evidence\": \"Source [INVALID_OCCLUDED]: Garlic bin contains multiple items; a single netted garlic bulb is visibly pulled out and held in hand around 00:02-00:06, but remaining quantity in bin cannot be counted. Dest [INVALID_OCCLUDED]: Movement toward stove is shown, but the netted garlic bulb is not clearly placed into a visible destination container. Inferring 1 unit removed based on the single item in hand.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "bulbs",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "low",
+          "visual_evidence": "Source [INVALID_OCCLUDED]: Garlic bin contains multiple items; a single netted garlic bulb is visibly pulled out and held in hand around 00:02-00:06, but remaining quantity in bin cannot be counted. Dest [INVALID_OCCLUDED]: Movement toward stove is shown, but the netted garlic bulb is not clearly placed into a visible destination container. Inferring 1 unit removed based on the single item in hand.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": null,
+              "confidence": "low",
+              "container_description": "Lower bin/shelf of a white kitchen rack next to the refrigerator (mixed bags/items inside)",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 837.0,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 843.0,
+              "snapped_to_frame_after": 7
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:08",
+              "timestamp_after_raw": "00:09",
+              "observed_delta": null,
+              "confidence": "low",
+              "container_description": "Stovetop/counter area to the right of the cooktop (destination not clearly shown receiving the netted garlic)",
+              "timestamp_before_seconds": 8.0,
+              "absolute_timestamp_before": 845.0,
+              "snapped_to_frame_before": 9,
+              "timestamp_after_seconds": 9.0,
+              "absolute_timestamp_after": 846.0,
+              "snapped_to_frame_after": 10
+            }
+          },
+          "num_frames": 10,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "garlic",
+        "amount": "16",
+        "unit": "g",
+        "recipe": "P03_R08"
+      }
+    },
+    {
+      "narration_id": "P03-20240217-192543-808",
+      "food_name": "mozzarella",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240217-192543"
+      ],
+      "total_ground_truth": null,
+      "total_ground_truth_unit": null,
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_81e632ff",
+          "segment_idx": 0,
+          "video_id": "P03-20240217-192543",
+          "start_timestamp": 2200.92,
+          "end_timestamp": 2205.01,
+          "clip_start": 2198.92,
+          "item_name": "mozzarella",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 2198.92,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "sealed mozzarella packet/bag held over the sink",
+              "snapped_to_frame": 1
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 2202.92,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "sealed mozzarella packet/bag held over the sink",
+              "snapped_to_frame": 5
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 2198.92,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "hands over the sink basin (mozzarella removed from packet)",
+              "snapped_to_frame": 1
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 2202.92,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "hands over the sink basin (mozzarella removed from packet)",
+              "snapped_to_frame": 5
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"mozzarella\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"sealed mozzarella packet/bag held over the sink\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:04\",\n    \"observed_delta\": 1,\n    \"confidence\": \"medium\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"hands over the sink basin (mozzarella removed from packet)\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:04\",\n    \"observed_delta\": 1,\n    \"confidence\": \"medium\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": \"1 piece of mozzarella (ball/log) removed from the packet\",\n  \"volume_fraction\": null,\n  \"remaining_count\": 0,\n  \"remaining_description\": \"packet appears emptied after removal\",\n  \"remaining_fraction\": 0.0,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source [VALID]: Packet appears unopened at 00:00 and is opened by 00:04 with a white mozzarella piece visible in hand. Dest [VALID]: No mozzarella in hand at 00:00; by 00:04 one mozzarella piece is held over the sink. Trusting combined Source+Dest for final count (1 unit).\"\n}",
+          "ground_truth_count": null,
+          "ground_truth_unit": null,
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": "1 piece of mozzarella (ball/log) removed from the packet",
+          "predicted_unit": "unit",
+          "remaining_count": 0,
+          "remaining_description": "packet appears emptied after removal",
+          "remaining_fraction": 0.0,
+          "confidence": "medium",
+          "visual_evidence": "Source [VALID]: Packet appears unopened at 00:00 and is opened by 00:04 with a white mozzarella piece visible in hand. Dest [VALID]: No mozzarella in hand at 00:00; by 00:04 one mozzarella piece is held over the sink. Trusting combined Source+Dest for final count (1 unit).",
+          "match": "gt_uncountable",
+          "error": null,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:04",
+              "observed_delta": 1,
+              "confidence": "medium",
+              "container_description": "sealed mozzarella packet/bag held over the sink",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 2198.92,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 4.0,
+              "absolute_timestamp_after": 2202.92,
+              "snapped_to_frame_after": 5
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:04",
+              "observed_delta": 1,
+              "confidence": "medium",
+              "container_description": "hands over the sink basin (mozzarella removed from packet)",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 2198.92,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 4.0,
+              "absolute_timestamp_after": 2202.92,
+              "snapped_to_frame_after": 5
+            }
+          },
+          "num_frames": 9,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "mozzarella cheese",
+        "amount": "125",
+        "unit": "g",
+        "recipe": "P03_R07"
+      }
+    },
+    {
+      "narration_id": "P03-20240218-094452-16",
+      "food_name": "buns package",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-094452"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "buns",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_0fed962b",
+          "segment_idx": 0,
+          "video_id": "P03-20240218-094452",
+          "start_timestamp": 88.05,
+          "end_timestamp": 91.68,
+          "clip_start": 86.05,
+          "item_name": "buns package",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 88.05,
+              "description": "Source before (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "Yellow buns package with clear plastic tray insert",
+              "snapped_to_frame": 3
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 90.05,
+              "description": "Source after (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "Yellow buns package with clear plastic tray insert",
+              "snapped_to_frame": 5
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 88.05,
+              "description": "Destination before (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "Open rice cooker/steamer basket",
+              "snapped_to_frame": 3
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 89.05,
+              "description": "Destination after (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "Open rice cooker/steamer basket",
+              "snapped_to_frame": 4
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"buns package\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Yellow buns package with clear plastic tray insert\",\n    \"timestamp_before\": \"00:02\",\n    \"timestamp_after\": \"00:04\",\n    \"observed_delta\": 2,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Open rice cooker/steamer basket\",\n    \"timestamp_before\": \"00:02\",\n    \"timestamp_after\": \"00:03\",\n    \"observed_delta\": 2,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 2,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 2,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source [VALID]: Start(4 buns visible in tray at 00:02) -> End(2 buns visible in tray at 00:04). Dest [VALID]: Start(0 in steamer at 00:02) -> End(2 buns placed in steamer at 00:03). Trusting both paths for final count.\"\n}",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "buns",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 2,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source [VALID]: Start(4 buns visible in tray at 00:02) -> End(2 buns visible in tray at 00:04). Dest [VALID]: Start(0 in steamer at 00:02) -> End(2 buns placed in steamer at 00:03). Trusting both paths for final count.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:02",
+              "timestamp_after_raw": "00:04",
+              "observed_delta": 2,
+              "confidence": "high",
+              "container_description": "Yellow buns package with clear plastic tray insert",
+              "timestamp_before_seconds": 2.0,
+              "absolute_timestamp_before": 88.05,
+              "snapped_to_frame_before": 3,
+              "timestamp_after_seconds": 4.0,
+              "absolute_timestamp_after": 90.05,
+              "snapped_to_frame_after": 5
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:02",
+              "timestamp_after_raw": "00:03",
+              "observed_delta": 2,
+              "confidence": "high",
+              "container_description": "Open rice cooker/steamer basket",
+              "timestamp_before_seconds": 2.0,
+              "absolute_timestamp_before": 88.05,
+              "snapped_to_frame_before": 3,
+              "timestamp_after_seconds": 3.0,
+              "absolute_timestamp_after": 89.05,
+              "snapped_to_frame_after": 4
+            }
+          },
+          "num_frames": 8,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 2,
+      "recipe_amount": null
+    },
+    {
+      "narration_id": "P03-20240218-094452-390",
+      "food_name": "bread",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-094452"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "slices",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_ff2aef73",
+          "segment_idx": 0,
+          "video_id": "P03-20240218-094452",
+          "start_timestamp": 695.23,
+          "end_timestamp": 701.01,
+          "clip_start": 693.23,
+          "item_name": "bread",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 693.23,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Plastic loaf bag (Hovis bread bag)",
+              "snapped_to_frame": 1
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 701.23,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Plastic loaf bag (Hovis bread bag)",
+              "snapped_to_frame": 9
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 698.23,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Black toaster (right side of countertop)",
+              "snapped_to_frame": 6
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 699.23,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Black toaster (right side of countertop)",
+              "snapped_to_frame": 7
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"bread\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OPAQUE\",\n    \"container_description\": \"Plastic loaf bag (Hovis bread bag)\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Black toaster (right side of countertop)\",\n    \"timestamp_before\": \"00:05\",\n    \"timestamp_after\": \"00:06\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": \"one slice placed into the toaster\",\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": \"remaining slices in the loaf bag not countable from frames\",\n  \"remaining_fraction\": null,\n  \"unit_type\": \"slice\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source [INVALID_OPAQUE]: Bread bag contents not countable at Start(00:00) or End(00:08). Dest [VALID]: Toaster appears empty at 00:05 and has 1 bread slice inserted at 00:06. Trusting Destination Path for final count (1 slice).\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "slice",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": "one slice placed into the toaster",
+          "predicted_unit": "slice",
+          "remaining_count": null,
+          "remaining_description": "remaining slices in the loaf bag not countable from frames",
+          "remaining_fraction": null,
+          "confidence": "medium",
+          "visual_evidence": "Source [INVALID_OPAQUE]: Bread bag contents not countable at Start(00:00) or End(00:08). Dest [VALID]: Toaster appears empty at 00:05 and has 1 bread slice inserted at 00:06. Trusting Destination Path for final count (1 slice).",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_OPAQUE",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": null,
+              "confidence": "low",
+              "container_description": "Plastic loaf bag (Hovis bread bag)",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 693.23,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 701.23,
+              "snapped_to_frame_after": 9
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:05",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": 1,
+              "confidence": "high",
+              "container_description": "Black toaster (right side of countertop)",
+              "timestamp_before_seconds": 5.0,
+              "absolute_timestamp_before": 698.23,
+              "snapped_to_frame_before": 6,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 699.23,
+              "snapped_to_frame_after": 7
+            }
+          },
+          "num_frames": 10,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": null
+    },
+    {
+      "narration_id": "P03-20240218-140054-158",
+      "food_name": "garlic cloves",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-140054"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "cloves",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_4ef1e0c4",
+          "segment_idx": 0,
+          "video_id": "P03-20240218-140054",
+          "start_timestamp": 498.53,
+          "end_timestamp": 502.81,
+          "clip_start": 496.53,
+          "item_name": "garlic cloves",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 498.53,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "small open ceramic cup/jar holding garlic cloves (held in hands)",
+              "snapped_to_frame": 3
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 502.53,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "small open ceramic cup/jar holding garlic cloves (held in hands)",
+              "snapped_to_frame": 7
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 496.53,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "metal saucepan on the induction hob",
+              "snapped_to_frame": 1
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 504.53,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "metal saucepan on the induction hob",
+              "snapped_to_frame": 9
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"garlic cloves\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"small open ceramic cup/jar holding garlic cloves (held in hands)\",\n    \"timestamp_before\": \"00:02\",\n    \"timestamp_after\": \"00:06\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"metal saucepan on the induction hob\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"low\",\n  \"visual_evidence\": \"Source [INVALID_OCCLUDED]: Garlic appears in a small open cup at 00:02; a single clove-sized piece is pinched out/handled around 00:05-00:06 but the total count in the cup is not readable. Dest [INVALID_OCCLUDED]: No clear view of garlic being added to the saucepan between 00:00 and 00:08. Estimating 1 clove removed based on hand action.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "cloves",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "low",
+          "visual_evidence": "Source [INVALID_OCCLUDED]: Garlic appears in a small open cup at 00:02; a single clove-sized piece is pinched out/handled around 00:05-00:06 but the total count in the cup is not readable. Dest [INVALID_OCCLUDED]: No clear view of garlic being added to the saucepan between 00:00 and 00:08. Estimating 1 clove removed based on hand action.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:02",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": null,
+              "confidence": "low",
+              "container_description": "small open ceramic cup/jar holding garlic cloves (held in hands)",
+              "timestamp_before_seconds": 2.0,
+              "absolute_timestamp_before": 498.53,
+              "snapped_to_frame_before": 3,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 502.53,
+              "snapped_to_frame_after": 7
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": null,
+              "confidence": "low",
+              "container_description": "metal saucepan on the induction hob",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 496.53,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 504.53,
+              "snapped_to_frame_after": 9
+            }
+          },
+          "num_frames": 9,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "garlic",
+        "amount": "4",
+        "unit": "g",
+        "recipe": "P03_R10"
+      }
+    },
+    {
+      "narration_id": "P03-20240218-190556-248",
+      "food_name": "plant-based burger",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-190556"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "burgers",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_1931a818",
+          "segment_idx": 0,
+          "video_id": "P03-20240218-190556",
+          "start_timestamp": 1290.46,
+          "end_timestamp": 1293.46,
+          "clip_start": 1288.46,
+          "item_name": "plant-based burger",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 1290.46,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Clear plastic clamshell/tray packaging held in hands (burger patties container)",
+              "snapped_to_frame": 3
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 1294.46,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Clear plastic clamshell/tray packaging held in hands (burger patties container)",
+              "snapped_to_frame": 7
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 1288.46,
+              "description": "Destination before (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "White cutting board with green border on the counter",
+              "snapped_to_frame": 1
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 1292.46,
+              "description": "Destination after (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "White cutting board with green border on the counter",
+              "snapped_to_frame": 5
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"plant-based burger\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"Clear plastic clamshell/tray packaging held in hands (burger patties container)\",\n    \"timestamp_before\": \"00:02\",\n    \"timestamp_after\": \"00:06\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"White cutting board with green border on the counter\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:04\",\n    \"observed_delta\": 2,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 2,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 0,\n  \"remaining_description\": \"container appears empty by the end\",\n  \"remaining_fraction\": 0,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source [INVALID_OCCLUDED]: Patties in clear packaging are handled and not clearly countable due to hands. Dest [VALID]: Cutting board Start(0 patties at 00:00) -> End(2 patties at 00:04). Trusting Destination Path for final count.\"\n}",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "burgers",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 0,
+          "remaining_description": "container appears empty by the end",
+          "remaining_fraction": 0,
+          "confidence": "high",
+          "visual_evidence": "Source [INVALID_OCCLUDED]: Patties in clear packaging are handled and not clearly countable due to hands. Dest [VALID]: Cutting board Start(0 patties at 00:00) -> End(2 patties at 00:04). Trusting Destination Path for final count.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:02",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": null,
+              "confidence": "low",
+              "container_description": "Clear plastic clamshell/tray packaging held in hands (burger patties container)",
+              "timestamp_before_seconds": 2.0,
+              "absolute_timestamp_before": 1290.46,
+              "snapped_to_frame_before": 3,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 1294.46,
+              "snapped_to_frame_after": 7
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:04",
+              "observed_delta": 2,
+              "confidence": "high",
+              "container_description": "White cutting board with green border on the counter",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 1288.46,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 4.0,
+              "absolute_timestamp_after": 1292.46,
+              "snapped_to_frame_after": 5
+            }
+          },
+          "num_frames": 7,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 2,
+      "recipe_amount": {
+        "ingredient": "plant-based burgers",
+        "amount": "226",
+        "unit": "g",
+        "recipe": "P03_R02"
+      }
+    },
+    {
+      "narration_id": "P03-20240218-190556-269",
+      "food_name": "box of mushrooms (second box)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-190556"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "mushrooms",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_20ed4b5a",
+          "segment_idx": 0,
+          "video_id": "P03-20240218-190556",
+          "start_timestamp": 752,
+          "end_timestamp": 761.89,
+          "clip_start": 750.0,
+          "item_name": "box of mushrooms (second box)",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 750.0,
+              "description": "Source before (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "Plastic-wrapped produce tray/box of button mushrooms held in hands",
+              "snapped_to_frame": 1
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:12",
+              "timestamp_seconds": 12.0,
+              "absolute_timestamp": 762.0,
+              "description": "Source after (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "Plastic-wrapped produce tray/box of button mushrooms held in hands",
+              "snapped_to_frame": 13
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 752.0,
+              "description": "Destination before (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "White bowl/colander on a digital kitchen scale (mushrooms inside)",
+              "snapped_to_frame": 3
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:10",
+              "timestamp_seconds": 10.0,
+              "absolute_timestamp": 760.0,
+              "description": "Destination after (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "White bowl/colander on a digital kitchen scale (mushrooms inside)",
+              "snapped_to_frame": 11
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"box of mushrooms (second box)\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Plastic-wrapped produce tray/box of button mushrooms held in hands\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:12\",\n    \"observed_delta\": 2,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"White bowl/colander on a digital kitchen scale (mushrooms inside)\",\n    \"timestamp_before\": \"00:02\",\n    \"timestamp_after\": \"00:10\",\n    \"observed_delta\": 2,\n    \"confidence\": \"medium\"\n  },\n  \"numeric_count\": 2,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": \"box still mostly full\",\n  \"remaining_fraction\": 0.8,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source [VALID]: Start(appears full at 00:00) -> End(still mostly full at 00:12), small reduction consistent with ~2 mushrooms removed. Dest [VALID]: Bowl already contains mushrooms at 00:02 -> by 00:10 about 2 additional mushrooms are visible. Trusting Destination for final count.\"\n}",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "mushrooms",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": "box still mostly full",
+          "remaining_fraction": 0.8,
+          "confidence": "medium",
+          "visual_evidence": "Source [VALID]: Start(appears full at 00:00) -> End(still mostly full at 00:12), small reduction consistent with ~2 mushrooms removed. Dest [VALID]: Bowl already contains mushrooms at 00:02 -> by 00:10 about 2 additional mushrooms are visible. Trusting Destination for final count.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:12",
+              "observed_delta": 2,
+              "confidence": "low",
+              "container_description": "Plastic-wrapped produce tray/box of button mushrooms held in hands",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 750.0,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 12.0,
+              "absolute_timestamp_after": 762.0,
+              "snapped_to_frame_after": 13
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:02",
+              "timestamp_after_raw": "00:10",
+              "observed_delta": 2,
+              "confidence": "medium",
+              "container_description": "White bowl/colander on a digital kitchen scale (mushrooms inside)",
+              "timestamp_before_seconds": 2.0,
+              "absolute_timestamp_before": 752.0,
+              "snapped_to_frame_before": 3,
+              "timestamp_after_seconds": 10.0,
+              "absolute_timestamp_after": 760.0,
+              "snapped_to_frame_after": 11
+            }
+          },
+          "num_frames": 14,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 2,
+      "recipe_amount": {
+        "ingredient": "chestnut mushrooms",
+        "amount": "200",
+        "unit": "g",
+        "recipe": "P03_R02"
+      }
+    },
+    {
+      "narration_id": "P03-20240218-190556-411",
+      "food_name": "onion",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-190556"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "onions",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_210d4c9f",
+          "segment_idx": 0,
+          "video_id": "P03-20240218-190556",
+          "start_timestamp": 985.57,
+          "end_timestamp": 990.05,
+          "clip_start": 983.57,
+          "item_name": "onion",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 983.57,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Clear plastic bag of onions/produce in a white pull-out storage rack (bottom shelf)",
+              "snapped_to_frame": 1
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 988.57,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Clear plastic bag of onions/produce in a white pull-out storage rack (bottom shelf)",
+              "snapped_to_frame": 6
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 989.57,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Cutting board on kitchen counter (chopped pile present, but before/after change not isolatable)",
+              "snapped_to_frame": 7
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 991.57,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Cutting board on kitchen counter (chopped pile present, but before/after change not isolatable)",
+              "snapped_to_frame": 9
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"onion\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"Clear plastic bag of onions/produce in a white pull-out storage rack (bottom shelf)\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:05\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_PILE\",\n    \"container_description\": \"Cutting board on kitchen counter (chopped pile present, but before/after change not isolatable)\",\n    \"timestamp_before\": \"00:06\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source [INVALID_OCCLUDED]: A clear produce bag in the pull-out rack is rummaged and a single brown onion-sized item is removed and held by hand (00:00->00:05), but remaining count is not visible. Dest [INVALID_PILE]: Chopped pieces are visible on the cutting board later (00:08) without a clear empty-before comparison. Final count inferred from the single item carried/held: 1 onion.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "onions",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "medium",
+          "visual_evidence": "Source [INVALID_OCCLUDED]: A clear produce bag in the pull-out rack is rummaged and a single brown onion-sized item is removed and held by hand (00:00->00:05), but remaining count is not visible. Dest [INVALID_PILE]: Chopped pieces are visible on the cutting board later (00:08) without a clear empty-before comparison. Final count inferred from the single item carried/held: 1 onion.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:05",
+              "observed_delta": null,
+              "confidence": "low",
+              "container_description": "Clear plastic bag of onions/produce in a white pull-out storage rack (bottom shelf)",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 983.57,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 5.0,
+              "absolute_timestamp_after": 988.57,
+              "snapped_to_frame_after": 6
+            },
+            "destination": {
+              "status": "INVALID_PILE",
+              "timestamp_before_raw": "00:06",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": null,
+              "confidence": "low",
+              "container_description": "Cutting board on kitchen counter (chopped pile present, but before/after change not isolatable)",
+              "timestamp_before_seconds": 6.0,
+              "absolute_timestamp_before": 989.57,
+              "snapped_to_frame_before": 7,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 991.57,
+              "snapped_to_frame_after": 9
+            }
+          },
+          "num_frames": 9,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "onions",
+        "amount": "110",
+        "unit": "g",
+        "recipe": "P03_R02"
+      }
+    },
+    {
+      "narration_id": "P03-20240218-190556-7",
+      "food_name": "bag of potatoes",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-190556"
+      ],
+      "total_ground_truth": 6,
+      "total_ground_truth_unit": "potatoes",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_7fa725cb",
+          "segment_idx": 0,
+          "video_id": "P03-20240218-190556",
+          "start_timestamp": 98.51,
+          "end_timestamp": 115.63,
+          "clip_start": 96.51,
+          "item_name": "bag of potatoes",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 96.51,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Plastic bag of small potatoes (source bag)",
+              "snapped_to_frame": 1
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:21",
+              "timestamp_seconds": 21.0,
+              "absolute_timestamp": 117.51,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "Plastic bag of small potatoes (source bag)",
+              "snapped_to_frame": 22
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 98.51,
+              "description": "Destination before (delta=9)",
+              "visibility_status": "clear_view",
+              "container_description": "Grey bowl on a digital kitchen scale (destination)",
+              "snapped_to_frame": 3
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:10",
+              "timestamp_seconds": 10.0,
+              "absolute_timestamp": 106.51,
+              "description": "Destination after (delta=9)",
+              "visibility_status": "clear_view",
+              "container_description": "Grey bowl on a digital kitchen scale (destination)",
+              "snapped_to_frame": 11
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"bag of potatoes\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"Plastic bag of small potatoes (source bag)\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:21\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Grey bowl on a digital kitchen scale (destination)\",\n    \"timestamp_before\": \"00:02\",\n    \"timestamp_after\": \"00:10\",\n    \"observed_delta\": 9,\n    \"confidence\": \"medium\"\n  },\n  \"numeric_count\": 9,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": \"some potatoes still remain in the bag\",\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source [INVALID_OCCLUDED]: Bag contents are a piled/partially hidden mass; end still shows potatoes in the bag. Dest [VALID]: Bowl appears empty at 00:02 and contains about 9 small potatoes by 00:10. Trusting Destination Path for final count.\"\n}",
+          "ground_truth_count": 6,
+          "ground_truth_unit": "potatoes",
+          "quantity_category": "discrete",
+          "predicted_count": 9,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": "some potatoes still remain in the bag",
+          "remaining_fraction": null,
+          "confidence": "medium",
+          "visual_evidence": "Source [INVALID_OCCLUDED]: Bag contents are a piled/partially hidden mass; end still shows potatoes in the bag. Dest [VALID]: Bowl appears empty at 00:02 and contains about 9 small potatoes by 00:10. Trusting Destination Path for final count.",
+          "match": "wrong",
+          "error": 3,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:21",
+              "observed_delta": null,
+              "confidence": "low",
+              "container_description": "Plastic bag of small potatoes (source bag)",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 96.51,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 21.0,
+              "absolute_timestamp_after": 117.51,
+              "snapped_to_frame_after": 22
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:02",
+              "timestamp_after_raw": "00:10",
+              "observed_delta": 9,
+              "confidence": "medium",
+              "container_description": "Grey bowl on a digital kitchen scale (destination)",
+              "timestamp_before_seconds": 2.0,
+              "absolute_timestamp_before": 98.51,
+              "snapped_to_frame_before": 3,
+              "timestamp_after_seconds": 10.0,
+              "absolute_timestamp_after": 106.51,
+              "snapped_to_frame_after": 11
+            }
+          },
+          "num_frames": 22,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 9,
+      "recipe_amount": {
+        "ingredient": "potatoes",
+        "amount": "500",
+        "unit": "g",
+        "recipe": "P03_R02"
+      }
+    },
+    {
+      "narration_id": "P03-20240218-190556-8",
+      "food_name": "box of mushrooms",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-190556"
+      ],
+      "total_ground_truth": 7,
+      "total_ground_truth_unit": "mushrooms",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_db4d4e0a",
+          "segment_idx": 0,
+          "video_id": "P03-20240218-190556",
+          "start_timestamp": 728.61,
+          "end_timestamp": 742.32,
+          "clip_start": 726.61,
+          "item_name": "box of mushrooms",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 729.61,
+              "description": "Source before (delta=9)",
+              "visibility_status": "clear_view",
+              "container_description": "clear plastic mushroom tray/box (opened)",
+              "snapped_to_frame": 4
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:13",
+              "timestamp_seconds": 13.0,
+              "absolute_timestamp": 739.61,
+              "description": "Source after (delta=9)",
+              "visibility_status": "clear_view",
+              "container_description": "clear plastic mushroom tray/box (opened)",
+              "snapped_to_frame": 14
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 726.61,
+              "description": "Destination before (delta=9)",
+              "visibility_status": "clear_view",
+              "container_description": "white colander/bowl on a digital scale",
+              "snapped_to_frame": 1
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:13",
+              "timestamp_seconds": 13.0,
+              "absolute_timestamp": 739.61,
+              "description": "Destination after (delta=9)",
+              "visibility_status": "clear_view",
+              "container_description": "white colander/bowl on a digital scale",
+              "snapped_to_frame": 14
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"box of mushrooms\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"clear plastic mushroom tray/box (opened)\",\n    \"timestamp_before\": \"00:03\",\n    \"timestamp_after\": \"00:13\",\n    \"observed_delta\": 9,\n    \"confidence\": \"medium\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"white colander/bowl on a digital scale\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:13\",\n    \"observed_delta\": 9,\n    \"confidence\": \"medium\"\n  },\n  \"numeric_count\": 9,\n  \"amount_description\": null,\n  \"volume_fraction\": 1,\n  \"remaining_count\": 0,\n  \"remaining_description\": \"empty tray\",\n  \"remaining_fraction\": 0,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source [VALID]: Start tray shows multiple whole mushrooms at 00:03 and appears emptied by 00:13. Dest [VALID]: Colander appears empty at 00:00 and contains about 9 whole mushrooms by 00:13. Trusting Destination for final count.\"\n}",
+          "ground_truth_count": 7,
+          "ground_truth_unit": "mushrooms",
+          "quantity_category": "discrete",
+          "predicted_count": 9,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 0,
+          "remaining_description": "empty tray",
+          "remaining_fraction": 0,
+          "confidence": "medium",
+          "visual_evidence": "Source [VALID]: Start tray shows multiple whole mushrooms at 00:03 and appears emptied by 00:13. Dest [VALID]: Colander appears empty at 00:00 and contains about 9 whole mushrooms by 00:13. Trusting Destination for final count.",
+          "match": "wrong",
+          "error": 2,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:03",
+              "timestamp_after_raw": "00:13",
+              "observed_delta": 9,
+              "confidence": "medium",
+              "container_description": "clear plastic mushroom tray/box (opened)",
+              "timestamp_before_seconds": 3.0,
+              "absolute_timestamp_before": 729.61,
+              "snapped_to_frame_before": 4,
+              "timestamp_after_seconds": 13.0,
+              "absolute_timestamp_after": 739.61,
+              "snapped_to_frame_after": 14
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:13",
+              "observed_delta": 9,
+              "confidence": "medium",
+              "container_description": "white colander/bowl on a digital scale",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 726.61,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 13.0,
+              "absolute_timestamp_after": 739.61,
+              "snapped_to_frame_after": 14
+            }
+          },
+          "num_frames": 18,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 9,
+      "recipe_amount": {
+        "ingredient": "chestnut mushrooms",
+        "amount": "200",
+        "unit": "g",
+        "recipe": "P03_R02"
+      }
+    }
+  ]
+}

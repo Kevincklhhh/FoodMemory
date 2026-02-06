@@ -1,0 +1,920 @@
+{
+  "participant": "P03",
+  "model": "qwen",
+  "tag": "block30s",
+  "method": "baseline",
+  "block_duration": 30.0,
+  "low_only": true,
+  "total_items": 19,
+  "items": [
+    {
+      "narration_id": "P03-20240216-084005-67",
+      "food_name": "bread (loaf/bag of bread)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240216-084005"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "slices",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_2bac7566",
+          "segment_idx": 0,
+          "video_id": "P03-20240216-084005",
+          "start_timestamp": 715.74,
+          "end_timestamp": 726.49,
+          "ground_truth_count": 2,
+          "ground_truth_unit": "slices",
+          "quantity_category": "discrete",
+          "predicted_count": 3,
+          "predicted_amount": "3 slices of bread",
+          "predicted_unit": "slice",
+          "detected_item_name": "bread",
+          "item_match": true,
+          "item_similarity": 0.8042206764221191,
+          "confidence": "high",
+          "match": "close",
+          "error": 1,
+          "blocks_queried": [
+            23,
+            24
+          ],
+          "aggregation_used": true,
+          "aggregation_reasoning": "Block 23 detected a loaf of bread being removed from a bag, indicating one loaf (discrete item). Block 24 detected two slices of bread being removed from a bag, with the bag still containing more bread, indicating two discrete slices. Since both blocks refer to bread and the context suggests a continuous dispensing event, the total count is aggregated as 3 discrete items (1 loaf + 2 slices). The confidence remains high as both detections are consistent and clearly observed.",
+          "num_blocks_aggregated": 2
+        }
+      ],
+      "recipe_amount": null,
+      "total_predicted": 3
+    },
+    {
+      "narration_id": "P03-20240216-185832-1024",
+      "food_name": "eggs",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240216-185832",
+        "P03-20240216-205923"
+      ],
+      "total_ground_truth": 8,
+      "total_ground_truth_unit": "eggs",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_f8b2a75d",
+          "segment_idx": 0,
+          "video_id": "P03-20240216-185832",
+          "start_timestamp": 2792.96,
+          "end_timestamp": 2825.9,
+          "ground_truth_count": 8,
+          "ground_truth_unit": "eggs",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": "2 eggs removed from carton",
+          "predicted_unit": "unit",
+          "detected_item_name": "eggs",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "wrong",
+          "error": -6,
+          "blocks_queried": [
+            93,
+            94
+          ],
+          "aggregation_used": true,
+          "aggregation_reasoning": "Both Block 93 and Block 94 detected eggs with high confidence. Block 93 shows 2 eggs removed (from 6 to 4 remaining), and Block 94 confirms 2 eggs removed from the carton. The counts are consistent across both blocks, so the final count is aggregated as 2 discrete eggs.",
+          "num_blocks_aggregated": 2
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "eggs",
+        "amount": "330",
+        "unit": "g",
+        "recipe": "P03_R04"
+      },
+      "total_predicted": 2
+    },
+    {
+      "narration_id": "P03-20240216-185832-38",
+      "food_name": "bag of potatoes",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240216-185832",
+        "P03-20240216-205923"
+      ],
+      "total_ground_truth": 12,
+      "total_ground_truth_unit": "potatoes",
+      "num_segments": 2,
+      "segments": [
+        {
+          "segment_id": "seg_d38f9871",
+          "segment_idx": 0,
+          "video_id": "P03-20240216-185832",
+          "start_timestamp": 763.61,
+          "end_timestamp": 774.5,
+          "ground_truth_count": 8,
+          "ground_truth_unit": "potatoes",
+          "quantity_category": "discrete",
+          "predicted_count": 10,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "bag of potatoes",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "wrong",
+          "error": 2,
+          "blocks_queried": [
+            25
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 25,
+          "remaining_count": 10,
+          "remaining_description": null,
+          "remaining_fraction": 0.5,
+          "visual_evidence": "The bag of potatoes is initially full. The person removes potatoes one by one, placing them on the counter. After the action, approximately half of the potatoes remain in the bag, and the other half are on the counter."
+        },
+        {
+          "segment_id": "seg_7c631815",
+          "segment_idx": 1,
+          "video_id": "P03-20240216-185832",
+          "start_timestamp": 1251.98,
+          "end_timestamp": 1259.16,
+          "ground_truth_count": 4,
+          "ground_truth_unit": "potatoes",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "bag of potatoes",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "wrong",
+          "error": -2,
+          "blocks_queried": [
+            41
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 41,
+          "remaining_count": 4,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "visual_evidence": "A bag of potatoes is on the counter. The person takes two potatoes from the bag and places them on the counter. After the action, four potatoes remain in the bag."
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "potatoes",
+        "amount": "1800",
+        "unit": "g",
+        "recipe": "P03_R04"
+      },
+      "total_predicted": 12
+    },
+    {
+      "narration_id": "P03-20240216-185832-63",
+      "food_name": "yeast (box)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240216-185832",
+        "P03-20240216-205923"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "sachets",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_13de44e1",
+          "segment_idx": 0,
+          "video_id": "P03-20240216-185832",
+          "start_timestamp": 2102.75,
+          "end_timestamp": 2106.03,
+          "ground_truth_count": 1,
+          "ground_truth_unit": "sachets",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "yeast (box)",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "exact",
+          "error": 0,
+          "blocks_queried": [
+            70
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 70,
+          "remaining_count": 0,
+          "remaining_description": "empty box",
+          "remaining_fraction": 0.0,
+          "visual_evidence": "A yellow box of yeast is taken from a cabinet. The box is opened, and the contents are poured into a bowl. The box is then placed back into the cabinet, appearing empty."
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "dried yeast",
+        "amount": "2",
+        "unit": "g",
+        "recipe": "P03_R05"
+      },
+      "total_predicted": 1
+    },
+    {
+      "narration_id": "P03-20240217-091657-304",
+      "food_name": "bread (in bag)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240217-091657"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "slices",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_965a98f5",
+          "segment_idx": 0,
+          "video_id": "P03-20240217-091657",
+          "start_timestamp": 645,
+          "end_timestamp": 659.47,
+          "ground_truth_count": 2,
+          "ground_truth_unit": "slices",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "slice",
+          "detected_item_name": "bread",
+          "item_match": true,
+          "item_similarity": 0.8136858940124512,
+          "confidence": "high",
+          "match": "exact",
+          "error": 0,
+          "blocks_queried": [
+            21
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 21,
+          "remaining_count": 4,
+          "remaining_description": null,
+          "remaining_fraction": 0.75,
+          "visual_evidence": "A bag of bread is held by the user. Two slices are removed from the bag and placed into the toaster. The bag appears to have been about three-quarters full before the action, and now has four slices remaining."
+        }
+      ],
+      "recipe_amount": null,
+      "total_predicted": 2
+    },
+    {
+      "narration_id": "P03-20240217-131219-490",
+      "food_name": "can of coconut milk",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240217-131219"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "cans",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_802c5a76",
+          "segment_idx": 0,
+          "video_id": "P03-20240217-131219",
+          "start_timestamp": 2008.94,
+          "end_timestamp": 2013.92,
+          "ground_truth_count": 1,
+          "ground_truth_unit": "can",
+          "quantity_category": "continuous",
+          "predicted_count": null,
+          "predicted_amount": "a significant portion removed, then about 80% of the can remaining",
+          "predicted_unit": "can",
+          "detected_item_name": "can of coconut milk",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "continuous_estimate",
+          "error": null,
+          "blocks_queried": [
+            66,
+            67
+          ],
+          "aggregation_used": true,
+          "aggregation_reasoning": "Both Block 66 and Block 67 detected the same item, 'can of coconut milk', with high confidence. Block 66 shows the can was partially emptied during the action, and Block 67 shows the can being tilted to pour liquid, confirming the dispensing action. The item is continuous in nature, and no discrete count is applicable. The evidence supports that the can was used to dispense a portion of its contents, with the final state being approximately 80% full. The detection is consistent across both blocks, leading to a high-confidence aggregation.",
+          "num_blocks_aggregated": 2
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "coconut milk",
+        "amount": "400",
+        "unit": "ml",
+        "recipe": "P03_R01"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240217-192543-10",
+      "food_name": "box of mushrooms",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240217-192543"
+      ],
+      "total_ground_truth": 5,
+      "total_ground_truth_unit": "mushrooms",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_7172e172",
+          "segment_idx": 0,
+          "video_id": "P03-20240217-192543",
+          "start_timestamp": 479.69,
+          "end_timestamp": 490,
+          "ground_truth_count": 5,
+          "ground_truth_unit": "mushrooms",
+          "quantity_category": "discrete",
+          "predicted_count": 4,
+          "predicted_amount": "4 mushrooms removed from the box",
+          "predicted_unit": "unit",
+          "detected_item_name": "box of mushrooms",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "close",
+          "error": -1,
+          "blocks_queried": [
+            15,
+            16
+          ],
+          "aggregation_used": true,
+          "aggregation_reasoning": "Block 15 detected the box of mushrooms being moved out of frame, indicating it was used. Block 16 detected 4 mushrooms being removed from the box and placed on the counter, with 16 remaining. The count of 4 is consistent and directly observed in Block 16, which has high confidence. The box itself is the item being dispensed from, and the action of removing 4 mushrooms is the key dispensing event. Therefore, the final detected item is 'box of mushrooms' with a count of 4 discrete units.",
+          "num_blocks_aggregated": 2
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "chestnut mushrooms",
+        "amount": "240",
+        "unit": "g",
+        "recipe": "P03_R09"
+      },
+      "total_predicted": 4
+    },
+    {
+      "narration_id": "P03-20240217-192543-335",
+      "food_name": "egg",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240217-192543"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "eggs",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_a5fac984",
+          "segment_idx": 0,
+          "video_id": "P03-20240217-192543",
+          "start_timestamp": 741.72,
+          "end_timestamp": 745.05,
+          "ground_truth_count": 1,
+          "ground_truth_unit": "eggs",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "egg",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "exact",
+          "error": 0,
+          "blocks_queried": [
+            24
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 24,
+          "remaining_count": 5,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "visual_evidence": "A carton of eggs is visible in the refrigerator. The person's hands open the carton, take out one egg, and then close the carton. The carton initially appears to contain 6 eggs, and after removal, 5 are visible."
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "eggs",
+        "amount": "55",
+        "unit": "g",
+        "recipe": "P03_R07"
+      },
+      "total_predicted": 1
+    },
+    {
+      "narration_id": "P03-20240217-192543-353",
+      "food_name": "garlic cloves (in small cup)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240217-192543"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "cloves",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_29ba3d83",
+          "segment_idx": 0,
+          "video_id": "P03-20240217-192543",
+          "start_timestamp": 830.07,
+          "end_timestamp": 835.21,
+          "ground_truth_count": 2,
+          "ground_truth_unit": "cloves",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "whole garlic (garlic bulb in net)",
+          "item_match": false,
+          "item_similarity": 0.6382520794868469,
+          "confidence": "high",
+          "match": "item_mismatch",
+          "error": -1,
+          "blocks_queried": [
+            27
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 27,
+          "remaining_count": 1,
+          "remaining_description": null,
+          "remaining_fraction": 0.5,
+          "visual_evidence": "A whole garlic bulb in a net bag is visible on a shelf. The person's hand reaches in, takes one bulb, and removes it from the shelf. After the hand leaves, one bulb remains in the bag."
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "garlic",
+        "amount": "16",
+        "unit": "g",
+        "recipe": "P03_R08"
+      },
+      "total_predicted": 1
+    },
+    {
+      "narration_id": "P03-20240217-192543-359",
+      "food_name": "whole garlic (garlic bulb in net)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240217-192543"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "bulbs",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_ad4bca5b",
+          "segment_idx": 0,
+          "video_id": "P03-20240217-192543",
+          "start_timestamp": 839,
+          "end_timestamp": 844.54,
+          "ground_truth_count": 1,
+          "ground_truth_unit": "bulbs",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": "1 whole garlic bulb",
+          "predicted_unit": "unit",
+          "detected_item_name": "whole garlic (garlic bulb in net)",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "exact",
+          "error": 0,
+          "blocks_queried": [
+            27,
+            28
+          ],
+          "aggregation_used": true,
+          "aggregation_reasoning": "Block 27 detected a whole garlic bulb in a net bag being removed from a shelf, with one remaining, indicating a single unit was dispensed. Block 28 detected garlic cloves being taken from a bag, but the item is distinct from the whole garlic bulb. Since the primary dispensing action in Block 27 involved a whole garlic bulb and the detection is high confidence, this is the most relevant and accurate item. The garlic cloves in Block 28 are a different form and not aggregated with the whole bulb.",
+          "num_blocks_aggregated": 2
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "garlic",
+        "amount": "16",
+        "unit": "g",
+        "recipe": "P03_R08"
+      },
+      "total_predicted": 1
+    },
+    {
+      "narration_id": "P03-20240217-192543-808",
+      "food_name": "mozzarella",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240217-192543"
+      ],
+      "total_ground_truth": null,
+      "total_ground_truth_unit": null,
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_81e632ff",
+          "segment_idx": 0,
+          "video_id": "P03-20240217-192543",
+          "start_timestamp": 2200.92,
+          "end_timestamp": 2205.01,
+          "ground_truth_count": null,
+          "ground_truth_unit": null,
+          "quantity_category": "continuous",
+          "predicted_count": null,
+          "predicted_amount": "a block of mozzarella cheese",
+          "predicted_unit": "unit",
+          "detected_item_name": "mozzarella",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "continuous_estimate",
+          "error": null,
+          "blocks_queried": [
+            73
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 73,
+          "remaining_count": null,
+          "remaining_description": "a block of mozzarella cheese",
+          "remaining_fraction": 0.5,
+          "visual_evidence": "The item is taken from a plastic package labeled 'Mozzarella'. The block is removed from the package and broken into two pieces over the sink. The package is left with some air and the remaining half of the block."
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "mozzarella cheese",
+        "amount": "125",
+        "unit": "g",
+        "recipe": "P03_R07"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240218-094452-16",
+      "food_name": "buns package",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-094452"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "buns",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_0fed962b",
+          "segment_idx": 0,
+          "video_id": "P03-20240218-094452",
+          "start_timestamp": 88.05,
+          "end_timestamp": 91.68,
+          "ground_truth_count": 2,
+          "ground_truth_unit": "buns",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": "2 buns removed from package",
+          "predicted_unit": "unit",
+          "detected_item_name": "buns package",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "exact",
+          "error": 0,
+          "blocks_queried": [
+            2,
+            3
+          ],
+          "aggregation_used": true,
+          "aggregation_reasoning": "Both Block 2 and Block 3 detected the same item, 'buns package', with high confidence. Both blocks reported that 2 buns were removed from a package of 4, leaving 2 in the package. The counts are consistent across blocks, and the evidence supports that 2 buns were dispensed. Therefore, the final count is 2 discrete buns.",
+          "num_blocks_aggregated": 2
+        }
+      ],
+      "recipe_amount": null,
+      "total_predicted": 2
+    },
+    {
+      "narration_id": "P03-20240218-094452-390",
+      "food_name": "bread",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-094452"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "slices",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_ff2aef73",
+          "segment_idx": 0,
+          "video_id": "P03-20240218-094452",
+          "start_timestamp": 695.23,
+          "end_timestamp": 701.01,
+          "ground_truth_count": 1,
+          "ground_truth_unit": "slice",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "bread",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "exact",
+          "error": 0,
+          "blocks_queried": [
+            23
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 23,
+          "remaining_count": 7,
+          "remaining_description": null,
+          "remaining_fraction": 0.875,
+          "visual_evidence": "A loaf of bread in a yellow bag is held. One slice is removed from the bag and placed into the toaster. The bag is then resealed and returned to the counter. The initial bag appears to contain 8 slices."
+        }
+      ],
+      "recipe_amount": null,
+      "total_predicted": 1
+    },
+    {
+      "narration_id": "P03-20240218-140054-158",
+      "food_name": "garlic cloves",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-140054"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "cloves",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_4ef1e0c4",
+          "segment_idx": 0,
+          "video_id": "P03-20240218-140054",
+          "start_timestamp": 498.53,
+          "end_timestamp": 502.81,
+          "ground_truth_count": 1,
+          "ground_truth_unit": "cloves",
+          "quantity_category": "continuous",
+          "predicted_count": null,
+          "predicted_amount": "a small amount",
+          "predicted_unit": "splash",
+          "detected_item_name": "soy sauce",
+          "item_match": false,
+          "item_similarity": 0.2794035077095032,
+          "confidence": "high",
+          "match": "item_mismatch",
+          "error": null,
+          "blocks_queried": [
+            16
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 16,
+          "remaining_count": null,
+          "remaining_description": "about 90% full",
+          "remaining_fraction": 0.9,
+          "visual_evidence": "A bottle of soy sauce is picked up. The person pours a small amount into a bowl. The bottle is then placed back on the counter, appearing mostly full."
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "garlic",
+        "amount": "4",
+        "unit": "g",
+        "recipe": "P03_R10"
+      },
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P03-20240218-190556-248",
+      "food_name": "plant-based burger",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-190556"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "burgers",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_1931a818",
+          "segment_idx": 0,
+          "video_id": "P03-20240218-190556",
+          "start_timestamp": 1290.46,
+          "end_timestamp": 1293.46,
+          "ground_truth_count": 2,
+          "ground_truth_unit": "burgers",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "plant-based burger",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "exact",
+          "error": 0,
+          "blocks_queried": [
+            43
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 43,
+          "remaining_count": 0,
+          "remaining_description": null,
+          "remaining_fraction": 0.0,
+          "visual_evidence": "Two plant-based burgers were in a clear plastic container on the counter. The container was picked up, moved to the sink, and then placed back on the counter. The container was empty after the action, indicating both burgers were removed."
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "plant-based burgers",
+        "amount": "226",
+        "unit": "g",
+        "recipe": "P03_R02"
+      },
+      "total_predicted": 2
+    },
+    {
+      "narration_id": "P03-20240218-190556-269",
+      "food_name": "box of mushrooms (second box)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-190556"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "mushrooms",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_20ed4b5a",
+          "segment_idx": 0,
+          "video_id": "P03-20240218-190556",
+          "start_timestamp": 752,
+          "end_timestamp": 761.89,
+          "ground_truth_count": 2,
+          "ground_truth_unit": "mushrooms",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "box of mushrooms",
+          "item_match": true,
+          "item_similarity": 0.9328054189682007,
+          "confidence": "high",
+          "match": "close",
+          "error": -1,
+          "blocks_queried": [
+            25
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 25,
+          "remaining_count": 1,
+          "remaining_description": null,
+          "remaining_fraction": 0.9,
+          "visual_evidence": "The box of mushrooms was opened, and one mushroom was removed and placed on the scale. The box initially contained multiple mushrooms, and after the removal, several were still visible inside."
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "chestnut mushrooms",
+        "amount": "200",
+        "unit": "g",
+        "recipe": "P03_R02"
+      },
+      "total_predicted": 1
+    },
+    {
+      "narration_id": "P03-20240218-190556-411",
+      "food_name": "onion",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-190556"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "onions",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_210d4c9f",
+          "segment_idx": 0,
+          "video_id": "P03-20240218-190556",
+          "start_timestamp": 985.57,
+          "end_timestamp": 990.05,
+          "ground_truth_count": 1,
+          "ground_truth_unit": "onions",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": "two potatoes",
+          "predicted_unit": "unit",
+          "detected_item_name": "potato",
+          "item_match": false,
+          "item_similarity": 0.4630744159221649,
+          "confidence": "high",
+          "match": "item_mismatch",
+          "error": 1,
+          "blocks_queried": [
+            32,
+            33
+          ],
+          "aggregation_used": true,
+          "aggregation_reasoning": "Block 32 detected a bag of potatoes with one potato removed, indicating at least one potato was dispensed. Block 33 detected one potato being cut and peeled, and a second half remaining, confirming two potatoes were used. The evidence from both blocks supports the conclusion that two potatoes were dispensed, with high confidence.",
+          "num_blocks_aggregated": 2
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "onions",
+        "amount": "110",
+        "unit": "g",
+        "recipe": "P03_R02"
+      },
+      "total_predicted": 2
+    },
+    {
+      "narration_id": "P03-20240218-190556-7",
+      "food_name": "bag of potatoes",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-190556"
+      ],
+      "total_ground_truth": 6,
+      "total_ground_truth_unit": "potatoes",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_7fa725cb",
+          "segment_idx": 0,
+          "video_id": "P03-20240218-190556",
+          "start_timestamp": 98.51,
+          "end_timestamp": 115.63,
+          "ground_truth_count": 6,
+          "ground_truth_unit": "potatoes",
+          "quantity_category": "discrete",
+          "predicted_count": 10,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "bag of potatoes",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "wrong",
+          "error": 4,
+          "blocks_queried": [
+            3
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 3,
+          "remaining_count": 10,
+          "remaining_description": null,
+          "remaining_fraction": 0.5,
+          "visual_evidence": "The bag of potatoes is initially full. The person removes potatoes one by one and places them into a bowl on a scale. After the action, approximately half of the potatoes remain in the bag."
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "potatoes",
+        "amount": "500",
+        "unit": "g",
+        "recipe": "P03_R02"
+      },
+      "total_predicted": 10
+    },
+    {
+      "narration_id": "P03-20240218-190556-8",
+      "food_name": "box of mushrooms",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-190556"
+      ],
+      "total_ground_truth": 7,
+      "total_ground_truth_unit": "mushrooms",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_db4d4e0a",
+          "segment_idx": 0,
+          "video_id": "P03-20240218-190556",
+          "start_timestamp": 728.61,
+          "end_timestamp": 742.32,
+          "ground_truth_count": 7,
+          "ground_truth_unit": "mushrooms",
+          "quantity_category": "discrete",
+          "predicted_count": 8,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "box of mushrooms",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "close",
+          "error": 1,
+          "blocks_queried": [
+            24
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 24,
+          "remaining_count": 8,
+          "remaining_description": null,
+          "remaining_fraction": 0.5,
+          "visual_evidence": "The box of mushrooms started with a visible count of 16 mushrooms. The user removed 8 mushrooms and placed them into a bowl. After the action, 8 mushrooms remained in the box."
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "chestnut mushrooms",
+        "amount": "200",
+        "unit": "g",
+        "recipe": "P03_R02"
+      },
+      "total_predicted": 8
+    }
+  ]
+}

@@ -1,0 +1,1837 @@
+{
+  "participant": "P09",
+  "model": "gpt5",
+  "tag": "hybrid_gpt5",
+  "prompt_mode": "hybrid",
+  "task": "hybrid_selection",
+  "low_only": true,
+  "padding": 2.0,
+  "fps": 1.0,
+  "max_frames": 40,
+  "total_items": 11,
+  "items": [
+    {
+      "narration_id": "P09-20240621-093545-386",
+      "food_name": "pack of chillies",
+      "difficulty": "LOW",
+      "video_range": [
+        "P09-20240621-093545"
+      ],
+      "total_ground_truth": 7,
+      "total_ground_truth_unit": "chillies",
+      "num_segments": 2,
+      "segments": [
+        {
+          "segment_id": "seg_ddfa50e4",
+          "segment_idx": 0,
+          "video_id": "P09-20240621-093545",
+          "start_timestamp": 793.52,
+          "end_timestamp": 800.62,
+          "clip_start": 791.52,
+          "item_name": "pack of chillies",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 793.52,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 799.52,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 793.52,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 799.52,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 798.52,
+              "description": "Hand displays chillies removed from the pack mid-transfer",
+              "visibility_status": "clear_view",
+              "visible_count": 6
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"pack of chillies\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:02\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:02\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:07\",\n        \"description\": \"Hand displays chillies removed from the pack mid-transfer\",\n        \"visible_count\": 6\n      }\n    ],\n    \"total_transfer_count\": 6,\n    \"confidence\": \"medium\"\n  },\n  \"numeric_count\": 6,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source was INVALID_OCCLUDED (pack contents not reliably countable). Dest was INVALID_OCCLUDED (no clear receiving container shown). Transfer was VALID (6 chillies clearly visible in hand). Final count derived primarily from Path C.\"\n}",
+          "ground_truth_count": 5,
+          "ground_truth_unit": "chillies",
+          "quantity_category": "discrete",
+          "predicted_count": 6,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "medium",
+          "visual_evidence": "Source was INVALID_OCCLUDED (pack contents not reliably countable). Dest was INVALID_OCCLUDED (no clear receiving container shown). Transfer was VALID (6 chillies clearly visible in hand). Final count derived primarily from Path C.",
+          "match": "close",
+          "error": 1,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:02",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 2.0,
+              "absolute_timestamp_before": 793.52,
+              "snapped_to_frame_before": 3,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 799.52,
+              "snapped_to_frame_after": 9
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:02",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 2.0,
+              "absolute_timestamp_before": 793.52,
+              "snapped_to_frame_before": 3,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 799.52,
+              "snapped_to_frame_after": 9
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:07",
+                  "description": "Hand displays chillies removed from the pack mid-transfer",
+                  "visible_count": 6,
+                  "timestamp_seconds": 7.0,
+                  "absolute_timestamp": 798.52,
+                  "snapped_to_frame": 8
+                }
+              ],
+              "total_transfer_count": 6,
+              "confidence": "medium"
+            }
+          },
+          "num_frames": 12,
+          "frame_fps": 1.0
+        },
+        {
+          "segment_id": "seg_e1eb7bfd",
+          "segment_idx": 1,
+          "video_id": "P09-20240621-093545",
+          "start_timestamp": 2048.33,
+          "end_timestamp": 2053.33,
+          "clip_start": 2046.33,
+          "item_name": "pack of chillies",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 2050.33,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 2052.33,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "absolute_timestamp": 2047.33,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 2052.33,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 2052.33,
+              "description": "One red chilli visible in hand above/near bowl during dispensing",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"pack of chillies\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:04\",\n    \"timestamp_after\": \"00:06\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_PILE\",\n    \"timestamp_before\": \"00:01\",\n    \"timestamp_after\": \"00:06\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:06\",\n        \"description\": \"One red chilli visible in hand above/near bowl during dispensing\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 1,\n    \"confidence\": \"medium\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source was INVALID_OCCLUDED (contents not reliably countable). Dest was INVALID_PILE (bowl contents not clearly verifiable). Transfer was VALID (1 chilli clearly visible mid-transfer). Final count derived primarily from Path C.\"\n}",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "chillies",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "medium",
+          "visual_evidence": "Source was INVALID_OCCLUDED (contents not reliably countable). Dest was INVALID_PILE (bowl contents not clearly verifiable). Transfer was VALID (1 chilli clearly visible mid-transfer). Final count derived primarily from Path C.",
+          "match": "close",
+          "error": -1,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:04",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 4.0,
+              "absolute_timestamp_before": 2050.33,
+              "snapped_to_frame_before": 5,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 2052.33,
+              "snapped_to_frame_after": 7
+            },
+            "destination": {
+              "status": "INVALID_PILE",
+              "timestamp_before_raw": "00:01",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 1.0,
+              "absolute_timestamp_before": 2047.33,
+              "snapped_to_frame_before": 2,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 2052.33,
+              "snapped_to_frame_after": 7
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:06",
+                  "description": "One red chilli visible in hand above/near bowl during dispensing",
+                  "visible_count": 1,
+                  "timestamp_seconds": 6.0,
+                  "absolute_timestamp": 2052.33,
+                  "snapped_to_frame": 7
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "medium"
+            }
+          },
+          "num_frames": 9,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 7,
+      "recipe_amount": {
+        "ingredient": "chilli",
+        "amount": "10",
+        "unit": "g",
+        "recipe": "P09_R01"
+      }
+    },
+    {
+      "narration_id": "P09-20240621-093545-9",
+      "food_name": "pack of chicken breasts",
+      "difficulty": "LOW",
+      "video_range": [
+        "P09-20240621-093545"
+      ],
+      "total_ground_truth": 4,
+      "total_ground_truth_unit": "chicken breasts",
+      "num_segments": 2,
+      "segments": [
+        {
+          "segment_id": "seg_af0ab364",
+          "segment_idx": 0,
+          "video_id": "P09-20240621-093545",
+          "start_timestamp": 63.54,
+          "end_timestamp": 69.38,
+          "clip_start": 61.54,
+          "item_name": "pack of chicken breasts",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "absolute_timestamp": 62.54,
+              "description": "Source before (delta=2)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 69.54,
+              "description": "Source after (delta=2)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "absolute_timestamp": 62.54,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 67.54,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 67.54,
+              "description": "Chicken breast moved from tray to cutting board (placed on board)",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:09",
+              "timestamp_seconds": 9.0,
+              "absolute_timestamp": 70.54,
+              "description": "Chicken breast moved from tray area to sink (held over sink)",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"pack of chicken breasts\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:01\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": 2,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_PILE\",\n    \"timestamp_before\": \"00:01\",\n    \"timestamp_after\": \"00:06\",\n    \"observed_delta\": 1,\n    \"confidence\": \"medium\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:06\",\n        \"description\": \"Chicken breast moved from tray to cutting board (placed on board)\",\n        \"visible_count\": 1\n      },\n      {\n        \"timestamp\": \"00:09\",\n        \"description\": \"Chicken breast moved from tray area to sink (held over sink)\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 2,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 2,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 2,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source was VALID (but count hard to confirm due to stacking/hand occlusion). Dest was INVALID_PILE (items split between cutting board and sink, only 1 clearly seen added to board). Transfer was VALID with 2 distinct mid-transfer chicken breasts. Final count derived primarily from Path C.\"\n}",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "chicken breasts",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 2,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "medium",
+          "visual_evidence": "Source was VALID (but count hard to confirm due to stacking/hand occlusion). Dest was INVALID_PILE (items split between cutting board and sink, only 1 clearly seen added to board). Transfer was VALID with 2 distinct mid-transfer chicken breasts. Final count derived primarily from Path C.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:01",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": 2,
+              "confidence": "low",
+              "timestamp_before_seconds": 1.0,
+              "absolute_timestamp_before": 62.54,
+              "snapped_to_frame_before": 2,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 69.54,
+              "snapped_to_frame_after": 9
+            },
+            "destination": {
+              "status": "INVALID_PILE",
+              "timestamp_before_raw": "00:01",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": 1,
+              "confidence": "medium",
+              "timestamp_before_seconds": 1.0,
+              "absolute_timestamp_before": 62.54,
+              "snapped_to_frame_before": 2,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 67.54,
+              "snapped_to_frame_after": 7
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:06",
+                  "description": "Chicken breast moved from tray to cutting board (placed on board)",
+                  "visible_count": 1,
+                  "timestamp_seconds": 6.0,
+                  "absolute_timestamp": 67.54,
+                  "snapped_to_frame": 7
+                },
+                {
+                  "timestamp_raw": "00:09",
+                  "description": "Chicken breast moved from tray area to sink (held over sink)",
+                  "visible_count": 1,
+                  "timestamp_seconds": 9.0,
+                  "absolute_timestamp": 70.54,
+                  "snapped_to_frame": 10
+                }
+              ],
+              "total_transfer_count": 2,
+              "confidence": "high"
+            }
+          },
+          "num_frames": 10,
+          "frame_fps": 1.0
+        },
+        {
+          "segment_id": "seg_956cd5d1",
+          "segment_idx": 1,
+          "video_id": "P09-20240621-093545",
+          "start_timestamp": 208.12,
+          "end_timestamp": 217.34,
+          "clip_start": 206.12,
+          "item_name": "pack of chicken breasts",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 206.12,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "absolute_timestamp": 207.12,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 206.12,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 209.12,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 208.12,
+              "description": "Pack/tray of chicken breasts being handled/opened during transfer from packaging to work area",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"pack of chicken breasts\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:01\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:03\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:02\",\n        \"description\": \"Pack/tray of chicken breasts being handled/opened during transfer from packaging to work area\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 1,\n    \"confidence\": \"medium\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source was INVALID_OCCLUDED (fridge/drawer contents not clearly countable). Dest was INVALID_OCCLUDED (no clean before/after of packs on counter). Transfer was VALID (one pack/tray of chicken is clearly the single package being used). Final count derived primarily from Path C.\"\n}",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "chicken breasts",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "medium",
+          "visual_evidence": "Source was INVALID_OCCLUDED (fridge/drawer contents not clearly countable). Dest was INVALID_OCCLUDED (no clean before/after of packs on counter). Transfer was VALID (one pack/tray of chicken is clearly the single package being used). Final count derived primarily from Path C.",
+          "match": "close",
+          "error": -1,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:01",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 206.12,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 1.0,
+              "absolute_timestamp_after": 207.12,
+              "snapped_to_frame_after": 2
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:03",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 206.12,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 3.0,
+              "absolute_timestamp_after": 209.12,
+              "snapped_to_frame_after": 4
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:02",
+                  "description": "Pack/tray of chicken breasts being handled/opened during transfer from packaging to work area",
+                  "visible_count": 1,
+                  "timestamp_seconds": 2.0,
+                  "absolute_timestamp": 208.12,
+                  "snapped_to_frame": 3
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "medium"
+            }
+          },
+          "num_frames": 14,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 3,
+      "recipe_amount": {
+        "ingredient": "chicken breasts",
+        "amount": "308",
+        "unit": "g",
+        "recipe": "P09_R01"
+      }
+    },
+    {
+      "narration_id": "P09-20240621-153208-0-9",
+      "food_name": "ginger",
+      "difficulty": "LOW",
+      "video_range": [
+        "P09-20240621-153208"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "piece",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_1b4f16d3",
+          "segment_idx": 0,
+          "video_id": "P09-20240621-153208",
+          "start_timestamp": 17.795,
+          "end_timestamp": 22.795,
+          "clip_start": 15.795000000000002,
+          "item_name": "ginger",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 17.8,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 21.8,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 17.8,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 23.8,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 22.8,
+              "description": "Ginger root piece visible in hands after being taken from produce/mesh bag",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"ginger\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:02\",\n    \"timestamp_after\": \"00:06\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_PILE\",\n    \"timestamp_before\": \"00:02\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:07\",\n        \"description\": \"Ginger root piece visible in hands after being taken from produce/mesh bag\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 1,\n    \"confidence\": \"medium\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source was INVALID_OCCLUDED. Dest was INVALID_PILE. Transfer was VALID. Final count derived primarily from Path C.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "piece",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "medium",
+          "visual_evidence": "Source was INVALID_OCCLUDED. Dest was INVALID_PILE. Transfer was VALID. Final count derived primarily from Path C.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:02",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 2.0,
+              "absolute_timestamp_before": 17.8,
+              "snapped_to_frame_before": 3,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 21.8,
+              "snapped_to_frame_after": 7
+            },
+            "destination": {
+              "status": "INVALID_PILE",
+              "timestamp_before_raw": "00:02",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 2.0,
+              "absolute_timestamp_before": 17.8,
+              "snapped_to_frame_before": 3,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 23.8,
+              "snapped_to_frame_after": 9
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:07",
+                  "description": "Ginger root piece visible in hands after being taken from produce/mesh bag",
+                  "visible_count": 1,
+                  "timestamp_seconds": 7.0,
+                  "absolute_timestamp": 22.8,
+                  "snapped_to_frame": 8
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "medium"
+            }
+          },
+          "num_frames": 9,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "ginger",
+        "amount": "49",
+        "unit": "g",
+        "recipe": "P09_R03_C0"
+      }
+    },
+    {
+      "narration_id": "P09-20240622-150155-11",
+      "food_name": "bag of chicken",
+      "difficulty": "LOW",
+      "video_range": [
+        "P09-20240622-150155",
+        "P09-20240622-154652",
+        "P09-20240622-162302",
+        "P09-20240622-194642"
+      ],
+      "total_ground_truth": null,
+      "total_ground_truth_unit": null,
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_9514ba39",
+          "segment_idx": 0,
+          "video_id": "P09-20240622-150155",
+          "start_timestamp": 40.51,
+          "end_timestamp": 45.51,
+          "clip_start": 38.51,
+          "item_name": "bag of chicken",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 38.51,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 46.51,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 38.51,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 46.51,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 43.51,
+              "description": "One piece of raw chicken held in right hand while plastic bag/film is in left hand over the sink",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"bag of chicken\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:05\",\n        \"description\": \"One piece of raw chicken held in right hand while plastic bag/film is in left hand over the sink\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 1,\n    \"confidence\": \"medium\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source was INVALID_OCCLUDED. Dest was INVALID_OCCLUDED. Transfer was VALID. Final count derived primarily from Path C.\"\n}",
+          "ground_truth_count": null,
+          "ground_truth_unit": null,
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "medium",
+          "visual_evidence": "Source was INVALID_OCCLUDED. Dest was INVALID_OCCLUDED. Transfer was VALID. Final count derived primarily from Path C.",
+          "match": "gt_uncountable",
+          "error": null,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 38.51,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 46.51,
+              "snapped_to_frame_after": 9
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 38.51,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 46.51,
+              "snapped_to_frame_after": 9
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:05",
+                  "description": "One piece of raw chicken held in right hand while plastic bag/film is in left hand over the sink",
+                  "visible_count": 1,
+                  "timestamp_seconds": 5.0,
+                  "absolute_timestamp": 43.51,
+                  "snapped_to_frame": 6
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "medium"
+            }
+          },
+          "num_frames": 9,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "chicken breasts",
+        "amount": "300",
+        "unit": "g",
+        "recipe": "P09_R02"
+      }
+    },
+    {
+      "narration_id": "P09-20240622-150155-353",
+      "food_name": "potatoes",
+      "difficulty": "LOW",
+      "video_range": [
+        "P09-20240622-150155",
+        "P09-20240622-154652",
+        "P09-20240622-162302",
+        "P09-20240622-194642"
+      ],
+      "total_ground_truth": 3,
+      "total_ground_truth_unit": "potatoes",
+      "num_segments": 2,
+      "segments": [
+        {
+          "segment_id": "seg_d7272c7c",
+          "segment_idx": 0,
+          "video_id": "P09-20240622-150155",
+          "start_timestamp": 523.53,
+          "end_timestamp": 549.26,
+          "clip_start": 521.53,
+          "item_name": "potatoes",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 521.53,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:26",
+              "timestamp_seconds": 26.0,
+              "absolute_timestamp": 547.53,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 523.53,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:26",
+              "timestamp_seconds": 26.0,
+              "absolute_timestamp": 547.53,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:10",
+              "timestamp_seconds": 10.0,
+              "absolute_timestamp": 531.53,
+              "description": "One potato held in hand while peeling (in-transfer between counter pile and cutting board)",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"potatoes\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:26\",\n    \"observed_delta\": 1,\n    \"confidence\": \"medium\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:02\",\n    \"timestamp_after\": \"00:26\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:10\",\n        \"description\": \"One potato held in hand while peeling (in-transfer between counter pile and cutting board)\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 1,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 2,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source was VALID. Dest was VALID. Transfer was VALID. Final count derived primarily from Path B (cutting board went from empty to holding 1 peeled potato), corroborated by Path A (pile decreased by 1) and Path C (1 potato in hand).\"\n}",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "potatoes",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 2,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source was VALID. Dest was VALID. Transfer was VALID. Final count derived primarily from Path B (cutting board went from empty to holding 1 peeled potato), corroborated by Path A (pile decreased by 1) and Path C (1 potato in hand).",
+          "match": "close",
+          "error": -1,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:26",
+              "observed_delta": 1,
+              "confidence": "medium",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 521.53,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 26.0,
+              "absolute_timestamp_after": 547.53,
+              "snapped_to_frame_after": 27
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:02",
+              "timestamp_after_raw": "00:26",
+              "observed_delta": 1,
+              "confidence": "high",
+              "timestamp_before_seconds": 2.0,
+              "absolute_timestamp_before": 523.53,
+              "snapped_to_frame_before": 3,
+              "timestamp_after_seconds": 26.0,
+              "absolute_timestamp_after": 547.53,
+              "snapped_to_frame_after": 27
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:10",
+                  "description": "One potato held in hand while peeling (in-transfer between counter pile and cutting board)",
+                  "visible_count": 1,
+                  "timestamp_seconds": 10.0,
+                  "absolute_timestamp": 531.53,
+                  "snapped_to_frame": 11
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "high"
+            }
+          },
+          "num_frames": 30,
+          "frame_fps": 1.0
+        },
+        {
+          "segment_id": "seg_09299983",
+          "segment_idx": 1,
+          "video_id": "P09-20240622-150155",
+          "start_timestamp": 612.9749999999999,
+          "end_timestamp": 617.9749999999999,
+          "clip_start": 610.9749999999999,
+          "item_name": "potatoes",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 614.97,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 616.97,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 615.97,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 616.97,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 616.97,
+              "description": "One potato visible in left hand (being held/peeled)",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"potatoes\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:04\",\n    \"timestamp_after\": \"00:06\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:05\",\n    \"timestamp_after\": \"00:06\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:06\",\n        \"description\": \"One potato visible in left hand (being held/peeled)\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 1,\n    \"confidence\": \"medium\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source was INVALID_OCCLUDED (no clear container of potatoes shown). Dest was INVALID_OCCLUDED (no clear receiving container change visible). Transfer was VALID (1 potato clearly visible in hand). Final count derived primarily from Path C.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "potatoes",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "medium",
+          "visual_evidence": "Source was INVALID_OCCLUDED (no clear container of potatoes shown). Dest was INVALID_OCCLUDED (no clear receiving container change visible). Transfer was VALID (1 potato clearly visible in hand). Final count derived primarily from Path C.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:04",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 4.0,
+              "absolute_timestamp_before": 614.97,
+              "snapped_to_frame_before": 5,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 616.97,
+              "snapped_to_frame_after": 7
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:05",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 5.0,
+              "absolute_timestamp_before": 615.97,
+              "snapped_to_frame_before": 6,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 616.97,
+              "snapped_to_frame_after": 7
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:06",
+                  "description": "One potato visible in left hand (being held/peeled)",
+                  "visible_count": 1,
+                  "timestamp_seconds": 6.0,
+                  "absolute_timestamp": 616.97,
+                  "snapped_to_frame": 7
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "medium"
+            }
+          },
+          "num_frames": 9,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 2,
+      "recipe_amount": {
+        "ingredient": "potatoes",
+        "amount": "500",
+        "unit": "g",
+        "recipe": "P09_R02"
+      }
+    },
+    {
+      "narration_id": "P09-20240623-120359-282-2",
+      "food_name": "green chillies",
+      "difficulty": "LOW",
+      "video_range": [
+        "P09-20240623-120359"
+      ],
+      "total_ground_truth": null,
+      "total_ground_truth_unit": null,
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_c2bc642c",
+          "segment_idx": 0,
+          "video_id": "P09-20240623-120359",
+          "start_timestamp": 967.81,
+          "end_timestamp": 973.14,
+          "clip_start": 965.81,
+          "item_name": "green chillies",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 967.81,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 972.81,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 968.81,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 973.81,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 970.81,
+              "description": "Handful of whole green chillies held above counter (clearest view in both hands)",
+              "visibility_status": "clear_view",
+              "visible_count": 7
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"green chillies\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_PILE\",\n    \"timestamp_before\": \"00:02\",\n    \"timestamp_after\": \"00:07\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:03\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:05\",\n        \"description\": \"Handful of whole green chillies held above counter (clearest view in both hands)\",\n        \"visible_count\": 7\n      }\n    ],\n    \"total_transfer_count\": 7,\n    \"confidence\": \"medium\"\n  },\n  \"numeric_count\": 7,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source was INVALID_PILE. Dest was INVALID_OCCLUDED. Transfer was VALID. Final count derived primarily from Path C.\"\n}",
+          "ground_truth_count": null,
+          "ground_truth_unit": null,
+          "quantity_category": "discrete",
+          "predicted_count": 7,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "medium",
+          "visual_evidence": "Source was INVALID_PILE. Dest was INVALID_OCCLUDED. Transfer was VALID. Final count derived primarily from Path C.",
+          "match": "gt_uncountable",
+          "error": null,
+          "paths": {
+            "source": {
+              "status": "INVALID_PILE",
+              "timestamp_before_raw": "00:02",
+              "timestamp_after_raw": "00:07",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 2.0,
+              "absolute_timestamp_before": 967.81,
+              "snapped_to_frame_before": 3,
+              "timestamp_after_seconds": 7.0,
+              "absolute_timestamp_after": 972.81,
+              "snapped_to_frame_after": 8
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:03",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 3.0,
+              "absolute_timestamp_before": 968.81,
+              "snapped_to_frame_before": 4,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 973.81,
+              "snapped_to_frame_after": 9
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:05",
+                  "description": "Handful of whole green chillies held above counter (clearest view in both hands)",
+                  "visible_count": 7,
+                  "timestamp_seconds": 5.0,
+                  "absolute_timestamp": 970.81,
+                  "snapped_to_frame": 6
+                }
+              ],
+              "total_transfer_count": 7,
+              "confidence": "medium"
+            }
+          },
+          "num_frames": 10,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 7,
+      "recipe_amount": {
+        "ingredient": "chilli",
+        "amount": "28",
+        "unit": "g",
+        "recipe": "P09_R04"
+      }
+    },
+    {
+      "narration_id": "P09-20240624-160737-353",
+      "food_name": "potatoes",
+      "difficulty": "LOW",
+      "video_range": [
+        "P09-20240624-160737",
+        "P09-20240624-165332"
+      ],
+      "total_ground_truth": 3,
+      "total_ground_truth_unit": "potatoes",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_ad03fdd1",
+          "segment_idx": 0,
+          "video_id": "P09-20240624-160737",
+          "start_timestamp": 819.19,
+          "end_timestamp": 840.035964,
+          "clip_start": 817.19,
+          "item_name": "potatoes",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 817.19,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:14",
+              "timestamp_seconds": 14.0,
+              "absolute_timestamp": 831.19,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 821.19,
+              "description": "Destination before (delta=2)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:14",
+              "timestamp_seconds": 14.0,
+              "absolute_timestamp": 831.19,
+              "description": "Destination after (delta=2)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:13",
+              "timestamp_seconds": 13.0,
+              "absolute_timestamp": 830.19,
+              "description": "Potato 1 placed onto the scale",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:14",
+              "timestamp_seconds": 14.0,
+              "absolute_timestamp": 831.19,
+              "description": "Potato 2 placed onto the scale (resulting in two potatoes on the scale)",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"potatoes\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OPAQUE\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:14\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:04\",\n    \"timestamp_after\": \"00:14\",\n    \"observed_delta\": 2,\n    \"confidence\": \"high\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:13\",\n        \"description\": \"Potato 1 placed onto the scale\",\n        \"visible_count\": 1\n      },\n      {\n        \"timestamp\": \"00:14\",\n        \"description\": \"Potato 2 placed onto the scale (resulting in two potatoes on the scale)\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 2,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 2,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source was INVALID_OPAQUE. Dest was VALID. Transfer was VALID. Final count derived primarily from Path B (confirmed by Path C).\"\n}",
+          "ground_truth_count": 3,
+          "ground_truth_unit": "potatoes",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source was INVALID_OPAQUE. Dest was VALID. Transfer was VALID. Final count derived primarily from Path B (confirmed by Path C).",
+          "match": "close",
+          "error": -1,
+          "paths": {
+            "source": {
+              "status": "INVALID_OPAQUE",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:14",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 817.19,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 14.0,
+              "absolute_timestamp_after": 831.19,
+              "snapped_to_frame_after": 15
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:04",
+              "timestamp_after_raw": "00:14",
+              "observed_delta": 2,
+              "confidence": "high",
+              "timestamp_before_seconds": 4.0,
+              "absolute_timestamp_before": 821.19,
+              "snapped_to_frame_before": 5,
+              "timestamp_after_seconds": 14.0,
+              "absolute_timestamp_after": 831.19,
+              "snapped_to_frame_after": 15
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:13",
+                  "description": "Potato 1 placed onto the scale",
+                  "visible_count": 1,
+                  "timestamp_seconds": 13.0,
+                  "absolute_timestamp": 830.19,
+                  "snapped_to_frame": 14
+                },
+                {
+                  "timestamp_raw": "00:14",
+                  "description": "Potato 2 placed onto the scale (resulting in two potatoes on the scale)",
+                  "visible_count": 1,
+                  "timestamp_seconds": 14.0,
+                  "absolute_timestamp": 831.19,
+                  "snapped_to_frame": 15
+                }
+              ],
+              "total_transfer_count": 2,
+              "confidence": "high"
+            }
+          },
+          "num_frames": 25,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 2,
+      "recipe_amount": {
+        "ingredient": "potatoes",
+        "amount": "604",
+        "unit": "g",
+        "recipe": "P09_R06"
+      }
+    },
+    {
+      "narration_id": "P09-20240624-160737-40",
+      "food_name": "onions",
+      "difficulty": "LOW",
+      "video_range": [
+        "P09-20240624-160737",
+        "P09-20240624-165332"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "onions",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_a3b63468",
+          "segment_idx": 0,
+          "video_id": "P09-20240624-160737",
+          "start_timestamp": 245.485,
+          "end_timestamp": 250.485,
+          "clip_start": 243.485,
+          "item_name": "onions",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 246.49,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 249.49,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 246.49,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 249.49,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 248.49,
+              "description": "One whole onion lifted from the bowl into the hands for peeling",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"onions\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:03\",\n    \"timestamp_after\": \"00:06\",\n    \"observed_delta\": 1,\n    \"confidence\": \"medium\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:03\",\n    \"timestamp_after\": \"00:06\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:05\",\n        \"description\": \"One whole onion lifted from the bowl into the hands for peeling\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 1,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 2,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source was VALID (bowl count appears to drop by 1). Dest was INVALID_OCCLUDED (no clear receiving container). Transfer was VALID (one whole onion clearly visible in hand). Final count derived primarily from Path C.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "onions",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 2,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source was VALID (bowl count appears to drop by 1). Dest was INVALID_OCCLUDED (no clear receiving container). Transfer was VALID (one whole onion clearly visible in hand). Final count derived primarily from Path C.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:03",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": 1,
+              "confidence": "medium",
+              "timestamp_before_seconds": 3.0,
+              "absolute_timestamp_before": 246.49,
+              "snapped_to_frame_before": 4,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 249.49,
+              "snapped_to_frame_after": 7
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:03",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 3.0,
+              "absolute_timestamp_before": 246.49,
+              "snapped_to_frame_before": 4,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 249.49,
+              "snapped_to_frame_after": 7
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:05",
+                  "description": "One whole onion lifted from the bowl into the hands for peeling",
+                  "visible_count": 1,
+                  "timestamp_seconds": 5.0,
+                  "absolute_timestamp": 248.49,
+                  "snapped_to_frame": 6
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "high"
+            }
+          },
+          "num_frames": 9,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "onions",
+        "amount": "170",
+        "unit": "g",
+        "recipe": "P09_R06"
+      }
+    },
+    {
+      "narration_id": "P09-20240624-160737-41",
+      "food_name": "tomatoes",
+      "difficulty": "LOW",
+      "video_range": [
+        "P09-20240624-160737",
+        "P09-20240624-165332"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "tomatoes",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_2b4812c0",
+          "segment_idx": 0,
+          "video_id": "P09-20240624-160737",
+          "start_timestamp": 119.91,
+          "end_timestamp": 125.75,
+          "clip_start": 117.91,
+          "error": "No VLM response"
+        }
+      ],
+      "total_predicted": null,
+      "recipe_amount": {
+        "ingredient": "tomatoes",
+        "amount": "122",
+        "unit": "g",
+        "recipe": "P09_R06"
+      }
+    },
+    {
+      "narration_id": "P09-20240624-160737-88",
+      "food_name": "scotch bonnet peppers",
+      "difficulty": "LOW",
+      "video_range": [
+        "P09-20240624-160737",
+        "P09-20240624-165332"
+      ],
+      "total_ground_truth": null,
+      "total_ground_truth_unit": "peppers",
+      "num_segments": 2,
+      "segments": [
+        {
+          "segment_id": "seg_f6ec74ce",
+          "segment_idx": 0,
+          "video_id": "P09-20240624-160737",
+          "start_timestamp": 167.35,
+          "end_timestamp": 172.45,
+          "clip_start": 165.35,
+          "item_name": "scotch bonnet peppers",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 168.35,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 172.35,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 168.35,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 173.35,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 172.35,
+              "description": "Hand lifts a single red scotch bonnet pepper out of the paper bag tray (mid-air above the bag)",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"scotch bonnet peppers\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:03\",\n    \"timestamp_after\": \"00:07\",\n    \"observed_delta\": 1,\n    \"confidence\": \"medium\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:03\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:07\",\n        \"description\": \"Hand lifts a single red scotch bonnet pepper out of the paper bag tray (mid-air above the bag)\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 1,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 4,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source was VALID. Dest was INVALID_OCCLUDED. Transfer was VALID. Final count derived primarily from Path C.\"\n}",
+          "ground_truth_count": null,
+          "ground_truth_unit": "peppers",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 4,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "medium",
+          "visual_evidence": "Source was VALID. Dest was INVALID_OCCLUDED. Transfer was VALID. Final count derived primarily from Path C.",
+          "match": "gt_uncountable",
+          "error": null,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:03",
+              "timestamp_after_raw": "00:07",
+              "observed_delta": 1,
+              "confidence": "medium",
+              "timestamp_before_seconds": 3.0,
+              "absolute_timestamp_before": 168.35,
+              "snapped_to_frame_before": 4,
+              "timestamp_after_seconds": 7.0,
+              "absolute_timestamp_after": 172.35,
+              "snapped_to_frame_after": 8
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:03",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 3.0,
+              "absolute_timestamp_before": 168.35,
+              "snapped_to_frame_before": 4,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 173.35,
+              "snapped_to_frame_after": 9
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:07",
+                  "description": "Hand lifts a single red scotch bonnet pepper out of the paper bag tray (mid-air above the bag)",
+                  "visible_count": 1,
+                  "timestamp_seconds": 7.0,
+                  "absolute_timestamp": 172.35,
+                  "snapped_to_frame": 8
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "high"
+            }
+          },
+          "num_frames": 10,
+          "frame_fps": 1.0
+        },
+        {
+          "segment_id": "seg_a1502ae2",
+          "segment_idx": 1,
+          "video_id": "P09-20240624-160737",
+          "start_timestamp": 450.07,
+          "end_timestamp": 455.07,
+          "clip_start": 448.07,
+          "item_name": "scotch bonnet peppers",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 453.07,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 454.07,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 454.07,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 456.07,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 455.07,
+              "description": "Pepper lifted and held in hand while moving away from the counter area",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"scotch bonnet peppers\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:05\",\n    \"timestamp_after\": \"00:06\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:06\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:07\",\n        \"description\": \"Pepper lifted and held in hand while moving away from the counter area\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 1,\n    \"confidence\": \"medium\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source was INVALID_OCCLUDED (tray/container contents not clearly countable before vs after). Dest was INVALID_OCCLUDED (no clear addition view). Transfer was VALID with 1 pepper visible in hand. Final count derived primarily from Path C.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "peppers",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "medium",
+          "visual_evidence": "Source was INVALID_OCCLUDED (tray/container contents not clearly countable before vs after). Dest was INVALID_OCCLUDED (no clear addition view). Transfer was VALID with 1 pepper visible in hand. Final count derived primarily from Path C.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:05",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 5.0,
+              "absolute_timestamp_before": 453.07,
+              "snapped_to_frame_before": 6,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 454.07,
+              "snapped_to_frame_after": 7
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:06",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 6.0,
+              "absolute_timestamp_before": 454.07,
+              "snapped_to_frame_before": 7,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 456.07,
+              "snapped_to_frame_after": 9
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:07",
+                  "description": "Pepper lifted and held in hand while moving away from the counter area",
+                  "visible_count": 1,
+                  "timestamp_seconds": 7.0,
+                  "absolute_timestamp": 455.07,
+                  "snapped_to_frame": 8
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "medium"
+            }
+          },
+          "num_frames": 9,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 2,
+      "recipe_amount": {
+        "ingredient": "scotch bonnet chilli",
+        "amount": "23",
+        "unit": "g",
+        "recipe": "P09_R06"
+      }
+    },
+    {
+      "narration_id": "P09-20240624-165332-446",
+      "food_name": "tea (tea bags)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P09-20240624-160737",
+        "P09-20240624-165332"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "tea bags",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_4a8c42c9",
+          "segment_idx": 0,
+          "video_id": "P09-20240624-165332",
+          "start_timestamp": 1103.815,
+          "end_timestamp": 1108.815,
+          "clip_start": 1101.815,
+          "item_name": "tea (tea bags)",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "absolute_timestamp": 1102.82,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 1108.82,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 1105.82,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 1109.82,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 1107.82,
+              "description": "Hand removes a single tea bag/sachet from the cupboard area (small packet visible in hand)",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"tea (tea bags)\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OPAQUE\",\n    \"timestamp_before\": \"00:01\",\n    \"timestamp_after\": \"00:07\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:04\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:06\",\n        \"description\": \"Hand removes a single tea bag/sachet from the cupboard area (small packet visible in hand)\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 1,\n    \"confidence\": \"medium\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source was INVALID_OPAQUE. Dest was INVALID_OCCLUDED. Transfer was VALID. Final count derived primarily from Path C.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "tea bags",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "medium",
+          "visual_evidence": "Source was INVALID_OPAQUE. Dest was INVALID_OCCLUDED. Transfer was VALID. Final count derived primarily from Path C.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_OPAQUE",
+              "timestamp_before_raw": "00:01",
+              "timestamp_after_raw": "00:07",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 1.0,
+              "absolute_timestamp_before": 1102.82,
+              "snapped_to_frame_before": 2,
+              "timestamp_after_seconds": 7.0,
+              "absolute_timestamp_after": 1108.82,
+              "snapped_to_frame_after": 8
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:04",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 4.0,
+              "absolute_timestamp_before": 1105.82,
+              "snapped_to_frame_before": 5,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 1109.82,
+              "snapped_to_frame_after": 9
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:06",
+                  "description": "Hand removes a single tea bag/sachet from the cupboard area (small packet visible in hand)",
+                  "visible_count": 1,
+                  "timestamp_seconds": 6.0,
+                  "absolute_timestamp": 1107.82,
+                  "snapped_to_frame": 7
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "medium"
+            }
+          },
+          "num_frames": 9,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": null
+    }
+  ]
+}

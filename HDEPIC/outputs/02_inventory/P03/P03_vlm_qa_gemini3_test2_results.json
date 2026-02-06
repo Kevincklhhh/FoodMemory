@@ -1,0 +1,154 @@
+{
+  "participant": "P03",
+  "model": "gemini",
+  "tag": "gemini3_test2",
+  "prompt_mode": "multipath",
+  "task": "multipath_selection",
+  "low_only": false,
+  "padding": 2.0,
+  "fps": null,
+  "max_frames": null,
+  "total_items": 1,
+  "items": [
+    {
+      "narration_id": "P03-20240216-084005-67",
+      "food_name": "bread (loaf/bag of bread)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240216-084005"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "slices",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_2bac7566",
+          "segment_idx": 0,
+          "video_id": "P03-20240216-084005",
+          "start_timestamp": 715.74,
+          "end_timestamp": 726.49,
+          "clip_start": 713.74,
+          "item_name": "slices of bread",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 713.74,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:14",
+              "timestamp_seconds": 14.0,
+              "absolute_timestamp": 727.74,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 716.74,
+              "description": "Destination before (delta=2)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:14",
+              "timestamp_seconds": 14.0,
+              "absolute_timestamp": 727.74,
+              "description": "Destination after (delta=2)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 717.74,
+              "description": "First slice of bread being placed into the toaster",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:12",
+              "timestamp_seconds": 12.0,
+              "absolute_timestamp": 725.74,
+              "description": "Second slice of bread being placed into the toaster",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "```json\n{\n  \"item_name\": \"slices of bread\",\n  \"path_source\": {\n    \"status\": \"INVALID_OPAQUE\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:14\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:03\",\n    \"timestamp_after\": \"00:14\",\n    \"observed_delta\": 2,\n    \"confidence\": \"high\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:04\",\n        \"description\": \"First slice of bread being placed into the toaster\",\n        \"visible_count\": 1\n      },\n      {\n        \"timestamp\": \"00:12\",\n        \"description\": \"Second slice of bread being placed into the toaster\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 2,\n    \"confidence\": \"high\"\n  },\n  \"final_synthesis\": {\n    \"best_path_selected\": \"destination\",\n    \"final_count_estimate\": 2,\n    \"reasoning\": \"The source (bread bag) was opaque, making a subtraction count impossible. However, the destination (toaster) clearly showed two slices added across two distinct transfer events.\"\n  }\n}\n```",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "slices",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": null,
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "low",
+          "visual_evidence": "",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_OPAQUE",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:14",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 713.74,
+              "timestamp_after_seconds": 14.0,
+              "absolute_timestamp_after": 727.74
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:03",
+              "timestamp_after_raw": "00:14",
+              "observed_delta": 2,
+              "confidence": "high",
+              "timestamp_before_seconds": 3.0,
+              "absolute_timestamp_before": 716.74,
+              "timestamp_after_seconds": 14.0,
+              "absolute_timestamp_after": 727.74
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:04",
+                  "description": "First slice of bread being placed into the toaster",
+                  "visible_count": 1,
+                  "timestamp_seconds": 4.0,
+                  "absolute_timestamp": 717.74
+                },
+                {
+                  "timestamp_raw": "00:12",
+                  "description": "Second slice of bread being placed into the toaster",
+                  "visible_count": 1,
+                  "timestamp_seconds": 12.0,
+                  "absolute_timestamp": 725.74
+                }
+              ],
+              "total_transfer_count": 2,
+              "confidence": "high"
+            }
+          },
+          "final_synthesis": {
+            "best_path_selected": "destination",
+            "final_count_estimate": 2,
+            "reasoning": "The source (bread bag) was opaque, making a subtraction count impossible. However, the destination (toaster) clearly showed two slices added across two distinct transfer events."
+          }
+        }
+      ],
+      "total_predicted": 2,
+      "recipe_amount": null
+    }
+  ]
+}

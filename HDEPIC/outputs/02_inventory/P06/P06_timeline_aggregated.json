@@ -1,0 +1,1322 @@
+{
+  "participant": "P06",
+  "model": "gpt-5.2",
+  "reasoning_effort": "high",
+  "total_items": 39,
+  "processed_items": 39,
+  "items": [
+    {
+      "narration_id": "P06-20240510-090328-10",
+      "food_name": "pack of tomatoes",
+      "difficulty": "LOW",
+      "video_range": [
+        "P06-20240510-090328",
+        "P06-20240510-094438",
+        "P06-20240510-100047"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P06-20240510-090328",
+          "start_timestamp": 123.41499999999999,
+          "end_timestamp": 128.415,
+          "count": 1,
+          "count_unit": "tomatoes"
+        }
+      ],
+      "total_count": 1,
+      "count_unit": "tomatoes",
+      "reasoning": "Only one dispensing-related action appears in the log: picking up a tomato from the pack of tomatoes. Since it is a single continuous action within ~0.85s (well under 30s) and specifies picking up a tomato, it forms one segment with a count of 1 tomato.",
+      "num_dispensing_events": 1,
+      "num_segments": 1,
+      "matched_ingredient_weight": {
+        "ingredient": "tomatoes",
+        "amount": "68",
+        "unit": "g",
+        "recipe": "P06_R01"
+      }
+    },
+    {
+      "narration_id": "P06-20240510-090328-103",
+      "food_name": "pancake mix",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P06-20240510-090328",
+        "P06-20240510-094438",
+        "P06-20240510-100047"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P06-20240510-090328",
+          "start_timestamp": 635.5,
+          "end_timestamp": 647.36,
+          "count": null,
+          "count_unit": null
+        },
+        {
+          "video_id": "P06-20240510-090328",
+          "start_timestamp": 706.23,
+          "end_timestamp": 720.23,
+          "count": null,
+          "count_unit": null
+        }
+      ],
+      "total_count": null,
+      "count_unit": null,
+      "reasoning": "All actions are in the same video. The pours at 635.50\u2013641.48 and 646.12\u2013647.36 were merged into one segment because the gap between them is ~4.6s and the total merged duration is ~11.9s (<30s). The next pour starts at 706.23, which is ~58.9s after 647.36 (>30s), so it begins a new segment. The pours at 706.23\u2013711.90 and 717.54\u2013720.23 were merged because the gap is ~5.6s and the merged duration is 14.0s (<30s). Pancake mix is treated as uncountable here because no explicit countable units (e.g., scoops) are given, so counts are null.",
+      "num_dispensing_events": 4,
+      "num_segments": 2,
+      "matched_ingredient_weight": {
+        "ingredient": "uttapam mix",
+        "amount": "113",
+        "unit": "g",
+        "recipe": "P06_R01"
+      }
+    },
+    {
+      "narration_id": "P06-20240510-090328-12",
+      "food_name": "green chilies (in plastic bag)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P06-20240510-090328",
+        "P06-20240510-094438",
+        "P06-20240510-100047"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P06-20240510-090328",
+          "start_timestamp": 43.3,
+          "end_timestamp": 56.18,
+          "count": null,
+          "count_unit": "chilies"
+        }
+      ],
+      "total_count": null,
+      "count_unit": "chilies",
+      "reasoning": "There is one dispensing-related action: picking up green chilies from the refrigerator (43.30s\u201356.18s) in a single video, so it forms one segment (duration 12.88s < 30s). The narration says 'a few green chilies', which is not an exact quantity, so the count is left as null.",
+      "num_dispensing_events": 1,
+      "num_segments": 1,
+      "matched_ingredient_weight": null
+    },
+    {
+      "narration_id": "P06-20240510-090328-22",
+      "food_name": "ketchup bottle",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P06-20240510-090328",
+        "P06-20240510-094438",
+        "P06-20240510-100047"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P06-20240510-100047",
+          "start_timestamp": 1408.16,
+          "end_timestamp": 1418.25,
+          "count": null,
+          "count_unit": null
+        }
+      ],
+      "total_count": null,
+      "count_unit": null,
+      "reasoning": "There is one dispensing-related action: tilting the ketchup bottle to pour ketchup onto a plate. Since the narration specifies only 'some ketchup' with no countable unit, count is null. Only one video ID is present and the action duration (10.09s) is under 30s, so it forms a single segment.",
+      "num_dispensing_events": 1,
+      "num_segments": 1,
+      "matched_ingredient_weight": {
+        "ingredient": "ketchup",
+        "amount": "1.5",
+        "unit": "tbsp",
+        "recipe": "P06_R01"
+      }
+    },
+    {
+      "narration_id": "P06-20240510-090328-317",
+      "food_name": "salted butter (pack)",
+      "difficulty": "MID",
+      "video_range": [
+        "P06-20240510-090328",
+        "P06-20240510-094438",
+        "P06-20240510-100047"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P06-20240510-090328",
+          "start_timestamp": 976.19,
+          "end_timestamp": 981.19,
+          "count": 1,
+          "count_unit": "pieces"
+        },
+        {
+          "video_id": "P06-20240510-090328",
+          "start_timestamp": 1159.96,
+          "end_timestamp": 1179.14,
+          "count": 3,
+          "count_unit": "pieces"
+        }
+      ],
+      "total_count": 4,
+      "count_unit": "pieces",
+      "reasoning": "There are three butter-dispensing actions in the same video. The first (978.04\u2013979.34) is separated from later actions by a >30s gap, so it forms its own segment; 'a small piece' is counted as 1 piece. The actions at 1159.96\u20131165.73 ('cutting a slice' = 1 piece) and 1177.41\u20131179.14 ('picking up two slices' = 2 pieces) are within 30s of each other and together span 19.18s (<30s), so they are merged into one segment with a total of 3 pieces. Total across segments = 4 pieces.",
+      "num_dispensing_events": 3,
+      "num_segments": 2,
+      "matched_ingredient_weight": {
+        "ingredient": "salted butter",
+        "amount": "8.5",
+        "unit": "g",
+        "recipe": "P06_R01"
+      }
+    },
+    {
+      "narration_id": "P06-20240510-090328-50",
+      "food_name": "onion",
+      "difficulty": "MID",
+      "video_range": [
+        "P06-20240510-090328",
+        "P06-20240510-094438",
+        "P06-20240510-100047"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P06-20240510-090328",
+          "start_timestamp": 247.46,
+          "end_timestamp": 252.93,
+          "count": 1,
+          "count_unit": "onions"
+        }
+      ],
+      "total_count": 1,
+      "count_unit": "onions",
+      "reasoning": "Only one onion-related action appears in the log, and it is continuous within a single video from 247.46s to 252.93s (duration < 30s), so it forms a single segment. The narration refers to 'the onion' being cut into two halves, implying 1 onion was handled/portioned in this segment.",
+      "num_dispensing_events": 1,
+      "num_segments": 1,
+      "matched_ingredient_weight": {
+        "ingredient": "onions",
+        "amount": "34",
+        "unit": "g",
+        "recipe": "P06_R01"
+      }
+    },
+    {
+      "narration_id": "P06-20240510-104642-13",
+      "food_name": "garlic paste (jar)",
+      "difficulty": "MID",
+      "video_range": [
+        "P06-20240510-104642",
+        "P06-20240510-115307",
+        "P06-20240510-121619",
+        "P06-20240510-135423"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P06-20240510-104642",
+          "start_timestamp": 1543.635,
+          "end_timestamp": 1548.635,
+          "count": null,
+          "count_unit": null
+        }
+      ],
+      "total_count": null,
+      "count_unit": null,
+      "reasoning": "There is one dispensing-related action: picking up garlic paste from the jar with a spoon (1545.36s\u20131546.91s) in a single video. No explicit quantifier (e.g., 'one spoonful'/'a scoop') is stated, so the dispensed amount is treated as uncountable and count is left null.",
+      "num_dispensing_events": 1,
+      "num_segments": 1,
+      "matched_ingredient_weight": {
+        "ingredient": "garlic paste",
+        "amount": "53.86",
+        "unit": "g",
+        "recipe": "P06_R03"
+      }
+    },
+    {
+      "narration_id": "P06-20240510-104642-14",
+      "food_name": "ginger paste (jar)",
+      "difficulty": "MID",
+      "video_range": [
+        "P06-20240510-104642",
+        "P06-20240510-115307",
+        "P06-20240510-121619",
+        "P06-20240510-135423"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P06-20240510-104642",
+          "start_timestamp": 1584.98,
+          "end_timestamp": 1590.65,
+          "count": 1,
+          "count_unit": "tablespoon"
+        }
+      ],
+      "total_count": 1,
+      "count_unit": "tablespoon",
+      "reasoning": "Only one dispensing-related action appears in the log: picking up a tablespoon of ginger paste from the jar with a spoon. This is a single continuous event within one video, lasting <30s, so it forms one segment. The narration specifies the quantity as 'a tablespoon', counted as 1 tablespoon.",
+      "num_dispensing_events": 1,
+      "num_segments": 1,
+      "matched_ingredient_weight": {
+        "ingredient": "ginger paste",
+        "amount": "39.68",
+        "unit": "g",
+        "recipe": "P06_R03"
+      }
+    },
+    {
+      "narration_id": "P06-20240510-104642-22",
+      "food_name": "coriander stems",
+      "difficulty": "LOW",
+      "video_range": [
+        "P06-20240510-104642",
+        "P06-20240510-115307",
+        "P06-20240510-121619",
+        "P06-20240510-135423"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P06-20240510-104642",
+          "start_timestamp": 54.165,
+          "end_timestamp": 59.165,
+          "count": null,
+          "count_unit": null
+        }
+      ],
+      "total_count": null,
+      "count_unit": null,
+      "reasoning": "There is one dispensing-related action: removing coriander stems from the pack (55.89s\u201357.44s) in video P06-20240510-104642. No explicit quantity or countable unit is mentioned for coriander stems, so count is recorded as null. Only one line is present, so no merging or splitting is needed (segment duration 1.55s < 30s).",
+      "num_dispensing_events": 1,
+      "num_segments": 1,
+      "matched_ingredient_weight": null
+    },
+    {
+      "narration_id": "P06-20240510-104642-23",
+      "food_name": "tomatoes (pack)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P06-20240510-104642",
+        "P06-20240510-115307",
+        "P06-20240510-121619",
+        "P06-20240510-135423"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P06-20240510-104642",
+          "start_timestamp": 375.36,
+          "end_timestamp": 383.34,
+          "count": 5,
+          "count_unit": "tomatoes"
+        },
+        {
+          "video_id": "P06-20240510-104642",
+          "start_timestamp": 2123.495,
+          "end_timestamp": 2128.495,
+          "count": 1,
+          "count_unit": "tomatoes"
+        }
+      ],
+      "total_count": 6,
+      "count_unit": "tomatoes",
+      "reasoning": "Merged the consecutive 'picking up the tomatoes from the pack' actions at 375.36s, 376.88s, 379.03s, 379.96s, and 381.92s into one segment because they are close together (overall span 375.36\u2013383.34 < 30s). Counted 1 tomato per pick-up action (5 total). Created a second segment for the later 'removing a tomato' action at 2123.89\u20132128.10 because it is separated by a gap > 30s; this action explicitly indicates 1 tomato. Summed counts across segments for total_count.",
+      "num_dispensing_events": 6,
+      "num_segments": 2,
+      "matched_ingredient_weight": {
+        "ingredient": "tomatoes",
+        "amount": "309",
+        "unit": "g",
+        "recipe": "P06_R03"
+      }
+    },
+    {
+      "narration_id": "P06-20240510-104642-282",
+      "food_name": "garlic (fresh)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P06-20240510-104642",
+        "P06-20240510-115307",
+        "P06-20240510-121619",
+        "P06-20240510-135423"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P06-20240510-104642",
+          "start_timestamp": 642.895,
+          "end_timestamp": 647.895,
+          "count": 1,
+          "count_unit": "cloves"
+        },
+        {
+          "video_id": "P06-20240510-115307",
+          "start_timestamp": 350.22,
+          "end_timestamp": 361.3,
+          "count": 1,
+          "count_unit": "cloves"
+        }
+      ],
+      "total_count": 2,
+      "count_unit": "cloves",
+      "reasoning": "Identified two garlic dispensing actions: (1) removing a clove from a bunch, and (2) separating a clove and placing it into a drawer. They are kept as separate segments because they occur in different video IDs. Each narration specifies a single 'clove of garlic', so each segment is counted as 1 clove; total is 2 cloves.",
+      "num_dispensing_events": 2,
+      "num_segments": 2,
+      "matched_ingredient_weight": {
+        "ingredient": "garlic",
+        "amount": "2.83",
+        "unit": "g",
+        "recipe": "P06_R03"
+      }
+    },
+    {
+      "narration_id": "P06-20240510-104642-45",
+      "food_name": "onion",
+      "difficulty": "LOW",
+      "video_range": [
+        "P06-20240510-104642",
+        "P06-20240510-115307",
+        "P06-20240510-121619",
+        "P06-20240510-135423"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P06-20240510-104642",
+          "start_timestamp": 149.785,
+          "end_timestamp": 154.785,
+          "count": 1,
+          "count_unit": "onions"
+        }
+      ],
+      "total_count": 1,
+      "count_unit": "onions",
+      "reasoning": "There is a single onion-related dispensing action: 'picking up the onion from the packet' (151.67s\u2013152.90s) in video P06-20240510-104642. Since it refers to 'the onion' (singular), it is treated as dispensing 1 onion. No other onion dispensing actions are present, so no merging/splitting is needed (segment duration < 30s).",
+      "num_dispensing_events": 1,
+      "num_segments": 1,
+      "matched_ingredient_weight": {
+        "ingredient": "onions",
+        "amount": "93.5",
+        "unit": "g",
+        "recipe": "P06_R03"
+      }
+    },
+    {
+      "narration_id": "P06-20240510-104642-495",
+      "food_name": "kidney beans (pack)",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P06-20240510-104642",
+        "P06-20240510-115307",
+        "P06-20240510-121619",
+        "P06-20240510-135423"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P06-20240510-104642",
+          "start_timestamp": 1762.11,
+          "end_timestamp": 1774.22,
+          "count": null,
+          "count_unit": null
+        }
+      ],
+      "total_count": null,
+      "count_unit": null,
+      "reasoning": "All kidney-bean dispensing actions occur in the same video and form one continuous sequence: tilting the kidney beans packet into the hand and then pouring into the bowl, repeated several times from 1762.11s through 1774.22s. The full range is ~12.11s (<30s) and gaps between actions are <30s, so they are merged into a single segment. No countable unit (e.g., scoops, packs) is specified\u2014only 'some kidney beans'\u2014so count is null.",
+      "num_dispensing_events": 6,
+      "num_segments": 1,
+      "matched_ingredient_weight": {
+        "ingredient": "kidney beans",
+        "amount": "85",
+        "unit": "g",
+        "recipe": "P06_R04"
+      }
+    },
+    {
+      "narration_id": "P06-20240510-104642-498",
+      "food_name": "pulses (packet)",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P06-20240510-104642",
+        "P06-20240510-115307",
+        "P06-20240510-121619",
+        "P06-20240510-135423"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P06-20240510-104642",
+          "start_timestamp": 1807.13,
+          "end_timestamp": 1822.26,
+          "count": null,
+          "count_unit": null
+        }
+      ],
+      "total_count": null,
+      "count_unit": null,
+      "reasoning": "Both narration lines describe dispensing/handling pulses from the packet (tilting to transfer pulses into the left hand, then picking pulses from the packet). They occur in the same video with a short gap (~8s) and the combined span is ~15.1s (<30s), so they are merged into a single segment. Pulses are treated as uncountable here because no discrete unit (e.g., scoops/handfuls) is specified, so count is null.",
+      "num_dispensing_events": 2,
+      "num_segments": 1,
+      "matched_ingredient_weight": {
+        "ingredient": "whole black lentils",
+        "amount": "93.55",
+        "unit": "g",
+        "recipe": "P06_R04"
+      }
+    },
+    {
+      "narration_id": "P06-20240510-104642-549",
+      "food_name": "cumin seeds (jar)",
+      "difficulty": "MID",
+      "video_range": [
+        "P06-20240510-104642",
+        "P06-20240510-115307",
+        "P06-20240510-121619",
+        "P06-20240510-135423"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P06-20240510-104642",
+          "start_timestamp": 1212.44,
+          "end_timestamp": 1223.13,
+          "count": null,
+          "count_unit": null
+        },
+        {
+          "video_id": "P06-20240510-115307",
+          "start_timestamp": 583.62,
+          "end_timestamp": 588.62,
+          "count": null,
+          "count_unit": null
+        }
+      ],
+      "total_count": null,
+      "count_unit": null,
+      "reasoning": "In video P06-20240510-104642, three cumin-seed pickup actions (1212.44\u20131213.31, 1217.38\u20131218.76, 1222.02\u20131223.13) are close together with no gaps >30s and the full span is 10.69s (<30s), so they are merged into one segment from the first start to the last end. In video P06-20240510-115307, there is a single pickup action (585.10\u2013587.14), forming its own segment. No explicit countable unit (e.g., 'one scoop') is stated, so counts are null.",
+      "num_dispensing_events": 4,
+      "num_segments": 2,
+      "matched_ingredient_weight": {
+        "ingredient": "cumin seeds",
+        "amount": "2.83",
+        "unit": "g",
+        "recipe": "P06_R03"
+      }
+    },
+    {
+      "narration_id": "P06-20240510-104642-597",
+      "food_name": "spice blend (unspecified, from jar)",
+      "difficulty": "MID",
+      "video_range": [
+        "P06-20240510-104642",
+        "P06-20240510-115307",
+        "P06-20240510-121619",
+        "P06-20240510-135423"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P06-20240510-104642",
+          "start_timestamp": 1297.17,
+          "end_timestamp": 1303.75,
+          "count": 1,
+          "count_unit": "spoonfuls"
+        },
+        {
+          "video_id": "P06-20240510-115307",
+          "start_timestamp": 979.8900000000001,
+          "end_timestamp": 984.8900000000001,
+          "count": 1,
+          "count_unit": "spoonfuls"
+        },
+        {
+          "video_id": "P06-20240510-121619",
+          "start_timestamp": 211.45,
+          "end_timestamp": 217.25,
+          "count": 1,
+          "count_unit": "spoonfuls"
+        }
+      ],
+      "total_count": 3,
+      "count_unit": "spoonfuls",
+      "reasoning": "Each log line describes a discrete dispensing action: using a spoon to pick up spices from a jar. Actions occur in three different video IDs, so they must be separate segments. Each segment duration is under 30 seconds. For counting, each 'picking up spices with a spoon' was treated as 1 spoonful dispensed; one entry explicitly states 'a tablespoon of spices' (counted as one spoonful). Total count is the sum across the three segments (1+1+1=3).",
+      "num_dispensing_events": 3,
+      "num_segments": 3,
+      "matched_ingredient_weight": {
+        "ingredient": "garam masala",
+        "amount": "2",
+        "unit": "tsp",
+        "recipe": "P06_R03"
+      }
+    },
+    {
+      "narration_id": "P06-20240510-104642-6",
+      "food_name": "cottage cheese (pack)",
+      "difficulty": "MID",
+      "video_range": [
+        "P06-20240510-104642",
+        "P06-20240510-115307",
+        "P06-20240510-121619",
+        "P06-20240510-135423"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P06-20240510-104642",
+          "start_timestamp": 871.78,
+          "end_timestamp": 878.9,
+          "count": 1,
+          "count_unit": "packs"
+        }
+      ],
+      "total_count": 1,
+      "count_unit": "packs",
+      "reasoning": "Only one dispensing-related narration line mentions picking up the cottage cheese pack. With no other nearby actions to merge and the duration < 30s, it forms a single segment. 'the pack' implies one pack dispensed.",
+      "num_dispensing_events": 1,
+      "num_segments": 1,
+      "matched_ingredient_weight": {
+        "ingredient": "cottage cheese",
+        "amount": "192.77",
+        "unit": "g",
+        "recipe": "P06_R03"
+      }
+    },
+    {
+      "narration_id": "P06-20240510-104642-613",
+      "food_name": "turmeric powder",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P06-20240510-104642",
+        "P06-20240510-115307",
+        "P06-20240510-121619",
+        "P06-20240510-135423"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P06-20240510-104642",
+          "start_timestamp": 1337.1399999999999,
+          "end_timestamp": 1342.1399999999999,
+          "count": null,
+          "count_unit": null
+        },
+        {
+          "video_id": "P06-20240510-115307",
+          "start_timestamp": 989.36,
+          "end_timestamp": 994.36,
+          "count": null,
+          "count_unit": null
+        }
+      ],
+      "total_count": null,
+      "count_unit": null,
+      "reasoning": "Identified two turmeric powder dispensing actions where a spoon is used to pick up turmeric powder from a jar. They occur in different video IDs, so they must be separate segments. No explicit countable unit (e.g., 'one spoon/scoop') is stated\u2014only 'some turmeric powder'\u2014so counts are null.",
+      "num_dispensing_events": 2,
+      "num_segments": 2,
+      "matched_ingredient_weight": {
+        "ingredient": "turmeric powder",
+        "amount": "2.83",
+        "unit": "g",
+        "recipe": "P06_R03"
+      }
+    },
+    {
+      "narration_id": "P06-20240510-104642-636",
+      "food_name": "red chilli powder",
+      "difficulty": "MID",
+      "video_range": [
+        "P06-20240510-104642",
+        "P06-20240510-115307",
+        "P06-20240510-121619",
+        "P06-20240510-135423"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P06-20240510-104642",
+          "start_timestamp": 1371.08,
+          "end_timestamp": 1376.08,
+          "count": null,
+          "count_unit": null
+        },
+        {
+          "video_id": "P06-20240510-115307",
+          "start_timestamp": 963.14,
+          "end_timestamp": 968.14,
+          "count": null,
+          "count_unit": null
+        }
+      ],
+      "total_count": null,
+      "count_unit": null,
+      "reasoning": "Two dispensing actions mention picking up red chilli powder/red chilli from a jar with a spoon. They are in different video IDs, so they must be separate segments. Each segment uses the action's start/end timestamps. No explicit measurable unit (e.g., teaspoon, spoonful, scoops) is stated\u2014only 'some'\u2014so count and total_count are null.",
+      "num_dispensing_events": 2,
+      "num_segments": 2,
+      "matched_ingredient_weight": {
+        "ingredient": "chilli powder",
+        "amount": "2.83",
+        "unit": "g",
+        "recipe": "P06_R03"
+      }
+    },
+    {
+      "narration_id": "P06-20240510-104642-645",
+      "food_name": "salt",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P06-20240510-104642",
+        "P06-20240510-115307",
+        "P06-20240510-121619",
+        "P06-20240510-135423"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P06-20240510-104642",
+          "start_timestamp": 1388.28,
+          "end_timestamp": 1395.59,
+          "count": null,
+          "count_unit": null
+        },
+        {
+          "video_id": "P06-20240510-115307",
+          "start_timestamp": 947.62,
+          "end_timestamp": 957.63,
+          "count": null,
+          "count_unit": null
+        }
+      ],
+      "total_count": null,
+      "count_unit": null,
+      "reasoning": "Grouped dispensing actions by video ID and merged adjacent salt-pouring actions when the gap between them was <= 30s and the merged segment stayed under 30s total duration. For video P06-20240510-104642, two salt pours (1388.28\u20131392.15 and 1393.11\u20131395.59) were merged into one segment (1388.28\u20131395.59). For video P06-20240510-115307, two salt pours (947.62\u2013954.33 and 955.17\u2013957.63) were merged into one segment (947.62\u2013957.63). Salt is treated as uncountable here because narration only indicates 'some salt' with no discrete unit, so counts are null and total_count is null.",
+      "num_dispensing_events": 4,
+      "num_segments": 2,
+      "matched_ingredient_weight": {
+        "ingredient": "salt",
+        "amount": "5.66",
+        "unit": "g",
+        "recipe": "P06_R03"
+      }
+    },
+    {
+      "narration_id": "P06-20240510-104642-7",
+      "food_name": "butter (pack)",
+      "difficulty": "MID",
+      "video_range": [
+        "P06-20240510-104642",
+        "P06-20240510-115307",
+        "P06-20240510-121619",
+        "P06-20240510-135423"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P06-20240510-104642",
+          "start_timestamp": 1141.165,
+          "end_timestamp": 1146.165,
+          "count": 1,
+          "count_unit": "pieces"
+        },
+        {
+          "video_id": "P06-20240510-115307",
+          "start_timestamp": 542.01,
+          "end_timestamp": 547.01,
+          "count": 1,
+          "count_unit": "pieces"
+        },
+        {
+          "video_id": "P06-20240510-121619",
+          "start_timestamp": 306.23,
+          "end_timestamp": 311.23,
+          "count": 1,
+          "count_unit": "pieces"
+        }
+      ],
+      "total_count": 3,
+      "count_unit": "pieces",
+      "reasoning": "Each log line describes dispensing butter by cutting off 'a piece' from the butter pack. Because the actions occur in three different video IDs, they must be kept as separate segments (no merging across videos). Each segment duration is <30s, so no splitting is needed. The phrase 'a piece' is treated as a countable unit, counted as 1 piece per segment, totaling 3 pieces.",
+      "num_dispensing_events": 3,
+      "num_segments": 3,
+      "matched_ingredient_weight": {
+        "ingredient": "salted butter",
+        "amount": "14.17",
+        "unit": "g",
+        "recipe": "P06_R03"
+      }
+    },
+    {
+      "narration_id": "P06-20240510-104642-8",
+      "food_name": "green chillies",
+      "difficulty": "LOW",
+      "video_range": [
+        "P06-20240510-104642",
+        "P06-20240510-115307",
+        "P06-20240510-121619",
+        "P06-20240510-135423"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P06-20240510-104642",
+          "start_timestamp": 33.66,
+          "end_timestamp": 39.13,
+          "count": null,
+          "count_unit": "chillies"
+        },
+        {
+          "video_id": "P06-20240510-104642",
+          "start_timestamp": 813.87,
+          "end_timestamp": 818.87,
+          "count": null,
+          "count_unit": "chillies"
+        },
+        {
+          "video_id": "P06-20240510-115307",
+          "start_timestamp": 60.995000000000005,
+          "end_timestamp": 65.995,
+          "count": null,
+          "count_unit": "chillies"
+        }
+      ],
+      "total_count": null,
+      "count_unit": "chillies",
+      "reasoning": "Merged overlapping/continuous green chilli pick-up actions within the same video into single segments when the combined duration stayed <30s. Created a new segment when there was a large time gap (>30s) or when the video_id changed. Counts were set to null because the narration uses non-specific quantities like \"a few\" and \"some more\" (not reliably countable into an integer for the whole segment).",
+      "num_dispensing_events": 6,
+      "num_segments": 3,
+      "matched_ingredient_weight": {
+        "ingredient": "green chillies",
+        "amount": "11.33",
+        "unit": "g",
+        "recipe": "P06_R03"
+      }
+    },
+    {
+      "narration_id": "P06-20240510-115307-327",
+      "food_name": "coriander powder",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P06-20240510-104642",
+        "P06-20240510-115307",
+        "P06-20240510-121619",
+        "P06-20240510-135423"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P06-20240510-115307",
+          "start_timestamp": 935.15,
+          "end_timestamp": 941.65,
+          "count": null,
+          "count_unit": null
+        }
+      ],
+      "total_count": null,
+      "count_unit": null,
+      "reasoning": "Both narration lines describe dispensing coriander powder by picking it up with a spoon from the jar in the same video. They occur close together (935.15\u2013936.38 and 938.19\u2013941.65; gap < 30s), so they are merged into one segment from the first dispensing action to the last. No explicit countable unit (e.g., 'one scoop') is stated\u2014only 'some coriander powder'\u2014so count is null.",
+      "num_dispensing_events": 2,
+      "num_segments": 1,
+      "matched_ingredient_weight": {
+        "ingredient": "coriander powder",
+        "amount": "5.66",
+        "unit": "g",
+        "recipe": "P06_R04"
+      }
+    },
+    {
+      "narration_id": "P06-20240510-135423-72",
+      "food_name": "rice (packet)",
+      "difficulty": "MID",
+      "video_range": [
+        "P06-20240510-104642",
+        "P06-20240510-115307",
+        "P06-20240510-121619",
+        "P06-20240510-135423"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P06-20240510-135423",
+          "start_timestamp": 220.44,
+          "end_timestamp": 226.29,
+          "count": null,
+          "count_unit": null
+        }
+      ],
+      "total_count": null,
+      "count_unit": null,
+      "reasoning": "There is one dispensing-related action: picking up/taking rice from the packet (220.44s\u2013226.29s) in a single video. No discrete quantity (e.g., cups/scoops/packets) is stated, so rice is treated as uncountable and count is null. No merging or splitting is needed since only one action is present and the segment duration is < 30s.",
+      "num_dispensing_events": 1,
+      "num_segments": 1,
+      "matched_ingredient_weight": {
+        "ingredient": "rice",
+        "amount": "192.77",
+        "unit": "g",
+        "recipe": "P06_R04"
+      }
+    },
+    {
+      "narration_id": "P06-20240510-140459-168",
+      "food_name": "butter (pack)",
+      "difficulty": "MID",
+      "video_range": [
+        "P06-20240510-140459"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P06-20240510-140459",
+          "start_timestamp": 1040.1,
+          "end_timestamp": 1045.1,
+          "count": 1,
+          "count_unit": "pieces"
+        },
+        {
+          "video_id": "P06-20240510-140459",
+          "start_timestamp": 1069.3049999999998,
+          "end_timestamp": 1074.3049999999998,
+          "count": 1,
+          "count_unit": "pieces"
+        }
+      ],
+      "total_count": 2,
+      "count_unit": "pieces",
+      "reasoning": "Two dispensing actions occur in the same video: picking up a piece of butter from the pack (1041.21\u20131043.99) and picking up another piece (1070.78\u20131072.83). Although the gap between actions is <30s, combining them would create a single segment lasting 31.62s (>30s), so they are split into two segments. Each action dispenses one 'piece' of butter, giving 1 piece per segment and 2 pieces total.",
+      "num_dispensing_events": 2,
+      "num_segments": 2,
+      "matched_ingredient_weight": {
+        "ingredient": "butter",
+        "amount": "2",
+        "unit": "tsp",
+        "recipe": "P06_R05"
+      }
+    },
+    {
+      "narration_id": "P06-20240510-140459-170",
+      "food_name": "mashed potato (in bowl)",
+      "difficulty": "MID",
+      "video_range": [
+        "P06-20240510-140459"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P06-20240510-140459",
+          "start_timestamp": 662.76,
+          "end_timestamp": 685.71,
+          "count": null,
+          "count_unit": null
+        },
+        {
+          "video_id": "P06-20240510-140459",
+          "start_timestamp": 726.18,
+          "end_timestamp": 738.63,
+          "count": null,
+          "count_unit": null
+        },
+        {
+          "video_id": "P06-20240510-140459",
+          "start_timestamp": 772.095,
+          "end_timestamp": 777.095,
+          "count": null,
+          "count_unit": null
+        }
+      ],
+      "total_count": null,
+      "count_unit": null,
+      "reasoning": "Segment 1 groups two consecutive actions of picking up mashed potato from the bowl (662.76\u2013670.26 and 677.74\u2013685.71); combined span is 22.95s (<30s) and the gap between actions is <30s. A new segment starts at 726.18 because the gap from the prior action end (685.71) is >30s. Segment 2 groups the remaining/pick-up/place actions from the bowl (726.18\u2013728.96, 730.65\u2013731.80, 733.05\u2013738.63) since they are close together and total span is 12.45s (<30s). Segment 3 is separate because the gap from 738.63 to 773.31 is >30s; it describes placing mashed potatoes onto the chapati while holding the bowl, treated as a dispensing-related continuation. No counts were assigned because the narration uses uncountable quantities (e.g., 'some', 'remaining') with no discrete unit.",
+      "num_dispensing_events": 6,
+      "num_segments": 3,
+      "matched_ingredient_weight": {
+        "ingredient": "potatoes",
+        "amount": "56.7",
+        "unit": "g",
+        "recipe": "P06_R05"
+      }
+    },
+    {
+      "narration_id": "P06-20240510-140459-47",
+      "food_name": "vegetable oil (bottle)",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P06-20240510-140459"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P06-20240510-140459",
+          "start_timestamp": 152.845,
+          "end_timestamp": 157.845,
+          "count": null,
+          "count_unit": null
+        }
+      ],
+      "total_count": null,
+      "count_unit": null,
+      "reasoning": "There is a single dispensing action where the bottle is tilted to pour vegetable oil onto a spoon (152.89s\u2013157.80s) within the same video. Vegetable oil is uncountable here and no discrete units (e.g., spoonfuls) are specified, so count is null.",
+      "num_dispensing_events": 1,
+      "num_segments": 1,
+      "matched_ingredient_weight": {
+        "ingredient": "vegetable oil",
+        "amount": "2.84",
+        "unit": "ml",
+        "recipe": "P06_R05"
+      }
+    },
+    {
+      "narration_id": "P06-20240510-140459-8",
+      "food_name": "flour (packet)",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P06-20240510-140459"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P06-20240510-140459",
+          "start_timestamp": 32.3,
+          "end_timestamp": 42.5,
+          "count": null,
+          "count_unit": null
+        },
+        {
+          "video_id": "P06-20240510-140459",
+          "start_timestamp": 53.18,
+          "end_timestamp": 67.5,
+          "count": null,
+          "count_unit": null
+        },
+        {
+          "video_id": "P06-20240510-140459",
+          "start_timestamp": 505.975,
+          "end_timestamp": 510.975,
+          "count": null,
+          "count_unit": null
+        },
+        {
+          "video_id": "P06-20240510-140459",
+          "start_timestamp": 572.6,
+          "end_timestamp": 577.6,
+          "count": null,
+          "count_unit": null
+        }
+      ],
+      "total_count": null,
+      "count_unit": null,
+      "reasoning": "All four narration lines describe dispensing flour by picking up some flour from the packet. The first two actions are only ~10.7s apart, but merging them would create a 35.2s segment (32.30s\u201367.50s), which exceeds the <30s maximum, so they are split into two segments. The later actions (506.89s\u2013510.06s) and (573.34s\u2013576.86s) are separated by >30s, so they remain separate segments. Flour is treated as uncountable here (no explicit unit like scoops/cups given), so counts are null.",
+      "num_dispensing_events": 4,
+      "num_segments": 4,
+      "matched_ingredient_weight": {
+        "ingredient": "whole wheat flour",
+        "amount": "255",
+        "unit": "g",
+        "recipe": "P06_R05"
+      }
+    },
+    {
+      "narration_id": "P06-20240511-102207-141",
+      "food_name": "salt",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P06-20240511-102207"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P06-20240511-102207",
+          "start_timestamp": 395.25,
+          "end_timestamp": 402.43,
+          "count": null,
+          "count_unit": null
+        }
+      ],
+      "total_count": null,
+      "count_unit": null,
+      "reasoning": "There is one salt-dispensing action in the log: tilting a bottle to pour salt onto a spoon (395.25s\u2013402.43s) within the same video. This forms a single segment (<30s). Salt is dispensed as an uncountable amount with no explicit units (e.g., spoons/scoops) stated, so count and total_count are null.",
+      "num_dispensing_events": 1,
+      "num_segments": 1,
+      "matched_ingredient_weight": {
+        "ingredient": "salt",
+        "amount": "2.83",
+        "unit": "g",
+        "recipe": "P06_R06"
+      }
+    },
+    {
+      "narration_id": "P06-20240511-102207-142",
+      "food_name": "red chilli powder",
+      "difficulty": "MID",
+      "video_range": [
+        "P06-20240511-102207"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P06-20240511-102207",
+          "start_timestamp": 408.495,
+          "end_timestamp": 413.495,
+          "count": null,
+          "count_unit": null
+        }
+      ],
+      "total_count": null,
+      "count_unit": null,
+      "reasoning": "There is one dispensing-related action: the narrator uses a spoon to pick up red chilli powder from a bottle (408.81s\u2013413.18s). Since no explicit measurable unit (e.g., 'one spoon', 'a scoop') is stated, the dispensed amount is treated as uncountable and count is null. Only one video ID is present and the action duration is < 30 seconds, so it forms a single segment.",
+      "num_dispensing_events": 1,
+      "num_segments": 1,
+      "matched_ingredient_weight": {
+        "ingredient": "chilli powder",
+        "amount": "2.83",
+        "unit": "g",
+        "recipe": "P06_R06"
+      }
+    },
+    {
+      "narration_id": "P06-20240511-102207-15",
+      "food_name": "bread",
+      "difficulty": "LOW",
+      "video_range": [
+        "P06-20240511-102207"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P06-20240511-102207",
+          "start_timestamp": 501.35,
+          "end_timestamp": 514.61,
+          "count": 2,
+          "count_unit": "pieces"
+        }
+      ],
+      "total_count": 2,
+      "count_unit": "pieces",
+      "reasoning": "Both bread pick-up actions occur in the same video and are only ~10 seconds apart (503.08s to 513.38s), so they are merged into a single dispensing segment. The narration indicates one bread is picked up first, then 'another bread', giving a total count of 2 bread pieces for the segment.",
+      "num_dispensing_events": 2,
+      "num_segments": 1,
+      "matched_ingredient_weight": {
+        "ingredient": "white bread",
+        "amount": "297.67",
+        "unit": "g",
+        "recipe": "P06_R06"
+      }
+    },
+    {
+      "narration_id": "P06-20240511-102207-17",
+      "food_name": "milk",
+      "difficulty": "HIGH",
+      "video_range": [
+        "P06-20240511-102207"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P06-20240511-102207",
+          "start_timestamp": 1219.07,
+          "end_timestamp": 1233.08,
+          "count": null,
+          "count_unit": null
+        },
+        {
+          "video_id": "P06-20240511-102207",
+          "start_timestamp": 2210.72,
+          "end_timestamp": 2217.13,
+          "count": null,
+          "count_unit": null
+        }
+      ],
+      "total_count": null,
+      "count_unit": null,
+      "reasoning": "Grouped adjacent milk-pouring actions within the same video when the gap between actions was \u226430s and the merged segment duration stayed under 30s. Events at 1219.07\u20131219.75 and 1225.42\u20131233.08 were merged into one segment (gap ~5.67s; total duration ~14.01s). Events at 2210.72\u20132213.99 and 2214.17\u20132217.13 were merged into a second segment (gap ~0.18s; total duration ~6.41s). The two segments were kept separate because the gap between them is >30s. Milk is uncountable here (no explicit countable units given), so counts are null.",
+      "num_dispensing_events": 4,
+      "num_segments": 2,
+      "matched_ingredient_weight": {
+        "ingredient": "whole milk",
+        "amount": "353",
+        "unit": "ml",
+        "recipe": "P06_R07"
+      }
+    },
+    {
+      "narration_id": "P06-20240511-102207-18",
+      "food_name": "butter",
+      "difficulty": "MID",
+      "video_range": [
+        "P06-20240511-102207"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P06-20240511-102207",
+          "start_timestamp": 557.995,
+          "end_timestamp": 562.995,
+          "count": 1,
+          "count_unit": "piece"
+        },
+        {
+          "video_id": "P06-20240511-102207",
+          "start_timestamp": 699.53,
+          "end_timestamp": 707.72,
+          "count": 2,
+          "count_unit": "slices"
+        }
+      ],
+      "total_count": null,
+      "count_unit": null,
+      "reasoning": "Identified butter dispensing actions as cutting portions of butter. The first action (559.09\u2013561.90) is a standalone cut with a >30s gap before the next butter action, so it forms its own segment and is counted as 1 'piece' (implied single piece). The later two actions (699.53\u2013702.23 and 706.42\u2013707.72) are within ~7s of each other in the same video, so they are merged into one segment and counted as 2 slices ('a slice' + 'another slice'). Overall total_count/count_unit are null because units differ across segments (piece vs slices).",
+      "num_dispensing_events": 3,
+      "num_segments": 2,
+      "matched_ingredient_weight": {
+        "ingredient": "salted butter",
+        "amount": "6",
+        "unit": "g",
+        "recipe": "P06_R06"
+      }
+    },
+    {
+      "narration_id": "P06-20240511-102207-411",
+      "food_name": "coffee",
+      "difficulty": "MID",
+      "video_range": [
+        "P06-20240511-102207"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P06-20240511-102207",
+          "start_timestamp": 1402.86,
+          "end_timestamp": 1412.6,
+          "count": 4,
+          "count_unit": "tablespoons"
+        },
+        {
+          "video_id": "P06-20240511-102207",
+          "start_timestamp": 1428.44,
+          "end_timestamp": 1440.98,
+          "count": 5,
+          "count_unit": "tablespoons"
+        }
+      ],
+      "total_count": 9,
+      "count_unit": "tablespoons",
+      "reasoning": "Grouped consecutive coffee-dispensing actions within the same video into segments under 30s. Segment 1 covers four separate actions each stating 'picking up a tablespoon of coffee' (4 tablespoons) from 1402.86s to 1412.60s. Segment 2 covers five more 'tablespoon of coffee' transfers into cups on the tabletop (5 tablespoons) from 1428.44s to 1437.77s, and includes the immediately-following unquantified pour of remaining coffee ending at 1440.98s (no additional count added). Keeping all actions in one segment would exceed the 30s max duration, so it was split between these two sequences.",
+      "num_dispensing_events": 10,
+      "num_segments": 2,
+      "matched_ingredient_weight": {
+        "ingredient": "coffee",
+        "amount": "9",
+        "unit": "g",
+        "recipe": "P06_R07"
+      }
+    },
+    {
+      "narration_id": "P06-20240511-102207-412",
+      "food_name": "sugar",
+      "difficulty": "MID",
+      "video_range": [
+        "P06-20240511-102207"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P06-20240511-102207",
+          "start_timestamp": 1327.84,
+          "end_timestamp": 1340.49,
+          "count": 4,
+          "count_unit": "tablespoons"
+        },
+        {
+          "video_id": "P06-20240511-102207",
+          "start_timestamp": 1355.62,
+          "end_timestamp": 1382.21,
+          "count": null,
+          "count_unit": null
+        }
+      ],
+      "total_count": 4,
+      "count_unit": "tablespoons",
+      "reasoning": "Segment 1 merges the four consecutive spoon actions (1327.84\u20131340.49) where each line explicitly dispenses 'a tablespoon' of sugar into a cup, giving a count of 4 tablespoons. The later sugar handling actions (1355.62\u20131382.21) include pouring sugar between cups and spooning sugar without any explicit measurable unit/count, so count is null. Both segments are kept under 30 seconds; they cannot be merged because that would create a >30s segment.",
+      "num_dispensing_events": 8,
+      "num_segments": 2,
+      "matched_ingredient_weight": {
+        "ingredient": "sugar",
+        "amount": "26",
+        "unit": "g",
+        "recipe": "P06_R07"
+      }
+    },
+    {
+      "narration_id": "P06-20240511-102207-43",
+      "food_name": "onion",
+      "difficulty": "LOW",
+      "video_range": [
+        "P06-20240511-102207"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P06-20240511-102207",
+          "start_timestamp": 120.595,
+          "end_timestamp": 125.595,
+          "count": 1,
+          "count_unit": "onions"
+        }
+      ],
+      "total_count": 1,
+      "count_unit": "onions",
+      "reasoning": "There is a single dispensing-related action: picking up an onion from the drawer. Since it is one discrete, countable item and no other onion actions occur nearby, it forms one segment within the <30s rule, counted as 1 onion.",
+      "num_dispensing_events": 1,
+      "num_segments": 1,
+      "matched_ingredient_weight": {
+        "ingredient": "onions",
+        "amount": "36.85",
+        "unit": "g",
+        "recipe": "P06_R06"
+      }
+    },
+    {
+      "narration_id": "P06-20240511-102207-5",
+      "food_name": "box of pancake",
+      "difficulty": "LOW",
+      "video_range": [
+        "P06-20240511-102207"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P06-20240511-102207",
+          "start_timestamp": 797.755,
+          "end_timestamp": 802.755,
+          "count": 1,
+          "count_unit": "pieces"
+        }
+      ],
+      "total_count": 1,
+      "count_unit": "pieces",
+      "reasoning": "There is a single dispensing-related action: picking up one piece of pancake from the box and placing it on the plate. With only one event in the log and duration < 30s, it forms one segment. The phrase 'a piece of pancake' implies a count of 1 piece.",
+      "num_dispensing_events": 1,
+      "num_segments": 1,
+      "matched_ingredient_weight": null
+    },
+    {
+      "narration_id": "P06-20240511-102207-6",
+      "food_name": "boxed food (unidentified)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P06-20240511-102207"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P06-20240511-102207",
+          "start_timestamp": 797.755,
+          "end_timestamp": 802.755,
+          "count": 1,
+          "count_unit": "piece"
+        }
+      ],
+      "total_count": 1,
+      "count_unit": "piece",
+      "reasoning": "Only one dispensing-related action is present: picking up a piece of pancake from the box and placing it on the plate. This constitutes a single dispensing segment within the 30-second limit. The phrase 'a piece' implies a countable unit, so count=1 piece.",
+      "num_dispensing_events": 1,
+      "num_segments": 1,
+      "matched_ingredient_weight": null
+    },
+    {
+      "narration_id": "P06-20240511-102207-8",
+      "food_name": "eggs",
+      "difficulty": "LOW",
+      "video_range": [
+        "P06-20240511-102207"
+      ],
+      "dispensal_segments": [
+        {
+          "video_id": "P06-20240511-102207",
+          "start_timestamp": 271.79,
+          "end_timestamp": 297.85,
+          "count": 3,
+          "count_unit": "eggs"
+        },
+        {
+          "video_id": "P06-20240511-102207",
+          "start_timestamp": 304.19,
+          "end_timestamp": 309.19,
+          "count": 1,
+          "count_unit": "eggs"
+        }
+      ],
+      "total_count": 4,
+      "count_unit": "eggs",
+      "reasoning": "Each log line describes picking up an egg from the box (a dispensing action). The first three egg pickups (271.79s, 285.26s, 297.17s) were merged into one segment because they are close in time and the overall segment duration is 26.06s (<30s). Including the fourth pickup at 306.12s would extend the segment to 35.47s (>30s), so it was split into a second segment. Counts were computed as 1 egg per 'an egg'/'another egg' mention, totaling 4 eggs.",
+      "num_dispensing_events": 4,
+      "num_segments": 2,
+      "matched_ingredient_weight": {
+        "ingredient": "eggs",
+        "amount": "195.6",
+        "unit": "g",
+        "recipe": "P06_R06"
+      }
+    }
+  ]
+}

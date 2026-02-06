@@ -1,0 +1,163 @@
+{
+  "participant": "P03",
+  "model": "qwen",
+  "tag": "test_blind_semantic",
+  "low_only": false,
+  "blind_mode": true,
+  "total_items": 3,
+  "items": [
+    {
+      "narration_id": "P03-20240216-084005-67",
+      "food_name": "bread (loaf/bag of bread)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240216-084005"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "slices",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_2bac7566",
+          "segment_idx": 0,
+          "video_id": "P03-20240216-084005",
+          "start_timestamp": 715.74,
+          "end_timestamp": 726.49,
+          "ground_truth_count": 2,
+          "ground_truth_unit": "slices",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": "two slices of bread",
+          "predicted_unit": "slice",
+          "detected_item_name": "bread",
+          "item_match": false,
+          "item_similarity": 0.8042206764221191,
+          "remaining_count": 1,
+          "remaining_description": "one slice of bread remaining in the bag",
+          "remaining_fraction": 0.5,
+          "confidence": "high",
+          "visual_evidence": "The person takes two slices of bread from a plastic bag and places them into a toaster. The bag appears to have been partially used, with one slice remaining.",
+          "match": "exact",
+          "error": 0,
+          "clip_path": "/home/kailaic/NeuroTrace/kitchen/HDEPIC/outputs/02_inventory/P03/vlm_clips/P03-20240216-084005_seg0_716_726.mp4"
+        }
+      ],
+      "recipe_amount": null,
+      "total_predicted": 2
+    },
+    {
+      "narration_id": "P03-20240216-185832-1024",
+      "food_name": "eggs",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240216-185832",
+        "P03-20240216-205923"
+      ],
+      "total_ground_truth": 8,
+      "total_ground_truth_unit": "eggs",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_f8b2a75d",
+          "segment_idx": 0,
+          "video_id": "P03-20240216-185832",
+          "start_timestamp": 2792.96,
+          "end_timestamp": 2825.9,
+          "ground_truth_count": 8,
+          "ground_truth_unit": "eggs",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": "two eggs",
+          "predicted_unit": "unit",
+          "detected_item_name": "egg",
+          "item_match": true,
+          "item_similarity": 0.9120823740959167,
+          "remaining_count": 10,
+          "remaining_description": "ten eggs remaining in the carton",
+          "remaining_fraction": 0.833,
+          "confidence": "high",
+          "visual_evidence": "The person opens the refrigerator, takes out a carton of eggs, opens it, and removes two eggs. The carton initially contains 12 eggs, and after removing two, 10 remain. The action is clear and the count is precise.",
+          "match": "wrong",
+          "error": -6,
+          "clip_path": "/home/kailaic/NeuroTrace/kitchen/HDEPIC/outputs/02_inventory/P03/vlm_clips/P03-20240216-185832_seg0_2793_2826.mp4"
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "eggs",
+        "amount": "330",
+        "unit": "g",
+        "recipe": "P03_R04"
+      },
+      "total_predicted": 2
+    },
+    {
+      "narration_id": "P03-20240216-185832-38",
+      "food_name": "bag of potatoes",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240216-185832",
+        "P03-20240216-205923"
+      ],
+      "total_ground_truth": 12,
+      "total_ground_truth_unit": "potatoes",
+      "num_segments": 2,
+      "segments": [
+        {
+          "segment_id": "seg_d38f9871",
+          "segment_idx": 0,
+          "video_id": "P03-20240216-185832",
+          "start_timestamp": 763.61,
+          "end_timestamp": 774.5,
+          "ground_truth_count": 8,
+          "ground_truth_unit": "potatoes",
+          "quantity_category": "discrete",
+          "predicted_count": 10,
+          "predicted_amount": "a bag of potatoes being poured out onto the counter",
+          "predicted_unit": "unit",
+          "detected_item_name": "bag of potatoes",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "remaining_count": 10,
+          "remaining_description": "a bag of potatoes remaining on the counter",
+          "remaining_fraction": 0.5,
+          "confidence": "high",
+          "visual_evidence": "A person is seen taking potatoes out of a plastic bag and placing them on a wooden countertop. The bag is partially empty, and the potatoes are being dispensed one by one. The bag is labeled as containing potatoes.",
+          "match": "wrong",
+          "error": 2,
+          "clip_path": "/home/kailaic/NeuroTrace/kitchen/HDEPIC/outputs/02_inventory/P03/vlm_clips/P03-20240216-185832_seg0_764_774.mp4"
+        },
+        {
+          "segment_id": "seg_7c631815",
+          "segment_idx": 1,
+          "video_id": "P03-20240216-185832",
+          "start_timestamp": 1251.98,
+          "end_timestamp": 1259.16,
+          "ground_truth_count": 4,
+          "ground_truth_unit": "potatoes",
+          "quantity_category": "discrete",
+          "predicted_count": 4,
+          "predicted_amount": "four potatoes taken from the bag",
+          "predicted_unit": "unit",
+          "detected_item_name": "bag of potatoes",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "remaining_count": 4,
+          "remaining_description": "four potatoes remaining in the bag",
+          "remaining_fraction": 0.5,
+          "confidence": "high",
+          "visual_evidence": "The video shows a person opening a plastic bag labeled 'potatoes' and removing four individual potatoes. The bag appears to be half-full before and after the action, indicating that approximately half of the potatoes were dispensed.",
+          "match": "exact",
+          "error": 0,
+          "clip_path": "/home/kailaic/NeuroTrace/kitchen/HDEPIC/outputs/02_inventory/P03/vlm_clips/P03-20240216-185832_seg1_1252_1259.mp4"
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "potatoes",
+        "amount": "1800",
+        "unit": "g",
+        "recipe": "P03_R04"
+      },
+      "total_predicted": 14
+    }
+  ]
+}

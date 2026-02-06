@@ -1,0 +1,3873 @@
+{
+  "participant": "P04",
+  "model": "gpt5",
+  "tag": "hybrid_gpt5",
+  "prompt_mode": "hybrid",
+  "task": "hybrid_selection",
+  "low_only": true,
+  "padding": 2.0,
+  "fps": 1.0,
+  "max_frames": 40,
+  "total_items": 23,
+  "items": [
+    {
+      "narration_id": "P04-20240413-142619-24",
+      "food_name": "raw chicken breast package",
+      "difficulty": "LOW",
+      "video_range": [
+        "P04-20240413-142619",
+        "P04-20240413-145245",
+        "P04-20240413-151722"
+      ],
+      "total_ground_truth": null,
+      "total_ground_truth_unit": null,
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_83ab9187",
+          "segment_idx": 0,
+          "video_id": "P04-20240413-142619",
+          "start_timestamp": 280.58,
+          "end_timestamp": 286.79,
+          "clip_start": 278.58,
+          "item_name": "raw chicken breast package",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 278.58,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 285.58,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 278.58,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 285.58,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 281.58,
+              "description": "Multiple chicken pieces transferred by hand from the package into the bowl; individual piece count not reliably visible.",
+              "visibility_status": "occluded",
+              "visible_count": null
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"raw chicken breast package\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:07\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_PILE\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:07\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_transfer\": {\n    \"status\": \"INVALID_HIDDEN\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:03\",\n        \"description\": \"Multiple chicken pieces transferred by hand from the package into the bowl; individual piece count not reliably visible.\",\n        \"visible_count\": null\n      }\n    ],\n    \"total_transfer_count\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": 1.0,\n  \"remaining_count\": 0,\n  \"remaining_description\": null,\n  \"remaining_fraction\": 0.0,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source was VALID. Dest was INVALID_PILE. Transfer was INVALID_HIDDEN. Final count derived primarily from Path A.\"\n}",
+          "ground_truth_count": null,
+          "ground_truth_unit": null,
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 0,
+          "remaining_description": null,
+          "remaining_fraction": 0.0,
+          "confidence": "high",
+          "visual_evidence": "Source was VALID. Dest was INVALID_PILE. Transfer was INVALID_HIDDEN. Final count derived primarily from Path A.",
+          "match": "gt_uncountable",
+          "error": null,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:07",
+              "observed_delta": 1,
+              "confidence": "high",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 278.58,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 7.0,
+              "absolute_timestamp_after": 285.58,
+              "snapped_to_frame_after": 8
+            },
+            "destination": {
+              "status": "INVALID_PILE",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:07",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 278.58,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 7.0,
+              "absolute_timestamp_after": 285.58,
+              "snapped_to_frame_after": 8
+            },
+            "transfer": {
+              "status": "INVALID_HIDDEN",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:03",
+                  "description": "Multiple chicken pieces transferred by hand from the package into the bowl; individual piece count not reliably visible.",
+                  "visible_count": null,
+                  "timestamp_seconds": 3.0,
+                  "absolute_timestamp": 281.58,
+                  "snapped_to_frame": 4
+                }
+              ],
+              "total_transfer_count": null,
+              "confidence": "low"
+            }
+          },
+          "num_frames": 11,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "chicken breast",
+        "amount": "404",
+        "unit": "g",
+        "recipe": "P04_R01"
+      }
+    },
+    {
+      "narration_id": "P04-20240413-142619-394",
+      "food_name": "onion",
+      "difficulty": "LOW",
+      "video_range": [
+        "P04-20240413-142619",
+        "P04-20240413-145245",
+        "P04-20240413-151722"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "onions",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_b02950de",
+          "segment_idx": 0,
+          "video_id": "P04-20240413-142619",
+          "start_timestamp": 840.24,
+          "end_timestamp": 842.29,
+          "clip_start": 838.24,
+          "item_name": "onion",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 840.24,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 843.24,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 843.24,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 844.24,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 844.24,
+              "description": "One onion visible in hand after picking from the produce rack",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"onion\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:02\",\n    \"timestamp_after\": \"00:05\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_PILE\",\n    \"timestamp_before\": \"00:05\",\n    \"timestamp_after\": \"00:06\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:06\",\n        \"description\": \"One onion visible in hand after picking from the produce rack\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 1,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": \"Several onions remain in the produce rack basket (exact count not reliably visible due to piling/overlap).\",\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source was INVALID_OCCLUDED (pile makes before/after counting unreliable). Dest was INVALID_PILE (no clear destination container shown). Transfer was VALID (1 onion clearly visible in hand). Final count derived primarily from Path C.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "onions",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": "Several onions remain in the produce rack basket (exact count not reliably visible due to piling/overlap).",
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source was INVALID_OCCLUDED (pile makes before/after counting unreliable). Dest was INVALID_PILE (no clear destination container shown). Transfer was VALID (1 onion clearly visible in hand). Final count derived primarily from Path C.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:02",
+              "timestamp_after_raw": "00:05",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 2.0,
+              "absolute_timestamp_before": 840.24,
+              "snapped_to_frame_before": 3,
+              "timestamp_after_seconds": 5.0,
+              "absolute_timestamp_after": 843.24,
+              "snapped_to_frame_after": 6
+            },
+            "destination": {
+              "status": "INVALID_PILE",
+              "timestamp_before_raw": "00:05",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 5.0,
+              "absolute_timestamp_before": 843.24,
+              "snapped_to_frame_before": 6,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 844.24,
+              "snapped_to_frame_after": 7
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:06",
+                  "description": "One onion visible in hand after picking from the produce rack",
+                  "visible_count": 1,
+                  "timestamp_seconds": 6.0,
+                  "absolute_timestamp": 844.24,
+                  "snapped_to_frame": 7
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "high"
+            }
+          },
+          "num_frames": 7,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "brown onions",
+        "amount": "98",
+        "unit": "g",
+        "recipe": "P04_R01"
+      }
+    },
+    {
+      "narration_id": "P04-20240413-142619-400",
+      "food_name": "pack of romaine lettuce",
+      "difficulty": "LOW",
+      "video_range": [
+        "P04-20240413-142619",
+        "P04-20240413-145245",
+        "P04-20240413-151722"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "piece",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_29deacb7",
+          "segment_idx": 0,
+          "video_id": "P04-20240413-142619",
+          "start_timestamp": 925.07,
+          "end_timestamp": 928.07,
+          "clip_start": 923.07,
+          "item_name": "pack of romaine lettuce",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 923.07,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 929.07,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 927.07,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 929.07,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 928.07,
+              "description": "One romaine heart lifted from the open pack",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"pack of romaine lettuce\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:06\",\n    \"observed_delta\": 1,\n    \"confidence\": \"medium\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:04\",\n    \"timestamp_after\": \"00:06\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:05\",\n        \"description\": \"One romaine heart lifted from the open pack\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 1,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": \"pack still contains additional lettuce\",\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source was VALID. Dest was VALID. Transfer was VALID. Final count derived primarily from Path C.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "piece",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": "pack still contains additional lettuce",
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source was VALID. Dest was VALID. Transfer was VALID. Final count derived primarily from Path C.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": 1,
+              "confidence": "medium",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 923.07,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 929.07,
+              "snapped_to_frame_after": 7
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:04",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": 1,
+              "confidence": "high",
+              "timestamp_before_seconds": 4.0,
+              "absolute_timestamp_before": 927.07,
+              "snapped_to_frame_before": 5,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 929.07,
+              "snapped_to_frame_after": 7
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:05",
+                  "description": "One romaine heart lifted from the open pack",
+                  "visible_count": 1,
+                  "timestamp_seconds": 5.0,
+                  "absolute_timestamp": 928.07,
+                  "snapped_to_frame": 6
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "high"
+            }
+          },
+          "num_frames": 7,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "romaine lettuce",
+        "amount": "220",
+        "unit": "g",
+        "recipe": "P04_R01"
+      }
+    },
+    {
+      "narration_id": "P04-20240413-142619-402",
+      "food_name": "tomatoes on the vine",
+      "difficulty": "LOW",
+      "video_range": [
+        "P04-20240413-142619",
+        "P04-20240413-145245",
+        "P04-20240413-151722"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "tomatoes",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_47603736",
+          "segment_idx": 0,
+          "video_id": "P04-20240413-142619",
+          "start_timestamp": 865.78,
+          "end_timestamp": 869.48,
+          "clip_start": 863.78,
+          "item_name": "tomatoes on the vine",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 863.78,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 870.78,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 866.78,
+              "description": "Destination before (delta=2)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 869.78,
+              "description": "Destination after (delta=2)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 868.78,
+              "description": "Tomato placed onto cutting board (first placement)",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 869.78,
+              "description": "Tomato placed onto cutting board (second placement)",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"tomatoes on the vine\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:07\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:03\",\n    \"timestamp_after\": \"00:06\",\n    \"observed_delta\": 2,\n    \"confidence\": \"medium\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:05\",\n        \"description\": \"Tomato placed onto cutting board (first placement)\",\n        \"visible_count\": 1\n      },\n      {\n        \"timestamp\": \"00:06\",\n        \"description\": \"Tomato placed onto cutting board (second placement)\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 2,\n    \"confidence\": \"medium\"\n  },\n  \"numeric_count\": 2,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 1,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source was INVALID_OCCLUDED (tomatoes/vine in hands, no clear before/after pile). Dest was VALID (cutting board goes from 0 to 2 tomatoes). Transfer was VALID (two distinct placements observed). Final count derived primarily from Path B/C.\"\n}",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "tomatoes",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 1,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "medium",
+          "visual_evidence": "Source was INVALID_OCCLUDED (tomatoes/vine in hands, no clear before/after pile). Dest was VALID (cutting board goes from 0 to 2 tomatoes). Transfer was VALID (two distinct placements observed). Final count derived primarily from Path B/C.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:07",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 863.78,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 7.0,
+              "absolute_timestamp_after": 870.78,
+              "snapped_to_frame_after": 8
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:03",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": 2,
+              "confidence": "medium",
+              "timestamp_before_seconds": 3.0,
+              "absolute_timestamp_before": 866.78,
+              "snapped_to_frame_before": 4,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 869.78,
+              "snapped_to_frame_after": 7
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:05",
+                  "description": "Tomato placed onto cutting board (first placement)",
+                  "visible_count": 1,
+                  "timestamp_seconds": 5.0,
+                  "absolute_timestamp": 868.78,
+                  "snapped_to_frame": 6
+                },
+                {
+                  "timestamp_raw": "00:06",
+                  "description": "Tomato placed onto cutting board (second placement)",
+                  "visible_count": 1,
+                  "timestamp_seconds": 6.0,
+                  "absolute_timestamp": 869.78,
+                  "snapped_to_frame": 7
+                }
+              ],
+              "total_transfer_count": 2,
+              "confidence": "medium"
+            }
+          },
+          "num_frames": 8,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 2,
+      "recipe_amount": {
+        "ingredient": "vine tomatoes",
+        "amount": "73",
+        "unit": "g",
+        "recipe": "P04_R01"
+      }
+    },
+    {
+      "narration_id": "P04-20240413-142619-66",
+      "food_name": "bag of fresh yellow lemons",
+      "difficulty": "LOW",
+      "video_range": [
+        "P04-20240413-142619",
+        "P04-20240413-145245",
+        "P04-20240413-151722"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "lemons",
+      "num_segments": 2,
+      "segments": [
+        {
+          "segment_id": "seg_37cf3471",
+          "segment_idx": 0,
+          "video_id": "P04-20240413-142619",
+          "start_timestamp": 543.28,
+          "end_timestamp": 546.054583,
+          "clip_start": 541.28,
+          "item_name": "bag of fresh yellow lemons",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 541.28,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 544.28,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 543.28,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 545.28,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 546.28,
+              "description": "Single lemon held in right hand after removing from net bag",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"bag of fresh yellow lemons\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:03\",\n    \"observed_delta\": 1,\n    \"confidence\": \"medium\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_PILE\",\n    \"timestamp_before\": \"00:02\",\n    \"timestamp_after\": \"00:04\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:05\",\n        \"description\": \"Single lemon held in right hand after removing from net bag\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 1,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 5,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source was VALID. Dest was INVALID_PILE (no clear stable destination container). Transfer was VALID with 1 lemon clearly visible in-hand. Final count derived primarily from Path C.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "lemons",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 5,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "medium",
+          "visual_evidence": "Source was VALID. Dest was INVALID_PILE (no clear stable destination container). Transfer was VALID with 1 lemon clearly visible in-hand. Final count derived primarily from Path C.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:03",
+              "observed_delta": 1,
+              "confidence": "medium",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 541.28,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 3.0,
+              "absolute_timestamp_after": 544.28,
+              "snapped_to_frame_after": 4
+            },
+            "destination": {
+              "status": "INVALID_PILE",
+              "timestamp_before_raw": "00:02",
+              "timestamp_after_raw": "00:04",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 2.0,
+              "absolute_timestamp_before": 543.28,
+              "snapped_to_frame_before": 3,
+              "timestamp_after_seconds": 4.0,
+              "absolute_timestamp_after": 545.28,
+              "snapped_to_frame_after": 5
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:05",
+                  "description": "Single lemon held in right hand after removing from net bag",
+                  "visible_count": 1,
+                  "timestamp_seconds": 5.0,
+                  "absolute_timestamp": 546.28,
+                  "snapped_to_frame": 6
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "high"
+            }
+          },
+          "num_frames": 7,
+          "frame_fps": 1.0
+        },
+        {
+          "segment_id": "seg_3b81543e",
+          "segment_idx": 1,
+          "video_id": "P04-20240413-142619",
+          "start_timestamp": 876,
+          "end_timestamp": 880.369221,
+          "clip_start": 874.0,
+          "item_name": "bag of fresh yellow lemons",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 874.0,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 881.0,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 880.0,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 881.0,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 881.0,
+              "description": "One lemon removed from the net bag and held in the right hand over the prep area",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"bag of fresh yellow lemons\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:07\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:06\",\n    \"timestamp_after\": \"00:07\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:07\",\n        \"description\": \"One lemon removed from the net bag and held in the right hand over the prep area\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 1,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source was INVALID_OCCLUDED (net bag/hand occlusion prevented reliable before/after count). Dest was INVALID_OCCLUDED (lemon not clearly shown placed down). Transfer was VALID (single lemon clearly visible in hand). Final count derived primarily from Path C.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "lemons",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "medium",
+          "visual_evidence": "Source was INVALID_OCCLUDED (net bag/hand occlusion prevented reliable before/after count). Dest was INVALID_OCCLUDED (lemon not clearly shown placed down). Transfer was VALID (single lemon clearly visible in hand). Final count derived primarily from Path C.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:07",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 874.0,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 7.0,
+              "absolute_timestamp_after": 881.0,
+              "snapped_to_frame_after": 8
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:06",
+              "timestamp_after_raw": "00:07",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 6.0,
+              "absolute_timestamp_before": 880.0,
+              "snapped_to_frame_before": 7,
+              "timestamp_after_seconds": 7.0,
+              "absolute_timestamp_after": 881.0,
+              "snapped_to_frame_after": 8
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:07",
+                  "description": "One lemon removed from the net bag and held in the right hand over the prep area",
+                  "visible_count": 1,
+                  "timestamp_seconds": 7.0,
+                  "absolute_timestamp": 881.0,
+                  "snapped_to_frame": 8
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "high"
+            }
+          },
+          "num_frames": 9,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 2,
+      "recipe_amount": {
+        "ingredient": "lemon juice",
+        "amount": "3",
+        "unit": "tbsp",
+        "recipe": "P04_R01"
+      }
+    },
+    {
+      "narration_id": "P04-20240413-151722-222",
+      "food_name": "packet/bag of tortillas",
+      "difficulty": "LOW",
+      "video_range": [
+        "P04-20240413-142619",
+        "P04-20240413-145245",
+        "P04-20240413-151722"
+      ],
+      "total_ground_truth": 4,
+      "total_ground_truth_unit": "tortillas",
+      "num_segments": 4,
+      "segments": [
+        {
+          "segment_id": "seg_0d722b5a",
+          "segment_idx": 0,
+          "video_id": "P04-20240413-151722",
+          "start_timestamp": 547.62,
+          "end_timestamp": 551.08,
+          "clip_start": 545.62,
+          "item_name": "packet/bag of tortillas",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "absolute_timestamp": 546.62,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 551.62,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "absolute_timestamp": 546.62,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 552.62,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 551.62,
+              "description": "One tortilla lifted out of the bag and carried to the plate",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"packet/bag of tortillas\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:01\",\n    \"timestamp_after\": \"00:06\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:01\",\n    \"timestamp_after\": \"00:07\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:06\",\n        \"description\": \"One tortilla lifted out of the bag and carried to the plate\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 1,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 7,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source was INVALID_OCCLUDED (bag/stack not clearly countable). Dest was VALID (plate changed from empty to 1 tortilla). Transfer was VALID (1 tortilla visible in hand). Final count derived primarily from Path C (confirmed by Path B).\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "tortillas",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 7,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "medium",
+          "visual_evidence": "Source was INVALID_OCCLUDED (bag/stack not clearly countable). Dest was VALID (plate changed from empty to 1 tortilla). Transfer was VALID (1 tortilla visible in hand). Final count derived primarily from Path C (confirmed by Path B).",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:01",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 1.0,
+              "absolute_timestamp_before": 546.62,
+              "snapped_to_frame_before": 2,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 551.62,
+              "snapped_to_frame_after": 7
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:01",
+              "timestamp_after_raw": "00:07",
+              "observed_delta": 1,
+              "confidence": "high",
+              "timestamp_before_seconds": 1.0,
+              "absolute_timestamp_before": 546.62,
+              "snapped_to_frame_before": 2,
+              "timestamp_after_seconds": 7.0,
+              "absolute_timestamp_after": 552.62,
+              "snapped_to_frame_after": 8
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:06",
+                  "description": "One tortilla lifted out of the bag and carried to the plate",
+                  "visible_count": 1,
+                  "timestamp_seconds": 6.0,
+                  "absolute_timestamp": 551.62,
+                  "snapped_to_frame": 7
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "high"
+            }
+          },
+          "num_frames": 8,
+          "frame_fps": 1.0
+        },
+        {
+          "segment_id": "seg_d326a682",
+          "segment_idx": 1,
+          "video_id": "P04-20240413-151722",
+          "start_timestamp": 724.26,
+          "end_timestamp": 727.06,
+          "clip_start": 722.26,
+          "item_name": "packet/bag of tortillas",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 722.26,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 727.26,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 725.26,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 728.26,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 727.26,
+              "description": "Single tortilla removed from bag and held up mid-air",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"packet/bag of tortillas\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OPAQUE\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:05\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:03\",\n    \"timestamp_after\": \"00:06\",\n    \"observed_delta\": 1,\n    \"confidence\": \"medium\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:05\",\n        \"description\": \"Single tortilla removed from bag and held up mid-air\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 1,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source was INVALID_OPAQUE. Dest was VALID. Transfer was VALID. Final count derived primarily from Path C.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "tortillas",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source was INVALID_OPAQUE. Dest was VALID. Transfer was VALID. Final count derived primarily from Path C.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_OPAQUE",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:05",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 722.26,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 5.0,
+              "absolute_timestamp_after": 727.26,
+              "snapped_to_frame_after": 6
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:03",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": 1,
+              "confidence": "medium",
+              "timestamp_before_seconds": 3.0,
+              "absolute_timestamp_before": 725.26,
+              "snapped_to_frame_before": 4,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 728.26,
+              "snapped_to_frame_after": 7
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:05",
+                  "description": "Single tortilla removed from bag and held up mid-air",
+                  "visible_count": 1,
+                  "timestamp_seconds": 5.0,
+                  "absolute_timestamp": 727.26,
+                  "snapped_to_frame": 6
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "high"
+            }
+          },
+          "num_frames": 7,
+          "frame_fps": 1.0
+        },
+        {
+          "segment_id": "seg_3f264a85",
+          "segment_idx": 2,
+          "video_id": "P04-20240413-151722",
+          "start_timestamp": 830.67,
+          "end_timestamp": 834.05,
+          "clip_start": 828.67,
+          "item_name": "packet/bag of tortillas",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 830.67,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 833.67,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 833.67,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 835.67,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 834.67,
+              "description": "One tortilla removed from the bag and held in hands",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"packet/bag of tortillas\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OPAQUE\",\n    \"timestamp_before\": \"00:02\",\n    \"timestamp_after\": \"00:05\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:05\",\n    \"timestamp_after\": \"00:07\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:06\",\n        \"description\": \"One tortilla removed from the bag and held in hands\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 1,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": \"Most of the tortillas remain in the bag (exact count not clearly visible)\",\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source was INVALID_OPAQUE (stack count not reliably visible through packaging). Dest was VALID (plate went from no tortilla to 1 tortilla). Transfer was VALID (1 tortilla clearly in-hand). Final count derived primarily from Path C (confirmed by Path B).\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "tortillas",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": "Most of the tortillas remain in the bag (exact count not clearly visible)",
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source was INVALID_OPAQUE (stack count not reliably visible through packaging). Dest was VALID (plate went from no tortilla to 1 tortilla). Transfer was VALID (1 tortilla clearly in-hand). Final count derived primarily from Path C (confirmed by Path B).",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_OPAQUE",
+              "timestamp_before_raw": "00:02",
+              "timestamp_after_raw": "00:05",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 2.0,
+              "absolute_timestamp_before": 830.67,
+              "snapped_to_frame_before": 3,
+              "timestamp_after_seconds": 5.0,
+              "absolute_timestamp_after": 833.67,
+              "snapped_to_frame_after": 6
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:05",
+              "timestamp_after_raw": "00:07",
+              "observed_delta": 1,
+              "confidence": "high",
+              "timestamp_before_seconds": 5.0,
+              "absolute_timestamp_before": 833.67,
+              "snapped_to_frame_before": 6,
+              "timestamp_after_seconds": 7.0,
+              "absolute_timestamp_after": 835.67,
+              "snapped_to_frame_after": 8
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:06",
+                  "description": "One tortilla removed from the bag and held in hands",
+                  "visible_count": 1,
+                  "timestamp_seconds": 6.0,
+                  "absolute_timestamp": 834.67,
+                  "snapped_to_frame": 7
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "high"
+            }
+          },
+          "num_frames": 8,
+          "frame_fps": 1.0
+        },
+        {
+          "segment_id": "seg_c176e333",
+          "segment_idx": 3,
+          "video_id": "P04-20240413-151722",
+          "start_timestamp": 940.36,
+          "end_timestamp": 943.72,
+          "clip_start": 938.36,
+          "item_name": "packet/bag of tortillas",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 941.36,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 944.36,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 942.36,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 945.36,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 944.36,
+              "description": "One tortilla lifted out of the opened bag and carried to the plate",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"packet/bag of tortillas\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OPAQUE\",\n    \"timestamp_before\": \"00:03\",\n    \"timestamp_after\": \"00:06\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:04\",\n    \"timestamp_after\": \"00:07\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:06\",\n        \"description\": \"One tortilla lifted out of the opened bag and carried to the plate\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 1,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source was INVALID_OPAQUE. Dest was VALID. Transfer was VALID. Final count derived primarily from Path C (confirmed by Path B).\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "tortillas",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source was INVALID_OPAQUE. Dest was VALID. Transfer was VALID. Final count derived primarily from Path C (confirmed by Path B).",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_OPAQUE",
+              "timestamp_before_raw": "00:03",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 3.0,
+              "absolute_timestamp_before": 941.36,
+              "snapped_to_frame_before": 4,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 944.36,
+              "snapped_to_frame_after": 7
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:04",
+              "timestamp_after_raw": "00:07",
+              "observed_delta": 1,
+              "confidence": "high",
+              "timestamp_before_seconds": 4.0,
+              "absolute_timestamp_before": 942.36,
+              "snapped_to_frame_before": 5,
+              "timestamp_after_seconds": 7.0,
+              "absolute_timestamp_after": 945.36,
+              "snapped_to_frame_after": 8
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:06",
+                  "description": "One tortilla lifted out of the opened bag and carried to the plate",
+                  "visible_count": 1,
+                  "timestamp_seconds": 6.0,
+                  "absolute_timestamp": 944.36,
+                  "snapped_to_frame": 7
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "high"
+            }
+          },
+          "num_frames": 8,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 4,
+      "recipe_amount": {
+        "ingredient": "wholemeal tortilla",
+        "amount": "305",
+        "unit": "g",
+        "recipe": "P04_R01"
+      }
+    },
+    {
+      "narration_id": "P04-20240414-064514-15",
+      "food_name": "carton of eggs",
+      "difficulty": "LOW",
+      "video_range": [
+        "P04-20240414-064514",
+        "P04-20240414-065311"
+      ],
+      "total_ground_truth": 4,
+      "total_ground_truth_unit": "eggs",
+      "num_segments": 3,
+      "segments": [
+        {
+          "segment_id": "seg_f9224614",
+          "segment_idx": 0,
+          "video_id": "P04-20240414-065311",
+          "start_timestamp": 73.13,
+          "end_timestamp": 74.63,
+          "clip_start": 71.13,
+          "item_name": "carton of eggs",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 73.13,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 76.13,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 73.13,
+              "description": "Destination before (delta=0)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 76.13,
+              "description": "Destination after (delta=0)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 76.13,
+              "description": "One egg lifted from the carton and held above the plastic container",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"carton of eggs\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:02\",\n    \"timestamp_after\": \"00:05\",\n    \"observed_delta\": 1,\n    \"confidence\": \"medium\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:02\",\n    \"timestamp_after\": \"00:05\",\n    \"observed_delta\": 0,\n    \"confidence\": \"high\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:05\",\n        \"description\": \"One egg lifted from the carton and held above the plastic container\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 1,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 9,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source was VALID. Dest was VALID. Transfer was VALID. Final count derived primarily from Path C.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "eggs",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 9,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source was VALID. Dest was VALID. Transfer was VALID. Final count derived primarily from Path C.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:02",
+              "timestamp_after_raw": "00:05",
+              "observed_delta": 1,
+              "confidence": "medium",
+              "timestamp_before_seconds": 2.0,
+              "absolute_timestamp_before": 73.13,
+              "snapped_to_frame_before": 3,
+              "timestamp_after_seconds": 5.0,
+              "absolute_timestamp_after": 76.13,
+              "snapped_to_frame_after": 6
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:02",
+              "timestamp_after_raw": "00:05",
+              "observed_delta": 0,
+              "confidence": "high",
+              "timestamp_before_seconds": 2.0,
+              "absolute_timestamp_before": 73.13,
+              "snapped_to_frame_before": 3,
+              "timestamp_after_seconds": 5.0,
+              "absolute_timestamp_after": 76.13,
+              "snapped_to_frame_after": 6
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:05",
+                  "description": "One egg lifted from the carton and held above the plastic container",
+                  "visible_count": 1,
+                  "timestamp_seconds": 5.0,
+                  "absolute_timestamp": 76.13,
+                  "snapped_to_frame": 6
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "high"
+            }
+          },
+          "num_frames": 6,
+          "frame_fps": 1.0
+        },
+        {
+          "segment_id": "seg_79429878",
+          "segment_idx": 1,
+          "video_id": "P04-20240414-065311",
+          "start_timestamp": 117.11,
+          "end_timestamp": 119.64,
+          "clip_start": 115.11,
+          "item_name": "carton of eggs",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 118.11,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 120.11,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 118.11,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 121.11,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 120.11,
+              "description": "Egg picked up from carton and held in hand above the work area",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"carton of eggs\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:03\",\n    \"timestamp_after\": \"00:05\",\n    \"observed_delta\": 1,\n    \"confidence\": \"medium\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:03\",\n    \"timestamp_after\": \"00:06\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:05\",\n        \"description\": \"Egg picked up from carton and held in hand above the work area\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 1,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 11,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source was VALID. Dest was INVALID_OCCLUDED. Transfer was VALID. Final count derived primarily from Path C.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "eggs",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 11,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source was VALID. Dest was INVALID_OCCLUDED. Transfer was VALID. Final count derived primarily from Path C.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:03",
+              "timestamp_after_raw": "00:05",
+              "observed_delta": 1,
+              "confidence": "medium",
+              "timestamp_before_seconds": 3.0,
+              "absolute_timestamp_before": 118.11,
+              "snapped_to_frame_before": 4,
+              "timestamp_after_seconds": 5.0,
+              "absolute_timestamp_after": 120.11,
+              "snapped_to_frame_after": 6
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:03",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 3.0,
+              "absolute_timestamp_before": 118.11,
+              "snapped_to_frame_before": 4,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 121.11,
+              "snapped_to_frame_after": 7
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:05",
+                  "description": "Egg picked up from carton and held in hand above the work area",
+                  "visible_count": 1,
+                  "timestamp_seconds": 5.0,
+                  "absolute_timestamp": 120.11,
+                  "snapped_to_frame": 6
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "high"
+            }
+          },
+          "num_frames": 7,
+          "frame_fps": 1.0
+        },
+        {
+          "segment_id": "seg_fdbc21fd",
+          "segment_idx": 2,
+          "video_id": "P04-20240414-065311",
+          "start_timestamp": 151.16,
+          "end_timestamp": 184.024274,
+          "clip_start": 149.16,
+          "item_name": "carton of eggs",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 152.16,
+              "description": "Source before (delta=2)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:36",
+              "timestamp_seconds": 36.0,
+              "absolute_timestamp": 185.16,
+              "description": "Source after (delta=2)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 152.16,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:36",
+              "timestamp_seconds": 36.0,
+              "absolute_timestamp": 185.16,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 154.16,
+              "description": "Egg 1 picked up from carton (in hand over cutting board)",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:31",
+              "timestamp_seconds": 31.0,
+              "absolute_timestamp": 180.16,
+              "description": "Egg 2 picked up from carton (in hand over cutting board)",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"carton of eggs\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:03\",\n    \"timestamp_after\": \"00:36\",\n    \"observed_delta\": 2,\n    \"confidence\": \"medium\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_PILE\",\n    \"timestamp_before\": \"00:03\",\n    \"timestamp_after\": \"00:36\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:05\",\n        \"description\": \"Egg 1 picked up from carton (in hand over cutting board)\",\n        \"visible_count\": 1\n      },\n      {\n        \"timestamp\": \"00:31\",\n        \"description\": \"Egg 2 picked up from carton (in hand over cutting board)\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 2,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 2,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 8,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source was VALID. Dest was INVALID_PILE. Transfer was VALID. Final count derived primarily from Path C (two distinct egg pick-ups), cross-checked by Path A showing ~2 fewer intact eggs in the carton at the end.\"\n}",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "eggs",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 8,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "medium",
+          "visual_evidence": "Source was VALID. Dest was INVALID_PILE. Transfer was VALID. Final count derived primarily from Path C (two distinct egg pick-ups), cross-checked by Path A showing ~2 fewer intact eggs in the carton at the end.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:03",
+              "timestamp_after_raw": "00:36",
+              "observed_delta": 2,
+              "confidence": "medium",
+              "timestamp_before_seconds": 3.0,
+              "absolute_timestamp_before": 152.16,
+              "snapped_to_frame_before": 4,
+              "timestamp_after_seconds": 36.0,
+              "absolute_timestamp_after": 185.16,
+              "snapped_to_frame_after": 37
+            },
+            "destination": {
+              "status": "INVALID_PILE",
+              "timestamp_before_raw": "00:03",
+              "timestamp_after_raw": "00:36",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 3.0,
+              "absolute_timestamp_before": 152.16,
+              "snapped_to_frame_before": 4,
+              "timestamp_after_seconds": 36.0,
+              "absolute_timestamp_after": 185.16,
+              "snapped_to_frame_after": 37
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:05",
+                  "description": "Egg 1 picked up from carton (in hand over cutting board)",
+                  "visible_count": 1,
+                  "timestamp_seconds": 5.0,
+                  "absolute_timestamp": 154.16,
+                  "snapped_to_frame": 6
+                },
+                {
+                  "timestamp_raw": "00:31",
+                  "description": "Egg 2 picked up from carton (in hand over cutting board)",
+                  "visible_count": 1,
+                  "timestamp_seconds": 31.0,
+                  "absolute_timestamp": 180.16,
+                  "snapped_to_frame": 32
+                }
+              ],
+              "total_transfer_count": 2,
+              "confidence": "high"
+            }
+          },
+          "num_frames": 37,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 4,
+      "recipe_amount": {
+        "ingredient": "eggs",
+        "amount": "68",
+        "unit": "g",
+        "recipe": "P04_R02"
+      }
+    },
+    {
+      "narration_id": "P04-20240414-065311-122",
+      "food_name": "mushrooms (in plastic container)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P04-20240414-064514",
+        "P04-20240414-065311"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "mushrooms",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_342008d0",
+          "segment_idx": 0,
+          "video_id": "P04-20240414-065311",
+          "start_timestamp": 308.272937,
+          "end_timestamp": 310.56,
+          "clip_start": 306.272937,
+          "item_name": "mushrooms (in plastic container)",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 306.27,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 312.27,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 306.27,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 310.27,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 310.27,
+              "description": "Mushroom moved from plastic container to cutting board (hand-held transfer)",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"mushrooms (in plastic container)\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:06\",\n    \"observed_delta\": 1,\n    \"confidence\": \"medium\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:04\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:04\",\n        \"description\": \"Mushroom moved from plastic container to cutting board (hand-held transfer)\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 1,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 2,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source was VALID. Dest was VALID. Transfer was VALID. Final count derived primarily from Path C (supported by Path B).\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "mushrooms",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 2,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source was VALID. Dest was VALID. Transfer was VALID. Final count derived primarily from Path C (supported by Path B).",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": 1,
+              "confidence": "medium",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 306.27,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 312.27,
+              "snapped_to_frame_after": 7
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:04",
+              "observed_delta": 1,
+              "confidence": "high",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 306.27,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 4.0,
+              "absolute_timestamp_after": 310.27,
+              "snapped_to_frame_after": 5
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:04",
+                  "description": "Mushroom moved from plastic container to cutting board (hand-held transfer)",
+                  "visible_count": 1,
+                  "timestamp_seconds": 4.0,
+                  "absolute_timestamp": 310.27,
+                  "snapped_to_frame": 5
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "high"
+            }
+          },
+          "num_frames": 7,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "mushrooms",
+        "amount": "10",
+        "unit": "g",
+        "recipe": "P04_R02"
+      }
+    },
+    {
+      "narration_id": "P04-20240414-162242-51",
+      "food_name": "bag of potatoes",
+      "difficulty": "LOW",
+      "video_range": [
+        "P04-20240414-162242",
+        "P04-20240414-162750",
+        "P04-20240414-164751",
+        "P04-20240414-165333",
+        "P04-20240414-170520"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "potatoes",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_1e203b75",
+          "segment_idx": 0,
+          "video_id": "P04-20240414-162242",
+          "start_timestamp": 120.33,
+          "end_timestamp": 145.119187,
+          "clip_start": 118.33,
+          "item_name": "bag of potatoes",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 118.33,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:22",
+              "timestamp_seconds": 22.0,
+              "absolute_timestamp": 140.33,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 118.33,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:22",
+              "timestamp_seconds": 22.0,
+              "absolute_timestamp": 140.33,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 123.33,
+              "description": "Potato removed from bag and placed onto cutting board",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:10",
+              "timestamp_seconds": 10.0,
+              "absolute_timestamp": 128.33,
+              "description": "Second potato removed from bag and placed onto cutting board",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:19",
+              "timestamp_seconds": 19.0,
+              "absolute_timestamp": 137.33,
+              "description": "One potato moved back into/into the opening of the bag before bag is taken away (net removal reduced by 1)",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"bag of potatoes\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:22\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:22\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:05\",\n        \"description\": \"Potato removed from bag and placed onto cutting board\",\n        \"visible_count\": 1\n      },\n      {\n        \"timestamp\": \"00:10\",\n        \"description\": \"Second potato removed from bag and placed onto cutting board\",\n        \"visible_count\": 1\n      },\n      {\n        \"timestamp\": \"00:19\",\n        \"description\": \"One potato moved back into/into the opening of the bag before bag is taken away (net removal reduced by 1)\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 1,\n    \"confidence\": \"medium\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": \"Unknown (contents of bag not clearly countable after handling/occlusion)\",\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source was INVALID_OCCLUDED. Dest was VALID. Transfer was VALID. Final count derived primarily from Path B, cross-checked with Path C net transfer.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "potatoes",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": "Unknown (contents of bag not clearly countable after handling/occlusion)",
+          "remaining_fraction": null,
+          "confidence": "medium",
+          "visual_evidence": "Source was INVALID_OCCLUDED. Dest was VALID. Transfer was VALID. Final count derived primarily from Path B, cross-checked with Path C net transfer.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:22",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 118.33,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 22.0,
+              "absolute_timestamp_after": 140.33,
+              "snapped_to_frame_after": 23
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:22",
+              "observed_delta": 1,
+              "confidence": "high",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 118.33,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 22.0,
+              "absolute_timestamp_after": 140.33,
+              "snapped_to_frame_after": 23
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:05",
+                  "description": "Potato removed from bag and placed onto cutting board",
+                  "visible_count": 1,
+                  "timestamp_seconds": 5.0,
+                  "absolute_timestamp": 123.33,
+                  "snapped_to_frame": 6
+                },
+                {
+                  "timestamp_raw": "00:10",
+                  "description": "Second potato removed from bag and placed onto cutting board",
+                  "visible_count": 1,
+                  "timestamp_seconds": 10.0,
+                  "absolute_timestamp": 128.33,
+                  "snapped_to_frame": 11
+                },
+                {
+                  "timestamp_raw": "00:19",
+                  "description": "One potato moved back into/into the opening of the bag before bag is taken away (net removal reduced by 1)",
+                  "visible_count": 1,
+                  "timestamp_seconds": 19.0,
+                  "absolute_timestamp": 137.33,
+                  "snapped_to_frame": 20
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "medium"
+            }
+          },
+          "num_frames": 29,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "baking potatoes",
+        "amount": "272",
+        "unit": "g",
+        "recipe": "P04_R04"
+      }
+    },
+    {
+      "narration_id": "P04-20240414-162750-112",
+      "food_name": "brown onion",
+      "difficulty": "LOW",
+      "video_range": [
+        "P04-20240414-162242",
+        "P04-20240414-162750",
+        "P04-20240414-164751",
+        "P04-20240414-165333",
+        "P04-20240414-170520"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "onions",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_3b7ff9ce",
+          "segment_idx": 0,
+          "video_id": "P04-20240414-162750",
+          "start_timestamp": 246.42,
+          "end_timestamp": 247.98,
+          "clip_start": 244.42,
+          "item_name": "brown onion",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "absolute_timestamp": 245.42,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 248.42,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 248.42,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 249.42,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 249.42,
+              "description": "Hand carries a single brown onion away from the produce rack",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"brown onion\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_PILE\",\n    \"timestamp_before\": \"00:01\",\n    \"timestamp_after\": \"00:04\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:04\",\n    \"timestamp_after\": \"00:05\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:05\",\n        \"description\": \"Hand carries a single brown onion away from the produce rack\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 1,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source was INVALID_PILE (onions in a pile; delta not countable). Dest was INVALID_OCCLUDED (no clear before/after placement view). Transfer was VALID (one onion clearly in hand). Final count derived primarily from Path C.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "onions",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "medium",
+          "visual_evidence": "Source was INVALID_PILE (onions in a pile; delta not countable). Dest was INVALID_OCCLUDED (no clear before/after placement view). Transfer was VALID (one onion clearly in hand). Final count derived primarily from Path C.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_PILE",
+              "timestamp_before_raw": "00:01",
+              "timestamp_after_raw": "00:04",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 1.0,
+              "absolute_timestamp_before": 245.42,
+              "snapped_to_frame_before": 2,
+              "timestamp_after_seconds": 4.0,
+              "absolute_timestamp_after": 248.42,
+              "snapped_to_frame_after": 5
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:04",
+              "timestamp_after_raw": "00:05",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 4.0,
+              "absolute_timestamp_before": 248.42,
+              "snapped_to_frame_before": 5,
+              "timestamp_after_seconds": 5.0,
+              "absolute_timestamp_after": 249.42,
+              "snapped_to_frame_after": 6
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:05",
+                  "description": "Hand carries a single brown onion away from the produce rack",
+                  "visible_count": 1,
+                  "timestamp_seconds": 5.0,
+                  "absolute_timestamp": 249.42,
+                  "snapped_to_frame": 6
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "high"
+            }
+          },
+          "num_frames": 6,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "brown onions",
+        "amount": "96",
+        "unit": "g",
+        "recipe": "P04_R04"
+      }
+    },
+    {
+      "narration_id": "P04-20240414-162750-64",
+      "food_name": "green chillies",
+      "difficulty": "LOW",
+      "video_range": [
+        "P04-20240414-162242",
+        "P04-20240414-162750",
+        "P04-20240414-164751",
+        "P04-20240414-165333",
+        "P04-20240414-170520"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "chillies",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_c979b8d8",
+          "segment_idx": 0,
+          "video_id": "P04-20240414-162750",
+          "start_timestamp": 133.67,
+          "end_timestamp": 138.67,
+          "clip_start": 131.67,
+          "item_name": "green chillies",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "absolute_timestamp": 132.67,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "absolute_timestamp": 132.67,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 137.67,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 135.67,
+              "description": "Chilli 1 visible in right hand above open drawer",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 137.67,
+              "description": "Chilli 2 visible in left hand while chilli 1 remains in right hand",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"green chillies\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:01\",\n    \"timestamptampimestamp_after\": \"00:06\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:01\",\n    \"timestamp_after\": \"00:06\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:04\",\n        \"description\": \"Chilli 1 visible in right hand above open drawer\",\n        \"visible_count\": 1\n      },\n      {\n        \"timestamp\": \"00:06\",\n        \"description\": \"Chilli 2 visible in left hand while chilli 1 remains in right hand\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 2,\n    \"confidence\": \"medium\"\n  },\n  \"numeric_count\": 2,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source was INVALID_OCCLUDED (drawer contents not countable). Dest was INVALID_OCCLUDED (no clear receiving container shown). Transfer was VALID (two separate chillies visible in hands). Final count derived primarily from Path C.\"\n}",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "chillies",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "medium",
+          "visual_evidence": "Source was INVALID_OCCLUDED (drawer contents not countable). Dest was INVALID_OCCLUDED (no clear receiving container shown). Transfer was VALID (two separate chillies visible in hands). Final count derived primarily from Path C.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:01",
+              "timestamp_after_raw": "",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 1.0,
+              "absolute_timestamp_before": 132.67,
+              "snapped_to_frame_before": 2,
+              "timestamp_after_seconds": null,
+              "absolute_timestamp_after": null
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:01",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 1.0,
+              "absolute_timestamp_before": 132.67,
+              "snapped_to_frame_before": 2,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 137.67,
+              "snapped_to_frame_after": 7
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:04",
+                  "description": "Chilli 1 visible in right hand above open drawer",
+                  "visible_count": 1,
+                  "timestamp_seconds": 4.0,
+                  "absolute_timestamp": 135.67,
+                  "snapped_to_frame": 5
+                },
+                {
+                  "timestamp_raw": "00:06",
+                  "description": "Chilli 2 visible in left hand while chilli 1 remains in right hand",
+                  "visible_count": 1,
+                  "timestamp_seconds": 6.0,
+                  "absolute_timestamp": 137.67,
+                  "snapped_to_frame": 7
+                }
+              ],
+              "total_transfer_count": 2,
+              "confidence": "medium"
+            }
+          },
+          "num_frames": 9,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 2,
+      "recipe_amount": {
+        "ingredient": "green chillies",
+        "amount": "33",
+        "unit": "g",
+        "recipe": "P04_R04"
+      }
+    },
+    {
+      "narration_id": "P04-20240414-162750-44",
+      "food_name": "box of instant dosa mix",
+      "difficulty": "LOW",
+      "video_range": [
+        "P04-20240414-162242",
+        "P04-20240414-162750",
+        "P04-20240414-164751",
+        "P04-20240414-165333",
+        "P04-20240414-170520",
+        "P04-20240414-172534",
+        "P04-20240414-173337"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "box",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_33d3871d",
+          "segment_idx": 0,
+          "video_id": "P04-20240414-170520",
+          "start_timestamp": 36.29,
+          "end_timestamp": 40.91,
+          "clip_start": 34.29,
+          "item_name": "box of instant dosa mix",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "absolute_timestamp": 35.29,
+              "description": "Source before (delta=0)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 41.29,
+              "description": "Source after (delta=0)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 34.29,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 42.29,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 36.29,
+              "description": "Box of instant dosa mix lifted/handled in hands (opened and inner packet accessed)",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"box of instant dosa mix\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:01\",\n    \"timestamp_after\": \"00:07\",\n    \"observed_delta\": 0,\n    \"confidence\": \"medium\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:02\",\n        \"description\": \"Box of instant dosa mix lifted/handled in hands (opened and inner packet accessed)\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 1,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 0,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 1,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source was VALID (box visible on counter before and after with no net subtraction). Dest was INVALID_OCCLUDED (no clear receiving container/use shown). Transfer was VALID (1 box clearly handled). Final count derived primarily from Path A (net change) with confirmation from Path C (handling without removal).\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "box",
+          "quantity_category": "discrete",
+          "predicted_count": 0,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 1,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "medium",
+          "visual_evidence": "Source was VALID (box visible on counter before and after with no net subtraction). Dest was INVALID_OCCLUDED (no clear receiving container/use shown). Transfer was VALID (1 box clearly handled). Final count derived primarily from Path A (net change) with confirmation from Path C (handling without removal).",
+          "match": "close",
+          "error": -1,
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:01",
+              "timestamp_after_raw": "00:07",
+              "observed_delta": 0,
+              "confidence": "medium",
+              "timestamp_before_seconds": 1.0,
+              "absolute_timestamp_before": 35.29,
+              "snapped_to_frame_before": 2,
+              "timestamp_after_seconds": 7.0,
+              "absolute_timestamp_after": 41.29,
+              "snapped_to_frame_after": 8
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 34.29,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 42.29,
+              "snapped_to_frame_after": 9
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:02",
+                  "description": "Box of instant dosa mix lifted/handled in hands (opened and inner packet accessed)",
+                  "visible_count": 1,
+                  "timestamp_seconds": 2.0,
+                  "absolute_timestamp": 36.29,
+                  "snapped_to_frame": 3
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "high"
+            }
+          },
+          "num_frames": 9,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": null,
+      "recipe_amount": {
+        "ingredient": "instant dosa mix",
+        "amount": "150",
+        "unit": "g",
+        "recipe": "P04_R05"
+      }
+    },
+    {
+      "narration_id": "P04-20240415-175615-115",
+      "food_name": "bay leaves",
+      "difficulty": "LOW",
+      "video_range": [
+        "P04-20240415-175615",
+        "P04-20240415-181212",
+        "P04-20240415-184003"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "leaves",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_d62c2ef2",
+          "segment_idx": 0,
+          "video_id": "P04-20240415-175615",
+          "start_timestamp": 291,
+          "end_timestamp": 302.296079,
+          "clip_start": 289.0,
+          "item_name": "bay leaves",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 289.0,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:14",
+              "timestamp_seconds": 14.0,
+              "absolute_timestamp": 303.0,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 289.0,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:14",
+              "timestamp_seconds": 14.0,
+              "absolute_timestamp": 303.0,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:12",
+              "timestamp_seconds": 12.0,
+              "absolute_timestamp": 301.0,
+              "description": "Single bay leaf removed from bag and carried to plate",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"bay leaves\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:14\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:14\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:12\",\n        \"description\": \"Single bay leaf removed from bag and carried to plate\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 1,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source was INVALID_OCCLUDED (bag contents not countable). Dest was VALID (plate went from empty to 1 leaf). Transfer was VALID (1 leaf visible in hand). Final count derived primarily from Path C, cross-checked with Path B.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "leaves",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source was INVALID_OCCLUDED (bag contents not countable). Dest was VALID (plate went from empty to 1 leaf). Transfer was VALID (1 leaf visible in hand). Final count derived primarily from Path C, cross-checked with Path B.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:14",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 289.0,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 14.0,
+              "absolute_timestamp_after": 303.0,
+              "snapped_to_frame_after": 15
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:14",
+              "observed_delta": 1,
+              "confidence": "high",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 289.0,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 14.0,
+              "absolute_timestamp_after": 303.0,
+              "snapped_to_frame_after": 15
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:12",
+                  "description": "Single bay leaf removed from bag and carried to plate",
+                  "visible_count": 1,
+                  "timestamp_seconds": 12.0,
+                  "absolute_timestamp": 301.0,
+                  "snapped_to_frame": 13
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "high"
+            }
+          },
+          "num_frames": 16,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "bay leaves",
+        "amount": "1",
+        "unit": "leaf",
+        "recipe": "P04_R06"
+      }
+    },
+    {
+      "narration_id": "P04-20240415-175615-129",
+      "food_name": "cinnamon sticks",
+      "difficulty": "LOW",
+      "video_range": [
+        "P04-20240415-175615",
+        "P04-20240415-181212",
+        "P04-20240415-184003"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "sticks",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_aceeeabd",
+          "segment_idx": 0,
+          "video_id": "P04-20240415-175615",
+          "start_timestamp": 319.73,
+          "end_timestamp": 323.412804,
+          "clip_start": 317.73,
+          "item_name": "cinnamon sticks",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 317.73,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 324.73,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 317.73,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 323.73,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 322.73,
+              "description": "One cinnamon stick held in right hand moving from bag toward the plate",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"cinnamon sticks\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:07\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:06\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:05\",\n        \"description\": \"One cinnamon stick held in right hand moving from bag toward the plate\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 1,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source was INVALID_OCCLUDED (bag contents form an overlapping pile so delta not countable). Dest was VALID (plate goes from only bay leaf to bay leaf + 1 cinnamon stick). Transfer was VALID (single stick clearly visible). Final count derived primarily from Path C (confirmed by Path B).\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "sticks",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source was INVALID_OCCLUDED (bag contents form an overlapping pile so delta not countable). Dest was VALID (plate goes from only bay leaf to bay leaf + 1 cinnamon stick). Transfer was VALID (single stick clearly visible). Final count derived primarily from Path C (confirmed by Path B).",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:07",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 317.73,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 7.0,
+              "absolute_timestamp_after": 324.73,
+              "snapped_to_frame_after": 8
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": 1,
+              "confidence": "high",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 317.73,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 323.73,
+              "snapped_to_frame_after": 7
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:05",
+                  "description": "One cinnamon stick held in right hand moving from bag toward the plate",
+                  "visible_count": 1,
+                  "timestamp_seconds": 5.0,
+                  "absolute_timestamp": 322.73,
+                  "snapped_to_frame": 6
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "high"
+            }
+          },
+          "num_frames": 8,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "cinnamon sticks",
+        "amount": "1",
+        "unit": "stick",
+        "recipe": "P04_R06"
+      }
+    },
+    {
+      "narration_id": "P04-20240415-175615-135",
+      "food_name": "cloves",
+      "difficulty": "LOW",
+      "video_range": [
+        "P04-20240415-175615",
+        "P04-20240415-181212",
+        "P04-20240415-184003"
+      ],
+      "total_ground_truth": 4,
+      "total_ground_truth_unit": "cloves",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_d2ffbaef",
+          "segment_idx": 0,
+          "video_id": "P04-20240415-175615",
+          "start_timestamp": 329.65,
+          "end_timestamp": 343.73,
+          "clip_start": 327.65,
+          "item_name": "cloves",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 327.65,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:12",
+              "timestamp_seconds": 12.0,
+              "absolute_timestamp": 339.65,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 332.65,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:12",
+              "timestamp_seconds": 12.0,
+              "absolute_timestamp": 339.65,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 335.65,
+              "description": "Pour/pinch from small plastic bag over the plate",
+              "visibility_status": "clear_view",
+              "visible_count": 4
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"cloves\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:12\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_PILE\",\n    \"timestamp_before\": \"00:05\",\n    \"timestamp_after\": \"00:12\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:08\",\n        \"description\": \"Pour/pinch from small plastic bag over the plate\",\n        \"visible_count\": 4\n      }\n    ],\n    \"total_transfer_count\": 4,\n    \"confidence\": \"medium\"\n  },\n  \"numeric_count\": 4,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source was INVALID_OCCLUDED (bag contents not countable due to pile/hand coverage). Dest was INVALID_PILE (tiny dark items on plate not reliably countable). Transfer was VALID. Final count derived primarily from Path C.\"\n}",
+          "ground_truth_count": 4,
+          "ground_truth_unit": "cloves",
+          "quantity_category": "discrete",
+          "predicted_count": 4,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "medium",
+          "visual_evidence": "Source was INVALID_OCCLUDED (bag contents not countable due to pile/hand coverage). Dest was INVALID_PILE (tiny dark items on plate not reliably countable). Transfer was VALID. Final count derived primarily from Path C.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:12",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 327.65,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 12.0,
+              "absolute_timestamp_after": 339.65,
+              "snapped_to_frame_after": 13
+            },
+            "destination": {
+              "status": "INVALID_PILE",
+              "timestamp_before_raw": "00:05",
+              "timestamp_after_raw": "00:12",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 5.0,
+              "absolute_timestamp_before": 332.65,
+              "snapped_to_frame_before": 6,
+              "timestamp_after_seconds": 12.0,
+              "absolute_timestamp_after": 339.65,
+              "snapped_to_frame_after": 13
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:08",
+                  "description": "Pour/pinch from small plastic bag over the plate",
+                  "visible_count": 4,
+                  "timestamp_seconds": 8.0,
+                  "absolute_timestamp": 335.65,
+                  "snapped_to_frame": 9
+                }
+              ],
+              "total_transfer_count": 4,
+              "confidence": "medium"
+            }
+          },
+          "num_frames": 19,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 4,
+      "recipe_amount": {
+        "ingredient": "whole cloves",
+        "amount": "2",
+        "unit": "g",
+        "recipe": "P04_R06"
+      }
+    },
+    {
+      "narration_id": "P04-20240415-175615-147",
+      "food_name": "star anise",
+      "difficulty": "LOW",
+      "video_range": [
+        "P04-20240415-175615",
+        "P04-20240415-181212",
+        "P04-20240415-184003"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "pieces",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_41c3e15b",
+          "segment_idx": 0,
+          "video_id": "P04-20240415-175615",
+          "start_timestamp": 352.47,
+          "end_timestamp": 368.139523,
+          "clip_start": 350.47,
+          "item_name": "star anise",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 350.47,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:18",
+              "timestamp_seconds": 18.0,
+              "absolute_timestamp": 368.47,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 352.47,
+              "description": "Destination before (delta=2)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:17",
+              "timestamp_seconds": 17.0,
+              "absolute_timestamp": 367.47,
+              "description": "Destination after (delta=2)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 358.47,
+              "description": "Pick 1 star anise from zip bag and move to plate",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:15",
+              "timestamp_seconds": 15.0,
+              "absolute_timestamp": 365.47,
+              "description": "Pick 1 more star anise from zip bag and move to plate",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"star anise\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:18\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:02\",\n    \"timestamp_after\": \"00:17\",\n    \"observed_delta\": 2,\n    \"confidence\": \"medium\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:08\",\n        \"description\": \"Pick 1 star anise from zip bag and move to plate\",\n        \"visible_count\": 1\n      },\n      {\n        \"timestamp\": \"00:15\",\n        \"description\": \"Pick 1 more star anise from zip bag and move to plate\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 2,\n    \"confidence\": \"medium\"\n  },\n  \"numeric_count\": 2,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source was INVALID_OCCLUDED (bag contents mixed/partly blocked by hands; no reliable before/after count). Dest was VALID (plate goes from no visible star anise to two). Transfer was VALID (two separate visible single-item transfers). Final count derived primarily from Path C, cross-checked with Path B.\"\n}",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "pieces",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "medium",
+          "visual_evidence": "Source was INVALID_OCCLUDED (bag contents mixed/partly blocked by hands; no reliable before/after count). Dest was VALID (plate goes from no visible star anise to two). Transfer was VALID (two separate visible single-item transfers). Final count derived primarily from Path C, cross-checked with Path B.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:18",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 350.47,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 18.0,
+              "absolute_timestamp_after": 368.47,
+              "snapped_to_frame_after": 19
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:02",
+              "timestamp_after_raw": "00:17",
+              "observed_delta": 2,
+              "confidence": "medium",
+              "timestamp_before_seconds": 2.0,
+              "absolute_timestamp_before": 352.47,
+              "snapped_to_frame_before": 3,
+              "timestamp_after_seconds": 17.0,
+              "absolute_timestamp_after": 367.47,
+              "snapped_to_frame_after": 18
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:08",
+                  "description": "Pick 1 star anise from zip bag and move to plate",
+                  "visible_count": 1,
+                  "timestamp_seconds": 8.0,
+                  "absolute_timestamp": 358.47,
+                  "snapped_to_frame": 9
+                },
+                {
+                  "timestamp_raw": "00:15",
+                  "description": "Pick 1 more star anise from zip bag and move to plate",
+                  "visible_count": 1,
+                  "timestamp_seconds": 15.0,
+                  "absolute_timestamp": 365.47,
+                  "snapped_to_frame": 16
+                }
+              ],
+              "total_transfer_count": 2,
+              "confidence": "medium"
+            }
+          },
+          "num_frames": 20,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 2,
+      "recipe_amount": {
+        "ingredient": "star anise",
+        "amount": "1",
+        "unit": "pod",
+        "recipe": "P04_R06"
+      }
+    },
+    {
+      "narration_id": "P04-20240415-175615-151",
+      "food_name": "black cardamom",
+      "difficulty": "LOW",
+      "video_range": [
+        "P04-20240415-175615",
+        "P04-20240415-181212",
+        "P04-20240415-184003"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "pods",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_b93adcd8",
+          "segment_idx": 0,
+          "video_id": "P04-20240415-175615",
+          "start_timestamp": 368.37,
+          "end_timestamp": 374.44671,
+          "clip_start": 366.37,
+          "item_name": "black cardamom",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 366.37,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:10",
+              "timestamp_seconds": 10.0,
+              "absolute_timestamp": 376.37,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "absolute_timestamp": 367.37,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 373.37,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 372.37,
+              "description": "Picked up 1 black cardamom pod between fingers above the plate, then dropped onto plate",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"black cardamom\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:10\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_PILE\",\n    \"timestamp_before\": \"00:01\",\n    \"timestamp_after\": \"00:07\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:06\",\n        \"description\": \"Picked up 1 black cardamom pod between fingers above the plate, then dropped onto plate\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 1,\n    \"confidence\": \"medium\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source was INVALID_OCCLUDED (mixed spice bag; no reliable count change). Dest was INVALID_PILE (spices on plate make delta unclear). Transfer was VALID (one pod clearly seen in fingers and placed). Final count derived primarily from Path C.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "pods",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "medium",
+          "visual_evidence": "Source was INVALID_OCCLUDED (mixed spice bag; no reliable count change). Dest was INVALID_PILE (spices on plate make delta unclear). Transfer was VALID (one pod clearly seen in fingers and placed). Final count derived primarily from Path C.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:10",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 366.37,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 10.0,
+              "absolute_timestamp_after": 376.37,
+              "snapped_to_frame_after": 11
+            },
+            "destination": {
+              "status": "INVALID_PILE",
+              "timestamp_before_raw": "00:01",
+              "timestamp_after_raw": "00:07",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 1.0,
+              "absolute_timestamp_before": 367.37,
+              "snapped_to_frame_before": 2,
+              "timestamp_after_seconds": 7.0,
+              "absolute_timestamp_after": 373.37,
+              "snapped_to_frame_after": 8
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:06",
+                  "description": "Picked up 1 black cardamom pod between fingers above the plate, then dropped onto plate",
+                  "visible_count": 1,
+                  "timestamp_seconds": 6.0,
+                  "absolute_timestamp": 372.37,
+                  "snapped_to_frame": 7
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "medium"
+            }
+          },
+          "num_frames": 11,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "black cardamom",
+        "amount": "1",
+        "unit": "pod",
+        "recipe": "P04_R06"
+      }
+    },
+    {
+      "narration_id": "P04-20240415-175615-153",
+      "food_name": "cardamom",
+      "difficulty": "LOW",
+      "video_range": [
+        "P04-20240415-175615",
+        "P04-20240415-181212",
+        "P04-20240415-184003"
+      ],
+      "total_ground_truth": 3,
+      "total_ground_truth_unit": "cardamom pods",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_5ce0aa2c",
+          "segment_idx": 0,
+          "video_id": "P04-20240415-175615",
+          "start_timestamp": 368.37,
+          "end_timestamp": 385.330132,
+          "clip_start": 366.37,
+          "item_name": "cardamom",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 366.37,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 371.37,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 366.37,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 371.37,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "absolute_timestamp": 367.37,
+              "description": "Pinch 1 moved from bag to plate and released",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 368.37,
+              "description": "Pinch 2 moved from bag to plate and released",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 369.37,
+              "description": "Pinch 3 moved from bag to plate and released",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"cardamom\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OPAQUE\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:05\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_PILE\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:05\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:01\",\n        \"description\": \"Pinch 1 moved from bag to plate and released\",\n        \"visible_count\": 1\n      },\n      {\n        \"timestamp\": \"00:02\",\n        \"description\": \"Pinch 2 moved from bag to plate and released\",\n        \"visible_count\": 1\n      },\n      {\n        \"timestamp\": \"00:03\",\n        \"description\": \"Pinch 3 moved from bag to plate and released\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 3,\n    \"confidence\": \"medium\"\n  },\n  \"numeric_count\": 3,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source was INVALID_OPAQUE. Dest was INVALID_PILE. Transfer was VALID. Final count derived primarily from Path C.\"\n}",
+          "ground_truth_count": 3,
+          "ground_truth_unit": "cardamom pods",
+          "quantity_category": "discrete",
+          "predicted_count": 3,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "medium",
+          "visual_evidence": "Source was INVALID_OPAQUE. Dest was INVALID_PILE. Transfer was VALID. Final count derived primarily from Path C.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_OPAQUE",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:05",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 366.37,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 5.0,
+              "absolute_timestamp_after": 371.37,
+              "snapped_to_frame_after": 6
+            },
+            "destination": {
+              "status": "INVALID_PILE",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:05",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 366.37,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 5.0,
+              "absolute_timestamp_after": 371.37,
+              "snapped_to_frame_after": 6
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:01",
+                  "description": "Pinch 1 moved from bag to plate and released",
+                  "visible_count": 1,
+                  "timestamp_seconds": 1.0,
+                  "absolute_timestamp": 367.37,
+                  "snapped_to_frame": 2
+                },
+                {
+                  "timestamp_raw": "00:02",
+                  "description": "Pinch 2 moved from bag to plate and released",
+                  "visible_count": 1,
+                  "timestamp_seconds": 2.0,
+                  "absolute_timestamp": 368.37,
+                  "snapped_to_frame": 3
+                },
+                {
+                  "timestamp_raw": "00:03",
+                  "description": "Pinch 3 moved from bag to plate and released",
+                  "visible_count": 1,
+                  "timestamp_seconds": 3.0,
+                  "absolute_timestamp": 369.37,
+                  "snapped_to_frame": 4
+                }
+              ],
+              "total_transfer_count": 3,
+              "confidence": "medium"
+            }
+          },
+          "num_frames": 21,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 3,
+      "recipe_amount": {
+        "ingredient": "cardamom",
+        "amount": "3",
+        "unit": "pod",
+        "recipe": "P04_R06"
+      }
+    },
+    {
+      "narration_id": "P04-20240415-175615-158",
+      "food_name": "cashews",
+      "difficulty": "LOW",
+      "video_range": [
+        "P04-20240415-175615",
+        "P04-20240415-181212",
+        "P04-20240415-184003"
+      ],
+      "total_ground_truth": 3,
+      "total_ground_truth_unit": "cashew nuts",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_e284ca64",
+          "segment_idx": 0,
+          "video_id": "P04-20240415-175615",
+          "start_timestamp": 396.2,
+          "end_timestamp": 407.42,
+          "clip_start": 394.2,
+          "item_name": "cashews",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 394.2,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:13",
+              "timestamp_seconds": 13.0,
+              "absolute_timestamp": 407.2,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 394.2,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:13",
+              "timestamp_seconds": 13.0,
+              "absolute_timestamp": 407.2,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 399.2,
+              "description": "Pinch 1 moved from bag toward plate",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:11",
+              "timestamp_seconds": 11.0,
+              "absolute_timestamp": 405.2,
+              "description": "Pinch 2 moved from bag toward plate",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"cashews\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:13\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:13\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:05\",\n        \"description\": \"Pinch 1 moved from bag toward plate\",\n        \"visible_count\": 1\n      },\n      {\n        \"timestamp\": \"00:11\",\n        \"description\": \"Pinch 2 moved from bag toward plate\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 2,\n    \"confidence\": \"medium\"\n  },\n  \"numeric_count\": 2,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source was INVALID_OCCLUDED (pile in bag and hand blocks, cannot compute delta). Dest was INVALID_OCCLUDED (plate contents not clearly distinguishable for an exact added-count). Transfer was VALID (two distinct pinches each showing 1 cashew). Final count derived primarily from Path C.\"\n}",
+          "ground_truth_count": 3,
+          "ground_truth_unit": "cashew nuts",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "medium",
+          "visual_evidence": "Source was INVALID_OCCLUDED (pile in bag and hand blocks, cannot compute delta). Dest was INVALID_OCCLUDED (plate contents not clearly distinguishable for an exact added-count). Transfer was VALID (two distinct pinches each showing 1 cashew). Final count derived primarily from Path C.",
+          "match": "close",
+          "error": -1,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:13",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 394.2,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 13.0,
+              "absolute_timestamp_after": 407.2,
+              "snapped_to_frame_after": 14
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:13",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 394.2,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 13.0,
+              "absolute_timestamp_after": 407.2,
+              "snapped_to_frame_after": 14
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:05",
+                  "description": "Pinch 1 moved from bag toward plate",
+                  "visible_count": 1,
+                  "timestamp_seconds": 5.0,
+                  "absolute_timestamp": 399.2,
+                  "snapped_to_frame": 6
+                },
+                {
+                  "timestamp_raw": "00:11",
+                  "description": "Pinch 2 moved from bag toward plate",
+                  "visible_count": 1,
+                  "timestamp_seconds": 11.0,
+                  "absolute_timestamp": 405.2,
+                  "snapped_to_frame": 12
+                }
+              ],
+              "total_transfer_count": 2,
+              "confidence": "medium"
+            }
+          },
+          "num_frames": 16,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 2,
+      "recipe_amount": {
+        "ingredient": "cashew nuts",
+        "amount": "4",
+        "unit": "g",
+        "recipe": "P04_R06"
+      }
+    },
+    {
+      "narration_id": "P04-20240415-175615-62",
+      "food_name": "garlic",
+      "difficulty": "LOW",
+      "video_range": [
+        "P04-20240415-175615",
+        "P04-20240415-181212",
+        "P04-20240415-184003"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "cloves",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_32c742ca",
+          "segment_idx": 0,
+          "video_id": "P04-20240415-175615",
+          "start_timestamp": 844.53,
+          "end_timestamp": 851.382134,
+          "clip_start": 842.53,
+          "item_name": "garlic",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 842.53,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 850.53,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 842.53,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 850.53,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 845.53,
+              "description": "Garlic clove held in hands while peeling (single clove in transit)",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"garlic\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_PILE\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:03\",\n        \"description\": \"Garlic clove held in hands while peeling (single clove in transit)\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 1,\n    \"confidence\": \"medium\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source was INVALID_OCCLUDED. Dest was INVALID_PILE. Transfer was VALID. Final count derived primarily from Path C.\"\n}",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "cloves",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "medium",
+          "visual_evidence": "Source was INVALID_OCCLUDED. Dest was INVALID_PILE. Transfer was VALID. Final count derived primarily from Path C.",
+          "match": "close",
+          "error": -1,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 842.53,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 850.53,
+              "snapped_to_frame_after": 9
+            },
+            "destination": {
+              "status": "INVALID_PILE",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 842.53,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 850.53,
+              "snapped_to_frame_after": 9
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:03",
+                  "description": "Garlic clove held in hands while peeling (single clove in transit)",
+                  "visible_count": 1,
+                  "timestamp_seconds": 3.0,
+                  "absolute_timestamp": 845.53,
+                  "snapped_to_frame": 4
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "medium"
+            }
+          },
+          "num_frames": 11,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "garlic",
+        "amount": "3",
+        "unit": "g",
+        "recipe": "P04_R06"
+      }
+    },
+    {
+      "narration_id": "P04-20240415-175615-64",
+      "food_name": "ginger",
+      "difficulty": "LOW",
+      "video_range": [
+        "P04-20240415-175615",
+        "P04-20240415-181212",
+        "P04-20240415-184003"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "pieces",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_dbf9a617",
+          "segment_idx": 0,
+          "video_id": "P04-20240415-175615",
+          "start_timestamp": 148.82,
+          "end_timestamp": 151.035951,
+          "clip_start": 146.82,
+          "item_name": "ginger",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 146.82,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 149.82,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 146.82,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 152.82,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 149.82,
+              "description": "Pickup 1: ginger piece visible in right hand above the rack",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"ginger\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_PILE\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:03\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:06\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:03\",\n        \"description\": \"Pickup 1: ginger piece visible in right hand above the rack\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 1,\n    \"confidence\": \"medium\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source was INVALID_PILE. Dest was INVALID_OCCLUDED. Transfer was VALID. Final count derived primarily from Path C.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "pieces",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "medium",
+          "visual_evidence": "Source was INVALID_PILE. Dest was INVALID_OCCLUDED. Transfer was VALID. Final count derived primarily from Path C.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_PILE",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:03",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 146.82,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 3.0,
+              "absolute_timestamp_after": 149.82,
+              "snapped_to_frame_after": 4
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 146.82,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 152.82,
+              "snapped_to_frame_after": 7
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:03",
+                  "description": "Pickup 1: ginger piece visible in right hand above the rack",
+                  "visible_count": 1,
+                  "timestamp_seconds": 3.0,
+                  "absolute_timestamp": 149.82,
+                  "snapped_to_frame": 4
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "medium"
+            }
+          },
+          "num_frames": 7,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "ginger",
+        "amount": "2",
+        "unit": "g",
+        "recipe": "P04_R06"
+      }
+    },
+    {
+      "narration_id": "P04-20240415-175615-67",
+      "food_name": "brown onion",
+      "difficulty": "LOW",
+      "video_range": [
+        "P04-20240415-175615",
+        "P04-20240415-181212",
+        "P04-20240415-184003"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "onions",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_5cd0e705",
+          "segment_idx": 0,
+          "video_id": "P04-20240415-175615",
+          "start_timestamp": 155,
+          "end_timestamp": 159.39,
+          "clip_start": 153.0,
+          "item_name": "brown onion",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 157.0,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 159.0,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 153.0,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 161.0,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 159.0,
+              "description": "Hand grasps and lifts a single brown onion from the produce basket",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"brown onion\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_PILE\",\n    \"timestamp_before\": \"00:04\",\n    \"timestamp_after\": \"00:06\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:06\",\n        \"description\": \"Hand grasps and lifts a single brown onion from the produce basket\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 1,\n    \"confidence\": \"medium\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"medium\",\n  \"visual_evidence\": \"Source was INVALID_PILE. Dest was INVALID_OCCLUDED. Transfer was VALID. Final count derived primarily from Path C.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "onions",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "medium",
+          "visual_evidence": "Source was INVALID_PILE. Dest was INVALID_OCCLUDED. Transfer was VALID. Final count derived primarily from Path C.",
+          "match": "exact",
+          "error": 0,
+          "paths": {
+            "source": {
+              "status": "INVALID_PILE",
+              "timestamp_before_raw": "00:04",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 4.0,
+              "absolute_timestamp_before": 157.0,
+              "snapped_to_frame_before": 5,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 159.0,
+              "snapped_to_frame_after": 7
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 153.0,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 161.0,
+              "snapped_to_frame_after": 9
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:06",
+                  "description": "Hand grasps and lifts a single brown onion from the produce basket",
+                  "visible_count": 1,
+                  "timestamp_seconds": 6.0,
+                  "absolute_timestamp": 159.0,
+                  "snapped_to_frame": 7
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "medium"
+            }
+          },
+          "num_frames": 9,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "brown onions",
+        "amount": "80",
+        "unit": "g",
+        "recipe": "P04_R06"
+      }
+    },
+    {
+      "narration_id": "P04-20240415-175615-70",
+      "food_name": "green chilli",
+      "difficulty": "LOW",
+      "video_range": [
+        "P04-20240415-175615",
+        "P04-20240415-181212",
+        "P04-20240415-184003"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "chillis",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_12d5c9b0",
+          "segment_idx": 0,
+          "video_id": "P04-20240415-175615",
+          "start_timestamp": 165.92,
+          "end_timestamp": 169.62,
+          "clip_start": 163.92,
+          "item_name": "green chilli",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 169.92,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 170.92,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 163.92,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 170.92,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"green chilli\",\n  \"quantity_category\": \"unknown\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:06\",\n    \"timestamp_after\": \"00:07\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:07\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_transfer\": {\n    \"status\": \"INVALID_HIDDEN\",\n    \"transfer_events\": [],\n    \"total_transfer_count\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": null,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"low\",\n  \"visual_evidence\": \"Source was INVALID_OCCLUDED (produce drawer contents cluttered; green chilli not clearly identifiable for counting). Dest was INVALID_OCCLUDED (no clear destination container shown). Transfer was INVALID_HIDDEN (hand reaches into drawer but item in-hand not visible). Final count derived primarily from Path C could not be established.\"\n}",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "chillis",
+          "quantity_category": "unknown",
+          "predicted_count": null,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "low",
+          "visual_evidence": "Source was INVALID_OCCLUDED (produce drawer contents cluttered; green chilli not clearly identifiable for counting). Dest was INVALID_OCCLUDED (no clear destination container shown). Transfer was INVALID_HIDDEN (hand reaches into drawer but item in-hand not visible). Final count derived primarily from Path C could not be established.",
+          "match": "pred_unknown",
+          "error": null,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:06",
+              "timestamp_after_raw": "00:07",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 6.0,
+              "absolute_timestamp_before": 169.92,
+              "snapped_to_frame_before": 7,
+              "timestamp_after_seconds": 7.0,
+              "absolute_timestamp_after": 170.92,
+              "snapped_to_frame_after": 8
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:07",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 163.92,
+              "snapped_to_frame_before": 1,
+              "timestamp_after_seconds": 7.0,
+              "absolute_timestamp_after": 170.92,
+              "snapped_to_frame_after": 8
+            },
+            "transfer": {
+              "status": "INVALID_HIDDEN",
+              "transfer_events": [],
+              "total_transfer_count": null,
+              "confidence": "low"
+            }
+          },
+          "num_frames": 8,
+          "frame_fps": 1.0
+        }
+      ],
+      "total_predicted": null,
+      "recipe_amount": {
+        "ingredient": "green chillies",
+        "amount": "11.5",
+        "unit": "g",
+        "recipe": "P04_R06"
+      }
+    }
+  ]
+}

@@ -1,0 +1,1902 @@
+{
+  "name": "path_conflicts_hybrid",
+  "schema_version": 2,
+  "vlm_tag": "hybrid_qwen",
+  "created_at": "2026-02-04T04:52:09.285627",
+  "created_from": "hybrid_qwen + hybrid_gpt5 path conflict filter",
+  "total_cases": 24,
+  "original_stats": {
+    "total_multi_valid_segments": 116,
+    "total_conflicting_segments": 24
+  },
+  "cases": [
+    {
+      "case_id": "FC001",
+      "participant": "P01",
+      "narration_id": "P01-20240202-110250-29",
+      "segment_id": "seg_ff1d764e",
+      "include": true,
+      "priority": 0,
+      "notes": "",
+      "tags": [
+        "destination",
+        "transfer"
+      ],
+      "food_name": "oranges (in mesh bag)",
+      "difficulty": "LOW",
+      "video_id": "P01-20240202-110250",
+      "start_timestamp": 53.31,
+      "end_timestamp": 60.531511,
+      "ground_truth_count": 3,
+      "ground_truth_unit": "oranges",
+      "predicted_count": 2,
+      "predicted_unit": "unit",
+      "match": "close",
+      "confidence": "medium",
+      "path_estimates": {
+        "destination": 2,
+        "transfer": 1
+      },
+      "trusted_paths": [
+        "destination"
+      ],
+      "ignored_paths": [
+        "transfer"
+      ],
+      "visual_evidence": "Source was INVALID_OCCLUDED. Dest was VALID. Transfer was VALID. Final count derived primarily from Path B.",
+      "paths": {
+        "source": {
+          "status": "INVALID_OCCLUDED",
+          "timestamp_before_raw": "00:00",
+          "timestamp_after_raw": "00:06",
+          "observed_delta": null,
+          "confidence": "low",
+          "timestamp_before_seconds": 0.0,
+          "absolute_timestamp_before": 51.31,
+          "snapped_to_frame_before": 1,
+          "timestamp_after_seconds": 6.0,
+          "absolute_timestamp_after": 57.31,
+          "snapped_to_frame_after": 7
+        },
+        "destination": {
+          "status": "VALID",
+          "timestamp_before_raw": "00:00",
+          "timestamp_after_raw": "00:06",
+          "observed_delta": 2,
+          "confidence": "medium",
+          "timestamp_before_seconds": 0.0,
+          "absolute_timestamp_before": 51.31,
+          "snapped_to_frame_before": 1,
+          "timestamp_after_seconds": 6.0,
+          "absolute_timestamp_after": 57.31,
+          "snapped_to_frame_after": 7
+        },
+        "transfer": {
+          "status": "VALID",
+          "transfer_events": [
+            {
+              "timestamp_raw": "00:03",
+              "description": "One orange removed from the opened mesh and held over the counter",
+              "visible_count": 1,
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 54.31,
+              "snapped_to_frame": 4
+            }
+          ],
+          "total_transfer_count": 1,
+          "confidence": "low"
+        }
+      }
+    },
+    {
+      "case_id": "FC002",
+      "participant": "P01",
+      "narration_id": "P01-20240203-184214-193",
+      "segment_id": "seg_c3cd7d59",
+      "include": true,
+      "priority": 0,
+      "notes": "",
+      "tags": [
+        "source",
+        "transfer"
+      ],
+      "food_name": "garlic (head/bulb)",
+      "difficulty": "LOW",
+      "video_id": "P01-20240203-184214",
+      "start_timestamp": 468.54,
+      "end_timestamp": 471.22,
+      "ground_truth_count": 2,
+      "ground_truth_unit": "cloves",
+      "predicted_count": 1,
+      "predicted_unit": "unit",
+      "match": "close",
+      "confidence": "high",
+      "path_estimates": {
+        "source": -1,
+        "transfer": 1
+      },
+      "trusted_paths": [
+        "transfer"
+      ],
+      "ignored_paths": [
+        "source"
+      ],
+      "visual_evidence": "Source was valid. Dest was invalid due to pile. Transfer was valid. Final count derived primarily from Path A.",
+      "paths": {
+        "source": {
+          "status": "VALID",
+          "timestamp_before_raw": "00:00",
+          "timestamp_after_raw": "00:01",
+          "observed_delta": -1,
+          "confidence": "high",
+          "timestamp_before_seconds": 0.0,
+          "absolute_timestamp_before": 466.54,
+          "timestamp_after_seconds": 1.0,
+          "absolute_timestamp_after": 467.54
+        },
+        "destination": {
+          "status": "INVALID_PILE",
+          "timestamp_before_raw": "00:01",
+          "timestamp_after_raw": "00:06",
+          "observed_delta": null,
+          "confidence": "low",
+          "timestamp_before_seconds": 1.0,
+          "absolute_timestamp_before": 467.54,
+          "timestamp_after_seconds": 6.0,
+          "absolute_timestamp_after": 472.54
+        },
+        "transfer": {
+          "status": "VALID",
+          "transfer_events": [
+            {
+              "timestamp_raw": "00:01",
+              "description": "One head of garlic being removed from cabinet",
+              "visible_count": 1,
+              "timestamp_seconds": 1.0,
+              "absolute_timestamp": 467.54
+            },
+            {
+              "timestamp_raw": "00:02",
+              "description": "One head of garlic being held and peeled",
+              "visible_count": 1,
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 468.54
+            }
+          ],
+          "total_transfer_count": 1,
+          "confidence": "high"
+        }
+      }
+    },
+    {
+      "case_id": "FC003",
+      "participant": "P01",
+      "narration_id": "P01-20240204-142301-125",
+      "segment_id": "seg_78e59fea",
+      "include": true,
+      "priority": 0,
+      "notes": "",
+      "tags": [
+        "source",
+        "transfer"
+      ],
+      "food_name": "box of chicken stock cubes",
+      "difficulty": "LOW",
+      "video_id": "P01-20240204-145458",
+      "start_timestamp": 228.52,
+      "end_timestamp": 233.193142,
+      "ground_truth_count": 1,
+      "ground_truth_unit": "cubes",
+      "predicted_count": 0,
+      "predicted_unit": "unit",
+      "match": "close",
+      "confidence": "medium",
+      "path_estimates": {
+        "source": 0,
+        "transfer": 1
+      },
+      "trusted_paths": [
+        "source"
+      ],
+      "ignored_paths": [
+        "transfer"
+      ],
+      "visual_evidence": "Source was VALID (box appears present before and after, indicating it was returned). Dest was INVALID_OCCLUDED (no clear destination container shown). Transfer was VALID (one box removed then placed back). Final count derived primarily from Path A with support from Path C (handled but not dispensed/removed).",
+      "paths": {
+        "source": {
+          "status": "VALID",
+          "timestamp_before_raw": "00:02",
+          "timestamp_after_raw": "00:06",
+          "observed_delta": 0,
+          "confidence": "medium",
+          "timestamp_before_seconds": 2.0,
+          "absolute_timestamp_before": 228.52,
+          "snapped_to_frame_before": 3,
+          "timestamp_after_seconds": 6.0,
+          "absolute_timestamp_after": 232.52,
+          "snapped_to_frame_after": 7
+        },
+        "destination": {
+          "status": "INVALID_OCCLUDED",
+          "timestamp_before_raw": "00:00",
+          "timestamp_after_raw": "00:08",
+          "observed_delta": null,
+          "confidence": "low",
+          "timestamp_before_seconds": 0.0,
+          "absolute_timestamp_before": 226.52,
+          "snapped_to_frame_before": 1,
+          "timestamp_after_seconds": 8.0,
+          "absolute_timestamp_after": 234.52,
+          "snapped_to_frame_after": 9
+        },
+        "transfer": {
+          "status": "VALID",
+          "transfer_events": [
+            {
+              "timestamp_raw": "00:03",
+              "description": "Hand lifts a single rectangular box from the fridge door shelf",
+              "visible_count": 1,
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 229.52,
+              "snapped_to_frame": 4
+            },
+            {
+              "timestamp_raw": "00:06",
+              "description": "Hand places the same box back onto the fridge door shelf",
+              "visible_count": 1,
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 232.52,
+              "snapped_to_frame": 7
+            }
+          ],
+          "total_transfer_count": 1,
+          "confidence": "medium"
+        }
+      }
+    },
+    {
+      "case_id": "FC004",
+      "participant": "P02",
+      "narration_id": "P02-20240211-120927-1076",
+      "segment_id": "seg_8b044cc0",
+      "include": true,
+      "priority": 0,
+      "notes": "",
+      "tags": [
+        "source",
+        "destination",
+        "transfer"
+      ],
+      "food_name": "baguette",
+      "difficulty": "LOW",
+      "video_id": "P02-20240211-120927",
+      "start_timestamp": 2889.86,
+      "end_timestamp": 2909.31,
+      "ground_truth_count": 1,
+      "ground_truth_unit": "baguettes",
+      "predicted_count": 1,
+      "predicted_unit": "unit",
+      "match": "exact",
+      "confidence": "high",
+      "path_estimates": {
+        "source": -1,
+        "destination": 1,
+        "transfer": 1
+      },
+      "trusted_paths": [
+        "destination",
+        "transfer"
+      ],
+      "ignored_paths": [
+        "source"
+      ],
+      "visual_evidence": "Source was VALID. Dest was VALID. Transfer was VALID. Final count derived primarily from Path A.",
+      "paths": {
+        "source": {
+          "status": "VALID",
+          "timestamp_before_raw": "00:00",
+          "timestamp_after_raw": "00:02",
+          "observed_delta": -1,
+          "confidence": "high",
+          "timestamp_before_seconds": 0.0,
+          "absolute_timestamp_before": 2887.86,
+          "timestamp_after_seconds": 2.0,
+          "absolute_timestamp_after": 2889.86
+        },
+        "destination": {
+          "status": "VALID",
+          "timestamp_before_raw": "00:00",
+          "timestamp_after_raw": "00:02",
+          "observed_delta": 1,
+          "confidence": "high",
+          "timestamp_before_seconds": 0.0,
+          "absolute_timestamp_before": 2887.86,
+          "timestamp_after_seconds": 2.0,
+          "absolute_timestamp_after": 2889.86
+        },
+        "transfer": {
+          "status": "VALID",
+          "transfer_events": [
+            {
+              "timestamp_raw": "00:03",
+              "description": "Baguette being removed from packaging",
+              "visible_count": 1,
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 2890.86
+            }
+          ],
+          "total_transfer_count": 1,
+          "confidence": "high"
+        }
+      }
+    },
+    {
+      "case_id": "FC005",
+      "participant": "P03",
+      "narration_id": "P03-20240217-192543-10",
+      "segment_id": "seg_7172e172",
+      "include": true,
+      "priority": 0,
+      "notes": "",
+      "tags": [
+        "destination",
+        "transfer"
+      ],
+      "food_name": "box of mushrooms",
+      "difficulty": "LOW",
+      "video_id": "P03-20240217-192543",
+      "start_timestamp": 479.69,
+      "end_timestamp": 490,
+      "ground_truth_count": 5,
+      "ground_truth_unit": "mushrooms",
+      "predicted_count": 3,
+      "predicted_unit": "unit",
+      "match": "wrong",
+      "confidence": "medium",
+      "path_estimates": {
+        "destination": 3,
+        "transfer": 2
+      },
+      "trusted_paths": [
+        "destination"
+      ],
+      "ignored_paths": [
+        "transfer"
+      ],
+      "visual_evidence": "Source was INVALID_OCCLUDED (piled/partly blocked; could not count). Dest was VALID (3 mushrooms visible on counter after). Transfer was VALID but incomplete (only 2 clearly seen in-hand). Final count derived primarily from Path B.",
+      "paths": {
+        "source": {
+          "status": "INVALID_OCCLUDED",
+          "timestamp_before_raw": "00:00",
+          "timestamp_after_raw": "00:10",
+          "observed_delta": null,
+          "confidence": "low",
+          "timestamp_before_seconds": 0.0,
+          "absolute_timestamp_before": 477.69,
+          "snapped_to_frame_before": 1,
+          "timestamp_after_seconds": 10.0,
+          "absolute_timestamp_after": 487.69,
+          "snapped_to_frame_after": 11
+        },
+        "destination": {
+          "status": "VALID",
+          "timestamp_before_raw": "00:01",
+          "timestamp_after_raw": "00:09",
+          "observed_delta": 3,
+          "confidence": "medium",
+          "timestamp_before_seconds": 1.0,
+          "absolute_timestamp_before": 478.69,
+          "snapped_to_frame_before": 2,
+          "timestamp_after_seconds": 9.0,
+          "absolute_timestamp_after": 486.69,
+          "snapped_to_frame_after": 10
+        },
+        "transfer": {
+          "status": "VALID",
+          "transfer_events": [
+            {
+              "timestamp_raw": "00:02",
+              "description": "Mushroom 1 held above open box",
+              "visible_count": 1,
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 479.69,
+              "snapped_to_frame": 3
+            },
+            {
+              "timestamp_raw": "00:06",
+              "description": "Mushroom 2 held in right hand after removing from box",
+              "visible_count": 1,
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 483.69,
+              "snapped_to_frame": 7
+            }
+          ],
+          "total_transfer_count": 2,
+          "confidence": "low"
+        }
+      }
+    },
+    {
+      "case_id": "FC006",
+      "participant": "P03",
+      "narration_id": "P03-20240218-190556-248",
+      "segment_id": "seg_1931a818",
+      "include": true,
+      "priority": 0,
+      "notes": "",
+      "tags": [
+        "destination",
+        "transfer"
+      ],
+      "food_name": "plant-based burger",
+      "difficulty": "LOW",
+      "video_id": "P03-20240218-190556",
+      "start_timestamp": 1290.46,
+      "end_timestamp": 1293.46,
+      "ground_truth_count": 2,
+      "ground_truth_unit": "burgers",
+      "predicted_count": 2,
+      "predicted_unit": "unit",
+      "match": "exact",
+      "confidence": "high",
+      "path_estimates": {
+        "destination": 2,
+        "transfer": 1
+      },
+      "trusted_paths": [
+        "destination"
+      ],
+      "ignored_paths": [
+        "transfer"
+      ],
+      "visual_evidence": "Source was INVALID_OCCLUDED. Dest was VALID. Transfer was VALID (but only one patty clearly seen mid-air). Final count derived primarily from Path B.",
+      "paths": {
+        "source": {
+          "status": "INVALID_OCCLUDED",
+          "timestamp_before_raw": "00:02",
+          "timestamp_after_raw": "00:05",
+          "observed_delta": null,
+          "confidence": "low",
+          "timestamp_before_seconds": 2.0,
+          "absolute_timestamp_before": 1290.46,
+          "snapped_to_frame_before": 3,
+          "timestamp_after_seconds": 5.0,
+          "absolute_timestamp_after": 1293.46,
+          "snapped_to_frame_after": 6
+        },
+        "destination": {
+          "status": "VALID",
+          "timestamp_before_raw": "00:04",
+          "timestamp_after_raw": "00:05",
+          "observed_delta": 2,
+          "confidence": "high",
+          "timestamp_before_seconds": 4.0,
+          "absolute_timestamp_before": 1292.46,
+          "snapped_to_frame_before": 5,
+          "timestamp_after_seconds": 5.0,
+          "absolute_timestamp_after": 1293.46,
+          "snapped_to_frame_after": 6
+        },
+        "transfer": {
+          "status": "VALID",
+          "transfer_events": [
+            {
+              "timestamp_raw": "00:04",
+              "description": "One plant-based burger patty visible in right hand above the cutting board (about to be placed).",
+              "visible_count": 1,
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 1292.46,
+              "snapped_to_frame": 5
+            }
+          ],
+          "total_transfer_count": 1,
+          "confidence": "low"
+        }
+      }
+    },
+    {
+      "case_id": "FC007",
+      "participant": "P03",
+      "narration_id": "P03-20240218-190556-411",
+      "segment_id": "seg_210d4c9f",
+      "include": true,
+      "priority": 0,
+      "notes": "",
+      "tags": [
+        "source",
+        "transfer"
+      ],
+      "food_name": "onion",
+      "difficulty": "LOW",
+      "video_id": "P03-20240218-190556",
+      "start_timestamp": 985.57,
+      "end_timestamp": 990.05,
+      "ground_truth_count": 1,
+      "ground_truth_unit": "onions",
+      "predicted_count": 1,
+      "predicted_unit": "unit",
+      "match": "exact",
+      "confidence": "high",
+      "path_estimates": {
+        "source": -1,
+        "transfer": 1
+      },
+      "trusted_paths": [
+        "transfer"
+      ],
+      "ignored_paths": [
+        "source"
+      ],
+      "visual_evidence": "Source was valid. Dest was invalid due to pile. Transfer was valid. Final count derived primarily from Path C.",
+      "paths": {
+        "source": {
+          "status": "VALID",
+          "timestamp_before_raw": "00:00",
+          "timestamp_after_raw": "00:05",
+          "observed_delta": -1,
+          "confidence": "high",
+          "timestamp_before_seconds": 0.0,
+          "absolute_timestamp_before": 983.57,
+          "timestamp_after_seconds": 5.0,
+          "absolute_timestamp_after": 988.57
+        },
+        "destination": {
+          "status": "INVALID_PILE",
+          "timestamp_before_raw": "00:06",
+          "timestamp_after_raw": "00:07",
+          "observed_delta": null,
+          "confidence": "low",
+          "timestamp_before_seconds": 6.0,
+          "absolute_timestamp_before": 989.57,
+          "timestamp_after_seconds": 7.0,
+          "absolute_timestamp_after": 990.57
+        },
+        "transfer": {
+          "status": "VALID",
+          "transfer_events": [
+            {
+              "timestamp_raw": "00:06",
+              "description": "One onion held in hand",
+              "visible_count": 1,
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 989.57
+            }
+          ],
+          "total_transfer_count": 1,
+          "confidence": "high"
+        }
+      }
+    },
+    {
+      "case_id": "FC008",
+      "participant": "P04",
+      "narration_id": "P04-20240413-142619-394",
+      "segment_id": "seg_b02950de",
+      "include": true,
+      "priority": 0,
+      "notes": "",
+      "tags": [
+        "source",
+        "transfer"
+      ],
+      "food_name": "onion",
+      "difficulty": "LOW",
+      "video_id": "P04-20240413-142619",
+      "start_timestamp": 840.24,
+      "end_timestamp": 842.29,
+      "ground_truth_count": 1,
+      "ground_truth_unit": "onions",
+      "predicted_count": 1,
+      "predicted_unit": "unit",
+      "match": "exact",
+      "confidence": "high",
+      "path_estimates": {
+        "source": -1,
+        "transfer": 1
+      },
+      "trusted_paths": [
+        "transfer"
+      ],
+      "ignored_paths": [
+        "source"
+      ],
+      "visual_evidence": "Source was valid. Dest was invalid due to pile. Transfer was valid. Final count derived primarily from Path C.",
+      "paths": {
+        "source": {
+          "status": "VALID",
+          "timestamp_before_raw": "00:02",
+          "timestamp_after_raw": "00:04",
+          "observed_delta": -1,
+          "confidence": "high",
+          "timestamp_before_seconds": 2.0,
+          "absolute_timestamp_before": 840.24,
+          "timestamp_after_seconds": 4.0,
+          "absolute_timestamp_after": 842.24
+        },
+        "destination": {
+          "status": "INVALID_PILE",
+          "timestamp_before_raw": "00:05",
+          "timestamp_after_raw": "00:05",
+          "observed_delta": null,
+          "confidence": "low",
+          "timestamp_before_seconds": 5.0,
+          "absolute_timestamp_before": 843.24,
+          "timestamp_after_seconds": 5.0,
+          "absolute_timestamp_after": 843.24
+        },
+        "transfer": {
+          "status": "VALID",
+          "transfer_events": [
+            {
+              "timestamp_raw": "00:04",
+              "description": "One onion held in hand",
+              "visible_count": 1,
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 842.24
+            }
+          ],
+          "total_transfer_count": 1,
+          "confidence": "high"
+        }
+      }
+    },
+    {
+      "case_id": "FC009",
+      "participant": "P04",
+      "narration_id": "P04-20240413-142619-402",
+      "segment_id": "seg_47603736",
+      "include": true,
+      "priority": 0,
+      "notes": "",
+      "tags": [
+        "destination",
+        "transfer"
+      ],
+      "food_name": "tomatoes on the vine",
+      "difficulty": "LOW",
+      "video_id": "P04-20240413-142619",
+      "start_timestamp": 865.78,
+      "end_timestamp": 869.48,
+      "ground_truth_count": 2,
+      "ground_truth_unit": "tomatoes",
+      "predicted_count": 3,
+      "predicted_unit": "unit",
+      "match": "close",
+      "confidence": "high",
+      "path_estimates": {
+        "destination": 2,
+        "transfer": 3
+      },
+      "trusted_paths": [
+        "transfer"
+      ],
+      "ignored_paths": [
+        "destination"
+      ],
+      "visual_evidence": "Source was occluded. Destination was valid but the count was not clearly visible. Transfer was clear and showed 3 tomatoes being removed. Final count derived primarily from Path C.",
+      "paths": {
+        "source": {
+          "status": "INVALID_OCCLUDED",
+          "timestamp_before_raw": "00:00",
+          "timestamp_after_raw": "00:07",
+          "observed_delta": null,
+          "confidence": "low",
+          "timestamp_before_seconds": 0.0,
+          "absolute_timestamp_before": 863.78,
+          "timestamp_after_seconds": 7.0,
+          "absolute_timestamp_after": 870.78
+        },
+        "destination": {
+          "status": "VALID",
+          "timestamp_before_raw": "00:02",
+          "timestamp_after_raw": "00:07",
+          "observed_delta": 2,
+          "confidence": "high",
+          "timestamp_before_seconds": 2.0,
+          "absolute_timestamp_before": 865.78,
+          "timestamp_after_seconds": 7.0,
+          "absolute_timestamp_after": 870.78
+        },
+        "transfer": {
+          "status": "VALID",
+          "transfer_events": [
+            {
+              "timestamp_raw": "00:03",
+              "description": "Two tomatoes being removed from the vine",
+              "visible_count": 2,
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 866.78
+            },
+            {
+              "timestamp_raw": "00:05",
+              "description": "One tomato being removed from the vine",
+              "visible_count": 1,
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 868.78
+            }
+          ],
+          "total_transfer_count": 3,
+          "confidence": "high"
+        }
+      }
+    },
+    {
+      "case_id": "FC010",
+      "participant": "P04",
+      "narration_id": "P04-20240414-064514-15",
+      "segment_id": "seg_f9224614",
+      "include": true,
+      "priority": 0,
+      "notes": "",
+      "tags": [
+        "source",
+        "destination",
+        "transfer"
+      ],
+      "food_name": "carton of eggs",
+      "difficulty": "LOW",
+      "video_id": "P04-20240414-065311",
+      "start_timestamp": 73.13,
+      "end_timestamp": 74.63,
+      "ground_truth_count": 1,
+      "ground_truth_unit": "eggs",
+      "predicted_count": 1,
+      "predicted_unit": "unit",
+      "match": "exact",
+      "confidence": "high",
+      "path_estimates": {
+        "source": 1,
+        "destination": 0,
+        "transfer": 1
+      },
+      "trusted_paths": [
+        "source",
+        "transfer"
+      ],
+      "ignored_paths": [
+        "destination"
+      ],
+      "visual_evidence": "Source was VALID. Dest was VALID. Transfer was VALID. Final count derived primarily from Path C.",
+      "paths": {
+        "source": {
+          "status": "VALID",
+          "timestamp_before_raw": "00:02",
+          "timestamp_after_raw": "00:05",
+          "observed_delta": 1,
+          "confidence": "medium",
+          "timestamp_before_seconds": 2.0,
+          "absolute_timestamp_before": 73.13,
+          "snapped_to_frame_before": 3,
+          "timestamp_after_seconds": 5.0,
+          "absolute_timestamp_after": 76.13,
+          "snapped_to_frame_after": 6
+        },
+        "destination": {
+          "status": "VALID",
+          "timestamp_before_raw": "00:02",
+          "timestamp_after_raw": "00:05",
+          "observed_delta": 0,
+          "confidence": "high",
+          "timestamp_before_seconds": 2.0,
+          "absolute_timestamp_before": 73.13,
+          "snapped_to_frame_before": 3,
+          "timestamp_after_seconds": 5.0,
+          "absolute_timestamp_after": 76.13,
+          "snapped_to_frame_after": 6
+        },
+        "transfer": {
+          "status": "VALID",
+          "transfer_events": [
+            {
+              "timestamp_raw": "00:05",
+              "description": "One egg lifted from the carton and held above the plastic container",
+              "visible_count": 1,
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 76.13,
+              "snapped_to_frame": 6
+            }
+          ],
+          "total_transfer_count": 1,
+          "confidence": "high"
+        }
+      }
+    },
+    {
+      "case_id": "FC011",
+      "participant": "P04",
+      "narration_id": "P04-20240414-162750-112",
+      "segment_id": "seg_3b7ff9ce",
+      "include": true,
+      "priority": 0,
+      "notes": "",
+      "tags": [
+        "source",
+        "transfer"
+      ],
+      "food_name": "brown onion",
+      "difficulty": "LOW",
+      "video_id": "P04-20240414-162750",
+      "start_timestamp": 246.42,
+      "end_timestamp": 247.98,
+      "ground_truth_count": 1,
+      "ground_truth_unit": "onions",
+      "predicted_count": 1,
+      "predicted_unit": "unit",
+      "match": "exact",
+      "confidence": "high",
+      "path_estimates": {
+        "source": -1,
+        "transfer": 1
+      },
+      "trusted_paths": [
+        "transfer"
+      ],
+      "ignored_paths": [
+        "source"
+      ],
+      "visual_evidence": "Source was valid. Dest was invalid due to pile. Transfer was valid. Final count derived primarily from Path C.",
+      "paths": {
+        "source": {
+          "status": "VALID",
+          "timestamp_before_raw": "00:00",
+          "timestamp_after_raw": "00:03",
+          "observed_delta": -1,
+          "confidence": "high",
+          "timestamp_before_seconds": 0.0,
+          "absolute_timestamp_before": 244.42,
+          "timestamp_after_seconds": 3.0,
+          "absolute_timestamp_after": 247.42
+        },
+        "destination": {
+          "status": "INVALID_PILE",
+          "timestamp_before_raw": "00:04",
+          "timestamp_after_raw": "00:05",
+          "observed_delta": null,
+          "confidence": "low",
+          "timestamp_before_seconds": 4.0,
+          "absolute_timestamp_before": 248.42,
+          "timestamp_after_seconds": 5.0,
+          "absolute_timestamp_after": 249.42
+        },
+        "transfer": {
+          "status": "VALID",
+          "transfer_events": [
+            {
+              "timestamp_raw": "00:04",
+              "description": "One brown onion held in hand",
+              "visible_count": 1,
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 248.42
+            }
+          ],
+          "total_transfer_count": 1,
+          "confidence": "high"
+        }
+      }
+    },
+    {
+      "case_id": "FC012",
+      "participant": "P04",
+      "narration_id": "P04-20240414-162750-44",
+      "segment_id": "seg_33d3871d",
+      "include": true,
+      "priority": 0,
+      "notes": "",
+      "tags": [
+        "source",
+        "transfer"
+      ],
+      "food_name": "box of instant dosa mix",
+      "difficulty": "LOW",
+      "video_id": "P04-20240414-170520",
+      "start_timestamp": 36.29,
+      "end_timestamp": 40.91,
+      "ground_truth_count": 1,
+      "ground_truth_unit": "box",
+      "predicted_count": 0,
+      "predicted_unit": "unit",
+      "match": "close",
+      "confidence": "medium",
+      "path_estimates": {
+        "source": 0,
+        "transfer": 1
+      },
+      "trusted_paths": [
+        "source"
+      ],
+      "ignored_paths": [
+        "transfer"
+      ],
+      "visual_evidence": "Source was VALID (box visible on counter before and after with no net subtraction). Dest was INVALID_OCCLUDED (no clear receiving container/use shown). Transfer was VALID (1 box clearly handled). Final count derived primarily from Path A (net change) with confirmation from Path C (handling without removal).",
+      "paths": {
+        "source": {
+          "status": "VALID",
+          "timestamp_before_raw": "00:01",
+          "timestamp_after_raw": "00:07",
+          "observed_delta": 0,
+          "confidence": "medium",
+          "timestamp_before_seconds": 1.0,
+          "absolute_timestamp_before": 35.29,
+          "snapped_to_frame_before": 2,
+          "timestamp_after_seconds": 7.0,
+          "absolute_timestamp_after": 41.29,
+          "snapped_to_frame_after": 8
+        },
+        "destination": {
+          "status": "INVALID_OCCLUDED",
+          "timestamp_before_raw": "00:00",
+          "timestamp_after_raw": "00:08",
+          "observed_delta": null,
+          "confidence": "low",
+          "timestamp_before_seconds": 0.0,
+          "absolute_timestamp_before": 34.29,
+          "snapped_to_frame_before": 1,
+          "timestamp_after_seconds": 8.0,
+          "absolute_timestamp_after": 42.29,
+          "snapped_to_frame_after": 9
+        },
+        "transfer": {
+          "status": "VALID",
+          "transfer_events": [
+            {
+              "timestamp_raw": "00:02",
+              "description": "Box of instant dosa mix lifted/handled in hands (opened and inner packet accessed)",
+              "visible_count": 1,
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 36.29,
+              "snapped_to_frame": 3
+            }
+          ],
+          "total_transfer_count": 1,
+          "confidence": "high"
+        }
+      }
+    },
+    {
+      "case_id": "FC013",
+      "participant": "P04",
+      "narration_id": "P04-20240415-175615-64",
+      "segment_id": "seg_dbf9a617",
+      "include": true,
+      "priority": 0,
+      "notes": "",
+      "tags": [
+        "source",
+        "transfer"
+      ],
+      "food_name": "ginger",
+      "difficulty": "LOW",
+      "video_id": "P04-20240415-175615",
+      "start_timestamp": 148.82,
+      "end_timestamp": 151.035951,
+      "ground_truth_count": 1,
+      "ground_truth_unit": "pieces",
+      "predicted_count": 1,
+      "predicted_unit": "unit",
+      "match": "exact",
+      "confidence": "high",
+      "path_estimates": {
+        "source": -1,
+        "transfer": 1
+      },
+      "trusted_paths": [
+        "transfer"
+      ],
+      "ignored_paths": [
+        "source"
+      ],
+      "visual_evidence": "Source was VALID. Dest was INVALID_PILE. Transfer was VALID. Final count derived primarily from Path C.",
+      "paths": {
+        "source": {
+          "status": "VALID",
+          "timestamp_before_raw": "00:00",
+          "timestamp_after_raw": "00:02",
+          "observed_delta": -1,
+          "confidence": "high",
+          "timestamp_before_seconds": 0.0,
+          "absolute_timestamp_before": 146.82,
+          "timestamp_after_seconds": 2.0,
+          "absolute_timestamp_after": 148.82
+        },
+        "destination": {
+          "status": "INVALID_PILE",
+          "timestamp_before_raw": "00:00",
+          "timestamp_after_raw": "00:05",
+          "observed_delta": null,
+          "confidence": "low",
+          "timestamp_before_seconds": 0.0,
+          "absolute_timestamp_before": 146.82,
+          "timestamp_after_seconds": 5.0,
+          "absolute_timestamp_after": 151.82
+        },
+        "transfer": {
+          "status": "VALID",
+          "transfer_events": [
+            {
+              "timestamp_raw": "00:03",
+              "description": "One piece of ginger held in the right hand",
+              "visible_count": 1,
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 149.82
+            }
+          ],
+          "total_transfer_count": 1,
+          "confidence": "high"
+        }
+      }
+    },
+    {
+      "case_id": "FC014",
+      "participant": "P04",
+      "narration_id": "P04-20240415-175615-67",
+      "segment_id": "seg_5cd0e705",
+      "include": true,
+      "priority": 0,
+      "notes": "",
+      "tags": [
+        "source",
+        "transfer"
+      ],
+      "food_name": "brown onion",
+      "difficulty": "LOW",
+      "video_id": "P04-20240415-175615",
+      "start_timestamp": 155,
+      "end_timestamp": 159.39,
+      "ground_truth_count": 1,
+      "ground_truth_unit": "onions",
+      "predicted_count": 1,
+      "predicted_unit": "unit",
+      "match": "exact",
+      "confidence": "high",
+      "path_estimates": {
+        "source": -1,
+        "transfer": 1
+      },
+      "trusted_paths": [
+        "transfer"
+      ],
+      "ignored_paths": [
+        "source"
+      ],
+      "visual_evidence": "Source was valid, showing one onion removed. Destination was occluded. Transfer was clear, showing one onion in hand. Final count derived primarily from Path C.",
+      "paths": {
+        "source": {
+          "status": "VALID",
+          "timestamp_before_raw": "00:04",
+          "timestamp_after_raw": "00:06",
+          "observed_delta": -1,
+          "confidence": "high",
+          "timestamp_before_seconds": 4.0,
+          "absolute_timestamp_before": 157.0,
+          "timestamp_after_seconds": 6.0,
+          "absolute_timestamp_after": 159.0
+        },
+        "destination": {
+          "status": "INVALID_OCCLUDED",
+          "timestamp_before_raw": "00:07",
+          "timestamp_after_raw": "00:08",
+          "observed_delta": null,
+          "confidence": "low",
+          "timestamp_before_seconds": 7.0,
+          "absolute_timestamp_before": 160.0,
+          "timestamp_after_seconds": 8.0,
+          "absolute_timestamp_after": 161.0
+        },
+        "transfer": {
+          "status": "VALID",
+          "transfer_events": [
+            {
+              "timestamp_raw": "00:06",
+              "description": "One brown onion held in hand",
+              "visible_count": 1,
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 159.0
+            }
+          ],
+          "total_transfer_count": 1,
+          "confidence": "high"
+        }
+      }
+    },
+    {
+      "case_id": "FC015",
+      "participant": "P05",
+      "narration_id": "P05-20240425-082420-45",
+      "segment_id": "seg_95f5692d",
+      "include": true,
+      "priority": 0,
+      "notes": "",
+      "tags": [
+        "source",
+        "transfer"
+      ],
+      "food_name": "banana",
+      "difficulty": "LOW",
+      "video_id": "P05-20240425-082420",
+      "start_timestamp": 124.52000000000001,
+      "end_timestamp": 129.52,
+      "ground_truth_count": 1,
+      "ground_truth_unit": "banana",
+      "predicted_count": 1,
+      "predicted_unit": "unit",
+      "match": "exact",
+      "confidence": "high",
+      "path_estimates": {
+        "source": -1,
+        "transfer": 1
+      },
+      "trusted_paths": [
+        "transfer"
+      ],
+      "ignored_paths": [
+        "source"
+      ],
+      "visual_evidence": "Source was valid. Dest was occluded. Transfer was valid. Final count derived primarily from Path C.",
+      "paths": {
+        "source": {
+          "status": "VALID",
+          "timestamp_before_raw": "00:05",
+          "timestamp_after_raw": "00:06",
+          "observed_delta": -1,
+          "confidence": "high",
+          "timestamp_before_seconds": 5.0,
+          "absolute_timestamp_before": 127.52,
+          "timestamp_after_seconds": 6.0,
+          "absolute_timestamp_after": 128.52
+        },
+        "destination": {
+          "status": "INVALID_OCCLUDED",
+          "timestamp_before_raw": "00:06",
+          "timestamp_after_raw": "00:07",
+          "observed_delta": null,
+          "confidence": "low",
+          "timestamp_before_seconds": 6.0,
+          "absolute_timestamp_before": 128.52,
+          "timestamp_after_seconds": 7.0,
+          "absolute_timestamp_after": 129.52
+        },
+        "transfer": {
+          "status": "VALID",
+          "transfer_events": [
+            {
+              "timestamp_raw": "00:06",
+              "description": "One banana held in hand",
+              "visible_count": 1,
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 128.52
+            }
+          ],
+          "total_transfer_count": 1,
+          "confidence": "high"
+        }
+      }
+    },
+    {
+      "case_id": "FC016",
+      "participant": "P05",
+      "narration_id": "P05-20240425-171455-95",
+      "segment_id": "seg_4b4b6356",
+      "include": true,
+      "priority": 0,
+      "notes": "",
+      "tags": [
+        "source",
+        "destination",
+        "transfer"
+      ],
+      "food_name": "eggs",
+      "difficulty": "LOW",
+      "video_id": "P05-20240425-171455",
+      "start_timestamp": 494.89,
+      "end_timestamp": 507.96,
+      "ground_truth_count": 2,
+      "ground_truth_unit": "eggs",
+      "predicted_count": 2,
+      "predicted_unit": "unit",
+      "match": "exact",
+      "confidence": "medium",
+      "path_estimates": {
+        "source": 2,
+        "destination": 1,
+        "transfer": 2
+      },
+      "trusted_paths": [
+        "source",
+        "transfer"
+      ],
+      "ignored_paths": [
+        "destination"
+      ],
+      "visual_evidence": "Source was VALID. Dest was VALID. Transfer was VALID. Final count derived primarily from Path C (2 eggs removed from carton), cross-checked with Path A.",
+      "paths": {
+        "source": {
+          "status": "VALID",
+          "timestamp_before_raw": "00:01",
+          "timestamp_after_raw": "00:07",
+          "observed_delta": 2,
+          "confidence": "medium",
+          "timestamp_before_seconds": 1.0,
+          "absolute_timestamp_before": 493.89,
+          "snapped_to_frame_before": 2,
+          "timestamp_after_seconds": 7.0,
+          "absolute_timestamp_after": 499.89,
+          "snapped_to_frame_after": 8
+        },
+        "destination": {
+          "status": "VALID",
+          "timestamp_before_raw": "00:03",
+          "timestamp_after_raw": "00:06",
+          "observed_delta": 1,
+          "confidence": "high",
+          "timestamp_before_seconds": 3.0,
+          "absolute_timestamp_before": 495.89,
+          "snapped_to_frame_before": 4,
+          "timestamp_after_seconds": 6.0,
+          "absolute_timestamp_after": 498.89,
+          "snapped_to_frame_after": 7
+        },
+        "transfer": {
+          "status": "VALID",
+          "transfer_events": [
+            {
+              "timestamp_raw": "00:06",
+              "description": "Egg 1 cracked and emptied into mixing bowl",
+              "visible_count": 1,
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 498.89,
+              "snapped_to_frame": 7
+            },
+            {
+              "timestamp_raw": "00:07",
+              "description": "Egg 2 lifted from carton and held over bowl (not yet emptied by end of clip)",
+              "visible_count": 1,
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 499.89,
+              "snapped_to_frame": 8
+            }
+          ],
+          "total_transfer_count": 2,
+          "confidence": "medium"
+        }
+      }
+    },
+    {
+      "case_id": "FC017",
+      "participant": "P05",
+      "narration_id": "P05-20240425-171455-97",
+      "segment_id": "seg_d1f6c516",
+      "include": true,
+      "priority": 0,
+      "notes": "",
+      "tags": [
+        "destination",
+        "transfer"
+      ],
+      "food_name": "bacon",
+      "difficulty": "LOW",
+      "video_id": "P05-20240425-171455",
+      "start_timestamp": 306.59,
+      "end_timestamp": 313.34,
+      "ground_truth_count": null,
+      "ground_truth_unit": "slices",
+      "predicted_count": 1,
+      "predicted_unit": "slice",
+      "match": "gt_uncountable",
+      "confidence": "medium",
+      "path_estimates": {
+        "destination": 0,
+        "transfer": 1
+      },
+      "trusted_paths": [
+        "transfer"
+      ],
+      "ignored_paths": [
+        "destination"
+      ],
+      "visual_evidence": "Source was INVALID_OCCLUDED (stacked slices inside pack and hands block clear counting). Dest was VALID (no clear bacon added onto the cutting board during this clip). Transfer was VALID (one slice clearly seen being lifted). Final count derived primarily from Path C.",
+      "paths": {
+        "source": {
+          "status": "INVALID_OCCLUDED",
+          "timestamp_before_raw": "00:00",
+          "timestamp_after_raw": "00:10",
+          "observed_delta": null,
+          "confidence": "low",
+          "timestamp_before_seconds": 0.0,
+          "absolute_timestamp_before": 304.59,
+          "snapped_to_frame_before": 1,
+          "timestamp_after_seconds": 10.0,
+          "absolute_timestamp_after": 314.59,
+          "snapped_to_frame_after": 11
+        },
+        "destination": {
+          "status": "VALID",
+          "timestamp_before_raw": "00:00",
+          "timestamp_after_raw": "00:10",
+          "observed_delta": 0,
+          "confidence": "medium",
+          "timestamp_before_seconds": 0.0,
+          "absolute_timestamp_before": 304.59,
+          "snapped_to_frame_before": 1,
+          "timestamp_after_seconds": 10.0,
+          "absolute_timestamp_after": 314.59,
+          "snapped_to_frame_after": 11
+        },
+        "transfer": {
+          "status": "VALID",
+          "transfer_events": [
+            {
+              "timestamp_raw": "00:10",
+              "description": "One bacon slice lifted out of the opened plastic pack (held above the pack/cutting board).",
+              "visible_count": 1,
+              "timestamp_seconds": 10.0,
+              "absolute_timestamp": 314.59,
+              "snapped_to_frame": 11
+            }
+          ],
+          "total_transfer_count": 1,
+          "confidence": "high"
+        }
+      }
+    },
+    {
+      "case_id": "FC018",
+      "participant": "P05",
+      "narration_id": "P05-20240427-143353-222",
+      "segment_id": "seg_2ffbb595",
+      "include": true,
+      "priority": 0,
+      "notes": "",
+      "tags": [
+        "source",
+        "transfer"
+      ],
+      "food_name": "garlic",
+      "difficulty": "LOW",
+      "video_id": "P05-20240427-143353",
+      "start_timestamp": 604.94,
+      "end_timestamp": 614.59,
+      "ground_truth_count": null,
+      "ground_truth_unit": null,
+      "predicted_count": 1,
+      "predicted_unit": "unit",
+      "match": "gt_uncountable",
+      "confidence": "high",
+      "path_estimates": {
+        "source": -1,
+        "transfer": 1
+      },
+      "trusted_paths": [
+        "transfer"
+      ],
+      "ignored_paths": [
+        "source"
+      ],
+      "visual_evidence": "Source was valid. Dest was invalid due to pile. Transfer was valid. Final count derived primarily from Path C.",
+      "paths": {
+        "source": {
+          "status": "VALID",
+          "timestamp_before_raw": "00:00",
+          "timestamp_after_raw": "00:01",
+          "observed_delta": -1,
+          "confidence": "high",
+          "timestamp_before_seconds": 0.0,
+          "absolute_timestamp_before": 602.94,
+          "timestamp_after_seconds": 1.0,
+          "absolute_timestamp_after": 603.94
+        },
+        "destination": {
+          "status": "INVALID_PILE",
+          "timestamp_before_raw": "00:12",
+          "timestamp_after_raw": "00:13",
+          "observed_delta": null,
+          "confidence": "low",
+          "timestamp_before_seconds": 12.0,
+          "absolute_timestamp_before": 614.94,
+          "timestamp_after_seconds": 13.0,
+          "absolute_timestamp_after": 615.94
+        },
+        "transfer": {
+          "status": "VALID",
+          "transfer_events": [
+            {
+              "timestamp_raw": "00:02",
+              "description": "One garlic clove held in hand",
+              "visible_count": 1,
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 604.94
+            }
+          ],
+          "total_transfer_count": 1,
+          "confidence": "high"
+        }
+      }
+    },
+    {
+      "case_id": "FC019",
+      "participant": "P05",
+      "narration_id": "P05-20240427-143353-88",
+      "segment_id": "seg_d5cf9c22",
+      "include": true,
+      "priority": 0,
+      "notes": "",
+      "tags": [
+        "source",
+        "transfer"
+      ],
+      "food_name": "carrot",
+      "difficulty": "LOW",
+      "video_id": "P05-20240427-143353",
+      "start_timestamp": 249.349897,
+      "end_timestamp": 260.585117,
+      "ground_truth_count": 2,
+      "ground_truth_unit": "carrots",
+      "predicted_count": 2,
+      "predicted_unit": "unit",
+      "match": "exact",
+      "confidence": "high",
+      "path_estimates": {
+        "source": -2,
+        "transfer": 2
+      },
+      "trusted_paths": [
+        "transfer"
+      ],
+      "ignored_paths": [
+        "source"
+      ],
+      "visual_evidence": "Source was valid. Dest was occluded. Transfer was valid. Final count derived primarily from Path C.",
+      "paths": {
+        "source": {
+          "status": "VALID",
+          "timestamp_before_raw": "00:02",
+          "timestamp_after_raw": "00:08",
+          "observed_delta": -2,
+          "confidence": "high",
+          "timestamp_before_seconds": 2.0,
+          "absolute_timestamp_before": 249.35,
+          "timestamp_after_seconds": 8.0,
+          "absolute_timestamp_after": 255.35
+        },
+        "destination": {
+          "status": "INVALID_OCCLUDED",
+          "timestamp_before_raw": "00:02",
+          "timestamp_after_raw": "00:08",
+          "observed_delta": null,
+          "confidence": "low",
+          "timestamp_before_seconds": 2.0,
+          "absolute_timestamp_before": 249.35,
+          "timestamp_after_seconds": 8.0,
+          "absolute_timestamp_after": 255.35
+        },
+        "transfer": {
+          "status": "VALID",
+          "transfer_events": [
+            {
+              "timestamp_raw": "00:04",
+              "description": "One carrot held in hand",
+              "visible_count": 1,
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 251.35
+            },
+            {
+              "timestamp_raw": "00:05",
+              "description": "Two carrots held in hand",
+              "visible_count": 2,
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 252.35
+            }
+          ],
+          "total_transfer_count": 2,
+          "confidence": "high"
+        }
+      }
+    },
+    {
+      "case_id": "FC020",
+      "participant": "P08",
+      "narration_id": "P08-20240614-085000-4",
+      "segment_id": "seg_9b1cdf2e",
+      "include": true,
+      "priority": 0,
+      "notes": "",
+      "tags": [
+        "source",
+        "destination",
+        "transfer"
+      ],
+      "food_name": "carton of eggs",
+      "difficulty": "LOW",
+      "video_id": "P08-20240614-085000",
+      "start_timestamp": 313.13,
+      "end_timestamp": 326.917068,
+      "ground_truth_count": 2,
+      "ground_truth_unit": "eggs",
+      "predicted_count": 2,
+      "predicted_unit": "unit",
+      "match": "exact",
+      "confidence": "high",
+      "path_estimates": {
+        "source": -1,
+        "destination": 2,
+        "transfer": 2
+      },
+      "trusted_paths": [
+        "destination",
+        "transfer"
+      ],
+      "ignored_paths": [
+        "source"
+      ],
+      "visual_evidence": "Source was VALID but egg count in carton after removals is not consistently visible (low confidence). Dest was VALID (bowl shows 2 yolks after). Transfer was VALID (two distinct eggs handled and cracked). Final count derived primarily from Path C, confirmed by Path B.",
+      "paths": {
+        "source": {
+          "status": "VALID",
+          "timestamp_before_raw": "00:02",
+          "timestamp_after_raw": "00:10",
+          "observed_delta": -1,
+          "confidence": "low",
+          "timestamp_before_seconds": 2.0,
+          "absolute_timestamp_before": 313.13,
+          "snapped_to_frame_before": 3,
+          "timestamp_after_seconds": 10.0,
+          "absolute_timestamp_after": 321.13,
+          "snapped_to_frame_after": 11
+        },
+        "destination": {
+          "status": "VALID",
+          "timestamp_before_raw": "00:04",
+          "timestamp_after_raw": "00:17",
+          "observed_delta": 2,
+          "confidence": "high",
+          "timestamp_before_seconds": 4.0,
+          "absolute_timestamp_before": 315.13,
+          "snapped_to_frame_before": 5,
+          "timestamp_after_seconds": 17.0,
+          "absolute_timestamp_after": 328.13,
+          "snapped_to_frame_after": 18
+        },
+        "transfer": {
+          "status": "VALID",
+          "transfer_events": [
+            {
+              "timestamp_raw": "00:06",
+              "description": "Egg 1 taken/cracked into bowl",
+              "visible_count": 1,
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 317.13,
+              "snapped_to_frame": 7
+            },
+            {
+              "timestamp_raw": "00:13",
+              "description": "Egg 2 taken/cracked into bowl",
+              "visible_count": 1,
+              "timestamp_seconds": 13.0,
+              "absolute_timestamp": 324.13,
+              "snapped_to_frame": 14
+            }
+          ],
+          "total_transfer_count": 2,
+          "confidence": "high"
+        }
+      }
+    },
+    {
+      "case_id": "FC021",
+      "participant": "P08",
+      "narration_id": "P08-20240617-130401-254",
+      "segment_id": "seg_2ed3b5f1",
+      "include": true,
+      "priority": 0,
+      "notes": "",
+      "tags": [
+        "source",
+        "destination",
+        "transfer"
+      ],
+      "food_name": "can of tuna",
+      "difficulty": "LOW",
+      "video_id": "P08-20240617-130401",
+      "start_timestamp": 1395.96,
+      "end_timestamp": 1417.61,
+      "ground_truth_count": 1,
+      "ground_truth_unit": "can",
+      "predicted_count": null,
+      "predicted_unit": "scoop",
+      "match": "continuous_estimate",
+      "confidence": "high",
+      "path_estimates": {
+        "source": -1,
+        "destination": 1,
+        "transfer": 1
+      },
+      "trusted_paths": [],
+      "ignored_paths": [
+        "source",
+        "destination",
+        "transfer"
+      ],
+      "visual_evidence": "Source was VALID. Dest was VALID. Transfer was VALID. Final count derived primarily from Path A.",
+      "paths": {
+        "source": {
+          "status": "VALID",
+          "timestamp_before_raw": "00:02",
+          "timestamp_after_raw": "00:12",
+          "observed_delta": -1,
+          "confidence": "high",
+          "timestamp_before_seconds": 2.0,
+          "absolute_timestamp_before": 1395.96,
+          "timestamp_after_seconds": 12.0,
+          "absolute_timestamp_after": 1405.96
+        },
+        "destination": {
+          "status": "VALID",
+          "timestamp_before_raw": "00:13",
+          "timestamp_after_raw": "00:25",
+          "observed_delta": 1,
+          "confidence": "high",
+          "timestamp_before_seconds": 13.0,
+          "absolute_timestamp_before": 1406.96,
+          "timestamp_after_seconds": 25.0,
+          "absolute_timestamp_after": 1418.96
+        },
+        "transfer": {
+          "status": "VALID",
+          "transfer_events": [
+            {
+              "timestamp_raw": "00:13",
+              "description": "Tuna being scooped from can into bowl",
+              "visible_count": 1,
+              "timestamp_seconds": 13.0,
+              "absolute_timestamp": 1406.96
+            }
+          ],
+          "total_transfer_count": 1,
+          "confidence": "high"
+        }
+      }
+    },
+    {
+      "case_id": "FC022",
+      "participant": "P08",
+      "narration_id": "P08-20240618-163547-24",
+      "segment_id": "seg_36fa5283",
+      "include": true,
+      "priority": 0,
+      "notes": "",
+      "tags": [
+        "source",
+        "transfer"
+      ],
+      "food_name": "celery stalks",
+      "difficulty": "LOW",
+      "video_id": "P08-20240618-163547",
+      "start_timestamp": 686.37,
+      "end_timestamp": 691.37,
+      "ground_truth_count": 1,
+      "ground_truth_unit": "stalks",
+      "predicted_count": 1,
+      "predicted_unit": "unit",
+      "match": "exact",
+      "confidence": "high",
+      "path_estimates": {
+        "source": -1,
+        "transfer": 1
+      },
+      "trusted_paths": [
+        "transfer"
+      ],
+      "ignored_paths": [
+        "source"
+      ],
+      "visual_evidence": "Source was valid. Dest was occluded. Transfer was valid. Final count derived primarily from Path C.",
+      "paths": {
+        "source": {
+          "status": "VALID",
+          "timestamp_before_raw": "00:02",
+          "timestamp_after_raw": "00:03",
+          "observed_delta": -1,
+          "confidence": "high",
+          "timestamp_before_seconds": 2.0,
+          "absolute_timestamp_before": 686.37,
+          "timestamp_after_seconds": 3.0,
+          "absolute_timestamp_after": 687.37
+        },
+        "destination": {
+          "status": "INVALID_OCCLUDED",
+          "timestamp_before_raw": "00:00",
+          "timestamp_after_raw": "00:08",
+          "observed_delta": null,
+          "confidence": "low",
+          "timestamp_before_seconds": 0.0,
+          "absolute_timestamp_before": 684.37,
+          "timestamp_after_seconds": 8.0,
+          "absolute_timestamp_after": 692.37
+        },
+        "transfer": {
+          "status": "VALID",
+          "transfer_events": [
+            {
+              "timestamp_raw": "00:04",
+              "description": "One celery stalk being held in hand",
+              "visible_count": 1,
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 688.37
+            }
+          ],
+          "total_transfer_count": 1,
+          "confidence": "high"
+        }
+      }
+    },
+    {
+      "case_id": "FC023",
+      "participant": "P08",
+      "narration_id": "P08-20240618-163547-397",
+      "segment_id": "seg_63a07773",
+      "include": true,
+      "priority": 0,
+      "notes": "",
+      "tags": [
+        "source",
+        "destination",
+        "transfer"
+      ],
+      "food_name": "mushrooms",
+      "difficulty": "LOW",
+      "video_id": "P08-20240618-163547",
+      "start_timestamp": 1161.76,
+      "end_timestamp": 1168.79,
+      "ground_truth_count": null,
+      "ground_truth_unit": "pieces",
+      "predicted_count": 6,
+      "predicted_unit": "unit",
+      "match": "gt_uncountable",
+      "confidence": "medium",
+      "path_estimates": {
+        "source": 6,
+        "destination": 6,
+        "transfer": 3
+      },
+      "trusted_paths": [
+        "source",
+        "destination"
+      ],
+      "ignored_paths": [
+        "transfer"
+      ],
+      "visual_evidence": "Source was VALID. Dest was VALID. Transfer was VALID. Final count derived primarily from Path B (destination colander count), since transfer frames did not capture every individual mushroom moved.",
+      "paths": {
+        "source": {
+          "status": "VALID",
+          "timestamp_before_raw": "00:00",
+          "timestamp_after_raw": "00:06",
+          "observed_delta": 6,
+          "confidence": "low",
+          "timestamp_before_seconds": 0.0,
+          "absolute_timestamp_before": 1159.76,
+          "snapped_to_frame_before": 1,
+          "timestamp_after_seconds": 6.0,
+          "absolute_timestamp_after": 1165.76,
+          "snapped_to_frame_after": 7
+        },
+        "destination": {
+          "status": "VALID",
+          "timestamp_before_raw": "00:02",
+          "timestamp_after_raw": "00:07",
+          "observed_delta": 6,
+          "confidence": "medium",
+          "timestamp_before_seconds": 2.0,
+          "absolute_timestamp_before": 1161.76,
+          "snapped_to_frame_before": 3,
+          "timestamp_after_seconds": 7.0,
+          "absolute_timestamp_after": 1166.76,
+          "snapped_to_frame_after": 8
+        },
+        "transfer": {
+          "status": "VALID",
+          "transfer_events": [
+            {
+              "timestamp_raw": "00:02",
+              "description": "Mushroom 1 held above red colander",
+              "visible_count": 1,
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 1161.76,
+              "snapped_to_frame": 3
+            },
+            {
+              "timestamp_raw": "00:04",
+              "description": "Mushroom 2 moved from tray toward red colander",
+              "visible_count": 1,
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 1163.76,
+              "snapped_to_frame": 5
+            },
+            {
+              "timestamp_raw": "00:05",
+              "description": "Mushroom 3 placed into red colander",
+              "visible_count": 1,
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 1164.76,
+              "snapped_to_frame": 6
+            }
+          ],
+          "total_transfer_count": 3,
+          "confidence": "low"
+        }
+      }
+    },
+    {
+      "case_id": "FC024",
+      "participant": "P09",
+      "narration_id": "P09-20240624-160737-40",
+      "segment_id": "seg_a3b63468",
+      "include": true,
+      "priority": 0,
+      "notes": "",
+      "tags": [
+        "source",
+        "transfer"
+      ],
+      "food_name": "onions",
+      "difficulty": "LOW",
+      "video_id": "P09-20240624-160737",
+      "start_timestamp": 245.485,
+      "end_timestamp": 250.485,
+      "ground_truth_count": 1,
+      "ground_truth_unit": "onions",
+      "predicted_count": 1,
+      "predicted_unit": "unit",
+      "match": "exact",
+      "confidence": "high",
+      "path_estimates": {
+        "source": -1,
+        "transfer": 1
+      },
+      "trusted_paths": [
+        "transfer"
+      ],
+      "ignored_paths": [
+        "source"
+      ],
+      "visual_evidence": "Source was valid. Dest was occluded. Transfer was valid. Final count derived primarily from Path C.",
+      "paths": {
+        "source": {
+          "status": "VALID",
+          "timestamp_before_raw": "00:02",
+          "timestamp_after_raw": "00:03",
+          "observed_delta": -1,
+          "confidence": "high",
+          "timestamp_before_seconds": 2.0,
+          "absolute_timestamp_before": 245.49,
+          "timestamp_after_seconds": 3.0,
+          "absolute_timestamp_after": 246.49
+        },
+        "destination": {
+          "status": "INVALID_OCCLUDED",
+          "timestamp_before_raw": "00:07",
+          "timestamp_after_raw": "00:08",
+          "observed_delta": null,
+          "confidence": "low",
+          "timestamp_before_seconds": 7.0,
+          "absolute_timestamp_before": 250.49,
+          "timestamp_after_seconds": 8.0,
+          "absolute_timestamp_after": 251.49
+        },
+        "transfer": {
+          "status": "VALID",
+          "transfer_events": [
+            {
+              "timestamp_raw": "00:03",
+              "description": "One onion held in hand",
+              "visible_count": 1,
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 246.49
+            }
+          ],
+          "total_transfer_count": 1,
+          "confidence": "high"
+        }
+      }
+    }
+  ]
+}

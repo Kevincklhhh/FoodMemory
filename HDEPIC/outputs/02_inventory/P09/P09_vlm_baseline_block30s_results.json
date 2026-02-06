@@ -1,0 +1,649 @@
+{
+  "participant": "P09",
+  "model": "qwen",
+  "tag": "block30s",
+  "method": "baseline",
+  "block_duration": 30.0,
+  "low_only": true,
+  "total_items": 11,
+  "items": [
+    {
+      "narration_id": "P09-20240621-093545-386",
+      "food_name": "pack of chillies",
+      "difficulty": "LOW",
+      "video_range": [
+        "P09-20240621-093545"
+      ],
+      "total_ground_truth": 7,
+      "total_ground_truth_unit": "chillies",
+      "num_segments": 2,
+      "segments": [
+        {
+          "segment_id": "seg_ddfa50e4",
+          "segment_idx": 0,
+          "video_id": "P09-20240621-093545",
+          "start_timestamp": 793.52,
+          "end_timestamp": 800.62,
+          "ground_truth_count": 5,
+          "ground_truth_unit": "chillies",
+          "quantity_category": "continuous",
+          "predicted_count": null,
+          "predicted_amount": "a small amount poured",
+          "predicted_unit": "splash",
+          "detected_item_name": "bottle of oil",
+          "item_match": false,
+          "item_similarity": 0.23865237832069397,
+          "confidence": "high",
+          "match": "item_mismatch",
+          "error": null,
+          "blocks_queried": [
+            26
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 26,
+          "remaining_count": null,
+          "remaining_description": "about 90% full",
+          "remaining_fraction": 0.9,
+          "visual_evidence": "The bottle of oil was initially full. The hand unscrewed the cap and poured a small amount into the pot. After pouring, the bottle was placed back on the counter, appearing mostly full."
+        },
+        {
+          "segment_id": "seg_e1eb7bfd",
+          "segment_idx": 1,
+          "video_id": "P09-20240621-093545",
+          "start_timestamp": 2048.33,
+          "end_timestamp": 2053.33,
+          "ground_truth_count": 2,
+          "ground_truth_unit": "chillies",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "green chillies",
+          "item_match": false,
+          "item_similarity": 0.7616193294525146,
+          "confidence": "high",
+          "match": "item_mismatch",
+          "error": -1,
+          "blocks_queried": [
+            68
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 68,
+          "remaining_count": 2,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "visual_evidence": "A clear plastic bag containing green chillies is shown. A single green chilli is removed from the bag and placed on the counter. The bag appears to have originally contained at least three chillies, with two remaining after the removal."
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "chilli",
+        "amount": "10",
+        "unit": "g",
+        "recipe": "P09_R01"
+      },
+      "total_predicted": 1
+    },
+    {
+      "narration_id": "P09-20240621-093545-9",
+      "food_name": "pack of chicken breasts",
+      "difficulty": "LOW",
+      "video_range": [
+        "P09-20240621-093545"
+      ],
+      "total_ground_truth": 4,
+      "total_ground_truth_unit": "chicken breasts",
+      "num_segments": 2,
+      "segments": [
+        {
+          "segment_id": "seg_af0ab364",
+          "segment_idx": 0,
+          "video_id": "P09-20240621-093545",
+          "start_timestamp": 63.54,
+          "end_timestamp": 69.38,
+          "ground_truth_count": 2,
+          "ground_truth_unit": "chicken breasts",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "pack of chicken breasts",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "close",
+          "error": -1,
+          "blocks_queried": [
+            2
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 2,
+          "remaining_count": 7,
+          "remaining_description": null,
+          "remaining_fraction": 0.875,
+          "visual_evidence": "Pack of chicken breasts started with 8 pieces. Hand picks up one piece. After hand leaves, 7 pieces remain in the pack."
+        },
+        {
+          "segment_id": "seg_956cd5d1",
+          "segment_idx": 1,
+          "video_id": "P09-20240621-093545",
+          "start_timestamp": 208.12,
+          "end_timestamp": 217.34,
+          "ground_truth_count": 2,
+          "ground_truth_unit": "chicken breasts",
+          "quantity_category": "continuous",
+          "predicted_count": null,
+          "predicted_amount": "a portion of chicken pieces removed from a bag",
+          "predicted_unit": "scoop",
+          "detected_item_name": "bag of chicken",
+          "item_match": false,
+          "item_similarity": 0.7376794815063477,
+          "confidence": "high",
+          "match": "item_mismatch",
+          "error": null,
+          "blocks_queried": [
+            6,
+            7
+          ],
+          "aggregation_used": true,
+          "aggregation_reasoning": "Block 6 detected 'pack of chicken breasts' with high confidence, but Block 7 detected 'bag of chicken' with high confidence and provided evidence of a continuous dispensing action (removal of a portion from a bag). Since the bag of chicken is a more general and consistent description of the observed action, and the dispensing appears to be continuous, 'bag of chicken' is selected as the final item. The count is null because the action was continuous and not discrete.",
+          "num_blocks_aggregated": 2
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "chicken breasts",
+        "amount": "308",
+        "unit": "g",
+        "recipe": "P09_R01"
+      },
+      "total_predicted": 1
+    },
+    {
+      "narration_id": "P09-20240621-153208-0-9",
+      "food_name": "ginger",
+      "difficulty": "LOW",
+      "video_range": [
+        "P09-20240621-153208"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "piece",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_1b4f16d3",
+          "segment_idx": 0,
+          "video_id": "P09-20240621-153208",
+          "start_timestamp": 17.795,
+          "end_timestamp": 22.795,
+          "ground_truth_count": 1,
+          "ground_truth_unit": "piece",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "ginger",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "exact",
+          "error": 0,
+          "blocks_queried": [
+            0
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 0,
+          "remaining_count": 4,
+          "remaining_description": null,
+          "remaining_fraction": 0.8,
+          "visual_evidence": "A mesh bag containing several pieces of ginger was on the counter. A hand reached in, took out one piece of ginger, and placed it on the digital scale. The bag now visibly contains fewer pieces."
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "ginger",
+        "amount": "49",
+        "unit": "g",
+        "recipe": "P09_R03_C0"
+      },
+      "total_predicted": 1
+    },
+    {
+      "narration_id": "P09-20240622-150155-11",
+      "food_name": "bag of chicken",
+      "difficulty": "LOW",
+      "video_range": [
+        "P09-20240622-150155",
+        "P09-20240622-154652",
+        "P09-20240622-162302",
+        "P09-20240622-194642"
+      ],
+      "total_ground_truth": null,
+      "total_ground_truth_unit": null,
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_9514ba39",
+          "segment_idx": 0,
+          "video_id": "P09-20240622-150155",
+          "start_timestamp": 40.51,
+          "end_timestamp": 45.51,
+          "ground_truth_count": null,
+          "ground_truth_unit": null,
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "pack of chicken breasts",
+          "item_match": false,
+          "item_similarity": 0.7376794815063477,
+          "confidence": "high",
+          "match": "item_mismatch",
+          "error": null,
+          "blocks_queried": [
+            1
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 1,
+          "remaining_count": 1,
+          "remaining_description": null,
+          "remaining_fraction": 0.5,
+          "visual_evidence": "A pack of chicken breasts is visible on the counter. The person picks up one piece from the pack and places it into a glass bowl. The pack appears to have been half full before the action, and one piece remains in the pack after the transfer."
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "chicken breasts",
+        "amount": "300",
+        "unit": "g",
+        "recipe": "P09_R02"
+      },
+      "total_predicted": 1
+    },
+    {
+      "narration_id": "P09-20240622-150155-353",
+      "food_name": "potatoes",
+      "difficulty": "LOW",
+      "video_range": [
+        "P09-20240622-150155",
+        "P09-20240622-154652",
+        "P09-20240622-162302",
+        "P09-20240622-194642"
+      ],
+      "total_ground_truth": 3,
+      "total_ground_truth_unit": "potatoes",
+      "num_segments": 2,
+      "segments": [
+        {
+          "segment_id": "seg_d7272c7c",
+          "segment_idx": 0,
+          "video_id": "P09-20240622-150155",
+          "start_timestamp": 523.53,
+          "end_timestamp": 549.26,
+          "ground_truth_count": 2,
+          "ground_truth_unit": "potatoes",
+          "quantity_category": "continuous",
+          "predicted_count": null,
+          "predicted_amount": "a small amount scooped from the bottle",
+          "predicted_unit": "scoop",
+          "detected_item_name": "salt (bottle)",
+          "item_match": false,
+          "item_similarity": 0.2897634506225586,
+          "confidence": "high",
+          "match": "item_mismatch",
+          "error": null,
+          "blocks_queried": [
+            17,
+            18
+          ],
+          "aggregation_used": true,
+          "aggregation_reasoning": "Block 17 detected salt (bottle) with high confidence and provided evidence of a dispensing action (scooping salt into a pot). Block 18 detected potatoes, but the action was peeling, not dispensing. Since the task is to identify the food item dispensed during the event, and only salt was actively dispensed (scooped), the salt detection is prioritized. The count is not discrete as it was a continuous action with no exact quantity measured, so the amount is described qualitatively.",
+          "num_blocks_aggregated": 2
+        },
+        {
+          "segment_id": "seg_09299983",
+          "segment_idx": 1,
+          "video_id": "P09-20240622-150155",
+          "start_timestamp": 612.9749999999999,
+          "end_timestamp": 617.9749999999999,
+          "ground_truth_count": 1,
+          "ground_truth_unit": "potatoes",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "potatoes",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "exact",
+          "error": 0,
+          "blocks_queried": [
+            20
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 20,
+          "remaining_count": 2,
+          "remaining_description": null,
+          "remaining_fraction": 0.67,
+          "visual_evidence": "At the start, three potatoes are visible on the cutting board. The user picks up one potato and begins peeling it. After the action, two potatoes remain on the cutting board."
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "potatoes",
+        "amount": "500",
+        "unit": "g",
+        "recipe": "P09_R02"
+      },
+      "total_predicted": 1
+    },
+    {
+      "narration_id": "P09-20240623-120359-282-2",
+      "food_name": "green chillies",
+      "difficulty": "LOW",
+      "video_range": [
+        "P09-20240623-120359"
+      ],
+      "total_ground_truth": null,
+      "total_ground_truth_unit": null,
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_c2bc642c",
+          "segment_idx": 0,
+          "video_id": "P09-20240623-120359",
+          "start_timestamp": 967.81,
+          "end_timestamp": 973.14,
+          "ground_truth_count": null,
+          "ground_truth_unit": null,
+          "quantity_category": "discrete",
+          "predicted_count": 3,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "green chillies",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "gt_uncountable",
+          "error": null,
+          "blocks_queried": [
+            32
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 32,
+          "remaining_count": 7,
+          "remaining_description": null,
+          "remaining_fraction": 0.7,
+          "visual_evidence": "A container with green chillies is visible on the counter. The hand picks up three green chillies from the container and places them on the cutting board. After the action, the container appears to have fewer chillies, with approximately 7 remaining."
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "chilli",
+        "amount": "28",
+        "unit": "g",
+        "recipe": "P09_R04"
+      },
+      "total_predicted": 3
+    },
+    {
+      "narration_id": "P09-20240624-160737-353",
+      "food_name": "potatoes",
+      "difficulty": "LOW",
+      "video_range": [
+        "P09-20240624-160737",
+        "P09-20240624-165332"
+      ],
+      "total_ground_truth": 3,
+      "total_ground_truth_unit": "potatoes",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_ad03fdd1",
+          "segment_idx": 0,
+          "video_id": "P09-20240624-160737",
+          "start_timestamp": 819.19,
+          "end_timestamp": 840.035964,
+          "ground_truth_count": 3,
+          "ground_truth_unit": "potatoes",
+          "quantity_category": "discrete",
+          "predicted_count": 4,
+          "predicted_amount": "4 potatoes",
+          "predicted_unit": "unit",
+          "detected_item_name": "potatoes",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "close",
+          "error": 1,
+          "blocks_queried": [
+            27,
+            28
+          ],
+          "aggregation_used": true,
+          "aggregation_reasoning": "Both Block 27 and Block 28 detected potatoes with high confidence. Block 27 reported 2 potatoes removed from a bag, and Block 28 reported 2 potatoes taken from a basket. Since both blocks detected the same item and the counts are consistent with discrete units, the total count is aggregated to 4 potatoes. The evidence supports that the dispensing event involved the removal of 4 potatoes in total.",
+          "num_blocks_aggregated": 2
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "potatoes",
+        "amount": "604",
+        "unit": "g",
+        "recipe": "P09_R06"
+      },
+      "total_predicted": 4
+    },
+    {
+      "narration_id": "P09-20240624-160737-40",
+      "food_name": "onions",
+      "difficulty": "LOW",
+      "video_range": [
+        "P09-20240624-160737",
+        "P09-20240624-165332"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "onions",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_a3b63468",
+          "segment_idx": 0,
+          "video_id": "P09-20240624-160737",
+          "start_timestamp": 245.485,
+          "end_timestamp": 250.485,
+          "ground_truth_count": 1,
+          "ground_truth_unit": "onions",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "onion",
+          "item_match": true,
+          "item_similarity": 0.8922974467277527,
+          "confidence": "high",
+          "match": "exact",
+          "error": 0,
+          "blocks_queried": [
+            8
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 8,
+          "remaining_count": 1,
+          "remaining_description": null,
+          "remaining_fraction": 0.5,
+          "visual_evidence": "A bowl containing multiple onions is visible. A hand picks up one onion from the bowl. After the action, one onion remains in the bowl."
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "onions",
+        "amount": "170",
+        "unit": "g",
+        "recipe": "P09_R06"
+      },
+      "total_predicted": 1
+    },
+    {
+      "narration_id": "P09-20240624-160737-41",
+      "food_name": "tomatoes",
+      "difficulty": "LOW",
+      "video_range": [
+        "P09-20240624-160737",
+        "P09-20240624-165332"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "tomatoes",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_2b4812c0",
+          "segment_idx": 0,
+          "video_id": "P09-20240624-160737",
+          "start_timestamp": 119.91,
+          "end_timestamp": 125.75,
+          "ground_truth_count": 1,
+          "ground_truth_unit": "tomatoes",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": "two tomatoes",
+          "predicted_unit": "unit",
+          "detected_item_name": "tomatoes",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "close",
+          "error": 1,
+          "blocks_queried": [
+            3,
+            4
+          ],
+          "aggregation_used": true,
+          "aggregation_reasoning": "Both Block 3 and Block 4 detected tomatoes with high confidence. Block 3 shows one tomato being removed from a bag and placed into a bowl, and Block 4 shows another tomato being removed from the same bag and placed on a cutting board. The bag initially contained multiple tomatoes, and two were removed across the two blocks. Therefore, the total quantity dispensed is two discrete tomatoes.",
+          "num_blocks_aggregated": 2
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "tomatoes",
+        "amount": "122",
+        "unit": "g",
+        "recipe": "P09_R06"
+      },
+      "total_predicted": 2
+    },
+    {
+      "narration_id": "P09-20240624-160737-88",
+      "food_name": "scotch bonnet peppers",
+      "difficulty": "LOW",
+      "video_range": [
+        "P09-20240624-160737",
+        "P09-20240624-165332"
+      ],
+      "total_ground_truth": null,
+      "total_ground_truth_unit": "peppers",
+      "num_segments": 2,
+      "segments": [
+        {
+          "segment_id": "seg_f6ec74ce",
+          "segment_idx": 0,
+          "video_id": "P09-20240624-160737",
+          "start_timestamp": 167.35,
+          "end_timestamp": 172.45,
+          "ground_truth_count": null,
+          "ground_truth_unit": "peppers",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "tomatoes",
+          "item_match": false,
+          "item_similarity": 0.29747751355171204,
+          "confidence": "high",
+          "match": "item_mismatch",
+          "error": null,
+          "blocks_queried": [
+            5
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 5,
+          "remaining_count": 4,
+          "remaining_description": null,
+          "remaining_fraction": 0.8,
+          "visual_evidence": "A container with 5 red tomatoes was visible. The person's hand reached in, picked up one tomato, and moved it to the cutting board. After the action, 4 tomatoes remained in the container."
+        },
+        {
+          "segment_id": "seg_a1502ae2",
+          "segment_idx": 1,
+          "video_id": "P09-20240624-160737",
+          "start_timestamp": 450.07,
+          "end_timestamp": 455.07,
+          "ground_truth_count": 1,
+          "ground_truth_unit": "peppers",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "tomatoes",
+          "item_match": false,
+          "item_similarity": 0.29747751355171204,
+          "confidence": "high",
+          "match": "item_mismatch",
+          "error": 0,
+          "blocks_queried": [
+            15
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 15,
+          "remaining_count": 2,
+          "remaining_description": "about 2 tomatoes left",
+          "remaining_fraction": 0.6,
+          "visual_evidence": "A tomato was on the cutting board. The person cut a piece off and then placed the remaining piece into a bowl. The original tomato was whole before the action, and after the action, two pieces were left on the cutting board."
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "scotch bonnet chilli",
+        "amount": "23",
+        "unit": "g",
+        "recipe": "P09_R06"
+      },
+      "total_predicted": 2
+    },
+    {
+      "narration_id": "P09-20240624-165332-446",
+      "food_name": "tea (tea bags)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P09-20240624-160737",
+        "P09-20240624-165332"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "tea bags",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_4a8c42c9",
+          "segment_idx": 0,
+          "video_id": "P09-20240624-165332",
+          "start_timestamp": 1103.815,
+          "end_timestamp": 1108.815,
+          "ground_truth_count": 1,
+          "ground_truth_unit": "tea bags",
+          "quantity_category": "continuous",
+          "predicted_count": null,
+          "predicted_amount": "a small amount",
+          "predicted_unit": "scoop",
+          "detected_item_name": "sugar",
+          "item_match": false,
+          "item_similarity": 0.38209599256515503,
+          "confidence": "high",
+          "match": "item_mismatch",
+          "error": null,
+          "blocks_queried": [
+            36
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 36,
+          "remaining_count": null,
+          "remaining_description": "about 3/4 of the container",
+          "remaining_fraction": 0.75,
+          "visual_evidence": "A container of sugar is opened. A hand reaches in and takes a scoop. The container is then closed. The container appears to be about 3/4 full after the action."
+        }
+      ],
+      "recipe_amount": null,
+      "total_predicted": null
+    }
+  ]
+}

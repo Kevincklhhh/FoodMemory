@@ -1,0 +1,803 @@
+{
+  "participant": "P03",
+  "model": "gpt5",
+  "tag": "frame_test",
+  "task": "keyframe_selection",
+  "low_only": true,
+  "padding": 2.0,
+  "fps": 3.0,
+  "max_frames": 40,
+  "total_items": 19,
+  "items": [
+    {
+      "narration_id": "P03-20240216-084005-67",
+      "food_name": "bread (loaf/bag of bread)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240216-084005"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "slices",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_2bac7566",
+          "segment_idx": 0,
+          "video_id": "P03-20240216-084005",
+          "start_timestamp": 715.74,
+          "end_timestamp": 726.49,
+          "clip_start": 713.74,
+          "error": "No VLM response"
+        }
+      ]
+    },
+    {
+      "narration_id": "P03-20240216-185832-1024",
+      "food_name": "eggs",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240216-185832",
+        "P03-20240216-205923"
+      ],
+      "total_ground_truth": 8,
+      "total_ground_truth_unit": "eggs",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_f8b2a75d",
+          "segment_idx": 0,
+          "video_id": "P03-20240216-185832",
+          "start_timestamp": 2792.96,
+          "end_timestamp": 2825.9,
+          "clip_start": 2790.96,
+          "item_name": "eggs",
+          "counting_strategy": "Use the source frame to count the eggs visible in the opened carton on the fridge door shelf (baseline available in source). Use the destination frame to count the eggs visible inside the bowl on the counter after placement. The inventory change (eggs transferred) is the number of eggs in the bowl in the destination frame (and can be cross-checked against the carton count if needed).",
+          "source_frame": {
+            "timestamp_raw": "00:16",
+            "description": "Fridge door is open; the egg carton on the door shelf is open with multiple eggs clearly visible in their wells (carton contents can be counted).",
+            "visibility_status": "clear_view",
+            "snapped_to_frame": 19,
+            "timestamp_seconds": 16.2,
+            "absolute_timestamp": 2807.16
+          },
+          "destination_frame": {
+            "timestamp_raw": "00:23",
+            "description": "Top-down view of the counter area; a white bowl is in view with the eggs just placed inside (eggs in bowl can be counted).",
+            "visibility_status": "clear_view",
+            "snapped_to_frame": 27,
+            "timestamp_seconds": 23.4,
+            "absolute_timestamp": 2814.36
+          },
+          "raw_vlm_response": "{\n  \"item_name\": \"eggs\",\n  \"counting_strategy\": \"Use the source frame to count the eggs visible in the opened carton on the fridge door shelf (baseline available in source). Use the destination frame to count the eggs visible inside the bowl on the counter after placement. The inventory change (eggs transferred) is the number of eggs in the bowl in the destination frame (and can be cross-checked against the carton count if needed).\",\n  \"source_frame\": {\n    \"timestamp\": \"00:16\",\n    \"description\": \"Fridge door is open; the egg carton on the door shelf is open with multiple eggs clearly visible in their wells (carton contents can be counted).\",\n    \"visibility_status\": \"clear_view\"\n  },\n  \"destination_frame\": {\n    \"timestamp\": \"00:23\",\n    \"description\": \"Top-down view of the counter area; a white bowl is in view with the eggs just placed inside (eggs in bowl can be counted).\",\n    \"visibility_status\": \"clear_view\"\n  }\n}",
+          "num_frames": 40,
+          "frame_fps": 3.0
+        }
+      ]
+    },
+    {
+      "narration_id": "P03-20240216-185832-38",
+      "food_name": "bag of potatoes",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240216-185832",
+        "P03-20240216-205923"
+      ],
+      "total_ground_truth": 12,
+      "total_ground_truth_unit": "potatoes",
+      "num_segments": 2,
+      "segments": [
+        {
+          "segment_id": "seg_d38f9871",
+          "segment_idx": 0,
+          "video_id": "P03-20240216-185832",
+          "start_timestamp": 763.61,
+          "end_timestamp": 774.5,
+          "clip_start": 761.61,
+          "item_name": "small potatoes (bagged)",
+          "counting_strategy": "Use the source frame to establish the destination (countertop) starts with 0 loose potatoes outside the bag. Then, in the destination frame, count all loose potatoes visible on the countertop (pile near the cooker/microwave). Since the starting loose count is zero, the number visible in the final pile equals the number transferred out of the bag.",
+          "source_frame": {
+            "timestamp_raw": "00:00",
+            "description": "Countertop before transfer: the potatoes are still contained in the bag at the lower-right area; no loose potatoes are present on the countertop.",
+            "visibility_status": "clear_view",
+            "snapped_to_frame": 1,
+            "timestamp_seconds": 0.0,
+            "absolute_timestamp": 761.61
+          },
+          "destination_frame": {
+            "timestamp_raw": "00:13",
+            "description": "After transfer: a consolidated pile of loose small potatoes is clearly visible on the right side of the countertop near the cooker/microwave; hands are not covering the pile, enabling an accurate count.",
+            "visibility_status": "clear_view",
+            "snapped_to_frame": 36,
+            "timestamp_seconds": 12.83,
+            "absolute_timestamp": 774.44
+          },
+          "raw_vlm_response": "{\n  \"item_name\": \"small potatoes (bagged)\",\n  \"counting_strategy\": \"Use the source frame to establish the destination (countertop) starts with 0 loose potatoes outside the bag. Then, in the destination frame, count all loose potatoes visible on the countertop (pile near the cooker/microwave). Since the starting loose count is zero, the number visible in the final pile equals the number transferred out of the bag.\",\n  \"source_frame\": {\n    \"timestamp\": \"00:00\",\n    \"description\": \"Countertop before transfer: the potatoes are still contained in the bag at the lower-right area; no loose potatoes are present on the countertop.\",\n    \"visibility_status\": \"clear_view\"\n  },\n  \"destination_frame\": {\n    \"timestamp\": \"00:13\",\n    \"description\": \"After transfer: a consolidated pile of loose small potatoes is clearly visible on the right side of the countertop near the cooker/microwave; hands are not covering the pile, enabling an accurate count.\",\n    \"visibility_status\": \"clear_view\"\n  }\n}",
+          "num_frames": 40,
+          "frame_fps": 3.0
+        },
+        {
+          "segment_id": "seg_7c631815",
+          "segment_idx": 1,
+          "video_id": "P03-20240216-185832",
+          "start_timestamp": 1251.98,
+          "end_timestamp": 1259.16,
+          "clip_start": 1249.98,
+          "item_name": "potatoes",
+          "counting_strategy": "Use the source frame to establish that no potatoes are yet staged outside the bag (destination area = 0). In the destination frame, count the loose whole potatoes clearly placed on the counter to the right of the bag (near the white bowl). The change in inventory transferred from the bag to the counter equals the number of loose potatoes visible there in the destination frame.",
+          "source_frame": {
+            "timestamp_raw": "00:00",
+            "description": "Bag of potatoes on the counter (source) with no loose potatoes yet placed to the right near the white bowl; hands just starting to handle the bag.",
+            "visibility_status": "clear_view",
+            "snapped_to_frame": 1,
+            "timestamp_seconds": 0.0,
+            "absolute_timestamp": 1249.98
+          },
+          "destination_frame": {
+            "timestamp_raw": "00:07",
+            "description": "Several whole potatoes are now placed loose on the right side of the counter near the white bowl (destination), while the potato bag remains visible in the center-left.",
+            "visibility_status": "clear_view",
+            "snapped_to_frame": 22,
+            "timestamp_seconds": 7.0,
+            "absolute_timestamp": 1256.98
+          },
+          "raw_vlm_response": "{\n  \"item_name\": \"potatoes\",\n  \"counting_strategy\": \"Use the source frame to establish that no potatoes are yet staged outside the bag (destination area = 0). In the destination frame, count the loose whole potatoes clearly placed on the counter to the right of the bag (near the white bowl). The change in inventory transferred from the bag to the counter equals the number of loose potatoes visible there in the destination frame.\",\n  \"source_frame\": {\n    \"timestamp\": \"00:00\",\n    \"description\": \"Bag of potatoes on the counter (source) with no loose potatoes yet placed to the right near the white bowl; hands just starting to handle the bag.\",\n    \"visibility_status\": \"clear_view\"\n  },\n  \"destination_frame\": {\n    \"timestamp\": \"00:07\",\n    \"description\": \"Several whole potatoes are now placed loose on the right side of the counter near the white bowl (destination), while the potato bag remains visible in the center-left.\",\n    \"visibility_status\": \"clear_view\"\n  }\n}",
+          "num_frames": 34,
+          "frame_fps": 3.0
+        }
+      ]
+    },
+    {
+      "narration_id": "P03-20240216-185832-63",
+      "food_name": "yeast (box)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240216-185832",
+        "P03-20240216-205923"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "sachets",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_13de44e1",
+          "segment_idx": 0,
+          "video_id": "P03-20240216-185832",
+          "start_timestamp": 2102.75,
+          "end_timestamp": 2106.03,
+          "clip_start": 2100.75,
+          "item_name": "yellow boxed sachets (boxed pantry ingredient)",
+          "counting_strategy": "Use the source frame to confirm the yellow box is present in the lower cabinet (and identifiable by its color/shape). Use the destination frame to confirm the same yellow box has been moved onto the countertop. The inventory change is counted as 1 unit transferred (1 box removed from the cabinet and added to the counter-prep area).",
+          "source_frame": {
+            "timestamp_raw": "00:00",
+            "description": "Lower cabinet door open; yellow rectangular box is visible on the lower shelf among other pantry items, before it is removed.",
+            "visibility_status": "clear_view",
+            "snapped_to_frame": 1,
+            "timestamp_seconds": 0.0,
+            "absolute_timestamp": 2100.75
+          },
+          "destination_frame": {
+            "timestamp_raw": "00:07",
+            "description": "Countertop/stovetop area; the same yellow box is in the user\u2019s hand right above the counter as it\u2019s being placed down near the mixing bowl.",
+            "visibility_status": "clear_view",
+            "snapped_to_frame": 22,
+            "timestamp_seconds": 7.0,
+            "absolute_timestamp": 2107.75
+          },
+          "raw_vlm_response": "{\n  \"item_name\": \"yellow boxed sachets (boxed pantry ingredient)\",\n  \"counting_strategy\": \"Use the source frame to confirm the yellow box is present in the lower cabinet (and identifiable by its color/shape). Use the destination frame to confirm the same yellow box has been moved onto the countertop. The inventory change is counted as 1 unit transferred (1 box removed from the cabinet and added to the counter-prep area).\",\n  \"source_frame\": {\n    \"timestamp\": \"00:00\",\n    \"description\": \"Lower cabinet door open; yellow rectangular box is visible on the lower shelf among other pantry items, before it is removed.\",\n    \"visibility_status\": \"clear_view\"\n  },\n  \"destination_frame\": {\n    \"timestamp\": \"00:07\",\n    \"description\": \"Countertop/stovetop area; the same yellow box is in the user\u2019s hand right above the counter as it\u2019s being placed down near the mixing bowl.\",\n    \"visibility_status\": \"clear_view\"\n  }\n}",
+          "num_frames": 22,
+          "frame_fps": 3.0
+        }
+      ]
+    },
+    {
+      "narration_id": "P03-20240217-091657-304",
+      "food_name": "bread (in bag)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240217-091657"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "slices",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_965a98f5",
+          "segment_idx": 0,
+          "video_id": "P03-20240217-091657",
+          "start_timestamp": 645,
+          "end_timestamp": 659.47,
+          "clip_start": 643.0,
+          "item_name": "Hovis wholemeal bread slices",
+          "counting_strategy": "Use the source frame to confirm the bread is being taken from the opened Hovis loaf bag (slices visible inside, one slice being removed). Then use the destination frame to count how many slices ended up in the destination (toaster slots). The inventory change equals the number of slices visible in the toaster (2 slices transferred from the bag to the toaster).",
+          "source_frame": {
+            "timestamp_raw": "00:09",
+            "description": "Opened Hovis loaf bag is held above the counter with slices visible inside; a single slice is clearly in the user\u2019s right hand being taken from the bag near the toaster.",
+            "visibility_status": "clear_view",
+            "snapped_to_frame": 22,
+            "timestamp_seconds": 9.1,
+            "absolute_timestamp": 652.1
+          },
+          "destination_frame": {
+            "timestamp_raw": "00:15",
+            "description": "Toaster is clearly visible on the right side of the counter with two bread slices standing in the two slots; hands are not blocking the slots.",
+            "visibility_status": "clear_view",
+            "snapped_to_frame": 36,
+            "timestamp_seconds": 15.17,
+            "absolute_timestamp": 658.17
+          },
+          "raw_vlm_response": "{\n  \"item_name\": \"Hovis wholemeal bread slices\",\n  \"counting_strategy\": \"Use the source frame to confirm the bread is being taken from the opened Hovis loaf bag (slices visible inside, one slice being removed). Then use the destination frame to count how many slices ended up in the destination (toaster slots). The inventory change equals the number of slices visible in the toaster (2 slices transferred from the bag to the toaster).\",\n  \"source_frame\": {\n    \"timestamp\": \"00:09\",\n    \"description\": \"Opened Hovis loaf bag is held above the counter with slices visible inside; a single slice is clearly in the user\u2019s right hand being taken from the bag near the toaster.\",\n    \"visibility_status\": \"clear_view\"\n  },\n  \"destination_frame\": {\n    \"timestamp\": \"00:15\",\n    \"description\": \"Toaster is clearly visible on the right side of the counter with two bread slices standing in the two slots; hands are not blocking the slots.\",\n    \"visibility_status\": \"clear_view\"\n  }\n}",
+          "num_frames": 40,
+          "frame_fps": 3.0
+        }
+      ]
+    },
+    {
+      "narration_id": "P03-20240217-131219-490",
+      "food_name": "can of coconut milk",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240217-131219"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "cans",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_802c5a76",
+          "segment_idx": 0,
+          "video_id": "P03-20240217-131219",
+          "start_timestamp": 2008.94,
+          "end_timestamp": 2013.92,
+          "clip_start": 2006.94,
+          "item_name": "canned coconut milk/cream (white liquid)",
+          "counting_strategy": "Treat the transfer as a whole-unit container event: identify the opened can (source) and the moment it is being poured into the pan (destination). The can is the countable unit, so this clip shows 1 can being transferred from the can into the pan.",
+          "source_frame": {
+            "timestamp_raw": "00:02",
+            "description": "The can is opened and held above the counter with the top clearly visible; white coconut liquid fills the can (pre-pour state).",
+            "visibility_status": "clear_view",
+            "snapped_to_frame": 7,
+            "timestamp_seconds": 2.0,
+            "absolute_timestamp": 2008.94
+          },
+          "destination_frame": {
+            "timestamp_raw": "00:03",
+            "description": "The opened can is tipped over the pan and white coconut liquid is visibly pouring/collecting on top of the orange mixture in the pan (during transfer).",
+            "visibility_status": "clear_view",
+            "snapped_to_frame": 10,
+            "timestamp_seconds": 3.0,
+            "absolute_timestamp": 2009.94
+          },
+          "raw_vlm_response": "{\n  \"item_name\": \"canned coconut milk/cream (white liquid)\",\n  \"counting_strategy\": \"Treat the transfer as a whole-unit container event: identify the opened can (source) and the moment it is being poured into the pan (destination). The can is the countable unit, so this clip shows 1 can being transferred from the can into the pan.\",\n  \"source_frame\": {\n    \"timestamp\": \"00:02\",\n    \"description\": \"The can is opened and held above the counter with the top clearly visible; white coconut liquid fills the can (pre-pour state).\",\n    \"visibility_status\": \"clear_view\"\n  },\n  \"destination_frame\": {\n    \"timestamp\": \"00:03\",\n    \"description\": \"The opened can is tipped over the pan and white coconut liquid is visibly pouring/collecting on top of the orange mixture in the pan (during transfer).\",\n    \"visibility_status\": \"clear_view\"\n  }\n}",
+          "num_frames": 27,
+          "frame_fps": 3.0
+        }
+      ]
+    },
+    {
+      "narration_id": "P03-20240217-192543-10",
+      "food_name": "box of mushrooms",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240217-192543"
+      ],
+      "total_ground_truth": 5,
+      "total_ground_truth_unit": "mushrooms",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_7172e172",
+          "segment_idx": 0,
+          "video_id": "P03-20240217-192543",
+          "start_timestamp": 479.69,
+          "end_timestamp": 490,
+          "clip_start": 477.69,
+          "item_name": "button mushrooms (packaged)",
+          "counting_strategy": "Use the source frame to count the mushrooms visible inside the (still mostly full) opened plastic pack. Then use the destination frame to count the mushrooms that have been transferred out onto the countertop (destination) and, if needed, cross-check by counting what remains in the pack. The transferred quantity = (count in pack at source) \u2212 (count remaining in pack at destination) or directly = (count of loose mushrooms on the counter at destination).",
+          "source_frame": {
+            "timestamp_raw": "00:01",
+            "description": "Plastic pack of mushrooms is being opened/handled over the counter; mushrooms inside the pack are broadly visible through the clear film and the container is largely in-frame.",
+            "visibility_status": "clear_view",
+            "snapped_to_frame": 4,
+            "timestamp_seconds": 1.0,
+            "absolute_timestamp": 478.69
+          },
+          "destination_frame": {
+            "timestamp_raw": "00:11",
+            "description": "Several mushrooms are clearly visible loose on the countertop near the sink/colander area, with the opened pack still present nearby for comparison.",
+            "visibility_status": "clear_view",
+            "snapped_to_frame": 34,
+            "timestamp_seconds": 11.0,
+            "absolute_timestamp": 488.69
+          },
+          "raw_vlm_response": "{\n  \"item_name\": \"button mushrooms (packaged)\",\n  \"counting_strategy\": \"Use the source frame to count the mushrooms visible inside the (still mostly full) opened plastic pack. Then use the destination frame to count the mushrooms that have been transferred out onto the countertop (destination) and, if needed, cross-check by counting what remains in the pack. The transferred quantity = (count in pack at source) \u2212 (count remaining in pack at destination) or directly = (count of loose mushrooms on the counter at destination).\",\n  \"source_frame\": {\n    \"timestamp\": \"00:01\",\n    \"description\": \"Plastic pack of mushrooms is being opened/handled over the counter; mushrooms inside the pack are broadly visible through the clear film and the container is largely in-frame.\",\n    \"visibility_status\": \"clear_view\"\n  },\n  \"destination_frame\": {\n    \"timestamp\": \"00:11\",\n    \"description\": \"Several mushrooms are clearly visible loose on the countertop near the sink/colander area, with the opened pack still present nearby for comparison.\",\n    \"visibility_status\": \"clear_view\"\n  }\n}",
+          "num_frames": 40,
+          "frame_fps": 3.0
+        }
+      ]
+    },
+    {
+      "narration_id": "P03-20240217-192543-335",
+      "food_name": "egg",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240217-192543"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "eggs",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_a5fac984",
+          "segment_idx": 0,
+          "video_id": "P03-20240217-192543",
+          "start_timestamp": 741.72,
+          "end_timestamp": 745.05,
+          "clip_start": 739.72,
+          "item_name": "eggs",
+          "counting_strategy": "Use the source frame to count how many eggs are present in the open carton while it is still in the fridge door shelf. Then use the destination frame to confirm a single egg has been removed (egg visibly in the user\u2019s hand, no longer in the carton). Inventory change = initial carton count minus 1 removed egg.",
+          "source_frame": {
+            "timestamp_raw": "00:04",
+            "description": "Fridge door is open; the egg carton in the door shelf is opened with multiple eggs visible inside (top lid flipped up).",
+            "visibility_status": "partially_in_frame",
+            "snapped_to_frame": 13,
+            "timestamp_seconds": 4.0,
+            "absolute_timestamp": 743.72
+          },
+          "destination_frame": {
+            "timestamp_raw": "00:05",
+            "description": "Fridge door still open; one egg is clearly in the user\u2019s right hand, removed from the carton (carton appears closed/on the door shelf).",
+            "visibility_status": "clear_view",
+            "snapped_to_frame": 16,
+            "timestamp_seconds": 5.0,
+            "absolute_timestamp": 744.72
+          },
+          "raw_vlm_response": "{\n  \"item_name\": \"eggs\",\n  \"counting_strategy\": \"Use the source frame to count how many eggs are present in the open carton while it is still in the fridge door shelf. Then use the destination frame to confirm a single egg has been removed (egg visibly in the user\u2019s hand, no longer in the carton). Inventory change = initial carton count minus 1 removed egg.\",\n  \"source_frame\": {\n    \"timestamp\": \"00:04\",\n    \"description\": \"Fridge door is open; the egg carton in the door shelf is opened with multiple eggs visible inside (top lid flipped up).\",\n    \"visibility_status\": \"partially_in_frame\"\n  },\n  \"destination_frame\": {\n    \"timestamp\": \"00:05\",\n    \"description\": \"Fridge door still open; one egg is clearly in the user\u2019s right hand, removed from the carton (carton appears closed/on the door shelf).\",\n    \"visibility_status\": \"clear_view\"\n  }\n}",
+          "num_frames": 22,
+          "frame_fps": 3.0
+        }
+      ]
+    },
+    {
+      "narration_id": "P03-20240217-192543-353",
+      "food_name": "garlic cloves (in small cup)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240217-192543"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "cloves",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_29ba3d83",
+          "segment_idx": 0,
+          "video_id": "P03-20240217-192543",
+          "start_timestamp": 830.07,
+          "end_timestamp": 835.21,
+          "clip_start": 828.07,
+          "item_name": "dried herbs/seasoning (from small ceramic ramekin)",
+          "counting_strategy": "Use the ramekin as the measurable source container: in the Source State frame, visually estimate the starting quantity by the fill level/visible herb volume inside the ramekin. In the Destination State frame (immediately after seasoning is added), re-estimate the remaining herb volume in the ramekin and, where visible, confirm new herb specks on top of the pan contents. The inventory change is the difference between the ramekin\u2019s before/after visible contents (treated as one transfer event).",
+          "source_frame": {
+            "timestamp_raw": "00:02",
+            "description": "Overhead view of the cooktop; a small ceramic ramekin is held open above the pan with dried herb/seasoning clearly visible inside before adding.",
+            "visibility_status": "clear_view",
+            "snapped_to_frame": 7,
+            "timestamp_seconds": 2.0,
+            "absolute_timestamp": 830.07
+          },
+          "destination_frame": {
+            "timestamp_raw": "00:03",
+            "description": "Overhead view of the pan and ramekin during/after seasoning; the ramekin is still visible in-hand with reduced contents while the pan of diced vegetables is fully in view for confirming the addition.",
+            "visibility_status": "clear_view",
+            "snapped_to_frame": 10,
+            "timestamp_seconds": 3.0,
+            "absolute_timestamp": 831.07
+          },
+          "raw_vlm_response": "{\n  \"item_name\": \"dried herbs/seasoning (from small ceramic ramekin)\",\n  \"counting_strategy\": \"Use the ramekin as the measurable source container: in the Source State frame, visually estimate the starting quantity by the fill level/visible herb volume inside the ramekin. In the Destination State frame (immediately after seasoning is added), re-estimate the remaining herb volume in the ramekin and, where visible, confirm new herb specks on top of the pan contents. The inventory change is the difference between the ramekin\u2019s before/after visible contents (treated as one transfer event).\",\n  \"source_frame\": {\n    \"timestamp\": \"00:02\",\n    \"description\": \"Overhead view of the cooktop; a small ceramic ramekin is held open above the pan with dried herb/seasoning clearly visible inside before adding.\",\n    \"visibility_status\": \"clear_view\"\n  },\n  \"destination_frame\": {\n    \"timestamp\": \"00:03\",\n    \"description\": \"Overhead view of the pan and ramekin during/after seasoning; the ramekin is still visible in-hand with reduced contents while the pan of diced vegetables is fully in view for confirming the addition.\",\n    \"visibility_status\": \"clear_view\"\n  }\n}",
+          "num_frames": 28,
+          "frame_fps": 3.0
+        }
+      ]
+    },
+    {
+      "narration_id": "P03-20240217-192543-359",
+      "food_name": "whole garlic (garlic bulb in net)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240217-192543"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "bulbs",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_ad4bca5b",
+          "segment_idx": 0,
+          "video_id": "P03-20240217-192543",
+          "start_timestamp": 839,
+          "end_timestamp": 844.54,
+          "clip_start": 837.0,
+          "item_name": "garlic",
+          "counting_strategy": "Use the source frame to confirm the removal event from the storage rack (one whole garlic bulb in-hand, indicating 1 unit taken from the source). Then use the destination frame to count the visible garlic pieces placed at the cooking area (count the distinct garlic cloves on the counter). The inventory change can be derived as: source rack garlic bulbs \u22121, destination counter garlic cloves +2 (as visible).",
+          "source_frame": {
+            "timestamp_raw": "00:01",
+            "description": "Lower shelf of a white storage rack beside the refrigerator; the person has just pulled out a whole garlic bulb and is holding it near the rack opening.",
+            "visibility_status": "partially_in_frame",
+            "snapped_to_frame": 4,
+            "timestamp_seconds": 1.0,
+            "absolute_timestamp": 838.0
+          },
+          "destination_frame": {
+            "timestamp_raw": "00:09",
+            "description": "Right-side countertop next to the stovetop and spice containers; two garlic cloves are visible on the counter (with one additional clove being handled).",
+            "visibility_status": "clear_view",
+            "snapped_to_frame": 28,
+            "timestamp_seconds": 9.0,
+            "absolute_timestamp": 846.0
+          },
+          "raw_vlm_response": "{\n  \"item_name\": \"garlic\",\n  \"counting_strategy\": \"Use the source frame to confirm the removal event from the storage rack (one whole garlic bulb in-hand, indicating 1 unit taken from the source). Then use the destination frame to count the visible garlic pieces placed at the cooking area (count the distinct garlic cloves on the counter). The inventory change can be derived as: source rack garlic bulbs \u22121, destination counter garlic cloves +2 (as visible).\",\n  \"source_frame\": {\n    \"timestamp\": \"00:01\",\n    \"description\": \"Lower shelf of a white storage rack beside the refrigerator; the person has just pulled out a whole garlic bulb and is holding it near the rack opening.\",\n    \"visibility_status\": \"partially_in_frame\"\n  },\n  \"destination_frame\": {\n    \"timestamp\": \"00:09\",\n    \"description\": \"Right-side countertop next to the stovetop and spice containers; two garlic cloves are visible on the counter (with one additional clove being handled).\",\n    \"visibility_status\": \"clear_view\"\n  }\n}",
+          "num_frames": 29,
+          "frame_fps": 3.0
+        }
+      ]
+    },
+    {
+      "narration_id": "P03-20240217-192543-808",
+      "food_name": "mozzarella",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240217-192543"
+      ],
+      "total_ground_truth": null,
+      "total_ground_truth_unit": null,
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_81e632ff",
+          "segment_idx": 0,
+          "video_id": "P03-20240217-192543",
+          "start_timestamp": 2200.92,
+          "end_timestamp": 2205.01,
+          "clip_start": 2198.92,
+          "item_name": "white cheese (mozzarella-style piece)",
+          "counting_strategy": "Use the source frame to confirm the cheese piece is still inside/at the opening of the package (source container). Use the destination frame to confirm the same single cheese piece has been fully removed and is now separate in-hand over the sink (destination state). The inventory change is counted as 1 unit transferred out of the package.",
+          "source_frame": {
+            "timestamp_raw": "00:03",
+            "description": "Over the sink, the opened blue/red cheese package is held with the top pulled apart; a white cylindrical cheese piece is visible at the package opening while still being extracted.",
+            "visibility_status": "clear_view",
+            "snapped_to_frame": 10,
+            "timestamp_seconds": 3.0,
+            "absolute_timestamp": 2201.92
+          },
+          "destination_frame": {
+            "timestamp_raw": "00:04",
+            "description": "The white cylindrical cheese piece is fully out of the package and clearly visible in the right hand above the sink; the package is lowered/held separately, indicating the piece has been transferred out.",
+            "visibility_status": "clear_view",
+            "snapped_to_frame": 13,
+            "timestamp_seconds": 4.0,
+            "absolute_timestamp": 2202.92
+          },
+          "raw_vlm_response": "{\n  \"item_name\": \"white cheese (mozzarella-style piece)\",\n  \"counting_strategy\": \"Use the source frame to confirm the cheese piece is still inside/at the opening of the package (source container). Use the destination frame to confirm the same single cheese piece has been fully removed and is now separate in-hand over the sink (destination state). The inventory change is counted as 1 unit transferred out of the package.\",\n  \"source_frame\": {\n    \"timestamp\": \"00:03\",\n    \"description\": \"Over the sink, the opened blue/red cheese package is held with the top pulled apart; a white cylindrical cheese piece is visible at the package opening while still being extracted.\",\n    \"visibility_status\": \"clear_view\"\n  },\n  \"destination_frame\": {\n    \"timestamp\": \"00:04\",\n    \"description\": \"The white cylindrical cheese piece is fully out of the package and clearly visible in the right hand above the sink; the package is lowered/held separately, indicating the piece has been transferred out.\",\n    \"visibility_status\": \"clear_view\"\n  }\n}",
+          "num_frames": 25,
+          "frame_fps": 3.0
+        }
+      ]
+    },
+    {
+      "narration_id": "P03-20240218-094452-16",
+      "food_name": "buns package",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-094452"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "buns",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_0fed962b",
+          "segment_idx": 0,
+          "video_id": "P03-20240218-094452",
+          "start_timestamp": 88.05,
+          "end_timestamp": 91.68,
+          "clip_start": 86.05,
+          "item_name": "steamed buns (bao buns)",
+          "counting_strategy": "Use the source frame to count how many buns are available in the opened plastic tray (4 visible). Use the destination frame to count how many buns are now inside the cooker/steamer (2 visible). The transferred quantity equals the number now in the destination (2), which also matches the difference between buns in the tray before (4) and buns remaining in the tray after transfer (2).",
+          "source_frame": {
+            "timestamp_raw": "00:01",
+            "description": "Opened packaging with a plastic tray on the counter; four round buns are clearly visible in the tray (2x2 arrangement).",
+            "visibility_status": "clear_view",
+            "snapped_to_frame": 4,
+            "timestamp_seconds": 1.0,
+            "absolute_timestamp": 87.05
+          },
+          "destination_frame": {
+            "timestamp_raw": "00:03",
+            "description": "Cooker/steamer is open and two buns are clearly visible inside on the steamer plate; the tray below shows two buns remaining.",
+            "visibility_status": "clear_view",
+            "snapped_to_frame": 10,
+            "timestamp_seconds": 3.0,
+            "absolute_timestamp": 89.05
+          },
+          "raw_vlm_response": "{\n  \"item_name\": \"steamed buns (bao buns)\",\n  \"counting_strategy\": \"Use the source frame to count how many buns are available in the opened plastic tray (4 visible). Use the destination frame to count how many buns are now inside the cooker/steamer (2 visible). The transferred quantity equals the number now in the destination (2), which also matches the difference between buns in the tray before (4) and buns remaining in the tray after transfer (2).\",\n  \"source_frame\": {\n    \"timestamp\": \"00:01\",\n    \"description\": \"Opened packaging with a plastic tray on the counter; four round buns are clearly visible in the tray (2x2 arrangement).\",\n    \"visibility_status\": \"clear_view\"\n  },\n  \"destination_frame\": {\n    \"timestamp\": \"00:03\",\n    \"description\": \"Cooker/steamer is open and two buns are clearly visible inside on the steamer plate; the tray below shows two buns remaining.\",\n    \"visibility_status\": \"clear_view\"\n  }\n}",
+          "num_frames": 23,
+          "frame_fps": 3.0
+        }
+      ]
+    },
+    {
+      "narration_id": "P03-20240218-094452-390",
+      "food_name": "bread",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-094452"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "slices",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_ff2aef73",
+          "segment_idx": 0,
+          "video_id": "P03-20240218-094452",
+          "start_timestamp": 695.23,
+          "end_timestamp": 701.01,
+          "clip_start": 693.23,
+          "item_name": "sliced bread (Hovis loaf)",
+          "counting_strategy": "Use the source frame to verify the discrete unit removed from the source container (one individual bread slice visible outside the bag). Use the destination frame to verify that same unit has been deposited (one slice clearly seated in the toaster slot). Inventory change = 1 slice transferred from bread bag (source) to toaster (destination).",
+          "source_frame": {
+            "timestamp_raw": "00:05",
+            "description": "Bread bag (Hovis) is open in the left hand while the right hand holds a single, clearly visible bread slice above the toaster area\u2014evidence of 1 slice removed from the bag.",
+            "visibility_status": "clear_view",
+            "snapped_to_frame": 16,
+            "timestamp_seconds": 5.0,
+            "absolute_timestamp": 698.23
+          },
+          "destination_frame": {
+            "timestamp_raw": "00:07",
+            "description": "Toaster top is visible with one bread slice inserted in a slot; the hand is mostly out of the way so the slice placement is clear\u2014evidence of 1 slice delivered to the toaster.",
+            "visibility_status": "clear_view",
+            "snapped_to_frame": 22,
+            "timestamp_seconds": 7.0,
+            "absolute_timestamp": 700.23
+          },
+          "raw_vlm_response": "{\n  \"item_name\": \"sliced bread (Hovis loaf)\",\n  \"counting_strategy\": \"Use the source frame to verify the discrete unit removed from the source container (one individual bread slice visible outside the bag). Use the destination frame to verify that same unit has been deposited (one slice clearly seated in the toaster slot). Inventory change = 1 slice transferred from bread bag (source) to toaster (destination).\",\n  \"source_frame\": {\n    \"timestamp\": \"00:05\",\n    \"description\": \"Bread bag (Hovis) is open in the left hand while the right hand holds a single, clearly visible bread slice above the toaster area\u2014evidence of 1 slice removed from the bag.\",\n    \"visibility_status\": \"clear_view\"\n  },\n  \"destination_frame\": {\n    \"timestamp\": \"00:07\",\n    \"description\": \"Toaster top is visible with one bread slice inserted in a slot; the hand is mostly out of the way so the slice placement is clear\u2014evidence of 1 slice delivered to the toaster.\",\n    \"visibility_status\": \"clear_view\"\n  }\n}",
+          "num_frames": 30,
+          "frame_fps": 3.0
+        }
+      ]
+    },
+    {
+      "narration_id": "P03-20240218-140054-158",
+      "food_name": "garlic cloves",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-140054"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "cloves",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_4ef1e0c4",
+          "segment_idx": 0,
+          "video_id": "P03-20240218-140054",
+          "start_timestamp": 498.53,
+          "end_timestamp": 502.81,
+          "clip_start": 496.53,
+          "item_name": "whole spice pieces (small brown pods/segments) in a small cup",
+          "counting_strategy": "Use the source frame to count the number of whole spice pieces visible inside the small cup before any transfer. Use the destination frame where the cup is held/tilted over the saucepan to verify the cup is emptied (or how many pieces remain). Inventory change = (pieces in cup at source) \u2212 (pieces remaining in cup at destination); those removed are assumed transferred into the saucepan.",
+          "source_frame": {
+            "timestamp_raw": "00:02",
+            "description": "Top-down view of the small cup held near the hob; multiple small brown spice pieces are clearly visible inside the cup before transfer.",
+            "visibility_status": "clear_view",
+            "snapped_to_frame": 7,
+            "timestamp_seconds": 2.0,
+            "absolute_timestamp": 498.53
+          },
+          "destination_frame": {
+            "timestamp_raw": "00:07",
+            "description": "The small cup is held above/near the saucepan on the hob, angled as if pouring; the cup interior is visible enough to judge remaining pieces (appears mostly/fully emptied).",
+            "visibility_status": "clear_view",
+            "snapped_to_frame": 22,
+            "timestamp_seconds": 7.0,
+            "absolute_timestamp": 503.53
+          },
+          "raw_vlm_response": "{\n  \"item_name\": \"whole spice pieces (small brown pods/segments) in a small cup\",\n  \"counting_strategy\": \"Use the source frame to count the number of whole spice pieces visible inside the small cup before any transfer. Use the destination frame where the cup is held/tilted over the saucepan to verify the cup is emptied (or how many pieces remain). Inventory change = (pieces in cup at source) \u2212 (pieces remaining in cup at destination); those removed are assumed transferred into the saucepan.\",\n  \"source_frame\": {\n    \"timestamp\": \"00:02\",\n    \"description\": \"Top-down view of the small cup held near the hob; multiple small brown spice pieces are clearly visible inside the cup before transfer.\",\n    \"visibility_status\": \"clear_view\"\n  },\n  \"destination_frame\": {\n    \"timestamp\": \"00:07\",\n    \"description\": \"The small cup is held above/near the saucepan on the hob, angled as if pouring; the cup interior is visible enough to judge remaining pieces (appears mostly/fully emptied).\",\n    \"visibility_status\": \"clear_view\"\n  }\n}",
+          "num_frames": 25,
+          "frame_fps": 3.0
+        }
+      ]
+    },
+    {
+      "narration_id": "P03-20240218-190556-248",
+      "food_name": "plant-based burger",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-190556"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "burgers",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_1931a818",
+          "segment_idx": 0,
+          "video_id": "P03-20240218-190556",
+          "start_timestamp": 1290.46,
+          "end_timestamp": 1293.46,
+          "clip_start": 1288.46,
+          "item_name": "raw burger patties (round ground-meat patties)",
+          "counting_strategy": "Use the source frame to count how many patties are present in the plastic container before any are placed down. Use the destination frame to count how many patties are now visible on the cutting board after the transfer. The transferred quantity equals the number visible on the board (and/or the reduction from the container), which is discernible as two patties.",
+          "source_frame": {
+            "timestamp_raw": "00:02",
+            "description": "Plastic clamshell/container is held above the counter with the patties visible inside before being placed onto the cutting board.",
+            "visibility_status": "clear_view",
+            "snapped_to_frame": 7,
+            "timestamp_seconds": 2.0,
+            "absolute_timestamp": 1290.46
+          },
+          "destination_frame": {
+            "timestamp_raw": "00:03",
+            "description": "Two round patties are clearly visible resting on the cutting board; the container has been moved away from the board area.",
+            "visibility_status": "clear_view",
+            "snapped_to_frame": 10,
+            "timestamp_seconds": 3.0,
+            "absolute_timestamp": 1291.46
+          },
+          "raw_vlm_response": "```json\n{\n  \"item_name\": \"raw burger patties (round ground-meat patties)\",\n  \"counting_strategy\": \"Use the source frame to count how many patties are present in the plastic container before any are placed down. Use the destination frame to count how many patties are now visible on the cutting board after the transfer. The transferred quantity equals the number visible on the board (and/or the reduction from the container), which is discernible as two patties.\",\n  \"source_frame\": {\n    \"timestamp\": \"00:02\",\n    \"description\": \"Plastic clamshell/container is held above the counter with the patties visible inside before being placed onto the cutting board.\",\n    \"visibility_status\": \"clear_view\"\n  },\n  \"destination_frame\": {\n    \"timestamp\": \"00:03\",\n    \"description\": \"Two round patties are clearly visible resting on the cutting board; the container has been moved away from the board area.\",\n    \"visibility_status\": \"clear_view\"\n  }\n}\n```",
+          "num_frames": 21,
+          "frame_fps": 3.0
+        }
+      ]
+    },
+    {
+      "narration_id": "P03-20240218-190556-269",
+      "food_name": "box of mushrooms (second box)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-190556"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "mushrooms",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_20ed4b5a",
+          "segment_idx": 0,
+          "video_id": "P03-20240218-190556",
+          "start_timestamp": 752,
+          "end_timestamp": 761.89,
+          "clip_start": 750.0,
+          "item_name": "chestnut mushrooms",
+          "counting_strategy": "The transfer occurs as individual whole mushrooms from a plastic mushroom pack (source) into a white bowl on a scale (destination). In the source frame, the bowl\u2019s current mushroom count is visible and a single mushroom is being taken from the open pack (not yet added). In the destination frame, that mushroom is now in the bowl; the change in inventory is computed by counting mushrooms in the bowl before vs. after (difference = mushrooms transferred, here identifiable as +1).",
+          "source_frame": {
+            "timestamp_raw": "00:07",
+            "description": "Open plastic pack of mushrooms held over the counter; the white bowl on the scale is visible with mushrooms already inside, and a mushroom is being selected from the pack (not yet placed in the bowl).",
+            "visibility_status": "clear_view",
+            "snapped_to_frame": 22,
+            "timestamp_seconds": 7.0,
+            "absolute_timestamp": 757.0
+          },
+          "destination_frame": {
+            "timestamp_raw": "00:09",
+            "description": "White bowl on the scale clearly visible with the newly added mushroom now among the others; the hand is moving away and the pack remains in view.",
+            "visibility_status": "clear_view",
+            "snapped_to_frame": 28,
+            "timestamp_seconds": 9.0,
+            "absolute_timestamp": 759.0
+          },
+          "raw_vlm_response": "{\n  \"item_name\": \"chestnut mushrooms\",\n  \"counting_strategy\": \"The transfer occurs as individual whole mushrooms from a plastic mushroom pack (source) into a white bowl on a scale (destination). In the source frame, the bowl\u2019s current mushroom count is visible and a single mushroom is being taken from the open pack (not yet added). In the destination frame, that mushroom is now in the bowl; the change in inventory is computed by counting mushrooms in the bowl before vs. after (difference = mushrooms transferred, here identifiable as +1).\",\n  \"source_frame\": {\n    \"timestamp\": \"00:07\",\n    \"description\": \"Open plastic pack of mushrooms held over the counter; the white bowl on the scale is visible with mushrooms already inside, and a mushroom is being selected from the pack (not yet placed in the bowl).\",\n    \"visibility_status\": \"clear_view\"\n  },\n  \"destination_frame\": {\n    \"timestamp\": \"00:09\",\n    \"description\": \"White bowl on the scale clearly visible with the newly added mushroom now among the others; the hand is moving away and the pack remains in view.\",\n    \"visibility_status\": \"clear_view\"\n  }\n}",
+          "num_frames": 40,
+          "frame_fps": 3.0
+        }
+      ]
+    },
+    {
+      "narration_id": "P03-20240218-190556-411",
+      "food_name": "onion",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-190556"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "onions",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_210d4c9f",
+          "segment_idx": 0,
+          "video_id": "P03-20240218-190556",
+          "start_timestamp": 985.57,
+          "end_timestamp": 990.05,
+          "clip_start": 983.57,
+          "item_name": "onion",
+          "counting_strategy": "Use the source frame to confirm a single onion is removed from the storage drawer (one onion clearly in-hand while still at the drawer). Use the destination frame to confirm that same single onion arrives at the prep area (visible in-hand over the cutting board). Since only one onion is seen being taken and then present at the destination, the inventory change is -1 onion from the drawer and +1 onion at the counter.",
+          "source_frame": {
+            "timestamp_raw": "00:04",
+            "description": "Lower pull-out produce drawer is open; a single onion is clearly visible in the user\u2019s right hand as it is lifted out from the drawer area (source container and removal action both in view).",
+            "visibility_status": "clear_view",
+            "snapped_to_frame": 13,
+            "timestamp_seconds": 4.0,
+            "absolute_timestamp": 987.57
+          },
+          "destination_frame": {
+            "timestamp_raw": "00:08",
+            "description": "At the kitchen counter, the onion is clearly visible in the user\u2019s hand above the cutting board/prep surface, indicating it has been transferred to the destination area.",
+            "visibility_status": "clear_view",
+            "snapped_to_frame": 25,
+            "timestamp_seconds": 8.0,
+            "absolute_timestamp": 991.57
+          },
+          "raw_vlm_response": "{\n  \"item_name\": \"onion\",\n  \"counting_strategy\": \"Use the source frame to confirm a single onion is removed from the storage drawer (one onion clearly in-hand while still at the drawer). Use the destination frame to confirm that same single onion arrives at the prep area (visible in-hand over the cutting board). Since only one onion is seen being taken and then present at the destination, the inventory change is -1 onion from the drawer and +1 onion at the counter.\",\n  \"source_frame\": {\n    \"timestamp\": \"00:04\",\n    \"description\": \"Lower pull-out produce drawer is open; a single onion is clearly visible in the user\u2019s right hand as it is lifted out from the drawer area (source container and removal action both in view).\",\n    \"visibility_status\": \"clear_view\"\n  },\n  \"destination_frame\": {\n    \"timestamp\": \"00:08\",\n    \"description\": \"At the kitchen counter, the onion is clearly visible in the user\u2019s hand above the cutting board/prep surface, indicating it has been transferred to the destination area.\",\n    \"visibility_status\": \"clear_view\"\n  }\n}",
+          "num_frames": 26,
+          "frame_fps": 3.0
+        }
+      ]
+    },
+    {
+      "narration_id": "P03-20240218-190556-7",
+      "food_name": "bag of potatoes",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-190556"
+      ],
+      "total_ground_truth": 6,
+      "total_ground_truth_unit": "potatoes",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_7fa725cb",
+          "segment_idx": 0,
+          "video_id": "P03-20240218-190556",
+          "start_timestamp": 98.51,
+          "end_timestamp": 115.63,
+          "clip_start": 96.51,
+          "item_name": "baby potatoes (small potatoes)",
+          "counting_strategy": "Use the source frame to confirm the destination bowl on the digital scale starts empty (count = 0). Then, in the destination frame, count the individual potatoes clearly visible in the bowl; since the bowl began empty and no other items are added, the number visible in the final bowl equals the number transferred from the bag (inventory decrease at source = inventory increase at destination).",
+          "source_frame": {
+            "timestamp_raw": "00:02",
+            "description": "Open bag of small potatoes on the left; the empty bowl sits centered on the digital kitchen scale with no potatoes inside yet.",
+            "visibility_status": "clear_view",
+            "snapped_to_frame": 5,
+            "timestamp_seconds": 2.0,
+            "absolute_timestamp": 98.51
+          },
+          "destination_frame": {
+            "timestamp_raw": "00:13",
+            "description": "Bowl on the digital scale is filled with multiple small potatoes; hands are mostly out of the way so the potatoes can be counted directly in the bowl.",
+            "visibility_status": "clear_view",
+            "snapped_to_frame": 27,
+            "timestamp_seconds": 13.0,
+            "absolute_timestamp": 109.51
+          },
+          "raw_vlm_response": "{\n  \"item_name\": \"baby potatoes (small potatoes)\",\n  \"counting_strategy\": \"Use the source frame to confirm the destination bowl on the digital scale starts empty (count = 0). Then, in the destination frame, count the individual potatoes clearly visible in the bowl; since the bowl began empty and no other items are added, the number visible in the final bowl equals the number transferred from the bag (inventory decrease at source = inventory increase at destination).\",\n  \"source_frame\": {\n    \"timestamp\": \"00:02\",\n    \"description\": \"Open bag of small potatoes on the left; the empty bowl sits centered on the digital kitchen scale with no potatoes inside yet.\",\n    \"visibility_status\": \"clear_view\"\n  },\n  \"destination_frame\": {\n    \"timestamp\": \"00:13\",\n    \"description\": \"Bowl on the digital scale is filled with multiple small potatoes; hands are mostly out of the way so the potatoes can be counted directly in the bowl.\",\n    \"visibility_status\": \"clear_view\"\n  }\n}",
+          "num_frames": 40,
+          "frame_fps": 3.0
+        }
+      ]
+    },
+    {
+      "narration_id": "P03-20240218-190556-8",
+      "food_name": "box of mushrooms",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240218-190556"
+      ],
+      "total_ground_truth": 7,
+      "total_ground_truth_unit": "mushrooms",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_db4d4e0a",
+          "segment_idx": 0,
+          "video_id": "P03-20240218-190556",
+          "start_timestamp": 728.61,
+          "end_timestamp": 742.32,
+          "clip_start": 726.61,
+          "error": "No VLM response"
+        }
+      ]
+    }
+  ]
+}

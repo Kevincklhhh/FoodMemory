@@ -1,0 +1,2251 @@
+{
+  "participant": "P02",
+  "model": "qwen",
+  "tag": "qwen_multipath",
+  "prompt_mode": "multipath",
+  "task": "multipath_selection",
+  "low_only": true,
+  "padding": 2.0,
+  "fps": null,
+  "max_frames": null,
+  "total_items": 14,
+  "items": [
+    {
+      "narration_id": "P02-20240209-184316-20",
+      "food_name": "bag of onions",
+      "difficulty": "LOW",
+      "video_range": [
+        "P02-20240209-184316"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "onions",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_ea68d7bc",
+          "segment_idx": 0,
+          "video_id": "P02-20240209-184316",
+          "start_timestamp": 498.83500000000004,
+          "end_timestamp": 503.83500000000004,
+          "clip_start": 496.83500000000004,
+          "item_name": "onion",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 498.84,
+              "description": "Source before (delta=2)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 502.84,
+              "description": "Source after (delta=2)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 498.84,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 504.84,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 500.84,
+              "description": "First onion being picked up from the bag",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 503.84,
+              "description": "Second onion being picked up from the bag",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "```json\n{\n  \"item_name\": \"onion\",\n\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:02\",\n    \"timestamp_after\": \"00:06\",\n    \"observed_delta\": 2,\n    \"confidence\": \"high\"\n  },\n\n  \"path_destination\": {\n    \"status\": \"INVALID_PILE\",\n    \"timestamp_before\": \"00:02\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:04\",\n        \"description\": \"First onion being picked up from the bag\",\n        \"visible_count\": 1\n      },\n      {\n        \"timestamp\": \"00:07\",\n        \"description\": \"Second onion being picked up from the bag\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 2,\n    \"confidence\": \"high\"\n  },\n\n  \"final_synthesis\": {\n    \"best_path_selected\": \"transfer\",\n    \"final_count_estimate\": 2,\n    \"reasoning\": \"The source bag was opaque, making it difficult to count precisely. The destination area is a pile, making it hard to track additions. The transfer path clearly shows two distinct onions being removed from the bag in two separate actions.\"\n  }\n}\n```",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "onions",
+          "predicted_count": 2,
+          "match": "exact",
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:02",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": 2,
+              "confidence": "high",
+              "timestamp_before_seconds": 2.0,
+              "absolute_timestamp_before": 498.84,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 502.84
+            },
+            "destination": {
+              "status": "INVALID_PILE",
+              "timestamp_before_raw": "00:02",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 2.0,
+              "absolute_timestamp_before": 498.84,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 504.84
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:04",
+                  "description": "First onion being picked up from the bag",
+                  "visible_count": 1,
+                  "timestamp_seconds": 4.0,
+                  "absolute_timestamp": 500.84
+                },
+                {
+                  "timestamp_raw": "00:07",
+                  "description": "Second onion being picked up from the bag",
+                  "visible_count": 1,
+                  "timestamp_seconds": 7.0,
+                  "absolute_timestamp": 503.84
+                }
+              ],
+              "total_transfer_count": 2,
+              "confidence": "high"
+            }
+          },
+          "final_synthesis": {
+            "best_path_selected": "transfer",
+            "final_count_estimate": 2,
+            "reasoning": "The source bag was opaque, making it difficult to count precisely. The destination area is a pile, making it hard to track additions. The transfer path clearly shows two distinct onions being removed from the bag in two separate actions."
+          }
+        }
+      ],
+      "total_predicted": 2,
+      "recipe_amount": null
+    },
+    {
+      "narration_id": "P02-20240209-184316-27",
+      "food_name": "garlic (clove/bulb)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P02-20240209-184316"
+      ],
+      "total_ground_truth": 3,
+      "total_ground_truth_unit": "cloves",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_e12b2641",
+          "segment_idx": 0,
+          "video_id": "P02-20240209-184316",
+          "start_timestamp": 477.51,
+          "end_timestamp": 485.55,
+          "clip_start": 475.51,
+          "item_name": "onion",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 475.51,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 477.51,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 475.51,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 475.51,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "absolute_timestamp": 476.51,
+              "description": "One onion being lifted from the bag",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 477.51,
+              "description": "Second onion being lifted from the bag",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "```json\n{\n  \"item_name\": \"onion\",\n\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:02\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n\n  \"path_destination\": {\n    \"status\": \"INVALID_PILE\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:00\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:01\",\n        \"description\": \"One onion being lifted from the bag\",\n        \"visible_count\": 1\n      },\n      {\n        \"timestamp\": \"00:02\",\n        \"description\": \"Second onion being lifted from the bag\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 2,\n    \"confidence\": \"high\"\n  },\n\n  \"final_synthesis\": {\n    \"best_path_selected\": \"transfer\",\n    \"final_count_estimate\": 2,\n    \"reasoning\": \"The source bag was opaque, making it impossible to count the initial quantity. The destination was a pile, making it impossible to count the final quantity. The transfer path clearly showed two distinct onions being moved, one at a time.\"\n  }\n}\n```",
+          "ground_truth_count": 3,
+          "ground_truth_unit": "cloves",
+          "predicted_count": 2,
+          "match": "close",
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:02",
+              "observed_delta": 1,
+              "confidence": "high",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 475.51,
+              "timestamp_after_seconds": 2.0,
+              "absolute_timestamp_after": 477.51
+            },
+            "destination": {
+              "status": "INVALID_PILE",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:00",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 475.51,
+              "timestamp_after_seconds": 0.0,
+              "absolute_timestamp_after": 475.51
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:01",
+                  "description": "One onion being lifted from the bag",
+                  "visible_count": 1,
+                  "timestamp_seconds": 1.0,
+                  "absolute_timestamp": 476.51
+                },
+                {
+                  "timestamp_raw": "00:02",
+                  "description": "Second onion being lifted from the bag",
+                  "visible_count": 1,
+                  "timestamp_seconds": 2.0,
+                  "absolute_timestamp": 477.51
+                }
+              ],
+              "total_transfer_count": 2,
+              "confidence": "high"
+            }
+          },
+          "final_synthesis": {
+            "best_path_selected": "transfer",
+            "final_count_estimate": 2,
+            "reasoning": "The source bag was opaque, making it impossible to count the initial quantity. The destination was a pile, making it impossible to count the final quantity. The transfer path clearly showed two distinct onions being moved, one at a time."
+          }
+        }
+      ],
+      "total_predicted": 2,
+      "recipe_amount": null
+    },
+    {
+      "narration_id": "P02-20240209-184316-34",
+      "food_name": "potatoes (bag)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P02-20240209-184316"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "potatoes",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_f2ab4eb6",
+          "segment_idx": 0,
+          "video_id": "P02-20240209-184316",
+          "start_timestamp": 37.65,
+          "end_timestamp": 42.65,
+          "clip_start": 35.65,
+          "item_name": "potato",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 35.65,
+              "description": "Source before (delta=2)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 38.65,
+              "description": "Source after (delta=2)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 42.65,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 43.65,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 38.65,
+              "description": "First potato in hand",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 41.65,
+              "description": "Second potato in hand",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "```json\n{\n  \"item_name\": \"potato\",\n\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:03\",\n    \"observed_delta\": 2,\n    \"confidence\": \"high\"\n  },\n\n  \"path_destination\": {\n    \"status\": \"INVALID_PILE\",\n    \"timestamp_before\": \"00:07\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:03\",\n        \"description\": \"First potato in hand\",\n        \"visible_count\": 1\n      },\n      {\n        \"timestamp\": \"00:06\",\n        \"description\": \"Second potato in hand\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 2,\n    \"confidence\": \"high\"\n  },\n\n  \"final_synthesis\": {\n    \"best_path_selected\": \"transfer\",\n    \"final_count_estimate\": 2,\n    \"reasoning\": \"The source bag was opaque, making it difficult to count items before removal. The destination area is a pile of produce, making it impossible to track additions. The transfer path clearly shows two distinct potatoes being removed from the bag in sequence, providing the most reliable count.\"\n  }\n}\n```",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "potatoes",
+          "predicted_count": 2,
+          "match": "exact",
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:03",
+              "observed_delta": 2,
+              "confidence": "high",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 35.65,
+              "timestamp_after_seconds": 3.0,
+              "absolute_timestamp_after": 38.65
+            },
+            "destination": {
+              "status": "INVALID_PILE",
+              "timestamp_before_raw": "00:07",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 7.0,
+              "absolute_timestamp_before": 42.65,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 43.65
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:03",
+                  "description": "First potato in hand",
+                  "visible_count": 1,
+                  "timestamp_seconds": 3.0,
+                  "absolute_timestamp": 38.65
+                },
+                {
+                  "timestamp_raw": "00:06",
+                  "description": "Second potato in hand",
+                  "visible_count": 1,
+                  "timestamp_seconds": 6.0,
+                  "absolute_timestamp": 41.65
+                }
+              ],
+              "total_transfer_count": 2,
+              "confidence": "high"
+            }
+          },
+          "final_synthesis": {
+            "best_path_selected": "transfer",
+            "final_count_estimate": 2,
+            "reasoning": "The source bag was opaque, making it difficult to count items before removal. The destination area is a pile of produce, making it impossible to track additions. The transfer path clearly shows two distinct potatoes being removed from the bag in sequence, providing the most reliable count."
+          }
+        }
+      ],
+      "total_predicted": 2,
+      "recipe_amount": {
+        "ingredient": "potatoes",
+        "amount": "N/A",
+        "unit": "N/A",
+        "recipe": "P02_R02"
+      }
+    },
+    {
+      "narration_id": "P02-20240210-113925-14",
+      "food_name": "eggs (carton)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P02-20240210-113925"
+      ],
+      "total_ground_truth": 4,
+      "total_ground_truth_unit": "eggs",
+      "num_segments": 2,
+      "segments": [
+        {
+          "segment_id": "seg_673dd512",
+          "segment_idx": 0,
+          "video_id": "P02-20240210-113925",
+          "start_timestamp": 185.575,
+          "end_timestamp": 190.575,
+          "clip_start": 183.575,
+          "item_name": "egg",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "absolute_timestamp": 184.57,
+              "description": "Source before (delta=2)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 187.57,
+              "description": "Source after (delta=2)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 188.57,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 189.57,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 188.57,
+              "description": "Two eggs held in hand",
+              "visibility_status": "clear_view",
+              "visible_count": 2
+            }
+          ],
+          "raw_vlm_response": "```json\n{\n  \"item_name\": \"egg\",\n\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:01\",\n    \"timestamp_after\": \"00:04\",\n    \"observed_delta\": 2,\n    \"confidence\": \"high\"\n  },\n\n  \"path_destination\": {\n    \"status\": \"INVALID_PILE\",\n    \"timestamp_before\": \"00:05\",\n    \"timestamp_after\": \"00:06\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:05\",\n        \"description\": \"Two eggs held in hand\",\n        \"visible_count\": 2\n      }\n    ],\n    \"total_transfer_count\": 2,\n    \"confidence\": \"high\"\n  },\n\n  \"final_synthesis\": {\n    \"best_path_selected\": \"transfer\",\n    \"final_count_estimate\": 2,\n    \"reasoning\": \"The source was a carton with visible eggs, but the destination was a pile of items, making it hard to track additions. The transfer path clearly shows two eggs being held in the hand, providing the most reliable count.\"\n  }\n}\n```",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "eggs",
+          "predicted_count": 2,
+          "match": "exact",
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:01",
+              "timestamp_after_raw": "00:04",
+              "observed_delta": 2,
+              "confidence": "high",
+              "timestamp_before_seconds": 1.0,
+              "absolute_timestamp_before": 184.57,
+              "timestamp_after_seconds": 4.0,
+              "absolute_timestamp_after": 187.57
+            },
+            "destination": {
+              "status": "INVALID_PILE",
+              "timestamp_before_raw": "00:05",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 5.0,
+              "absolute_timestamp_before": 188.57,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 189.57
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:05",
+                  "description": "Two eggs held in hand",
+                  "visible_count": 2,
+                  "timestamp_seconds": 5.0,
+                  "absolute_timestamp": 188.57
+                }
+              ],
+              "total_transfer_count": 2,
+              "confidence": "high"
+            }
+          },
+          "final_synthesis": {
+            "best_path_selected": "transfer",
+            "final_count_estimate": 2,
+            "reasoning": "The source was a carton with visible eggs, but the destination was a pile of items, making it hard to track additions. The transfer path clearly shows two eggs being held in the hand, providing the most reliable count."
+          }
+        },
+        {
+          "segment_id": "seg_fd54206c",
+          "segment_idx": 1,
+          "video_id": "P02-20240210-113925",
+          "start_timestamp": 221.26999999999998,
+          "end_timestamp": 226.26999999999998,
+          "clip_start": 219.26999999999998,
+          "item_name": "egg",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 219.27,
+              "description": "Source before (delta=2)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 223.27,
+              "description": "Source after (delta=2)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 219.27,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 219.27,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 224.27,
+              "description": "Egg in hand",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 225.27,
+              "description": "Egg in hand",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "```json\n{\n  \"item_name\": \"egg\",\n\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:04\",\n    \"observed_delta\": 2,\n    \"confidence\": \"high\"\n  },\n\n  \"path_destination\": {\n    \"status\": \"INVALID_PILE\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:00\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:05\",\n        \"description\": \"Egg in hand\",\n        \"visible_count\": 1\n      },\n      {\n        \"timestamp\": \"00:06\",\n        \"description\": \"Egg in hand\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 2,\n    \"confidence\": \"high\"\n  },\n\n  \"final_synthesis\": {\n    \"best_path_selected\": \"transfer\",\n    \"final_count_estimate\": 2,\n    \"reasoning\": \"The source was not opaque but the destination was a pile, making it difficult to count. The transfer path clearly showed two distinct eggs being moved in the hand.\"\n  }\n}\n```",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "eggs",
+          "predicted_count": 2,
+          "match": "exact",
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:04",
+              "observed_delta": 2,
+              "confidence": "high",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 219.27,
+              "timestamp_after_seconds": 4.0,
+              "absolute_timestamp_after": 223.27
+            },
+            "destination": {
+              "status": "INVALID_PILE",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:00",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 219.27,
+              "timestamp_after_seconds": 0.0,
+              "absolute_timestamp_after": 219.27
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:05",
+                  "description": "Egg in hand",
+                  "visible_count": 1,
+                  "timestamp_seconds": 5.0,
+                  "absolute_timestamp": 224.27
+                },
+                {
+                  "timestamp_raw": "00:06",
+                  "description": "Egg in hand",
+                  "visible_count": 1,
+                  "timestamp_seconds": 6.0,
+                  "absolute_timestamp": 225.27
+                }
+              ],
+              "total_transfer_count": 2,
+              "confidence": "high"
+            }
+          },
+          "final_synthesis": {
+            "best_path_selected": "transfer",
+            "final_count_estimate": 2,
+            "reasoning": "The source was not opaque but the destination was a pile, making it difficult to count. The transfer path clearly showed two distinct eggs being moved in the hand."
+          }
+        }
+      ],
+      "total_predicted": 4,
+      "recipe_amount": null
+    },
+    {
+      "narration_id": "P02-20240211-104948-206",
+      "food_name": "Wheat Bixies cereal (box)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P02-20240211-104948"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "bixies",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_a4d22fe3",
+          "segment_idx": 0,
+          "video_id": "P02-20240211-104948",
+          "start_timestamp": 273.335,
+          "end_timestamp": 279.335,
+          "clip_start": 271.335,
+          "item_name": "biscuit",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 271.33,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "absolute_timestamp": 272.33,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 271.33,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "absolute_timestamp": 272.33,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 274.33,
+              "description": "First biscuit in hand",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 276.33,
+              "description": "Second biscuit in hand",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "```json\n{\n  \"item_name\": \"biscuit\",\n\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:01\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n\n  \"path_destination\": {\n    \"status\": \"INVALID_PILE\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:01\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:03\",\n        \"description\": \"First biscuit in hand\",\n        \"visible_count\": 1\n      },\n      {\n        \"timestamp\": \"00:05\",\n        \"description\": \"Second biscuit in hand\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 2,\n    \"confidence\": \"high\"\n  },\n\n  \"final_synthesis\": {\n    \"best_path_selected\": \"transfer\",\n    \"final_count_estimate\": 2,\n    \"reasoning\": \"The source box was partially obscured and the destination bowl was a pile, making it difficult to count precisely. However, the transfer path clearly shows two distinct biscuits being removed from the packaging and placed into the bowl.\"\n  }\n}\n```",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "bixies",
+          "predicted_count": 2,
+          "match": "exact",
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:01",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 271.33,
+              "timestamp_after_seconds": 1.0,
+              "absolute_timestamp_after": 272.33
+            },
+            "destination": {
+              "status": "INVALID_PILE",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:01",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 271.33,
+              "timestamp_after_seconds": 1.0,
+              "absolute_timestamp_after": 272.33
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:03",
+                  "description": "First biscuit in hand",
+                  "visible_count": 1,
+                  "timestamp_seconds": 3.0,
+                  "absolute_timestamp": 274.33
+                },
+                {
+                  "timestamp_raw": "00:05",
+                  "description": "Second biscuit in hand",
+                  "visible_count": 1,
+                  "timestamp_seconds": 5.0,
+                  "absolute_timestamp": 276.33
+                }
+              ],
+              "total_transfer_count": 2,
+              "confidence": "high"
+            }
+          },
+          "final_synthesis": {
+            "best_path_selected": "transfer",
+            "final_count_estimate": 2,
+            "reasoning": "The source box was partially obscured and the destination bowl was a pile, making it difficult to count precisely. However, the transfer path clearly shows two distinct biscuits being removed from the packaging and placed into the bowl."
+          }
+        }
+      ],
+      "total_predicted": 2,
+      "recipe_amount": null
+    },
+    {
+      "narration_id": "P02-20240211-104948-252",
+      "food_name": "multivitamins (bottle)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P02-20240211-104948"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "pill",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_5f7da26c",
+          "segment_idx": 0,
+          "video_id": "P02-20240211-104948",
+          "start_timestamp": 309.695,
+          "end_timestamp": 314.695,
+          "clip_start": 307.695,
+          "item_name": "food container",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "absolute_timestamp": 308.69,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 314.69,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "absolute_timestamp": 308.69,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 314.69,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 310.69,
+              "description": "Food container in hand",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 311.69,
+              "description": "Food container in hand",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "```json\n{\n  \"item_name\": \"food container\",\n\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:01\",\n    \"timestamp_after\": \"00:07\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n\n  \"path_destination\": {\n    \"status\": \"INVALID_PILE\",\n    \"timestamp_before\": \"00:01\",\n    \"timestamp_after\": \"00:07\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:03\",\n        \"description\": \"Food container in hand\",\n        \"visible_count\": 1\n      },\n      {\n        \"timestamp\": \"00:04\",\n        \"description\": \"Food container in hand\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 2,\n    \"confidence\": \"high\"\n  },\n\n  \"final_synthesis\": {\n    \"best_path_selected\": \"transfer\",\n    \"final_count_estimate\": 2,\n    \"reasoning\": \"Source and destination views are occluded or consist of a cluttered pile, making counting unreliable. The transfer path clearly shows two distinct instances of the food container being held, confirming a transfer of 2 items.\"\n  }\n}\n```",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "pill",
+          "predicted_count": 2,
+          "match": "close",
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:01",
+              "timestamp_after_raw": "00:07",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 1.0,
+              "absolute_timestamp_before": 308.69,
+              "timestamp_after_seconds": 7.0,
+              "absolute_timestamp_after": 314.69
+            },
+            "destination": {
+              "status": "INVALID_PILE",
+              "timestamp_before_raw": "00:01",
+              "timestamp_after_raw": "00:07",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 1.0,
+              "absolute_timestamp_before": 308.69,
+              "timestamp_after_seconds": 7.0,
+              "absolute_timestamp_after": 314.69
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:03",
+                  "description": "Food container in hand",
+                  "visible_count": 1,
+                  "timestamp_seconds": 3.0,
+                  "absolute_timestamp": 310.69
+                },
+                {
+                  "timestamp_raw": "00:04",
+                  "description": "Food container in hand",
+                  "visible_count": 1,
+                  "timestamp_seconds": 4.0,
+                  "absolute_timestamp": 311.69
+                }
+              ],
+              "total_transfer_count": 2,
+              "confidence": "high"
+            }
+          },
+          "final_synthesis": {
+            "best_path_selected": "transfer",
+            "final_count_estimate": 2,
+            "reasoning": "Source and destination views are occluded or consist of a cluttered pile, making counting unreliable. The transfer path clearly shows two distinct instances of the food container being held, confirming a transfer of 2 items."
+          }
+        }
+      ],
+      "total_predicted": 2,
+      "recipe_amount": null
+    },
+    {
+      "narration_id": "P02-20240211-111822-562",
+      "food_name": "carton of eggs",
+      "difficulty": "LOW",
+      "video_range": [
+        "P02-20240211-111822",
+        "P02-20240211-115653",
+        "P02-20240211-120927"
+      ],
+      "total_ground_truth": 4,
+      "total_ground_truth_unit": "eggs",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_ea3380f3",
+          "segment_idx": 0,
+          "video_id": "P02-20240211-111822",
+          "start_timestamp": 1150.67,
+          "end_timestamp": 1177.28,
+          "clip_start": 1148.67,
+          "item_name": "egg",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 1148.67,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 1150.67,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 1151.67,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 1153.67,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 1154.67,
+              "description": "Egg cracked into bowl",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:15",
+              "timestamp_seconds": 15.0,
+              "absolute_timestamp": 1163.67,
+              "description": "Egg being washed in sink",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "```json\n{\n  \"item_name\": \"egg\",\n\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:02\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:03\",\n    \"timestamp_after\": \"00:05\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:06\",\n        \"description\": \"Egg cracked into bowl\",\n        \"visible_count\": 1\n      },\n      {\n        \"timestamp\": \"00:15\",\n        \"description\": \"Egg being washed in sink\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 2,\n    \"confidence\": \"high\"\n  },\n\n  \"final_synthesis\": {\n    \"best_path_selected\": \"source\",\n    \"final_count_estimate\": 1,\n    \"reasoning\": \"The source (egg carton) clearly shows a reduction of one egg. The destination (bowl) shows an increase of one egg. The transfer path confirms two distinct actions involving one egg. The source path is the most reliable as it provides a clear before-and-after count.\"\n  }\n}\n```",
+          "ground_truth_count": 4,
+          "ground_truth_unit": "eggs",
+          "predicted_count": 1,
+          "match": "wrong",
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:02",
+              "observed_delta": 1,
+              "confidence": "high",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 1148.67,
+              "timestamp_after_seconds": 2.0,
+              "absolute_timestamp_after": 1150.67
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:03",
+              "timestamp_after_raw": "00:05",
+              "observed_delta": 1,
+              "confidence": "high",
+              "timestamp_before_seconds": 3.0,
+              "absolute_timestamp_before": 1151.67,
+              "timestamp_after_seconds": 5.0,
+              "absolute_timestamp_after": 1153.67
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:06",
+                  "description": "Egg cracked into bowl",
+                  "visible_count": 1,
+                  "timestamp_seconds": 6.0,
+                  "absolute_timestamp": 1154.67
+                },
+                {
+                  "timestamp_raw": "00:15",
+                  "description": "Egg being washed in sink",
+                  "visible_count": 1,
+                  "timestamp_seconds": 15.0,
+                  "absolute_timestamp": 1163.67
+                }
+              ],
+              "total_transfer_count": 2,
+              "confidence": "high"
+            }
+          },
+          "final_synthesis": {
+            "best_path_selected": "source",
+            "final_count_estimate": 1,
+            "reasoning": "The source (egg carton) clearly shows a reduction of one egg. The destination (bowl) shows an increase of one egg. The transfer path confirms two distinct actions involving one egg. The source path is the most reliable as it provides a clear before-and-after count."
+          }
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "eggs",
+        "amount": "N/A",
+        "unit": "N/A",
+        "recipe": "P02_R06"
+      }
+    },
+    {
+      "narration_id": "P02-20240211-111822-89",
+      "food_name": "bag of lemons",
+      "difficulty": "LOW",
+      "video_range": [
+        "P02-20240211-111822",
+        "P02-20240211-115653",
+        "P02-20240211-120927"
+      ],
+      "total_ground_truth": 3,
+      "total_ground_truth_unit": "lemons",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_4abf12c9",
+          "segment_idx": 0,
+          "video_id": "P02-20240211-111822",
+          "start_timestamp": 162.34,
+          "end_timestamp": 168.19,
+          "clip_start": 160.34,
+          "item_name": "lemon",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 160.34,
+              "description": "Source before (delta=3)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 168.34,
+              "description": "Source after (delta=3)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 160.34,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 168.34,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 168.34,
+              "description": "Two lemons held in hand",
+              "visibility_status": "clear_view",
+              "visible_count": 2
+            }
+          ],
+          "raw_vlm_response": "```json\n{\n  \"item_name\": \"lemon\",\n\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": 3,\n    \"confidence\": \"high\"\n  },\n\n  \"path_destination\": {\n    \"status\": \"INVALID_PILE\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:08\",\n        \"description\": \"Two lemons held in hand\",\n        \"visible_count\": 2\n      }\n    ],\n    \"total_transfer_count\": 2,\n    \"confidence\": \"high\"\n  },\n\n  \"final_synthesis\": {\n    \"best_path_selected\": \"transfer\",\n    \"final_count_estimate\": 2,\n    \"reasoning\": \"The source bag was opaque and the destination area was a pile, making direct counting unreliable. The transfer path clearly shows two lemons being held in the hand at 00:08, providing the most reliable count.\"\n  }\n}\n```",
+          "ground_truth_count": 3,
+          "ground_truth_unit": "lemons",
+          "predicted_count": 2,
+          "match": "close",
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": 3,
+              "confidence": "high",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 160.34,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 168.34
+            },
+            "destination": {
+              "status": "INVALID_PILE",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 160.34,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 168.34
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:08",
+                  "description": "Two lemons held in hand",
+                  "visible_count": 2,
+                  "timestamp_seconds": 8.0,
+                  "absolute_timestamp": 168.34
+                }
+              ],
+              "total_transfer_count": 2,
+              "confidence": "high"
+            }
+          },
+          "final_synthesis": {
+            "best_path_selected": "transfer",
+            "final_count_estimate": 2,
+            "reasoning": "The source bag was opaque and the destination area was a pile, making direct counting unreliable. The transfer path clearly shows two lemons being held in the hand at 00:08, providing the most reliable count."
+          }
+        }
+      ],
+      "total_predicted": 2,
+      "recipe_amount": {
+        "ingredient": "lemon",
+        "amount": "N/A",
+        "unit": "N/A",
+        "recipe": "P02_R06"
+      }
+    },
+    {
+      "narration_id": "P02-20240211-115653-25",
+      "food_name": "puff pastry packet",
+      "difficulty": "LOW",
+      "video_range": [
+        "P02-20240211-111822",
+        "P02-20240211-115653",
+        "P02-20240211-120927",
+        "P02-20240211-141313"
+      ],
+      "total_ground_truth": null,
+      "total_ground_truth_unit": null,
+      "num_segments": 2,
+      "segments": [
+        {
+          "segment_id": "seg_091e3bf3",
+          "segment_idx": 0,
+          "video_id": "P02-20240211-115653",
+          "start_timestamp": 79.875,
+          "end_timestamp": 84.875,
+          "clip_start": 77.875,
+          "item_name": "bread rolls",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 77.88,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 82.88,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 77.88,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 82.88,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 82.88,
+              "description": "Two bread rolls being held in hands",
+              "visibility_status": "clear_view",
+              "visible_count": 2
+            }
+          ],
+          "raw_vlm_response": "```json\n{\n  \"item_name\": \"bread rolls\",\n\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:05\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n\n  \"path_destination\": {\n    \"status\": \"INVALID_PILE\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:05\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:05\",\n        \"description\": \"Two bread rolls being held in hands\",\n        \"visible_count\": 2\n      }\n    ],\n    \"total_transfer_count\": 2,\n    \"confidence\": \"high\"\n  },\n\n  \"final_synthesis\": {\n    \"best_path_selected\": \"transfer\",\n    \"final_count_estimate\": 2,\n    \"reasoning\": \"The source and destination are obscured or ambiguous. The transfer path clearly shows two bread rolls being held in the hands at 00:05, providing a definitive count.\"\n  }\n}\n```",
+          "ground_truth_count": null,
+          "ground_truth_unit": null,
+          "predicted_count": 2,
+          "match": null,
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:05",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 77.88,
+              "timestamp_after_seconds": 5.0,
+              "absolute_timestamp_after": 82.88
+            },
+            "destination": {
+              "status": "INVALID_PILE",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:05",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 77.88,
+              "timestamp_after_seconds": 5.0,
+              "absolute_timestamp_after": 82.88
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:05",
+                  "description": "Two bread rolls being held in hands",
+                  "visible_count": 2,
+                  "timestamp_seconds": 5.0,
+                  "absolute_timestamp": 82.88
+                }
+              ],
+              "total_transfer_count": 2,
+              "confidence": "high"
+            }
+          },
+          "final_synthesis": {
+            "best_path_selected": "transfer",
+            "final_count_estimate": 2,
+            "reasoning": "The source and destination are obscured or ambiguous. The transfer path clearly shows two bread rolls being held in the hands at 00:05, providing a definitive count."
+          }
+        },
+        {
+          "segment_id": "seg_6ecc7f9c",
+          "segment_idx": 1,
+          "video_id": "P02-20240211-120927",
+          "start_timestamp": 500.185,
+          "end_timestamp": 505.185,
+          "clip_start": 498.185,
+          "item_name": "dough roll",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 498.19,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 503.19,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 498.19,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 503.19,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 498.19,
+              "description": "Dough roll being held in hand",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "absolute_timestamp": 499.19,
+              "description": "Dough roll being held in hand",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 500.19,
+              "description": "Dough roll being held in hand",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 501.19,
+              "description": "Dough roll being held in hand",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "absolute_timestamp": 502.19,
+              "description": "Dough roll being held in hand",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 503.19,
+              "description": "Dough roll being held in hand",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 504.19,
+              "description": "Dough roll being held in hand",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 505.19,
+              "description": "Dough roll being held in hand",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "```json\n{\n  \"item_name\": \"dough roll\",\n\n  \"path_source\": {\n    \"status\": \"INVALID_OPAQUE\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:05\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n\n  \"path_destination\": {\n    \"status\": \"INVALID_PILE\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:05\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:00\",\n        \"description\": \"Dough roll being held in hand\",\n        \"visible_count\": 1\n      },\n      {\n        \"timestamp\": \"00:01\",\n        \"description\": \"Dough roll being held in hand\",\n        \"visible_count\": 1\n      },\n      {\n        \"timestamp\": \"00:02\",\n        \"description\": \"Dough roll being held in hand\",\n        \"visible_count\": 1\n      },\n      {\n        \"timestamp\": \"00:03\",\n        \"description\": \"Dough roll being held in hand\",\n        \"visible_count\": 1\n      },\n      {\n        \"timestamp\": \"00:04\",\n        \"description\": \"Dough roll being held in hand\",\n        \"visible_count\": 1\n      },\n      {\n        \"timestamp\": \"00:05\",\n        \"description\": \"Dough roll being held in hand\",\n        \"visible_count\": 1\n      },\n      {\n        \"timestamp\": \"00:06\",\n        \"description\": \"Dough roll being held in hand\",\n        \"visible_count\": 1\n      },\n      {\n        \"timestamp\": \"00:07\",\n        \"description\": \"Dough roll being held in hand\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 1,\n    \"confidence\": \"high\"\n  },\n\n  \"final_synthesis\": {\n    \"best_path_selected\": \"transfer\",\n    \"final_count_estimate\": 1,\n    \"reasoning\": \"The source and destination paths are invalid due to occlusion and pile ambiguity. The transfer path provides a clear, continuous view of a single dough roll being moved, confirming the transfer of one item.\"\n  }\n}\n```",
+          "ground_truth_count": null,
+          "ground_truth_unit": null,
+          "predicted_count": 1,
+          "match": null,
+          "paths": {
+            "source": {
+              "status": "INVALID_OPAQUE",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:05",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 498.19,
+              "timestamp_after_seconds": 5.0,
+              "absolute_timestamp_after": 503.19
+            },
+            "destination": {
+              "status": "INVALID_PILE",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:05",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 498.19,
+              "timestamp_after_seconds": 5.0,
+              "absolute_timestamp_after": 503.19
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:00",
+                  "description": "Dough roll being held in hand",
+                  "visible_count": 1,
+                  "timestamp_seconds": 0.0,
+                  "absolute_timestamp": 498.19
+                },
+                {
+                  "timestamp_raw": "00:01",
+                  "description": "Dough roll being held in hand",
+                  "visible_count": 1,
+                  "timestamp_seconds": 1.0,
+                  "absolute_timestamp": 499.19
+                },
+                {
+                  "timestamp_raw": "00:02",
+                  "description": "Dough roll being held in hand",
+                  "visible_count": 1,
+                  "timestamp_seconds": 2.0,
+                  "absolute_timestamp": 500.19
+                },
+                {
+                  "timestamp_raw": "00:03",
+                  "description": "Dough roll being held in hand",
+                  "visible_count": 1,
+                  "timestamp_seconds": 3.0,
+                  "absolute_timestamp": 501.19
+                },
+                {
+                  "timestamp_raw": "00:04",
+                  "description": "Dough roll being held in hand",
+                  "visible_count": 1,
+                  "timestamp_seconds": 4.0,
+                  "absolute_timestamp": 502.19
+                },
+                {
+                  "timestamp_raw": "00:05",
+                  "description": "Dough roll being held in hand",
+                  "visible_count": 1,
+                  "timestamp_seconds": 5.0,
+                  "absolute_timestamp": 503.19
+                },
+                {
+                  "timestamp_raw": "00:06",
+                  "description": "Dough roll being held in hand",
+                  "visible_count": 1,
+                  "timestamp_seconds": 6.0,
+                  "absolute_timestamp": 504.19
+                },
+                {
+                  "timestamp_raw": "00:07",
+                  "description": "Dough roll being held in hand",
+                  "visible_count": 1,
+                  "timestamp_seconds": 7.0,
+                  "absolute_timestamp": 505.19
+                }
+              ],
+              "total_transfer_count": 1,
+              "confidence": "high"
+            }
+          },
+          "final_synthesis": {
+            "best_path_selected": "transfer",
+            "final_count_estimate": 1,
+            "reasoning": "The source and destination paths are invalid due to occlusion and pile ambiguity. The transfer path provides a clear, continuous view of a single dough roll being moved, confirming the transfer of one item."
+          }
+        }
+      ],
+      "total_predicted": 3,
+      "recipe_amount": {
+        "ingredient": "puff pastry",
+        "amount": "N/A",
+        "unit": "N/A",
+        "recipe": "P02_R06"
+      }
+    },
+    {
+      "narration_id": "P02-20240211-120927-1076",
+      "food_name": "baguette",
+      "difficulty": "LOW",
+      "video_range": [
+        "P02-20240211-111822",
+        "P02-20240211-115653",
+        "P02-20240211-120927",
+        "P02-20240211-141313"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "baguettes",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_8b044cc0",
+          "segment_idx": 0,
+          "video_id": "P02-20240211-120927",
+          "start_timestamp": 2889.86,
+          "end_timestamp": 2909.31,
+          "clip_start": 2887.86,
+          "item_name": "bread",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 2887.86,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 2895.86,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 2887.86,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 2893.86,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 2887.86,
+              "description": "Scoop 1 in hand",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:19",
+              "timestamp_seconds": 19.0,
+              "absolute_timestamp": 2906.86,
+              "description": "Scoop 2 in hand",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "```json\n{\n  \"item_name\": \"bread\",\n\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n\n  \"path_destination\": {\n    \"status\": \"INVALID_PILE\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:06\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:00\",\n        \"description\": \"Scoop 1 in hand\",\n        \"visible_count\": 1\n      },\n      {\n        \"timestamp\": \"00:19\",\n        \"description\": \"Scoop 2 in hand\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 2,\n    \"confidence\": \"high\"\n  },\n\n  \"final_synthesis\": {\n    \"best_path_selected\": \"transfer\",\n    \"final_count_estimate\": 2,\n    \"reasoning\": \"The source and destination are both ambiguous due to occlusion and pile formation. However, the transfer path clearly shows two distinct instances of bread being moved: one at 0:00 and another at 0:19, confirming a total of 2 items moved.\"\n  }\n}\n```",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "baguettes",
+          "predicted_count": 2,
+          "match": "close",
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 2887.86,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 2895.86
+            },
+            "destination": {
+              "status": "INVALID_PILE",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:06",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 2887.86,
+              "timestamp_after_seconds": 6.0,
+              "absolute_timestamp_after": 2893.86
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:00",
+                  "description": "Scoop 1 in hand",
+                  "visible_count": 1,
+                  "timestamp_seconds": 0.0,
+                  "absolute_timestamp": 2887.86
+                },
+                {
+                  "timestamp_raw": "00:19",
+                  "description": "Scoop 2 in hand",
+                  "visible_count": 1,
+                  "timestamp_seconds": 19.0,
+                  "absolute_timestamp": 2906.86
+                }
+              ],
+              "total_transfer_count": 2,
+              "confidence": "high"
+            }
+          },
+          "final_synthesis": {
+            "best_path_selected": "transfer",
+            "final_count_estimate": 2,
+            "reasoning": "The source and destination are both ambiguous due to occlusion and pile formation. However, the transfer path clearly shows two distinct instances of bread being moved: one at 0:00 and another at 0:19, confirming a total of 2 items moved."
+          }
+        }
+      ],
+      "total_predicted": 2,
+      "recipe_amount": {
+        "ingredient": "baguette",
+        "amount": "N/A",
+        "unit": "N/A",
+        "recipe": "P02_R08"
+      }
+    },
+    {
+      "narration_id": "P02-20240211-175138-37",
+      "food_name": "mushrooms",
+      "difficulty": "LOW",
+      "video_range": [
+        "P02-20240211-175138",
+        "P02-20240211-182630"
+      ],
+      "total_ground_truth": 10,
+      "total_ground_truth_unit": "mushrooms",
+      "num_segments": 2,
+      "segments": [
+        {
+          "segment_id": "seg_17fd419d",
+          "segment_idx": 0,
+          "video_id": "P02-20240211-175138",
+          "start_timestamp": 144.70499999999998,
+          "end_timestamp": 149.70499999999998,
+          "clip_start": 142.70499999999998,
+          "item_name": "mushrooms",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "absolute_timestamp": 143.7,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 144.7,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "absolute_timestamp": 143.7,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 144.7,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 147.7,
+              "description": "Scoop 1 in mid-air",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 148.7,
+              "description": "Scoop 2 in mid-air",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "```json\n{\n  \"item_name\": \"mushrooms\",\n\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"timestamp_before\": \"00:01\",\n    \"timestamp_after\": \"00:02\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n\n  \"path_destination\": {\n    \"status\": \"INVALID_PILE\",\n    \"timestamp_before\": \"00:01\",\n    \"timestamp_after\": \"00:02\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:05\",\n        \"description\": \"Scoop 1 in mid-air\",\n        \"visible_count\": 1\n      },\n      {\n        \"timestamp\": \"00:06\",\n        \"description\": \"Scoop 2 in mid-air\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 2,\n    \"confidence\": \"high\"\n  },\n\n  \"final_synthesis\": {\n    \"best_path_selected\": \"transfer\",\n    \"final_count_estimate\": 2,\n    \"reasoning\": \"Source and destination views were occluded or ambiguous. The transfer path clearly shows two distinct items being moved in the hand, providing a reliable count.\"\n  }\n}\n```",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "mushrooms",
+          "predicted_count": 2,
+          "match": "close",
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "timestamp_before_raw": "00:01",
+              "timestamp_after_raw": "00:02",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 1.0,
+              "absolute_timestamp_before": 143.7,
+              "timestamp_after_seconds": 2.0,
+              "absolute_timestamp_after": 144.7
+            },
+            "destination": {
+              "status": "INVALID_PILE",
+              "timestamp_before_raw": "00:01",
+              "timestamp_after_raw": "00:02",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 1.0,
+              "absolute_timestamp_before": 143.7,
+              "timestamp_after_seconds": 2.0,
+              "absolute_timestamp_after": 144.7
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:05",
+                  "description": "Scoop 1 in mid-air",
+                  "visible_count": 1,
+                  "timestamp_seconds": 5.0,
+                  "absolute_timestamp": 147.7
+                },
+                {
+                  "timestamp_raw": "00:06",
+                  "description": "Scoop 2 in mid-air",
+                  "visible_count": 1,
+                  "timestamp_seconds": 6.0,
+                  "absolute_timestamp": 148.7
+                }
+              ],
+              "total_transfer_count": 2,
+              "confidence": "high"
+            }
+          },
+          "final_synthesis": {
+            "best_path_selected": "transfer",
+            "final_count_estimate": 2,
+            "reasoning": "Source and destination views were occluded or ambiguous. The transfer path clearly shows two distinct items being moved in the hand, providing a reliable count."
+          }
+        },
+        {
+          "segment_id": "seg_f918b0e1",
+          "segment_idx": 1,
+          "video_id": "P02-20240211-175138",
+          "start_timestamp": 250.44,
+          "end_timestamp": 269.600155,
+          "clip_start": 248.44,
+          "item_name": "mushrooms",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 248.44,
+              "description": "Source before (delta=5)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 251.44,
+              "description": "Source after (delta=5)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 248.44,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "absolute_timestamp": 251.44,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 253.44,
+              "description": "Scoop 1 in mid-air",
+              "visibility_status": "clear_view",
+              "visible_count": 2
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:15",
+              "timestamp_seconds": 15.0,
+              "absolute_timestamp": 263.44,
+              "description": "Scoop 2 in mid-air",
+              "visibility_status": "clear_view",
+              "visible_count": 3
+            }
+          ],
+          "raw_vlm_response": "```json\n{\n  \"item_name\": \"mushrooms\",\n\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:03\",\n    \"observed_delta\": 5,\n    \"confidence\": \"high\"\n  },\n\n  \"path_destination\": {\n    \"status\": \"INVALID_PILE\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:03\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:05\",\n        \"description\": \"Scoop 1 in mid-air\",\n        \"visible_count\": 2\n      },\n      {\n        \"timestamp\": \"00:15\",\n        \"description\": \"Scoop 2 in mid-air\",\n        \"visible_count\": 3\n      }\n    ],\n    \"total_transfer_count\": 5,\n    \"confidence\": \"high\"\n  },\n\n  \"final_synthesis\": {\n    \"best_path_selected\": \"transfer\",\n    \"final_count_estimate\": 5,\n    \"reasoning\": \"The source package was opaque, making it difficult to count precisely. The destination was a pile on the cutting board, making it hard to track additions. The transfer path clearly showed two distinct scoops of mushrooms being moved, with 2 visible in the first hand and 3 in the second, totaling 5.\"\n  }\n}\n```",
+          "ground_truth_count": 9,
+          "ground_truth_unit": "mushrooms",
+          "predicted_count": 5,
+          "match": "wrong",
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:03",
+              "observed_delta": 5,
+              "confidence": "high",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 248.44,
+              "timestamp_after_seconds": 3.0,
+              "absolute_timestamp_after": 251.44
+            },
+            "destination": {
+              "status": "INVALID_PILE",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:03",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 248.44,
+              "timestamp_after_seconds": 3.0,
+              "absolute_timestamp_after": 251.44
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:05",
+                  "description": "Scoop 1 in mid-air",
+                  "visible_count": 2,
+                  "timestamp_seconds": 5.0,
+                  "absolute_timestamp": 253.44
+                },
+                {
+                  "timestamp_raw": "00:15",
+                  "description": "Scoop 2 in mid-air",
+                  "visible_count": 3,
+                  "timestamp_seconds": 15.0,
+                  "absolute_timestamp": 263.44
+                }
+              ],
+              "total_transfer_count": 5,
+              "confidence": "high"
+            }
+          },
+          "final_synthesis": {
+            "best_path_selected": "transfer",
+            "final_count_estimate": 5,
+            "reasoning": "The source package was opaque, making it difficult to count precisely. The destination was a pile on the cutting board, making it hard to track additions. The transfer path clearly showed two distinct scoops of mushrooms being moved, with 2 visible in the first hand and 3 in the second, totaling 5."
+          }
+        }
+      ],
+      "total_predicted": 7,
+      "recipe_amount": null
+    },
+    {
+      "narration_id": "P02-20240211-175138-45",
+      "food_name": "tomatoes",
+      "difficulty": "LOW",
+      "video_range": [
+        "P02-20240211-175138",
+        "P02-20240211-182630"
+      ],
+      "total_ground_truth": null,
+      "total_ground_truth_unit": null,
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_f13ad5bf",
+          "segment_idx": 0,
+          "video_id": "P02-20240211-175138",
+          "start_timestamp": 1135.16,
+          "end_timestamp": 1150.58,
+          "clip_start": 1133.16,
+          "item_name": "cherry tomatoes",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 1133.16,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 1138.16,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 1133.16,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:10",
+              "timestamp_seconds": 10.0,
+              "absolute_timestamp": 1143.16,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "absolute_timestamp": 1140.16,
+              "description": "First scoop of cherry tomatoes in hand",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:10",
+              "timestamp_seconds": 10.0,
+              "absolute_timestamp": 1143.16,
+              "description": "Second scoop of cherry tomatoes in hand",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "```json\n{\n  \"item_name\": \"cherry tomatoes\",\n\n  \"path_source\": {\n    \"status\": \"INVALID_OPAQUE\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:05\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n\n  \"path_destination\": {\n    \"status\": \"INVALID_PILE\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:10\",\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:07\",\n        \"description\": \"First scoop of cherry tomatoes in hand\",\n        \"visible_count\": 1\n      },\n      {\n        \"timestamp\": \"00:10\",\n        \"description\": \"Second scoop of cherry tomatoes in hand\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 2,\n    \"confidence\": \"high\"\n  },\n\n  \"final_synthesis\": {\n    \"best_path_selected\": \"transfer\",\n    \"final_count_estimate\": 2,\n    \"reasoning\": \"The source package was opaque and the destination was a pile, making direct counting unreliable. The transfer path clearly shows two distinct scoops of tomatoes being moved, providing the most reliable count.\"\n  }\n}\n```",
+          "ground_truth_count": null,
+          "ground_truth_unit": null,
+          "predicted_count": 2,
+          "match": null,
+          "paths": {
+            "source": {
+              "status": "INVALID_OPAQUE",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:05",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 1133.16,
+              "timestamp_after_seconds": 5.0,
+              "absolute_timestamp_after": 1138.16
+            },
+            "destination": {
+              "status": "INVALID_PILE",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:10",
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 1133.16,
+              "timestamp_after_seconds": 10.0,
+              "absolute_timestamp_after": 1143.16
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:07",
+                  "description": "First scoop of cherry tomatoes in hand",
+                  "visible_count": 1,
+                  "timestamp_seconds": 7.0,
+                  "absolute_timestamp": 1140.16
+                },
+                {
+                  "timestamp_raw": "00:10",
+                  "description": "Second scoop of cherry tomatoes in hand",
+                  "visible_count": 1,
+                  "timestamp_seconds": 10.0,
+                  "absolute_timestamp": 1143.16
+                }
+              ],
+              "total_transfer_count": 2,
+              "confidence": "high"
+            }
+          },
+          "final_synthesis": {
+            "best_path_selected": "transfer",
+            "final_count_estimate": 2,
+            "reasoning": "The source package was opaque and the destination was a pile, making direct counting unreliable. The transfer path clearly shows two distinct scoops of tomatoes being moved, providing the most reliable count."
+          }
+        }
+      ],
+      "total_predicted": 2,
+      "recipe_amount": null
+    },
+    {
+      "narration_id": "P02-20240211-175138-46",
+      "food_name": "red onions",
+      "difficulty": "LOW",
+      "video_range": [
+        "P02-20240211-175138",
+        "P02-20240211-182630"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "onions",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_fd90bc78",
+          "segment_idx": 0,
+          "video_id": "P02-20240211-175138",
+          "start_timestamp": 924.49,
+          "end_timestamp": 929.49,
+          "clip_start": 922.49,
+          "item_name": "onion",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "absolute_timestamp": 922.49,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "source_after",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 927.49,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_before",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 928.49,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "dest_after",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 930.49,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "clear_view"
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "absolute_timestamp": 927.49,
+              "description": "One onion in hand",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "absolute_timestamp": 928.49,
+              "description": "One onion in hand",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "```json\n{\n  \"item_name\": \"onion\",\n\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:00\",\n    \"timestamp_after\": \"00:05\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"timestamp_before\": \"00:06\",\n    \"timestamp_after\": \"00:08\",\n    \"observed_delta\": 1,\n    \"confidence\": \"high\"\n  },\n\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:05\",\n        \"description\": \"One onion in hand\",\n        \"visible_count\": 1\n      },\n      {\n        \"timestamp\": \"00:06\",\n        \"description\": \"One onion in hand\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 2,\n    \"confidence\": \"medium\"\n  },\n\n  \"final_synthesis\": {\n    \"best_path_selected\": \"destination\",\n    \"final_count_estimate\": 1,\n    \"reasoning\": \"The source bag is opaque and the count cannot be verified. The destination shows a clear addition of one item. The transfer path shows two distinct instances of an onion being moved, but the final count is confirmed by the destination.\"\n  }\n}\n```",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "onions",
+          "predicted_count": 1,
+          "match": "close",
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:00",
+              "timestamp_after_raw": "00:05",
+              "observed_delta": 1,
+              "confidence": "high",
+              "timestamp_before_seconds": 0.0,
+              "absolute_timestamp_before": 922.49,
+              "timestamp_after_seconds": 5.0,
+              "absolute_timestamp_after": 927.49
+            },
+            "destination": {
+              "status": "VALID",
+              "timestamp_before_raw": "00:06",
+              "timestamp_after_raw": "00:08",
+              "observed_delta": 1,
+              "confidence": "high",
+              "timestamp_before_seconds": 6.0,
+              "absolute_timestamp_before": 928.49,
+              "timestamp_after_seconds": 8.0,
+              "absolute_timestamp_after": 930.49
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:05",
+                  "description": "One onion in hand",
+                  "visible_count": 1,
+                  "timestamp_seconds": 5.0,
+                  "absolute_timestamp": 927.49
+                },
+                {
+                  "timestamp_raw": "00:06",
+                  "description": "One onion in hand",
+                  "visible_count": 1,
+                  "timestamp_seconds": 6.0,
+                  "absolute_timestamp": 928.49
+                }
+              ],
+              "total_transfer_count": 2,
+              "confidence": "medium"
+            }
+          },
+          "final_synthesis": {
+            "best_path_selected": "destination",
+            "final_count_estimate": 1,
+            "reasoning": "The source bag is opaque and the count cannot be verified. The destination shows a clear addition of one item. The transfer path shows two distinct instances of an onion being moved, but the final count is confirmed by the destination."
+          }
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": null
+    },
+    {
+      "narration_id": "P02-20240211-182630-227",
+      "food_name": "kebab wraps",
+      "difficulty": "LOW",
+      "video_range": [
+        "P02-20240211-175138",
+        "P02-20240211-182630"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "kebab wraps",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_db40c597",
+          "segment_idx": 0,
+          "video_id": "P02-20240211-182630",
+          "start_timestamp": 545.1,
+          "end_timestamp": 553.846638,
+          "clip_start": 543.1,
+          "item_name": "flatbread",
+          "evidence_frames": [
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "absolute_timestamp": 545.1,
+              "description": "First flatbread being removed from the packet",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            },
+            {
+              "role": "transfer",
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "absolute_timestamp": 551.1,
+              "description": "Second flatbread being removed from the packet",
+              "visibility_status": "clear_view",
+              "visible_count": 1
+            }
+          ],
+          "raw_vlm_response": "```json\n{\n  \"item_name\": \"flatbread\",\n\n  \"path_source\": {\n    \"status\": \"INVALID_OPAQUE\",\n    \"timestamp_before\": null,\n    \"timestamp_after\": null,\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n\n  \"path_destination\": {\n    \"status\": \"INVALID_PILE\",\n    \"timestamp_before\": null,\n    \"timestamp_after\": null,\n    \"observed_delta\": null,\n    \"confidence\": \"low\"\n  },\n\n  \"path_transfer\": {\n    \"status\": \"VALID\",\n    \"transfer_events\": [\n      {\n        \"timestamp\": \"00:02\",\n        \"description\": \"First flatbread being removed from the packet\",\n        \"visible_count\": 1\n      },\n      {\n        \"timestamp\": \"00:08\",\n        \"description\": \"Second flatbread being removed from the packet\",\n        \"visible_count\": 1\n      }\n    ],\n    \"total_transfer_count\": 2,\n    \"confidence\": \"high\"\n  },\n\n  \"final_synthesis\": {\n    \"best_path_selected\": \"transfer\",\n    \"final_count_estimate\": 2,\n    \"reasoning\": \"The source packet is opaque and the destination is a pile, making it difficult to count accurately. The transfer path clearly shows two distinct flatbreads being removed from the packet, providing a reliable count.\"\n  }\n}\n```",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "kebab wraps",
+          "predicted_count": 2,
+          "match": "exact",
+          "paths": {
+            "source": {
+              "status": "INVALID_OPAQUE",
+              "timestamp_before_raw": null,
+              "timestamp_after_raw": null,
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": null,
+              "absolute_timestamp_before": null,
+              "timestamp_after_seconds": null,
+              "absolute_timestamp_after": null
+            },
+            "destination": {
+              "status": "INVALID_PILE",
+              "timestamp_before_raw": null,
+              "timestamp_after_raw": null,
+              "observed_delta": null,
+              "confidence": "low",
+              "timestamp_before_seconds": null,
+              "absolute_timestamp_before": null,
+              "timestamp_after_seconds": null,
+              "absolute_timestamp_after": null
+            },
+            "transfer": {
+              "status": "VALID",
+              "transfer_events": [
+                {
+                  "timestamp_raw": "00:02",
+                  "description": "First flatbread being removed from the packet",
+                  "visible_count": 1,
+                  "timestamp_seconds": 2.0,
+                  "absolute_timestamp": 545.1
+                },
+                {
+                  "timestamp_raw": "00:08",
+                  "description": "Second flatbread being removed from the packet",
+                  "visible_count": 1,
+                  "timestamp_seconds": 8.0,
+                  "absolute_timestamp": 551.1
+                }
+              ],
+              "total_transfer_count": 2,
+              "confidence": "high"
+            }
+          },
+          "final_synthesis": {
+            "best_path_selected": "transfer",
+            "final_count_estimate": 2,
+            "reasoning": "The source packet is opaque and the destination is a pile, making it difficult to count accurately. The transfer path clearly shows two distinct flatbreads being removed from the packet, providing a reliable count."
+          }
+        }
+      ],
+      "total_predicted": 2,
+      "recipe_amount": null
+    }
+  ]
+}

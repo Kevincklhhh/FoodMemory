@@ -89,7 +89,7 @@ const styles = {
     overflow: 'hidden',
   },
   videoWrapper: { backgroundColor: '#000', position: 'relative' },
-  video: { width: '100%', maxHeight: '250px', display: 'block' },
+  video: { width: '100%', maxHeight: '400px', display: 'block' },
   noVideo: {
     padding: '40px',
     textAlign: 'center',

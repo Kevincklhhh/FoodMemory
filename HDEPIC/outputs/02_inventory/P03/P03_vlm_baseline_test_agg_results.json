@@ -1,0 +1,268 @@
+{
+  "participant": "P03",
+  "model": "qwen",
+  "tag": "test_agg",
+  "method": "baseline",
+  "block_duration": 30.0,
+  "low_only": true,
+  "total_items": 5,
+  "items": [
+    {
+      "narration_id": "P03-20240216-084005-67",
+      "food_name": "bread (loaf/bag of bread)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240216-084005"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "slices",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_2bac7566",
+          "segment_idx": 0,
+          "video_id": "P03-20240216-084005",
+          "start_timestamp": 715.74,
+          "end_timestamp": 726.49,
+          "ground_truth_count": 2,
+          "ground_truth_unit": "slices",
+          "quantity_category": "discrete",
+          "predicted_count": 3,
+          "predicted_amount": "3 slices of bread",
+          "predicted_unit": "slice",
+          "detected_item_name": "bread",
+          "item_match": true,
+          "item_similarity": 0.8042206764221191,
+          "confidence": "high",
+          "match": "close",
+          "error": 1,
+          "blocks_queried": [
+            23,
+            24
+          ],
+          "aggregation_used": true,
+          "aggregation_reasoning": "Block 23 detected one loaf of bread being removed from a bag, indicating a single loaf. Block 24 detected two slices of bread being removed from a bag, with the bag visibly less full. Since the loaf in Block 23 is likely the same bag as in Block 24, the two slices represent a portion of the loaf. The total count is aggregated as 3 discrete units (1 loaf + 2 slices), with the unit type determined as 'slice' based on the action of removing individual slices.",
+          "num_blocks_aggregated": 2
+        }
+      ],
+      "recipe_amount": null,
+      "total_predicted": 3
+    },
+    {
+      "narration_id": "P03-20240216-185832-1024",
+      "food_name": "eggs",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240216-185832",
+        "P03-20240216-205923"
+      ],
+      "total_ground_truth": 8,
+      "total_ground_truth_unit": "eggs",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_f8b2a75d",
+          "segment_idx": 0,
+          "video_id": "P03-20240216-185832",
+          "start_timestamp": 2792.96,
+          "end_timestamp": 2825.9,
+          "ground_truth_count": 8,
+          "ground_truth_unit": "eggs",
+          "quantity_category": "discrete",
+          "predicted_count": 4,
+          "predicted_amount": "4 eggs remaining in carton",
+          "predicted_unit": "unit",
+          "detected_item_name": "eggs",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "wrong",
+          "error": -4,
+          "blocks_queried": [
+            93,
+            94
+          ],
+          "aggregation_used": true,
+          "aggregation_reasoning": "Both Block 93 and Block 94 detected eggs with high confidence. Block 93 shows 2 eggs removed from a carton of 6, leaving 4. Block 94 confirms 2 eggs removed from the same carton, leaving 4. The counts are consistent, and the final count is 4 eggs remaining.",
+          "num_blocks_aggregated": 2
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "eggs",
+        "amount": "330",
+        "unit": "g",
+        "recipe": "P03_R04"
+      },
+      "total_predicted": 4
+    },
+    {
+      "narration_id": "P03-20240216-185832-38",
+      "food_name": "bag of potatoes",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240216-185832",
+        "P03-20240216-205923"
+      ],
+      "total_ground_truth": 12,
+      "total_ground_truth_unit": "potatoes",
+      "num_segments": 2,
+      "segments": [
+        {
+          "segment_id": "seg_d38f9871",
+          "segment_idx": 0,
+          "video_id": "P03-20240216-185832",
+          "start_timestamp": 763.61,
+          "end_timestamp": 774.5,
+          "ground_truth_count": 8,
+          "ground_truth_unit": "potatoes",
+          "quantity_category": "discrete",
+          "predicted_count": 10,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "bag of potatoes",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "wrong",
+          "error": 2,
+          "blocks_queried": [
+            25
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 25,
+          "remaining_count": 10,
+          "remaining_description": null,
+          "remaining_fraction": 0.5,
+          "visual_evidence": "A bag of potatoes is on the counter. The person opens the bag and removes several potatoes, placing them on the counter. The bag appears to be about half full after the action."
+        },
+        {
+          "segment_id": "seg_7c631815",
+          "segment_idx": 1,
+          "video_id": "P03-20240216-185832",
+          "start_timestamp": 1251.98,
+          "end_timestamp": 1259.16,
+          "ground_truth_count": 4,
+          "ground_truth_unit": "potatoes",
+          "quantity_category": "discrete",
+          "predicted_count": 3,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "bag of potatoes",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "close",
+          "error": -1,
+          "blocks_queried": [
+            41
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 41,
+          "remaining_count": 4,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "visual_evidence": "A bag of potatoes is visible on the counter. The person takes out three potatoes from the bag and places them on the counter. After the action, four potatoes remain inside the bag."
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "potatoes",
+        "amount": "1800",
+        "unit": "g",
+        "recipe": "P03_R04"
+      },
+      "total_predicted": 13
+    },
+    {
+      "narration_id": "P03-20240216-185832-63",
+      "food_name": "yeast (box)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240216-185832",
+        "P03-20240216-205923"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "sachets",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_13de44e1",
+          "segment_idx": 0,
+          "video_id": "P03-20240216-185832",
+          "start_timestamp": 2102.75,
+          "end_timestamp": 2106.03,
+          "ground_truth_count": 1,
+          "ground_truth_unit": "sachets",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "yeast (box)",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "exact",
+          "error": 0,
+          "blocks_queried": [
+            70
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 70,
+          "remaining_count": 1,
+          "remaining_description": null,
+          "remaining_fraction": 0.5,
+          "visual_evidence": "A yellow box of yeast is taken from a cabinet. The box is opened, and a small foil packet is removed and emptied into a bowl. The box is then returned to the cabinet. The box appears to be half full before and after the action."
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "dried yeast",
+        "amount": "2",
+        "unit": "g",
+        "recipe": "P03_R05"
+      },
+      "total_predicted": 1
+    },
+    {
+      "narration_id": "P03-20240217-091657-304",
+      "food_name": "bread (in bag)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P03-20240217-091657"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "slices",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_965a98f5",
+          "segment_idx": 0,
+          "video_id": "P03-20240217-091657",
+          "start_timestamp": 645,
+          "end_timestamp": 659.47,
+          "ground_truth_count": 2,
+          "ground_truth_unit": "slices",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "slice",
+          "detected_item_name": "bread",
+          "item_match": true,
+          "item_similarity": 0.8136858940124512,
+          "confidence": "high",
+          "match": "exact",
+          "error": 0,
+          "blocks_queried": [
+            21
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 21,
+          "remaining_count": 4,
+          "remaining_description": null,
+          "remaining_fraction": 0.8,
+          "visual_evidence": "A bag of bread is held. Two slices are removed and placed into the toaster. The bag appears to have been full before, and after the action, four slices remain visible in the bag."
+        }
+      ],
+      "recipe_amount": null,
+      "total_predicted": 2
+    }
+  ]
+}

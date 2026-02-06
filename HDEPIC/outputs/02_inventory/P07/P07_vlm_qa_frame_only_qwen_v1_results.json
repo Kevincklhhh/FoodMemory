@@ -1,0 +1,893 @@
+{
+  "participant": "P07",
+  "model": "qwen",
+  "tag": "frame_only_qwen_v1",
+  "source_tag": "hybrid_gemini3_batch_low",
+  "prompt_mode": "frame_only",
+  "task": "frame_only_counting",
+  "low_only": true,
+  "total_items": 8,
+  "items": [
+    {
+      "narration_id": "P07-20240529-131737-4",
+      "food_name": "can of chickpeas",
+      "difficulty": "LOW",
+      "video_range": [
+        "P07-20240529-131737",
+        "P07-20240529-134410"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "can",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_0f559bad",
+          "segment_idx": 0,
+          "video_id": "P07-20240529-131737",
+          "start_timestamp": 74.555,
+          "end_timestamp": 79.555,
+          "clip_start": 72.555,
+          "item_name": "can of chickpeas",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "absolute_timestamp": 74.56,
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "description": "Source before (delta=1)",
+              "visibility_status": "occluded",
+              "container_description": "Hand is holding the can, obscuring the view of its contents in both Image 1 and Image 2."
+            },
+            {
+              "role": "source_after",
+              "absolute_timestamp": 80.56,
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "description": "Source after (delta=1)",
+              "visibility_status": "occluded",
+              "container_description": "Hand is holding the can, obscuring the view of its contents in both Image 1 and Image 2."
+            },
+            {
+              "role": "dest_before",
+              "absolute_timestamp": 75.56,
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "White colander in the sink, containing chickpeas."
+            },
+            {
+              "role": "dest_after",
+              "absolute_timestamp": 78.56,
+              "timestamp_raw": "00:06",
+              "timestamp_seconds": 6.0,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "White colander in the sink, containing chickpeas."
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"can of chickpeas\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"Hand is holding the can, obscuring the view of its contents in both Image 1 and Image 2.\",\n    \"observed_start_count\": null,\n    \"observed_end_count\": null,\n    \"calculated_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"White colander in the sink, containing chickpeas.\",\n    \"observed_start_count\": 0,\n    \"observed_end_count\": 1,\n    \"calculated_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source view was blocked by a hand (Invalid). Dest view clearly showed 1 can of chickpeas being poured into the colander. Using Path B count.\"\n}",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source view was blocked by a hand (Invalid). Dest view clearly showed 1 can of chickpeas being poured into the colander. Using Path B count.",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "can",
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "container_description": "Hand is holding the can, obscuring the view of its contents in both Image 1 and Image 2.",
+              "observed_start_count": null,
+              "observed_end_count": null,
+              "observed_delta": null,
+              "confidence": "low"
+            },
+            "destination": {
+              "status": "VALID",
+              "container_description": "White colander in the sink, containing chickpeas.",
+              "observed_start_count": 0,
+              "observed_end_count": 1,
+              "observed_delta": 1,
+              "confidence": "high"
+            }
+          },
+          "match": "exact",
+          "error": 0,
+          "abs_error": 0
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "chickpeas",
+        "amount": "240",
+        "unit": "g",
+        "recipe": "P07_R02"
+      }
+    },
+    {
+      "narration_id": "P07-20240529-131737-6",
+      "food_name": "package of lettuce",
+      "difficulty": "LOW",
+      "video_range": [
+        "P07-20240529-131737",
+        "P07-20240529-134410"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "heads",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_10969c8e",
+          "segment_idx": 0,
+          "video_id": "P07-20240529-131737",
+          "start_timestamp": 483.16,
+          "end_timestamp": 489.58,
+          "clip_start": 481.16,
+          "item_name": "package of lettuce",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "absolute_timestamp": 483.16,
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Clear plastic bag with a Union Jack design, showing the lettuce inside. The bag is open in the first image and closed in the second."
+            },
+            {
+              "role": "source_after",
+              "absolute_timestamp": 489.16,
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Clear plastic bag with a Union Jack design, showing the lettuce inside. The bag is open in the first image and closed in the second."
+            },
+            {
+              "role": "dest_before",
+              "absolute_timestamp": 489.16,
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Wooden cutting board on the countertop. The board is empty in the third image and has a head of lettuce on it in the fourth."
+            },
+            {
+              "role": "dest_after",
+              "absolute_timestamp": 490.16,
+              "timestamp_raw": "00:09",
+              "timestamp_seconds": 9.0,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Wooden cutting board on the countertop. The board is empty in the third image and has a head of lettuce on it in the fourth."
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"package of lettuce\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Clear plastic bag with a Union Jack design, showing the lettuce inside. The bag is open in the first image and closed in the second.\",\n    \"observed_start_count\": 1,\n    \"observed_end_count\": 0,\n    \"calculated_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Wooden cutting board on the countertop. The board is empty in the third image and has a head of lettuce on it in the fourth.\",\n    \"observed_start_count\": 0,\n    \"observed_end_count\": 1,\n    \"calculated_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": 1.0,\n  \"remaining_count\": 0,\n  \"remaining_description\": null,\n  \"remaining_fraction\": 0.0,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Both source and destination paths are valid. The source bag clearly shows one lettuce package being removed (1->0). The destination shows one lettuce package being added (0->1). The counts from both paths agree, confirming one package was used.\"\n}",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 0,
+          "remaining_description": null,
+          "remaining_fraction": 0.0,
+          "confidence": "high",
+          "visual_evidence": "Both source and destination paths are valid. The source bag clearly shows one lettuce package being removed (1->0). The destination shows one lettuce package being added (0->1). The counts from both paths agree, confirming one package was used.",
+          "ground_truth_count": 2,
+          "ground_truth_unit": "heads",
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "container_description": "Clear plastic bag with a Union Jack design, showing the lettuce inside. The bag is open in the first image and closed in the second.",
+              "observed_start_count": 1,
+              "observed_end_count": 0,
+              "observed_delta": 1,
+              "confidence": "high"
+            },
+            "destination": {
+              "status": "VALID",
+              "container_description": "Wooden cutting board on the countertop. The board is empty in the third image and has a head of lettuce on it in the fourth.",
+              "observed_start_count": 0,
+              "observed_end_count": 1,
+              "observed_delta": 1,
+              "confidence": "high"
+            }
+          },
+          "match": "close",
+          "error": -1,
+          "abs_error": 1
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "romaine lettuce",
+        "amount": "296",
+        "unit": "g",
+        "recipe": "P07_R02"
+      }
+    },
+    {
+      "narration_id": "P07-20240529-131737-8",
+      "food_name": "cherry tomatoes (packet)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P07-20240529-131737",
+        "P07-20240529-134410"
+      ],
+      "total_ground_truth": 10,
+      "total_ground_truth_unit": "cherry tomatoes",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_4a89308d",
+          "segment_idx": 0,
+          "video_id": "P07-20240529-134410",
+          "start_timestamp": 184.16,
+          "end_timestamp": 196.619718,
+          "clip_start": 182.16,
+          "item_name": "cherry tomatoes (packet)",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "absolute_timestamp": 185.16,
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "description": "Source before (delta=10)",
+              "visibility_status": "clear_view",
+              "container_description": "Clear plastic packet of cherry tomatoes on a wooden board"
+            },
+            {
+              "role": "source_after",
+              "absolute_timestamp": 196.16,
+              "timestamp_raw": "00:14",
+              "timestamp_seconds": 14.0,
+              "description": "Source after (delta=10)",
+              "visibility_status": "clear_view",
+              "container_description": "Clear plastic packet of cherry tomatoes on a wooden board"
+            },
+            {
+              "role": "dest_before",
+              "absolute_timestamp": 185.16,
+              "timestamp_raw": "00:03",
+              "timestamp_seconds": 3.0,
+              "description": "Destination before (delta=10)",
+              "visibility_status": "occluded",
+              "container_description": "Packet is being opened, items are not yet visible in a separate container"
+            },
+            {
+              "role": "dest_after",
+              "absolute_timestamp": 196.16,
+              "timestamp_raw": "00:14",
+              "timestamp_seconds": 14.0,
+              "description": "Destination after (delta=10)",
+              "visibility_status": "occluded",
+              "container_description": "Packet is being opened, items are not yet visible in a separate container"
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"cherry tomatoes (packet)\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Clear plastic packet of cherry tomatoes on a wooden board\",\n    \"observed_start_count\": 1,\n    \"observed_end_count\": 0,\n    \"calculated_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"Packet is being opened, items are not yet visible in a separate container\",\n    \"observed_start_count\": null,\n    \"observed_end_count\": null,\n    \"calculated_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": 1.0,\n  \"remaining_count\": 0,\n  \"remaining_description\": null,\n  \"remaining_fraction\": 0.0,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source packet clearly shows one full packet being opened and emptied (1->0). Destination is not yet visible. Trusting Source Path.\"\n}",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 0,
+          "remaining_description": null,
+          "remaining_fraction": 0.0,
+          "confidence": "high",
+          "visual_evidence": "Source packet clearly shows one full packet being opened and emptied (1->0). Destination is not yet visible. Trusting Source Path.",
+          "ground_truth_count": 10,
+          "ground_truth_unit": "cherry tomatoes",
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "container_description": "Clear plastic packet of cherry tomatoes on a wooden board",
+              "observed_start_count": 1,
+              "observed_end_count": 0,
+              "observed_delta": 1,
+              "confidence": "high"
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "container_description": "Packet is being opened, items are not yet visible in a separate container",
+              "observed_start_count": null,
+              "observed_end_count": null,
+              "observed_delta": null,
+              "confidence": "low"
+            }
+          },
+          "match": "wrong",
+          "error": -9,
+          "abs_error": 9
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "cherry tomatoes",
+        "amount": "146",
+        "unit": "g",
+        "recipe": "P07_R02"
+      }
+    },
+    {
+      "narration_id": "P07-20240529-191007-386",
+      "food_name": "box of stock cubes",
+      "difficulty": "LOW",
+      "video_range": [
+        "P07-20240529-191007",
+        "P07-20240529-194518"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "stock cubes",
+      "num_segments": 2,
+      "segments": [
+        {
+          "segment_id": "seg_d4249f41",
+          "segment_idx": 0,
+          "video_id": "P07-20240529-191007",
+          "start_timestamp": 1218.12,
+          "end_timestamp": 1223.12,
+          "clip_start": 1216.12,
+          "item_name": "box of stock cubes",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "absolute_timestamp": 1218.12,
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "description": "Source before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Green box of stock cubes, held by hands. The lid is open, and the contents are visible."
+            },
+            {
+              "role": "source_after",
+              "absolute_timestamp": 1221.12,
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "description": "Source after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "Green box of stock cubes, held by hands. The lid is open, and the contents are visible."
+            },
+            {
+              "role": "dest_before",
+              "absolute_timestamp": 1220.12,
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "occluded",
+              "container_description": "The destination is the person's hands, which are holding the box. No separate container is visible."
+            },
+            {
+              "role": "dest_after",
+              "absolute_timestamp": 1221.12,
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "occluded",
+              "container_description": "The destination is the person's hands, which are holding the box. No separate container is visible."
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"box of stock cubes\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Green box of stock cubes, held by hands. The lid is open, and the contents are visible.\",\n    \"observed_start_count\": 12,\n    \"observed_end_count\": 11,\n    \"calculated_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"The destination is the person's hands, which are holding the box. No separate container is visible.\",\n    \"observed_start_count\": null,\n    \"observed_end_count\": null,\n    \"calculated_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 11,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source view was clear and unobstructed, showing a box of stock cubes. The count decreased from 12 to 11, indicating 1 cube was removed. The destination is the person's hands, which makes it impossible to verify the count. Trusting the clear Source Path.\"\n}",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 11,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source view was clear and unobstructed, showing a box of stock cubes. The count decreased from 12 to 11, indicating 1 cube was removed. The destination is the person's hands, which makes it impossible to verify the count. Trusting the clear Source Path.",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "stock cubes",
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "container_description": "Green box of stock cubes, held by hands. The lid is open, and the contents are visible.",
+              "observed_start_count": 12,
+              "observed_end_count": 11,
+              "observed_delta": 1,
+              "confidence": "high"
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "container_description": "The destination is the person's hands, which are holding the box. No separate container is visible.",
+              "observed_start_count": null,
+              "observed_end_count": null,
+              "observed_delta": null,
+              "confidence": "low"
+            }
+          },
+          "match": "exact",
+          "error": 0,
+          "abs_error": 0
+        },
+        {
+          "segment_id": "seg_fcf1b441",
+          "segment_idx": 1,
+          "video_id": "P07-20240529-191007",
+          "start_timestamp": 1258.86,
+          "end_timestamp": 1275.87,
+          "clip_start": 1256.86,
+          "item_name": "box of stock cubes",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "absolute_timestamp": 1257.86,
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "The box of stock cubes is partially visible on the counter, but the view is obstructed by the person's hands and the camera angle, making it impossible to see the contents clearly."
+            },
+            {
+              "role": "source_after",
+              "absolute_timestamp": 1276.86,
+              "timestamp_raw": "00:20",
+              "timestamp_seconds": 20.0,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "The box of stock cubes is partially visible on the counter, but the view is obstructed by the person's hands and the camera angle, making it impossible to see the contents clearly."
+            },
+            {
+              "role": "dest_before",
+              "absolute_timestamp": 1257.86,
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "A small, open box of stock cubes is on the wooden cutting board. The box is open and appears to be empty."
+            },
+            {
+              "role": "dest_after",
+              "absolute_timestamp": 1276.86,
+              "timestamp_raw": "00:20",
+              "timestamp_seconds": 20.0,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "A small, open box of stock cubes is on the wooden cutting board. The box is open and appears to be empty."
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"box of stock cubes\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"The box of stock cubes is partially visible on the counter, but the view is obstructed by the person's hands and the camera angle, making it impossible to see the contents clearly.\",\n    \"observed_start_count\": null,\n    \"observed_end_count\": null,\n    \"calculated_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"A small, open box of stock cubes is on the wooden cutting board. The box is open and appears to be empty.\",\n    \"observed_start_count\": 0,\n    \"observed_end_count\": 0,\n    \"calculated_delta\": 0,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 0,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 0,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source view was blocked (Invalid). Dest view clearly showed 0 items added. Using Path B count.\"\n}",
+          "quantity_category": "discrete",
+          "predicted_count": 0,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 0,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source view was blocked (Invalid). Dest view clearly showed 0 items added. Using Path B count.",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "stock cubes",
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "container_description": "The box of stock cubes is partially visible on the counter, but the view is obstructed by the person's hands and the camera angle, making it impossible to see the contents clearly.",
+              "observed_start_count": null,
+              "observed_end_count": null,
+              "observed_delta": null,
+              "confidence": "low"
+            },
+            "destination": {
+              "status": "VALID",
+              "container_description": "A small, open box of stock cubes is on the wooden cutting board. The box is open and appears to be empty.",
+              "observed_start_count": 0,
+              "observed_end_count": 0,
+              "observed_delta": 0,
+              "confidence": "high"
+            }
+          },
+          "match": "close",
+          "error": -1,
+          "abs_error": 1
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "vegetable stock cube",
+        "amount": "2",
+        "unit": "quantity",
+        "recipe": "P07_R03"
+      }
+    },
+    {
+      "narration_id": "P07-20240529-191007-54",
+      "food_name": "packet of fresh mushrooms",
+      "difficulty": "LOW",
+      "video_range": [
+        "P07-20240529-191007",
+        "P07-20240529-194518"
+      ],
+      "total_ground_truth": 3,
+      "total_ground_truth_unit": "packet",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_eef2a011",
+          "segment_idx": 0,
+          "video_id": "P07-20240529-191007",
+          "start_timestamp": 520.625,
+          "end_timestamp": 525.625,
+          "clip_start": 518.625,
+          "item_name": "packet of fresh mushrooms",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "absolute_timestamp": 518.62,
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "description": "Source before (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "Clear plastic packet with a cardboard base, showing mushrooms inside. The packet is open and the contents are visible in both images."
+            },
+            {
+              "role": "source_after",
+              "absolute_timestamp": 526.62,
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "description": "Source after (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "Clear plastic packet with a cardboard base, showing mushrooms inside. The packet is open and the contents are visible in both images."
+            },
+            {
+              "role": "dest_before",
+              "absolute_timestamp": 522.62,
+              "timestamp_raw": "00:04",
+              "timestamp_seconds": 4.0,
+              "description": "Destination before (delta=2)",
+              "visibility_status": "occluded",
+              "container_description": "The destination is the person's hands, which are holding the mushrooms. The view is obstructed by the hands and the items being held."
+            },
+            {
+              "role": "dest_after",
+              "absolute_timestamp": 526.62,
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "description": "Destination after (delta=2)",
+              "visibility_status": "occluded",
+              "container_description": "The destination is the person's hands, which are holding the mushrooms. The view is obstructed by the hands and the items being held."
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"packet of fresh mushrooms\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"Clear plastic packet with a cardboard base, showing mushrooms inside. The packet is open and the contents are visible in both images.\",\n    \"observed_start_count\": 6,\n    \"observed_end_count\": 4,\n    \"calculated_delta\": 2,\n    \"confidence\": \"high\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"The destination is the person's hands, which are holding the mushrooms. The view is obstructed by the hands and the items being held.\",\n    \"observed_start_count\": null,\n    \"observed_end_count\": null,\n    \"calculated_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": 2,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": 4,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source view was clear and unobstructed, allowing for a reliable count of mushrooms removed. Destination view was blocked by hands, making it invalid. Trusting Source Path.\"\n}",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": 4,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source view was clear and unobstructed, allowing for a reliable count of mushrooms removed. Destination view was blocked by hands, making it invalid. Trusting Source Path.",
+          "ground_truth_count": 3,
+          "ground_truth_unit": "packet",
+          "paths": {
+            "source": {
+              "status": "VALID",
+              "container_description": "Clear plastic packet with a cardboard base, showing mushrooms inside. The packet is open and the contents are visible in both images.",
+              "observed_start_count": 6,
+              "observed_end_count": 4,
+              "observed_delta": 2,
+              "confidence": "high"
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "container_description": "The destination is the person's hands, which are holding the mushrooms. The view is obstructed by the hands and the items being held.",
+              "observed_start_count": null,
+              "observed_end_count": null,
+              "observed_delta": null,
+              "confidence": "low"
+            }
+          },
+          "match": "close",
+          "error": -1,
+          "abs_error": 1
+        }
+      ],
+      "total_predicted": 2,
+      "recipe_amount": {
+        "ingredient": "chestnut mushrooms",
+        "amount": "320",
+        "unit": "g",
+        "recipe": "P07_R03"
+      }
+    },
+    {
+      "narration_id": "P07-20240530-102543-198",
+      "food_name": "eggs",
+      "difficulty": "LOW",
+      "video_range": [
+        "P07-20240530-102543",
+        "P07-20240530-111344"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "eggs",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_702936b6",
+          "segment_idx": 0,
+          "video_id": "P07-20240530-102543",
+          "start_timestamp": 641.76,
+          "end_timestamp": 647.81,
+          "clip_start": 639.76,
+          "item_name": "eggs",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "absolute_timestamp": 640.76,
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "description": "Source before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "The cabinet is dark and the contents are obscured by a hand and other items, making it impossible to see the source container or count any items."
+            },
+            {
+              "role": "source_after",
+              "absolute_timestamp": 648.76,
+              "timestamp_raw": "00:09",
+              "timestamp_seconds": 9.0,
+              "description": "Source after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "The cabinet is dark and the contents are obscured by a hand and other items, making it impossible to see the source container or count any items."
+            },
+            {
+              "role": "dest_before",
+              "absolute_timestamp": 640.76,
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "description": "Destination before (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "The destination area is the kitchen counter, but the items being added are not visible in the frame. The view is obstructed by the cabinet and the camera angle."
+            },
+            {
+              "role": "dest_after",
+              "absolute_timestamp": 648.76,
+              "timestamp_raw": "00:09",
+              "timestamp_seconds": 9.0,
+              "description": "Destination after (delta=None)",
+              "visibility_status": "occluded",
+              "container_description": "The destination area is the kitchen counter, but the items being added are not visible in the frame. The view is obstructed by the cabinet and the camera angle."
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"eggs\",\n  \"quantity_category\": \"unknown\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"The cabinet is dark and the contents are obscured by a hand and other items, making it impossible to see the source container or count any items.\",\n    \"observed_start_count\": null,\n    \"observed_end_count\": null,\n    \"calculated_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"The destination area is the kitchen counter, but the items being added are not visible in the frame. The view is obstructed by the cabinet and the camera angle.\",\n    \"observed_start_count\": null,\n    \"observed_end_count\": null,\n    \"calculated_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"numeric_count\": null,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"low\",\n  \"visual_evidence\": \"Both the source and destination views are obstructed and unclear. The source container is inside a dark cabinet with a hand in the way, and the destination is the counter which is not visible. Neither path provides valid evidence for tracking the item 'eggs'.\"\n}",
+          "quantity_category": "unknown",
+          "predicted_count": null,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "low",
+          "visual_evidence": "Both the source and destination views are obstructed and unclear. The source container is inside a dark cabinet with a hand in the way, and the destination is the counter which is not visible. Neither path provides valid evidence for tracking the item 'eggs'.",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "eggs",
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "container_description": "The cabinet is dark and the contents are obscured by a hand and other items, making it impossible to see the source container or count any items.",
+              "observed_start_count": null,
+              "observed_end_count": null,
+              "observed_delta": null,
+              "confidence": "low"
+            },
+            "destination": {
+              "status": "INVALID_OCCLUDED",
+              "container_description": "The destination area is the kitchen counter, but the items being added are not visible in the frame. The view is obstructed by the cabinet and the camera angle.",
+              "observed_start_count": null,
+              "observed_end_count": null,
+              "observed_delta": null,
+              "confidence": "low"
+            }
+          },
+          "match": "pred_unknown",
+          "error": null,
+          "abs_error": null
+        }
+      ],
+      "total_predicted": null,
+      "recipe_amount": {
+        "ingredient": "egg yolk",
+        "amount": "14.8",
+        "unit": "g",
+        "recipe": "P07_R04"
+      }
+    },
+    {
+      "narration_id": "P07-20240531-201703-253",
+      "food_name": "garlic (bulb)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P07-20240531-201703"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "clove",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_b0ee9fec",
+          "segment_idx": 0,
+          "video_id": "P07-20240531-201703",
+          "start_timestamp": 804.665,
+          "end_timestamp": 809.665,
+          "clip_start": 802.665,
+          "item_name": "garlic (bulb)",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "absolute_timestamp": 802.66,
+              "timestamp_raw": "00:00",
+              "timestamp_seconds": 0.0,
+              "description": "Source before (delta=1)",
+              "visibility_status": "occluded",
+              "container_description": "The source container is a cabinet shelf with multiple items. The garlic is not visible in the source frames as it is obscured by other items and the person's hand."
+            },
+            {
+              "role": "source_after",
+              "absolute_timestamp": 810.66,
+              "timestamp_raw": "00:08",
+              "timestamp_seconds": 8.0,
+              "description": "Source after (delta=1)",
+              "visibility_status": "occluded",
+              "container_description": "The source container is a cabinet shelf with multiple items. The garlic is not visible in the source frames as it is obscured by other items and the person's hand."
+            },
+            {
+              "role": "dest_before",
+              "absolute_timestamp": 803.66,
+              "timestamp_raw": "00:01",
+              "timestamp_seconds": 1.0,
+              "description": "Destination before (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "The destination is a person's hands holding a piece of garlic. The hands are clearly shown peeling and separating a garlic clove."
+            },
+            {
+              "role": "dest_after",
+              "absolute_timestamp": 809.66,
+              "timestamp_raw": "00:07",
+              "timestamp_seconds": 7.0,
+              "description": "Destination after (delta=1)",
+              "visibility_status": "clear_view",
+              "container_description": "The destination is a person's hands holding a piece of garlic. The hands are clearly shown peeling and separating a garlic clove."
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"garlic (bulb)\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"The source container is a cabinet shelf with multiple items. The garlic is not visible in the source frames as it is obscured by other items and the person's hand.\",\n    \"observed_start_count\": null,\n    \"observed_end_count\": null,\n    \"calculated_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"The destination is a person's hands holding a piece of garlic. The hands are clearly shown peeling and separating a garlic clove.\",\n    \"observed_start_count\": 0,\n    \"observed_end_count\": 1,\n    \"calculated_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source view was blocked (Invalid). Dest view clearly showed 1 distinct garlic clove being handled. Using Path B count.\"\n}",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source view was blocked (Invalid). Dest view clearly showed 1 distinct garlic clove being handled. Using Path B count.",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "clove",
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "container_description": "The source container is a cabinet shelf with multiple items. The garlic is not visible in the source frames as it is obscured by other items and the person's hand.",
+              "observed_start_count": null,
+              "observed_end_count": null,
+              "observed_delta": null,
+              "confidence": "low"
+            },
+            "destination": {
+              "status": "VALID",
+              "container_description": "The destination is a person's hands holding a piece of garlic. The hands are clearly shown peeling and separating a garlic clove.",
+              "observed_start_count": 0,
+              "observed_end_count": 1,
+              "observed_delta": 1,
+              "confidence": "high"
+            }
+          },
+          "match": "exact",
+          "error": 0,
+          "abs_error": 0
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": null
+    },
+    {
+      "narration_id": "P07-20240531-201703-3",
+      "food_name": "avocados (packet)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P07-20240531-201703"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "avocados",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_efae4c5e",
+          "segment_idx": 0,
+          "video_id": "P07-20240531-201703",
+          "start_timestamp": 595.0999999999999,
+          "end_timestamp": 600.0999999999999,
+          "clip_start": 593.0999999999999,
+          "item_name": "avocados (packet)",
+          "evidence_frames": [
+            {
+              "role": "source_before",
+              "absolute_timestamp": 595.1,
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "description": "Source before (delta=2)",
+              "visibility_status": "occluded",
+              "container_description": "The container is a dark, opaque packet held by hands, making it impossible to see the contents or count the avocados inside."
+            },
+            {
+              "role": "source_after",
+              "absolute_timestamp": 598.1,
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "description": "Source after (delta=2)",
+              "visibility_status": "occluded",
+              "container_description": "The container is a dark, opaque packet held by hands, making it impossible to see the contents or count the avocados inside."
+            },
+            {
+              "role": "dest_before",
+              "absolute_timestamp": 595.1,
+              "timestamp_raw": "00:02",
+              "timestamp_seconds": 2.0,
+              "description": "Destination before (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "A wooden cutting board with a bowl of noodles and a knife. A hand is placing a dark, round object (an avocado) onto the board."
+            },
+            {
+              "role": "dest_after",
+              "absolute_timestamp": 598.1,
+              "timestamp_raw": "00:05",
+              "timestamp_seconds": 5.0,
+              "description": "Destination after (delta=2)",
+              "visibility_status": "clear_view",
+              "container_description": "A wooden cutting board with a bowl of noodles and a knife. A hand is placing a dark, round object (an avocado) onto the board."
+            }
+          ],
+          "raw_vlm_response": "{\n  \"item_name\": \"avocados (packet)\",\n  \"quantity_category\": \"discrete\",\n  \"path_source\": {\n    \"status\": \"INVALID_OCCLUDED\",\n    \"container_description\": \"The container is a dark, opaque packet held by hands, making it impossible to see the contents or count the avocados inside.\",\n    \"observed_start_count\": null,\n    \"observed_end_count\": null,\n    \"calculated_delta\": null,\n    \"confidence\": \"low\"\n  },\n  \"path_destination\": {\n    \"status\": \"VALID\",\n    \"container_description\": \"A wooden cutting board with a bowl of noodles and a knife. A hand is placing a dark, round object (an avocado) onto the board.\",\n    \"observed_start_count\": 0,\n    \"observed_end_count\": 1,\n    \"calculated_delta\": 1,\n    \"confidence\": \"high\"\n  },\n  \"numeric_count\": 1,\n  \"amount_description\": null,\n  \"volume_fraction\": null,\n  \"remaining_count\": null,\n  \"remaining_description\": null,\n  \"remaining_fraction\": null,\n  \"unit_type\": \"unit\",\n  \"confidence\": \"high\",\n  \"visual_evidence\": \"Source view was occluded (Invalid). Dest view clearly showed 1 distinct item added. Using Path B count.\"\n}",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "remaining_count": null,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "confidence": "high",
+          "visual_evidence": "Source view was occluded (Invalid). Dest view clearly showed 1 distinct item added. Using Path B count.",
+          "ground_truth_count": 1,
+          "ground_truth_unit": "avocados",
+          "paths": {
+            "source": {
+              "status": "INVALID_OCCLUDED",
+              "container_description": "The container is a dark, opaque packet held by hands, making it impossible to see the contents or count the avocados inside.",
+              "observed_start_count": null,
+              "observed_end_count": null,
+              "observed_delta": null,
+              "confidence": "low"
+            },
+            "destination": {
+              "status": "VALID",
+              "container_description": "A wooden cutting board with a bowl of noodles and a knife. A hand is placing a dark, round object (an avocado) onto the board.",
+              "observed_start_count": 0,
+              "observed_end_count": 1,
+              "observed_delta": 1,
+              "confidence": "high"
+            }
+          },
+          "match": "exact",
+          "error": 0,
+          "abs_error": 0
+        }
+      ],
+      "total_predicted": 1,
+      "recipe_amount": {
+        "ingredient": "avocado",
+        "amount": "63",
+        "unit": "g",
+        "recipe": "P07_R07"
+      }
+    }
+  ]
+}

@@ -1,0 +1,956 @@
+{
+  "participant": "P01",
+  "model": "qwen",
+  "tag": "block30s",
+  "method": "baseline",
+  "block_duration": 30.0,
+  "low_only": true,
+  "total_items": 16,
+  "items": [
+    {
+      "narration_id": "P01-20240202-110250-29",
+      "food_name": "oranges (in mesh bag)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240202-110250"
+      ],
+      "total_ground_truth": 3,
+      "total_ground_truth_unit": "oranges",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_ff1d764e",
+          "segment_idx": 0,
+          "video_id": "P01-20240202-110250",
+          "start_timestamp": 53.31,
+          "end_timestamp": 60.531511,
+          "ground_truth_count": 3,
+          "ground_truth_unit": "oranges",
+          "quantity_category": "discrete",
+          "predicted_count": 3,
+          "predicted_amount": "3 oranges",
+          "predicted_unit": "unit",
+          "detected_item_name": "oranges",
+          "item_match": false,
+          "item_similarity": 0.6382288336753845,
+          "confidence": "high",
+          "match": "item_mismatch",
+          "error": 0,
+          "blocks_queried": [
+            1,
+            2
+          ],
+          "aggregation_used": true,
+          "aggregation_reasoning": "Both blocks detected oranges with high confidence. Block 1 shows 2 oranges removed from a mesh bag, and Block 2 shows 1 orange removed from the same bag. The counts are consistent and additive, indicating a total of 3 oranges dispensed. The evidence from both blocks supports the same item and action, with no conflicting detections.",
+          "num_blocks_aggregated": 2
+        }
+      ],
+      "recipe_amount": null,
+      "total_predicted": 3
+    },
+    {
+      "narration_id": "P01-20240203-093333-20",
+      "food_name": "coffee capsule",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240203-093333"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "capsules",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_cd6fce65",
+          "segment_idx": 0,
+          "video_id": "P01-20240203-093333",
+          "start_timestamp": 43.76,
+          "end_timestamp": 45.51,
+          "ground_truth_count": 1,
+          "ground_truth_unit": "capsules",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "coffee capsule",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "exact",
+          "error": 0,
+          "blocks_queried": [
+            1
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 1,
+          "remaining_count": 9,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "visual_evidence": "A box of coffee capsules is opened. A single capsule is removed from the box. The box is then closed, and the remaining capsules are visible inside."
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "nespresso capsule",
+        "amount": "N/A",
+        "unit": "N/A",
+        "recipe": "P01_R01_C1"
+      },
+      "total_predicted": 1
+    },
+    {
+      "narration_id": "P01-20240203-121517-78",
+      "food_name": "onions (mesh bag)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240203-121517",
+        "P01-20240203-123350",
+        "P01-20240203-130505",
+        "P01-20240203-132119",
+        "P01-20240203-135502",
+        "P01-20240203-150506",
+        "P01-20240203-152323"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "onions",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_f40ed325",
+          "segment_idx": 0,
+          "video_id": "P01-20240203-123350",
+          "start_timestamp": 460.04,
+          "end_timestamp": 470.05,
+          "ground_truth_count": 2,
+          "ground_truth_unit": "onions",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "onions (in mesh bag)",
+          "item_match": true,
+          "item_similarity": 0.9653879404067993,
+          "confidence": "high",
+          "match": "close",
+          "error": -1,
+          "blocks_queried": [
+            15
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 15,
+          "remaining_count": 3,
+          "remaining_description": null,
+          "remaining_fraction": 0.75,
+          "visual_evidence": "A mesh bag containing four onions is on the counter. A hand takes one onion out of the bag and places it on the cutting board. The bag now visibly contains three onions."
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "onions",
+        "amount": "257",
+        "unit": "g",
+        "recipe": "P01_R06"
+      },
+      "total_predicted": 1
+    },
+    {
+      "narration_id": "P01-20240203-121517-72",
+      "food_name": "carrots (bag)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240203-121517",
+        "P01-20240203-123350",
+        "P01-20240203-130505",
+        "P01-20240203-132119",
+        "P01-20240203-135502",
+        "P01-20240203-150506",
+        "P01-20240203-152323",
+        "P01-20240203-161757"
+      ],
+      "total_ground_truth": 9,
+      "total_ground_truth_unit": "carrots",
+      "num_segments": 7,
+      "segments": [
+        {
+          "segment_id": "seg_7b8495c1",
+          "segment_idx": 0,
+          "video_id": "P01-20240203-123350",
+          "start_timestamp": 1341.68,
+          "end_timestamp": 1344.045349,
+          "ground_truth_count": 1,
+          "ground_truth_unit": "carrots",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "carrots (bag)",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "exact",
+          "error": 0,
+          "blocks_queried": [
+            44
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 44,
+          "remaining_count": 5,
+          "remaining_description": null,
+          "remaining_fraction": 0.83,
+          "visual_evidence": "A bag of carrots is on the counter. A hand picks up one carrot from the bag. The bag is left with the remaining carrots."
+        },
+        {
+          "segment_id": "seg_11b59ca5",
+          "segment_idx": 1,
+          "video_id": "P01-20240203-123350",
+          "start_timestamp": 1458.0,
+          "end_timestamp": 1470.2,
+          "ground_truth_count": 1,
+          "ground_truth_unit": "carrots",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": "one carrot removed from the bag",
+          "predicted_unit": "unit",
+          "detected_item_name": "carrots (bag)",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "exact",
+          "error": 0,
+          "blocks_queried": [
+            48,
+            49
+          ],
+          "aggregation_used": true,
+          "aggregation_reasoning": "Both Block 48 and Block 49 detected the same item, 'carrots (bag)', with high confidence. The evidence in both blocks shows a hand removing one carrot from the bag, indicating a single discrete unit was dispensed. The count is consistent across both blocks, so the final aggregated count is 1 discrete unit.",
+          "num_blocks_aggregated": 2
+        },
+        {
+          "segment_id": "seg_86469115",
+          "segment_idx": 2,
+          "video_id": "P01-20240203-123350",
+          "start_timestamp": 1473,
+          "end_timestamp": 1489,
+          "ground_truth_count": 1,
+          "ground_truth_unit": "carrots",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "carrots (bag)",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "exact",
+          "error": 0,
+          "blocks_queried": [
+            49
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 49,
+          "remaining_count": 4,
+          "remaining_description": null,
+          "remaining_fraction": 0.8,
+          "visual_evidence": "A bag of carrots is on the counter. A hand picks up one carrot from the bag and begins to peel it. After the action, the bag appears to have fewer carrots, with one missing."
+        },
+        {
+          "segment_id": "seg_6bac6cd9",
+          "segment_idx": 3,
+          "video_id": "P01-20240203-123350",
+          "start_timestamp": 1492,
+          "end_timestamp": 1497,
+          "ground_truth_count": 1,
+          "ground_truth_unit": "carrots",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "carrots (bag)",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "exact",
+          "error": 0,
+          "blocks_queried": [
+            49
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 49,
+          "remaining_count": 4,
+          "remaining_description": null,
+          "remaining_fraction": 0.8,
+          "visual_evidence": "A bag of carrots is on the counter. A hand picks up one carrot from the bag and begins to peel it. After the action, the bag appears to have fewer carrots, with one missing."
+        },
+        {
+          "segment_id": "seg_2f369e42",
+          "segment_idx": 4,
+          "video_id": "P01-20240203-123350",
+          "start_timestamp": 1512,
+          "end_timestamp": 1518,
+          "ground_truth_count": 1,
+          "ground_truth_unit": "carrots",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "carrots (bag)",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "exact",
+          "error": 0,
+          "blocks_queried": [
+            50
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 50,
+          "remaining_count": 5,
+          "remaining_description": null,
+          "remaining_fraction": 0.83,
+          "visual_evidence": "A bag of carrots is on the counter. A hand picks up one carrot from the bag and begins peeling it. The bag, which initially appeared to contain about 6 carrots, now has one less, leaving approximately 5."
+        },
+        {
+          "segment_id": "seg_8a553234",
+          "segment_idx": 5,
+          "video_id": "P01-20240203-123350",
+          "start_timestamp": 1540,
+          "end_timestamp": 1544,
+          "ground_truth_count": 1,
+          "ground_truth_unit": "carrots",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "carrots (bag)",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "exact",
+          "error": 0,
+          "blocks_queried": [
+            51
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 51,
+          "remaining_count": 5,
+          "remaining_description": null,
+          "remaining_fraction": 0.83,
+          "visual_evidence": "A bag of carrots is on the counter. A hand picks up one carrot from the bag and begins peeling it. After the carrot is removed, the bag is visibly less full, with approximately 5 carrots remaining inside."
+        },
+        {
+          "segment_id": "seg_381f25fd",
+          "segment_idx": 6,
+          "video_id": "P01-20240203-123350",
+          "start_timestamp": 1657.66,
+          "end_timestamp": 1704.66,
+          "ground_truth_count": 2,
+          "ground_truth_unit": "carrots",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": "one carrot taken from a bag",
+          "predicted_unit": "unit",
+          "detected_item_name": "carrots (bag)",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "close",
+          "error": -1,
+          "blocks_queried": [
+            55,
+            56
+          ],
+          "aggregation_used": true,
+          "aggregation_reasoning": "Both Block 55 and Block 56 detected the same item, 'carrots (bag)', with high confidence. In Block 55, a hand picks one carrot from the bag, and in Block 56, the same action is observed with the carrot being peeled and placed on a cutting board. The bag is visibly less full in both instances, confirming the removal of one discrete carrot. The count is aggregated as 1 discrete unit, as only one carrot is explicitly removed and processed in the sequence.",
+          "num_blocks_aggregated": 2
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "carrots",
+        "amount": "736",
+        "unit": "g",
+        "recipe": "P01_R06"
+      },
+      "total_predicted": 7
+    },
+    {
+      "narration_id": "P01-20240203-121517-70",
+      "food_name": "chicken stock (box)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240203-121517",
+        "P01-20240203-123350",
+        "P01-20240203-130505",
+        "P01-20240203-135502",
+        "P01-20240203-150506",
+        "P01-20240203-152323"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "stock cube",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_21f5c968",
+          "segment_idx": 0,
+          "video_id": "P01-20240203-123350",
+          "start_timestamp": 1173.41,
+          "end_timestamp": 1175.51,
+          "ground_truth_count": 1,
+          "ground_truth_unit": "stock cube",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "butter",
+          "item_match": false,
+          "item_similarity": 0.2064550369977951,
+          "confidence": "high",
+          "match": "item_mismatch",
+          "error": 0,
+          "blocks_queried": [
+            39
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 39,
+          "remaining_count": 1,
+          "remaining_description": null,
+          "remaining_fraction": 0.5,
+          "visual_evidence": "A packet of butter is taken from the refrigerator. The packet is opened, and one half of a butter pat is removed and placed on the counter. The other half remains in the packet."
+        }
+      ],
+      "recipe_amount": null,
+      "total_predicted": 1
+    },
+    {
+      "narration_id": "P01-20240203-123350-326",
+      "food_name": "chicken stock cubes",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240203-123350",
+        "P01-20240203-130505",
+        "P01-20240203-132119",
+        "P01-20240203-135502"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "cubes",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_dd730d53",
+          "segment_idx": 0,
+          "video_id": "P01-20240203-132119",
+          "start_timestamp": 65.17,
+          "end_timestamp": 68.334418,
+          "ground_truth_count": 1,
+          "ground_truth_unit": "cubes",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "chicken stock cube",
+          "item_match": true,
+          "item_similarity": 0.9611307382583618,
+          "confidence": "high",
+          "match": "exact",
+          "error": 0,
+          "blocks_queried": [
+            2
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 2,
+          "remaining_count": 7,
+          "remaining_description": null,
+          "remaining_fraction": 0.875,
+          "visual_evidence": "A red box of chicken stock cubes is shown. The user opens the box, takes out one cube, and places the box back on the counter. The box appears to have been full before the action, and one cube is removed."
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "chicken stock cube",
+        "amount": "1",
+        "unit": "cube",
+        "recipe": "P01_R06"
+      },
+      "total_predicted": 1
+    },
+    {
+      "narration_id": "P01-20240203-161757-113",
+      "food_name": "pies",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240203-132119",
+        "P01-20240203-135502",
+        "P01-20240203-161757"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "pies",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_904f7f75",
+          "segment_idx": 0,
+          "video_id": "P01-20240203-161757",
+          "start_timestamp": 184.68,
+          "end_timestamp": 196.33,
+          "ground_truth_count": 2,
+          "ground_truth_unit": "pies",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "pies",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "exact",
+          "error": 0,
+          "blocks_queried": [
+            6
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 6,
+          "remaining_count": 0,
+          "remaining_description": null,
+          "remaining_fraction": 0.0,
+          "visual_evidence": "Two pies were on a plate. The person picked up both pies and placed them into a plastic container. The plate was empty after the action, and the container was then moved to the refrigerator."
+        }
+      ],
+      "recipe_amount": null,
+      "total_predicted": 2
+    },
+    {
+      "narration_id": "P01-20240204-142301-162",
+      "food_name": "onions (in mesh bag)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240203-184214",
+        "P01-20240204-120411",
+        "P01-20240204-142301",
+        "P01-20240204-145458",
+        "P01-20240204-152537"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "onions",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_6e4aedcf",
+          "segment_idx": 0,
+          "video_id": "P01-20240204-142301",
+          "start_timestamp": 425.91,
+          "end_timestamp": 427.9,
+          "ground_truth_count": 1,
+          "ground_truth_unit": "onions",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "onions (in mesh bag)",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "close",
+          "error": 1,
+          "blocks_queried": [
+            14
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 14,
+          "remaining_count": 2,
+          "remaining_description": null,
+          "remaining_fraction": 0.5,
+          "visual_evidence": "A mesh bag containing four onions is on the counter. The user removes two onions from the bag and places them on a cutting board. The bag now contains two onions."
+        }
+      ],
+      "recipe_amount": null,
+      "total_predicted": 2
+    },
+    {
+      "narration_id": "P01-20240203-184214-15",
+      "food_name": "chicken (in plastic container)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240203-184214",
+        "P01-20240204-142301",
+        "P01-20240204-152537"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "pieces",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_5f6a9cfd",
+          "segment_idx": 0,
+          "video_id": "P01-20240203-184214",
+          "start_timestamp": 39.3,
+          "end_timestamp": 58.04,
+          "ground_truth_count": 2,
+          "ground_truth_unit": "pieces",
+          "quantity_category": "discrete",
+          "predicted_count": 4,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "chicken (in plastic container)",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "wrong",
+          "error": 2,
+          "blocks_queried": [
+            1
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 1,
+          "remaining_count": 4,
+          "remaining_description": null,
+          "remaining_fraction": 0.5,
+          "visual_evidence": "The container initially holds 8 pieces of chicken. The user removes 4 pieces, placing them in a bowl. The container now has 4 pieces remaining."
+        }
+      ],
+      "recipe_amount": null,
+      "total_predicted": 4
+    },
+    {
+      "narration_id": "P01-20240203-184214-193",
+      "food_name": "garlic (head/bulb)",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240203-184214",
+        "P01-20240204-142301",
+        "P01-20240204-152537"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "cloves",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_c3cd7d59",
+          "segment_idx": 0,
+          "video_id": "P01-20240203-184214",
+          "start_timestamp": 468.54,
+          "end_timestamp": 471.22,
+          "ground_truth_count": 2,
+          "ground_truth_unit": "cloves",
+          "quantity_category": "continuous",
+          "predicted_count": null,
+          "predicted_amount": "a pinch of spice",
+          "predicted_unit": "pinch",
+          "detected_item_name": "spice (jar)",
+          "item_match": false,
+          "item_similarity": 0.3423425853252411,
+          "confidence": "high",
+          "match": "item_mismatch",
+          "error": null,
+          "blocks_queried": [
+            15
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 15,
+          "remaining_count": null,
+          "remaining_description": "about 3/4 full",
+          "remaining_fraction": 0.75,
+          "visual_evidence": "A jar of spice is opened. The person shakes a small amount of spice from the jar into a bowl containing meat. The jar is then closed and returned to the cabinet. The jar appears to be about 3/4 full after the action."
+        }
+      ],
+      "recipe_amount": null,
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P01-20240204-095114-11",
+      "food_name": "coffee capsule",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240204-095114"
+      ],
+      "total_ground_truth": 1,
+      "total_ground_truth_unit": "capsules",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_e6468f07",
+          "segment_idx": 0,
+          "video_id": "P01-20240204-095114",
+          "start_timestamp": 21.75,
+          "end_timestamp": 23.23,
+          "ground_truth_count": 1,
+          "ground_truth_unit": "capsules",
+          "quantity_category": "continuous",
+          "predicted_count": null,
+          "predicted_amount": "about half a cup",
+          "predicted_unit": "cup",
+          "detected_item_name": "milk bottle",
+          "item_match": false,
+          "item_similarity": 0.4036707282066345,
+          "confidence": "medium",
+          "match": "item_mismatch",
+          "error": null,
+          "blocks_queried": [
+            0
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 0,
+          "remaining_count": null,
+          "remaining_description": "about 3/4 of bottle",
+          "remaining_fraction": 0.75,
+          "visual_evidence": "Bottle was full before action. Hand held bottle and poured liquid into a cup. Bottle appears mostly full after pouring."
+        }
+      ],
+      "recipe_amount": null,
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P01-20240204-142301-125",
+      "food_name": "box of chicken stock cubes",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240204-120411",
+        "P01-20240204-142301",
+        "P01-20240204-145458",
+        "P01-20240204-152537"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "cubes",
+      "num_segments": 2,
+      "segments": [
+        {
+          "segment_id": "seg_83bb8004",
+          "segment_idx": 0,
+          "video_id": "P01-20240204-142301",
+          "start_timestamp": 1316.86,
+          "end_timestamp": 1319.408228,
+          "ground_truth_count": 1,
+          "ground_truth_unit": "cubes",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "chicken stock cubes",
+          "item_match": true,
+          "item_similarity": 0.9126843214035034,
+          "confidence": "high",
+          "match": "exact",
+          "error": 0,
+          "blocks_queried": [
+            43
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 43,
+          "remaining_count": 9,
+          "remaining_description": null,
+          "remaining_fraction": null,
+          "visual_evidence": "A box of chicken stock cubes is visible on the counter. The hand reaches in, takes one cube, and places it on the counter. The box is then closed, and the remaining cubes are visible inside."
+        },
+        {
+          "segment_id": "seg_78e59fea",
+          "segment_idx": 1,
+          "video_id": "P01-20240204-145458",
+          "start_timestamp": 228.52,
+          "end_timestamp": 233.193142,
+          "ground_truth_count": 1,
+          "ground_truth_unit": "cubes",
+          "quantity_category": "discrete",
+          "predicted_count": 1,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "chicken stock cube",
+          "item_match": true,
+          "item_similarity": 0.8760713934898376,
+          "confidence": "high",
+          "match": "exact",
+          "error": 0,
+          "blocks_queried": [
+            7
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 7,
+          "remaining_count": 3,
+          "remaining_description": null,
+          "remaining_fraction": 0.75,
+          "visual_evidence": "A hand reaches into a box of chicken stock cubes in the refrigerator. The box is partially visible, showing multiple cubes. After the hand retracts, the box is seen to have one less cube, indicating one was removed."
+        }
+      ],
+      "recipe_amount": null,
+      "total_predicted": 2
+    },
+    {
+      "narration_id": "P01-20240204-142301-163",
+      "food_name": "garlic bulb",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240204-120411",
+        "P01-20240204-142301",
+        "P01-20240204-145458",
+        "P01-20240204-152537"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "cloves",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_9a613708",
+          "segment_idx": 0,
+          "video_id": "P01-20240204-142301",
+          "start_timestamp": 407.25,
+          "end_timestamp": 414.166909,
+          "ground_truth_count": 2,
+          "ground_truth_unit": "cloves",
+          "quantity_category": "discrete",
+          "predicted_count": 3,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "onions (in mesh bag)",
+          "item_match": false,
+          "item_similarity": 0.39154431223869324,
+          "confidence": "high",
+          "match": "item_mismatch",
+          "error": 1,
+          "blocks_queried": [
+            13
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 13,
+          "remaining_count": 0,
+          "remaining_description": null,
+          "remaining_fraction": 0.0,
+          "visual_evidence": "A mesh bag containing three onions is visible on the counter. The person takes the entire bag from the counter and places it on a cutting board, indicating all three onions were removed from the bag."
+        }
+      ],
+      "recipe_amount": null,
+      "total_predicted": 3
+    },
+    {
+      "narration_id": "P01-20240204-145458-46",
+      "food_name": "bag of vermicelli",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240204-120411",
+        "P01-20240204-142301",
+        "P01-20240204-145458",
+        "P01-20240204-152537"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "nests",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_eb350607",
+          "segment_idx": 0,
+          "video_id": "P01-20240204-145458",
+          "start_timestamp": 137.14,
+          "end_timestamp": 143.548804,
+          "ground_truth_count": 2,
+          "ground_truth_unit": "nests",
+          "quantity_category": "continuous",
+          "predicted_count": null,
+          "predicted_amount": "a handful",
+          "predicted_unit": "unit",
+          "detected_item_name": "bag of vermicelli",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "continuous_estimate",
+          "error": null,
+          "blocks_queried": [
+            4
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 4,
+          "remaining_count": null,
+          "remaining_description": "about 70% of the bag",
+          "remaining_fraction": 0.7,
+          "visual_evidence": "A bag of vermicelli is held and tilted, with a portion being poured into a bowl. The bag is visibly less full after the action, indicating a significant portion has been removed."
+        }
+      ],
+      "recipe_amount": null,
+      "total_predicted": null
+    },
+    {
+      "narration_id": "P01-20240204-121042-256",
+      "food_name": "oranges",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240204-121042",
+        "P01-20240204-124504",
+        "P01-20240204-130448"
+      ],
+      "total_ground_truth": 2,
+      "total_ground_truth_unit": "oranges",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_5a1d3e47",
+          "segment_idx": 0,
+          "video_id": "P01-20240204-130448",
+          "start_timestamp": 483.25,
+          "end_timestamp": 492.731994,
+          "ground_truth_count": 2,
+          "ground_truth_unit": "oranges",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": null,
+          "predicted_unit": "unit",
+          "detected_item_name": "oranges",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "exact",
+          "error": 0,
+          "blocks_queried": [
+            16
+          ],
+          "aggregation_used": false,
+          "best_block_idx": 16,
+          "remaining_count": 8,
+          "remaining_description": null,
+          "remaining_fraction": 0.8,
+          "visual_evidence": "A pile of oranges is on the counter. The hand picks up two oranges. The remaining oranges are visible on the counter, indicating 8 left."
+        }
+      ],
+      "recipe_amount": null,
+      "total_predicted": 2
+    },
+    {
+      "narration_id": "P01-20240204-121042-278",
+      "food_name": "biscuits",
+      "difficulty": "LOW",
+      "video_range": [
+        "P01-20240204-121042",
+        "P01-20240204-124504",
+        "P01-20240204-130448"
+      ],
+      "total_ground_truth": 7,
+      "total_ground_truth_unit": "biscuits",
+      "num_segments": 1,
+      "segments": [
+        {
+          "segment_id": "seg_e89cbe24",
+          "segment_idx": 0,
+          "video_id": "P01-20240204-121042",
+          "start_timestamp": 652.5,
+          "end_timestamp": 660.08,
+          "ground_truth_count": 7,
+          "ground_truth_unit": "biscuits",
+          "quantity_category": "discrete",
+          "predicted_count": 2,
+          "predicted_amount": "2 biscuits",
+          "predicted_unit": "unit",
+          "detected_item_name": "biscuits",
+          "item_match": true,
+          "item_similarity": 1.0,
+          "confidence": "high",
+          "match": "wrong",
+          "error": -5,
+          "blocks_queried": [
+            21,
+            22
+          ],
+          "aggregation_used": true,
+          "aggregation_reasoning": "Both Block 21 and Block 22 detected biscuits with high confidence. Block 21 shows one biscuit being removed from a container, and Block 22 shows another biscuit being taken and placed into a food processor. The actions are consistent and both involve discrete units of biscuits. The counts are combined to reflect two biscuits dispensed in total.",
+          "num_blocks_aggregated": 2
+        }
+      ],
+      "recipe_amount": {
+        "ingredient": "biscuits",
+        "amount": "192",
+        "unit": "g",
+        "recipe": "P01_R09"
+      },
+      "total_predicted": 2
+    }
+  ]
+}

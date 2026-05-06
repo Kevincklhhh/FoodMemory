@@ -1,0 +1,286 @@
+You are an expert kitchen activity analyst running ROUND 2 of a 2-round journey-aware planning pipeline for an egocentric kitchen video.
+
+Each candidate item below was confirmed `status: used` in R1, but R1 could not produce a session-end remaining estimate. Either R1 read no package fill at all, or it read only the pre-dispense / post-dispense side, and the script could not derive `amount_remaining` from `amount_starting − amount_derivative`. Your job: pick NEW frame samples (journey + dense) that fill the SPECIFIC amount field(s) still missing for each item.
+
+## Per-item state (what R1 found, what's still missing)
+
+For each unresolved item we list:
+- The R1 amount triple — `amount_starting`, `amount_remaining`, `amount_derivative` (any may be `null`).
+- An explicit `needs:` line saying WHICH amount field(s) still need to be filled to derive remaining.
+- The R1 segments whose `target_items` included this item, AND the R1 observer's per-segment narration. Use this to infer:
+  * WHEN dispensing actually happened for this item (the `[stage: ...]` tag in each observation tells you pre / during / post / none).
+  * Whether the package was ever visible at all (and why the fill was not readable: occluded? back-of-package? motion blur? out of frame?).
+  * Which timeline regions are still UNSAMPLED for this item.
+
+  - iid=`baby_carrots_20260317` "Baby Carrots" (g):  R1 amounts: s=454.0 r=None d=None  |  needs: remaining (R1 has starting only — find a POST-dispense window)
+      R1 segs targeting this item: 3, 4, 5, 6, 7, 8, 21
+      R1 reasoning: The bag of carrots appears full at t=171.3s, carrots are dispensed at t=200.1s, and they are visible in the final cooked dish at t=1204.5s.
+
+  - iid=`garlic_20260310` "garlic" (g):  R1 amounts: s=None r=None d=None  |  needs: starting AND remaining (no fill read AT ALL in R1)
+      R1 segs targeting this item: 17, 18
+      R1 reasoning: Garlic cloves are seen being chopped on the cutting board at t=867.5s, but the original package is never shown, so amounts cannot be determined.
+
+  - iid=`green_onions_20260317` "Green Onions" (g):  R1 amounts: s=80.0 r=None d=None  |  needs: remaining (R1 has starting only — find a POST-dispense window)
+      R1 segs targeting this item: 7, 8, 11, 17, 18, 21
+      R1 reasoning: A full, new bunch of green onions is handled at t=320.6s, and a chopped portion is visible on the cutting board at t=431.6s.
+
+  - iid=`ground_beef_20260317` "Ground Beef" (g):  R1 amounts: s=454.0 r=None d=None  |  needs: remaining (R1 has starting only — find a POST-dispense window)
+      R1 segs targeting this item: 3, 4, 5, 14
+      R1 reasoning: A full, new package of ground beef is shown at t=170.2s, and it is seen being dispensed into a pan at t=666.5s.
+
+  - iid=`rigatoni_pasta_20260317` "Rigatoni Pasta" (g):  R1 amounts: s=None r=None d=None  |  needs: starting AND remaining (no fill read AT ALL in R1)
+      R1 segs targeting this item: 1, 2, 21
+      R1 reasoning: The person reads a meal kit box for a rigatoni dish at t=29.0s, and the pasta is later seen cooked in a pan at t=1204.5s, confirming its use.
+
+  - iid=`sour_cream_20260317` "Sour Cream" (g):  R1 amounts: s=227.0 r=None d=None  |  needs: remaining (R1 has starting only — find a POST-dispense window)
+      R1 segs targeting this item: 11, 12, 13, 15, 16
+      R1 reasoning: A new container is retrieved from the fridge at t=626.5s, opened at t=727.5s, and its contents are seen in a bowl being mixed into a sauce at t=968.7s.
+
+  - iid=`sweet_baby_rays_bbq_sauce_20260317` "Sweet Baby Rays BBQ Sauce" (g):  R1 amounts: s=410.0 r=None d=None  |  needs: remaining (R1 has starting only — find a POST-dispense window)
+      R1 segs targeting this item: 19, 20
+      R1 reasoning: The bottle appears about 80% full (410g) at t=972.1s before a small amount is poured into a bowl at t=975.5s.
+
+## Per-Item Detections + R1 observer notes (ACTIVITY BLOCKS — R1 observer notes injected inline as `↳ R1 Seg N: ...` lines, unresolved items only)
+
+Below is the full evidence pool (DINO bursts + scene tags). R1 observer notes are inlined as `↳ R1 Seg N [kind]: ...` sub-lines under any block whose timespan overlaps an R1 segment, so DINO evidence and "what R1 already saw" are visible in ONE timeline. Use this to:
+  (a) AVOID picking R2 windows that overlap any R1 segment listed here (those have a `↳ R1 Seg N: ...` line attached).
+  (b) Re-anchor: if R1 only caught the retrieval frame, look LATER (during or after dispense). If R1 only caught a portion-on-board view with no package, look EARLIER (retrieval) or LATER (put-back).
+  (c) Find UNSAMPLED bursts (blocks with NO `↳ R1 Seg ...` line attached).
+
+[  26.1-  43.5s] dur= 17.4s scene=sink:8,storage:1,unk:10  "Rigatoni Pasta" dino=0.95
+  ↳ R1 Seg 1 [dense]: The user holds a Rigatoni Pasta meal kit box and reads the recipe on the back; stage is pre-dispense.
+  ↳ R1 Seg 2 [journey]: The user continues to read the recipe on the back of the Rigatoni Pasta meal kit box; stage is pre-dispense.
+
+[ 157.8- 160.8s] dur=  3.0s scene=storage:4  "Baby Carrots" dino=0.62 [flicker]
+
+[ 166.8- 168.7s] dur=  2.0s scene=storage:2,stove:1  "Ground Beef" dino=0.74 [flicker]
+
+[ 170.7- 182.7s] dur= 12.0s scene=sink:3,unk:10 (2 items)
+  "Ground Beef" dino=0.77 active=1-8s cov= 58%
+  "Baby Carrots" dino=0.77 active=full cov=100%
+  ↳ R1 Seg 3 [dense]: The user brings new packages of Ground Beef and Baby Carrots to the countertop; stage is pre-dispense.
+  ↳ R1 Seg 4 [journey]: The packages of Ground Beef and Baby Carrots are idle on the counter; stage is pre-dispense.
+
+[ 188.7- 221.7s] dur= 33.0s scene=sink:7,storage:3,unk:23 (2 items)
+  "Ground Beef" dino=0.81 active=0-6s,26-27s cov= 21%
+  "Baby Carrots" dino=0.80 active=full cov= 94%
+  ↳ R1 Seg 5 [dense]: The user opens the bag of Baby Carrots and dispenses a single carrot onto the cutting board; stage is during-dispense.
+
+[ 226.9- 234.9s] dur=  8.0s scene=sink:3,storage:1,unk:5 (2 items)
+  "Ground Beef" dino=0.75 active=0-7s cov= 88%
+  "Baby Carrots" dino=0.71 active=2-8s cov= 75%
+
+[ 237.9- 250.9s] dur= 13.0s scene=sink:14  "Baby Carrots" dino=0.66
+
+[ 253.9- 305.9s] dur= 52.0s scene=storage:7,sink:3,unk:43  "Baby Carrots" dino=0.75
+  ↳ R1 Seg 6 [journey]: A portion of chopped Baby Carrots is visible in a bowl on the counter; stage is post-dispense.
+
+[ 318.9- 342.9s] dur= 24.0s scene=sink:13,storage:5,unk:3 (3 items)
+  "Ground Beef" dino=0.71 active=7-12s,22-24s cov= 29%
+  "Green Onions" dino=0.67 active=full cov= 92%
+  "Baby Carrots" dino=0.55 active=5-8s,10-12s cov= 21%
+  ↳ R1 Seg 7 [dense]: The user picks up a bunch of Green Onions and prepares to cut them; stage is pre-dispense.
+  ↳ R1 Seg 8 [journey]: The user holds the bunch of Green Onions over the counter, ready for processing; stage is pre-dispense.
+
+[ 351.9- 369.9s] dur= 18.0s scene=storage:4,unk:16 (2 items)
+  "Green Onions" dino=0.52 active=full cov=100%
+  "Ground Beef" dino=0.48 active=3-7s,17-18s cov= 28%
+
+[ 371.1- 418.1s] dur= 47.0s scene=stove:25,sink:5,unk:14  "Rigatoni Pasta" dino=0.91
+
+[ 433.1- 434.1s] dur=  1.0s scene=stove:2  "Ground Beef" dino=0.47 [flicker]
+  ↳ R1 Seg 9 [dense]: The user picks up a block of Sharp Cheddar Cheese and begins to access the package; stage is pre-dispense.
+  ↳ R1 Seg 10 [journey]: The user holds the unopened package of Sharp Cheddar Cheese; stage is pre-dispense.
+
+[ 439.1- 440.1s] dur=  1.0s scene=sink:1,unk:1  "Ground Beef" dino=0.71 [flicker]
+
+[ 457.1- 460.1s] dur=  3.0s scene=sink:3,unk:1  "Green Onions" dino=0.34
+
+[ 467.1- 469.1s] dur=  2.0s scene=sink:1,unk:1  "Ground Beef" dino=0.67
+
+[ 470.1- 475.1s] dur=  5.0s scene=stove:2,sink:2,unk:2 (2 items)
+  "Green Onions" dino=0.26 active=0-2s cov= 40% [flicker]
+  "Sour Cream" dino=0.21 active=2-5s cov= 60%
+  ↳ R1 Seg 11 [dense]: The user continues to open the package of Sharp Cheddar Cheese; stage is pre-dispense.
+
+[ 477.1- 479.1s] dur=  2.0s scene=sink:1,unk:2  "Green Onions" dino=0.34
+  ↳ R1 Seg 11 [dense]: The user continues to open the package of Sharp Cheddar Cheese; stage is pre-dispense.
+
+[ 558.3- 563.3s] dur=  5.0s scene=sink:4,storage:1,unk:1  "Ground Beef" dino=0.88
+
+[ 574.3- 575.3s] dur=  1.0s scene=storage:1,unk:1  "Ground Beef" dino=0.89 [flicker]
+
+[ 601.3- 603.3s] dur=  2.0s scene=sink:1,unk:1  "Ground Beef" dino=0.65
+
+[ 606.3- 607.3s] dur=  1.0s scene=sink:2  "Ground Beef" dino=0.31 [flicker]
+
+[ 609.3- 611.3s] dur=  2.0s scene=sink:3  "Baby Carrots" dino=0.32
+
+[ 612.3- 616.3s] dur=  4.0s scene=sink:3,unk:1  "Ground Beef" dino=0.82
+
+[ 626.3- 629.3s] dur=  3.0s scene=sink:2,storage:1  "Sour Cream" dino=0.47
+  ↳ R1 Seg 13 [journey]: The user performs a retrieval of a container of Sour Cream from the refrigerator; stage is pre-dispense.
+
+[ 631.7- 632.7s] dur=  1.0s scene=stove:1,unk:1  "Ground Beef" dino=0.80 [flicker]
+
+[ 635.7- 640.7s] dur=  5.0s scene=stove:2,sink:1,unk:3  "Ground Beef" dino=0.77
+
+[ 654.7- 660.7s] dur=  6.0s scene=sink:2,unk:5  "Ground Beef" dino=0.85
+
+[ 663.7- 689.7s] dur= 26.0s scene=stove:24,unk:1  "Ground Beef" dino=0.86
+  ↳ R1 Seg 14 [journey]: The user is dispensing Ground Beef from its package into a hot pan on the stove; stage is during-dispense.
+
+[ 693.7- 719.7s] dur= 26.0s scene=sink:19,stove:4,unk:1  "Ground Beef" dino=0.85
+
+[ 724.7- 730.7s] dur=  6.0s scene=sink:6,unk:1 (2 items)
+  "Sour Cream" dino=0.53 active=1-6s cov= 83%
+  "Baby Carrots" dino=0.47 active=0-4s cov= 67%
+  ↳ R1 Seg 15 [dense]: The user opens the container of Sour Cream by peeling back the foil seal; stage is pre-dispense.
+  ↳ R1 Seg 16 [journey]: The user holds the newly opened, full container of Sour Cream; stage is pre-dispense.
+
+[ 733.7- 740.7s] dur=  7.0s scene=sink:7,unk:1 (2 items)
+  "Baby Carrots" dino=0.60 active=0-2s cov= 29%
+  "Sour Cream" dino=0.38 active=1-7s cov= 86%
+
+[ 744.7- 756.7s] dur= 12.0s scene=sink:8,unk:5  "Sour Cream" dino=0.37
+
+[ 761.7- 762.7s] dur=  1.0s scene=sink:1,unk:1  "Sour Cream" dino=0.38 [flicker]
+
+[ 769.7- 775.7s] dur=  6.0s scene=stove:6,unk:1  "Ground Beef" dino=0.56
+
+[ 781.7- 808.7s] dur= 27.0s scene=stove:22,unk:6  "Ground Beef" dino=0.42
+
+[ 837.8- 839.8s] dur=  2.0s scene=stove:3  "Baby Carrots" dino=0.54 [flicker]
+
+[ 841.8- 848.8s] dur=  7.0s scene=stove:8  "Baby Carrots" dino=0.47
+
+[ 850.8- 853.8s] dur=  3.0s scene=unk:3  "Green Onions" dino=0.36
+
+[ 856.8- 859.8s] dur=  3.0s scene=stove:4  "Baby Carrots" dino=0.43
+
+[ 861.8- 863.8s] dur=  2.0s scene=unk:2  "Green Onions" dino=0.43
+
+[ 866.8- 876.8s] dur= 10.0s scene=unk:9 (2 items)
+  "Green Onions" dino=0.45 active=0-4s cov= 40% [flicker]
+  "garlic" dino=0.41 active=full cov=100%
+  ↳ R1 Seg 17 [dense]: The user is dispensing garlic by chopping cloves on the cutting board; stage is during-dispense.
+  ↳ R1 Seg 18 [journey]: A visible-portion-on-board of chopped garlic is seen as the user continues to chop; stage is during-dispense.
+
+[ 877.8- 880.8s] dur=  3.0s scene=unk:4  "garlic" dino=0.39 [flicker]
+
+[ 883.8- 898.7s] dur= 15.0s scene=unk:16 (2 items)
+  "garlic" dino=0.45 active=0-11s,13-15s cov= 87%
+  "Green Onions" dino=0.32 active=1-3s,7-13s cov= 53%
+
+[ 902.7- 909.7s] dur=  7.0s scene=stove:8  "Baby Carrots" dino=0.44
+
+[ 930.7- 934.7s] dur=  4.0s scene=stove:5  "Baby Carrots" dino=0.49
+
+[ 938.7- 946.7s] dur=  8.0s scene=stove:9  "Baby Carrots" dino=0.43
+
+[ 949.2- 956.2s] dur=  7.0s scene=stove:8  "Baby Carrots" dino=0.40
+
+[ 960.2- 961.2s] dur=  1.0s scene=sink:2  "Sweet Baby Rays BBQ Sauce" dino=0.44 [flicker]
+
+[ 964.2- 966.2s] dur=  2.0s scene=sink:2,unk:1  "Sweet Baby Rays BBQ Sauce" dino=0.46 [flicker]
+
+[ 969.2- 987.2s] dur= 18.0s scene=sink:11,unk:8  "Sweet Baby Rays BBQ Sauce" dino=0.81
+  ↳ R1 Seg 19 [dense]: The user is dispensing Sweet Baby Rays BBQ Sauce by pouring it into a bowl; stage is during-dispense.
+  ↳ R1 Seg 20 [journey]: The user holds the open bottle of Sweet Baby Rays BBQ Sauce over a bowl, ready to pour; stage is pre-dispense.
+
+[1022.2-1033.2s] dur= 11.0s scene=stove:11  "Baby Carrots" dino=0.47
+
+[1042.2-1048.2s] dur=  6.0s scene=sink:4,unk:1  "Rigatoni Pasta" dino=0.63
+
+[1052.2-1063.2s] dur= 11.0s scene=sink:6,stove:4  "Rigatoni Pasta" dino=0.68
+
+[1068.2-1078.2s] dur= 10.0s scene=stove:11 (2 items)
+  "Rigatoni Pasta" dino=0.67 active=full cov=100%
+  "Baby Carrots" dino=0.30 active=8-10s cov= 20%
+
+[1083.2-1085.2s] dur=  2.0s scene=stove:3  "Rigatoni Pasta" dino=0.68
+
+[1086.2-1087.2s] dur=  1.0s scene=stove:2  "Baby Carrots" dino=0.28 [flicker]
+
+[1088.2-1100.2s] dur= 12.0s scene=stove:12,unk:1  "Rigatoni Pasta" dino=0.59
+
+[1104.2-1134.3s] dur= 30.1s scene=stove:32 (2 items)
+  "Rigatoni Pasta" dino=0.69 active=full cov=100%
+  "Baby Carrots" dino=0.32 active=9-18s,23-29s cov= 50%
+
+[1143.3-1145.3s] dur=  2.0s scene=stove:3 (2 items)
+  "Rigatoni Pasta" dino=0.70 active=full cov=100%
+  "Baby Carrots" dino=0.32 active=full cov=100%
+
+[1150.2-1160.2s] dur= 10.0s scene=stove:8,unk:2 (2 items)
+  "Rigatoni Pasta" dino=0.70 active=full cov=100%
+  "Baby Carrots" dino=0.32 active=0-6s cov= 60%
+
+[1163.2-1164.2s] dur=  1.0s scene=stove:2 (2 items)
+  "Rigatoni Pasta" dino=0.61 active=full cov=100% [flicker]
+  "Baby Carrots" dino=0.26 active=full cov=100% [flicker]
+
+[1171.2-1190.2s] dur= 19.0s scene=stove:16,unk:4  "Green Onions" dino=0.49
+
+[1192.2-1228.2s] dur= 36.0s scene=stove:35,unk:1 (2 items)
+  "Rigatoni Pasta" dino=0.69 active=full cov=100%
+  "Baby Carrots" dino=0.36 active=11-36s cov= 69%
+  ↳ R1 Seg 21 [journey]: The final dish, containing Rigatoni Pasta and Baby Carrots, is seen cooking in a pan; stage is post-dispense.
+
+[1235.2-1253.2s] dur= 18.0s scene=stove:13,unk:6 (2 items)
+  "Rigatoni Pasta" dino=0.66 active=full cov=100%
+  "Baby Carrots" dino=0.30 active=0-5s,10-12s cov= 39%
+
+[1258.2-1259.2s] dur=  1.0s scene=stove:2 (2 items)
+  "Rigatoni Pasta" dino=0.54 active=full cov=100% [flicker]
+  "Baby Carrots" dino=0.30 active=full cov=100% [flicker]
+
+[1264.2-1298.2s] dur= 34.0s scene=sink:28,stove:4,unk:1 (2 items)
+  "Rigatoni Pasta" dino=0.70 active=full cov=100%
+  "Baby Carrots" dino=0.28 active=4-9s,10-19s,21-28s cov= 62%
+
+[1316.9-1329.9s] dur= 13.0s scene=stove:8,unk:5  "Baby Carrots" dino=0.28 [flicker]
+
+[1411.9-1413.9s] dur=  2.0s scene=unk:3 (2 items)
+  "Rigatoni Pasta" dino=0.58 active=full cov=100%
+  "Baby Carrots" dino=0.27 active=full cov=100% [flicker]
+
+
+## Goals per item (what to target)
+
+- If `needs: starting AND remaining` (no fill read at all in R1): emit ONE journey sample at the earliest unsampled retrieval moment AND one dense window over the dispense action; OR a journey sample at retrieval + a journey sample at the put-back / last-sighting frame.
+- If `needs: remaining` (R1 has starting only): a dense window catching the END of the dispense action, OR a journey sample at put-back / final shelf view.
+- If `needs: starting` (R1 has derivative only): an EARLIER unsampled window where the package is first picked up / pre-dispense.
+- If `needs: any fill view` (R1 has only derivative, no package was seen): any unsampled visibility burst — earliest preferred.
+
+Spread budget across the items that have the strongest unsampled evidence. Items where ALL evidence bursts already overlap an R1 segment should get `decision: "no_observation"` with reasoning "evidence exhausted".
+
+## Output Format
+
+Return ONLY JSON (no other text):
+```json
+{
+  "item_decisions": [
+    {
+      "item": "<visual_class>",
+      "instance_id": "<instance_id>",
+      "decision": "observe" | "no_observation",
+      "reasoning": "<one sentence: WHY this window / why exhausted; reference what R1 saw and what gap you're filling>",
+      "confidence": "high" | "medium" | "low"
+    }
+  ],
+  "journey_samples": [
+    { "t": <seconds>, "target_items": ["<iid>", ...] }
+  ],
+  "dense_windows": [
+    { "start": <seconds>, "end": <seconds>, "target_items": ["<iid>", ...] }
+  ]
+}
+```
+
+Hard rules:
+- Each journey sample timestamp and each dense window MUST NOT overlap any R1 segment in the timeline above.
+- Use EXACT `instance_id` strings.
+- Multi-target entries are fine when several items share a moment.
+- Budget: at most 16 journey samples and 8 dense windows total.
+- If an item is `no_observation`, omit it from all `target_items` lists.

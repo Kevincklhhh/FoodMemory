@@ -1,0 +1,319 @@
+You are an expert kitchen activity analyst. You are given an inventory and per-item hand-object-interaction (HOI) detection evidence for a single egocentric cooking session. Your job is to decide, for each inventory iid that has any detection burst in the evidence, whether a vision model should observe it to estimate its remaining amount after this session — and to pick the short segments to feed that observer.
+
+## Signals
+- **dino**: image-to-image similarity between the cropped hand-held object and the item's reference product photo. Generally reliable for branded packages, but can still fire on visually generic items (e.g. a meat reference matching pink/marbled surfaces during cooking).
+- A detection row is listed whenever, during a hand-object contact event, the DINO score crossed its threshold and (for segment / chrono modes) stayed active across a short window.
+
+## Session Inventory
+- baby_carrots_20260317: "Baby Carrots" (grams, package=454g, [transparent])
+- blackberries_20260317: "Blackberries" (grams, package=340g, [transparent])
+- chobani_vanilla_greek_yogurt_20260318: "Chobani Vanilla Greek Yogurt" (grams, package=900g, [opaque])
+- garden_salad_bag_20260317: "Garden Salad Bag" (grams, package=340g, [transparent])
+- garlic_20260310: "garlic" (grams, package=90g, [transparent])
+- green_onions_20260317: "Green Onions" (grams, package=80g, [transparent])
+- ground_beef_20260317: "Ground Beef" (grams, package=454g, [transparent])
+- hidden_valley_ranch_dressing_20260317: "Hidden Valley Ranch Dressing" (grams, package=473g, [opaque])
+- kashi_peanut_butter_cereal_20260317: "Kashi Peanut Butter Cereal" (grams, package=479g, [opaque])
+- kimchi_20260310: "Kimchi" (grams, package=419g, [transparent])
+- large_white_eggs_20260310: "Large White Eggs" (count, package=60 count, [transparent])
+- mixed_nuts_20260317: "Mixed Nuts" (grams, package=454g, [transparent])
+- napa_cabbage_20260310: "Napa Cabbage" (grams, package=724g, [transparent])
+- olive_oil_20260310: "olive oil" (grams, package=460g, [opaque])
+- orange_juice_20260317: "Orange Juice" (grams, package=1418g, [transparent])
+- pink_salmon_fillets_20260317: "Pink Salmon Fillets" (grams, package=907g, [transparent])
+- plain_bagels_20260317: "Plain Bagels" (count, package=6 count, [transparent])
+- red_tomato_20260310: "Red Tomato" (count, package=4 count, [transparent])
+- rice_20260310: "rice" (grams, package=907g, [transparent])
+- rigatoni_pasta_20260317: "Rigatoni Pasta" (grams, package=454g, [opaque])
+- sharp_cheddar_cheese_20260317: "Sharp Cheddar Cheese" (grams, package=227g, [opaque])
+- sour_cream_20260317: "Sour Cream" (grams, package=227g, [opaque])
+- soy_sauce_20260310: "soy sauce" (grams, package=575g, [opaque])
+- sweet_baby_rays_bbq_sauce_20260317: "Sweet Baby Rays BBQ Sauce" (grams, package=510g, [transparent])
+- whole_milk_gallon_20260310: "Whole Milk Gallon" (grams, package=3785g, [opaque])
+- whole_milk_gallon_20260318: "Whole Milk Gallon" (grams, package=3785g, [opaque])
+
+## Per-Item Detections (ACTIVITY BLOCKS — segments + flicker clusters merged into connected components (transitive interval overlap). Each block is one chronological 'moment' with co-active items grouped. Single-item blocks collapse to one line: `[start-end] dur=Xs scene=<dist>  "<vc>" dino=<peak>`. Multi-item blocks emit a header `[start-end] dur=Xs scene=<dist> (N items)` followed by indented per-visual_class sub-rows sorted by peak DINO desc: `"<vc>" dino=<peak> active=<offsets> cov=<%>`. `active=full` means the item spans the whole block; otherwise offsets are SECONDS RELATIVE TO block start. `cov` is the fraction of the block this item was active for. A `[flicker]` tag means this item joined the block via per-frame HOI hits that didn't form a coherent segment under the morphology thresholds — weaker evidence but still worth considering. Use `dino` to identify the focus item in each block; co-active items with much lower DINO + high coverage are typically visual-similarity bleed. Look up package_type, iids, and unit in the Session Inventory section.)
+[  26.1-  43.5s] dur= 17.4s scene=sink:8,storage:1,unk:10 (3 items)
+  "Rigatoni Pasta" dino=0.95 active=full cov=100%
+  "Sharp Cheddar Cheese" dino=0.25 active=0-10s,13-17s cov= 83%
+  "Kashi Peanut Butter Cereal" dino=0.23 active=5-10s,15-17s cov= 39%
+
+[ 157.8- 160.8s] dur=  3.0s scene=storage:4  "Baby Carrots" dino=0.62
+
+[ 166.8- 168.7s] dur=  2.0s scene=storage:2,stove:1  "Ground Beef" dino=0.74
+
+[ 170.7- 182.7s] dur= 12.0s scene=sink:3,unk:10 (3 items)
+  "Ground Beef" dino=0.77 active=1-8s cov= 58%
+  "Baby Carrots" dino=0.77 active=full cov=100%
+  "Sharp Cheddar Cheese" dino=0.46 active=0-5s cov= 42%
+
+[ 188.7- 221.7s] dur= 33.0s scene=sink:7,storage:3,unk:23 (2 items)
+  "Ground Beef" dino=0.81 active=0-6s,26-27s cov= 21%
+  "Baby Carrots" dino=0.80 active=full cov= 94%
+
+[ 226.9- 250.9s] dur= 24.0s scene=sink:17,storage:1,unk:6 (3 items)
+  "Ground Beef" dino=0.75 active=0-7s cov= 29%
+  "Baby Carrots" dino=0.71 active=full cov= 96%
+  "Sharp Cheddar Cheese" dino=0.59 active=0-1s cov=  4% [flicker]
+
+[ 253.9- 305.9s] dur= 52.0s scene=storage:7,sink:3,unk:43 (2 items)
+  "Baby Carrots" dino=0.75 active=full cov=100%
+  "Sharp Cheddar Cheese" dino=0.43 active=0-2s,51-52s cov=  6%
+
+[ 318.9- 344.9s] dur= 26.0s scene=sink:15,storage:5,unk:3 (4 items)
+  "Ground Beef" dino=0.71 active=7-12s,22-24s cov= 27%
+  "Green Onions" dino=0.67 active=full cov=100%
+  "Baby Carrots" dino=0.55 active=5-12s cov= 27%
+  "Sharp Cheddar Cheese" dino=0.17 active=7-9s cov=  8%
+
+[ 347.9- 418.1s] dur= 70.2s scene=stove:25,sink:7,unk:31 (4 items)
+  "Rigatoni Pasta" dino=0.91 active=22-70s cov= 68%
+  "Green Onions" dino=0.52 active=0-22s cov= 31%
+  "Ground Beef" dino=0.48 active=7-11s,21-22s cov=  7%
+  "Sharp Cheddar Cheese" dino=0.32 active=8-12s,20-24s,51-55s,+1 more cov= 20%
+
+[ 422.1- 424.1s] dur=  2.0s scene=sink:1,unk:2  "Sharp Cheddar Cheese" dino=0.21
+
+[ 432.1- 436.1s] dur=  4.0s scene=stove:2,storage:1,unk:2 (2 items)
+  "Sharp Cheddar Cheese" dino=0.79 active=full cov=100%
+  "Ground Beef" dino=0.47 active=1-2s cov= 25% [flicker]
+
+[ 439.1- 440.1s] dur=  1.0s scene=sink:1,unk:1  "Ground Beef" dino=0.71 [flicker]
+
+[ 456.1- 460.1s] dur=  4.0s scene=sink:3,unk:2 (2 items)
+  "Sharp Cheddar Cheese" dino=0.54 active=full cov=100%
+  "Green Onions" dino=0.34 active=full cov=100%
+
+[ 465.1- 496.1s] dur= 31.0s scene=sink:23,stove:2,unk:5 (4 items)
+  "Sharp Cheddar Cheese" dino=0.70 active=full cov=100%
+  "Ground Beef" dino=0.67 active=2-4s cov=  6%
+  "Green Onions" dino=0.34 active=5-7s,12-14s cov= 13%
+  "Sour Cream" dino=0.23 active=6-12s,15-22s,28-30s cov= 48%
+
+[ 536.3- 539.3s] dur=  3.0s scene=unk:3  "Sharp Cheddar Cheese" dino=0.18
+
+[ 558.3- 563.3s] dur=  5.0s scene=sink:4,storage:1,unk:1  "Ground Beef" dino=0.88
+
+[ 574.3- 575.3s] dur=  1.0s scene=storage:1,unk:1  "Ground Beef" dino=0.89 [flicker]
+
+[ 601.3- 616.3s] dur= 15.0s scene=sink:11,unk:2 (4 items)
+  "Ground Beef" dino=0.82 active=0-2s,5-6s,11-15s cov= 47%
+  "Baby Carrots" dino=0.32 active=8-11s cov= 20%
+  "Sharp Cheddar Cheese" dino=0.23 active=2-10s cov= 53%
+  "Large White Eggs" dino=0.18 active=7-10s cov= 20%
+
+[ 626.3- 629.3s] dur=  3.0s scene=sink:2,storage:1 (2 items)
+  "Sour Cream" dino=0.47 active=full cov=100%
+  "Chobani Vanilla Greek Yogurt" dino=0.36 active=full cov=100%
+
+[ 631.7- 641.7s] dur= 10.0s scene=stove:3,sink:2,unk:5 (3 items)
+  "Ground Beef" dino=0.80 active=0-1s,4-9s cov= 60%
+  "Large White Eggs" dino=0.21 active=2-5s cov= 30%
+  "Sharp Cheddar Cheese" dino=0.19 active=0-4s,7-10s cov= 70%
+
+[ 650.7- 653.7s] dur=  3.0s scene=sink:2,unk:1  "Large White Eggs" dino=0.16
+
+[ 654.7- 660.7s] dur=  6.0s scene=sink:2,unk:5  "Ground Beef" dino=0.85
+
+[ 663.7- 689.7s] dur= 26.0s scene=stove:24,unk:1  "Ground Beef" dino=0.86
+
+[ 693.7- 719.7s] dur= 26.0s scene=sink:19,stove:4,unk:1 (3 items)
+  "Ground Beef" dino=0.85 active=full cov=100%
+  "Sharp Cheddar Cheese" dino=0.26 active=0-19s,23-26s cov= 85%
+  "Pink Salmon Fillets" dino=0.16 active=4-6s cov=  8%
+
+[ 724.7- 731.7s] dur=  7.0s scene=sink:7,unk:1 (3 items)
+  "Sour Cream" dino=0.53 active=full cov=100%
+  "Chobani Vanilla Greek Yogurt" dino=0.47 active=1-7s cov= 86%
+  "Baby Carrots" dino=0.47 active=0-4s cov= 57%
+
+[ 733.7- 740.7s] dur=  7.0s scene=sink:7,unk:1 (4 items)
+  "Baby Carrots" dino=0.60 active=0-2s cov= 29%
+  "Chobani Vanilla Greek Yogurt" dino=0.48 active=1-7s cov= 86%
+  "Sour Cream" dino=0.38 active=1-7s cov= 86%
+  "Sharp Cheddar Cheese" dino=0.17 active=4-6s cov= 29%
+
+[ 744.7- 756.7s] dur= 12.0s scene=sink:8,unk:5 (3 items)
+  "Chobani Vanilla Greek Yogurt" dino=0.49 active=full cov=100%
+  "Sour Cream" dino=0.37 active=full cov=100%
+  "Sharp Cheddar Cheese" dino=0.28 active=6-8s cov= 17%
+
+[ 761.7- 762.7s] dur=  1.0s scene=sink:1,unk:1  "Sour Cream" dino=0.38 [flicker]
+
+[ 769.7- 775.7s] dur=  6.0s scene=stove:6,unk:1  "Ground Beef" dino=0.56
+
+[ 781.7- 809.7s] dur= 28.0s scene=stove:23,unk:6  "Ground Beef" dino=0.42
+
+[ 819.8- 821.8s] dur=  2.0s scene=storage:2,unk:1  "Green Onions" dino=0.18
+
+[ 824.8- 827.8s] dur=  3.0s scene=storage:1,unk:2  "Green Onions" dino=0.16
+
+[ 837.8- 848.8s] dur= 11.0s scene=stove:11  "Baby Carrots" dino=0.54
+
+[ 850.8- 853.8s] dur=  3.0s scene=unk:3  "Green Onions" dino=0.36
+
+[ 855.8- 859.8s] dur=  4.0s scene=stove:5  "Baby Carrots" dino=0.43
+
+[ 861.8- 880.8s] dur= 19.0s scene=unk:16 (2 items)
+  "Green Onions" dino=0.45 active=0-2s,5-9s cov= 32%
+  "garlic" dino=0.41 active=2-19s cov= 89%
+
+[ 883.8- 898.7s] dur= 15.0s scene=unk:16 (2 items)
+  "garlic" dino=0.45 active=full cov=100%
+  "Green Onions" dino=0.32 active=1-3s,7-14s cov= 60%
+
+[ 902.7- 909.7s] dur=  7.0s scene=stove:8  "Baby Carrots" dino=0.44
+
+[ 930.7- 934.7s] dur=  4.0s scene=stove:5  "Baby Carrots" dino=0.49
+
+[ 938.7- 946.7s] dur=  8.0s scene=stove:9  "Baby Carrots" dino=0.43
+
+[ 949.2- 956.2s] dur=  7.0s scene=stove:8  "Baby Carrots" dino=0.40
+
+[ 960.2- 961.2s] dur=  1.0s scene=sink:2  "Sweet Baby Rays BBQ Sauce" dino=0.44 [flicker]
+
+[ 964.2- 966.2s] dur=  2.0s scene=sink:2,unk:1 (2 items)
+  "Sweet Baby Rays BBQ Sauce" dino=0.46 active=full cov=100%
+  "Hidden Valley Ranch Dressing" dino=0.31 active=0-1s cov= 50% [flicker]
+
+[ 969.2- 987.2s] dur= 18.0s scene=sink:11,unk:8 (4 items)
+  "Sweet Baby Rays BBQ Sauce" dino=0.81 active=full cov=100%
+  "Hidden Valley Ranch Dressing" dino=0.49 active=full cov= 94%
+  "soy sauce" dino=0.28 active=0-2s cov= 11%
+  "Orange Juice" dino=0.25 active=7-10s,13-17s cov= 39%
+
+[ 989.2- 995.2s] dur=  6.0s scene=sink:4,unk:2  "Sour Cream" dino=0.17
+
+[1022.2-1034.2s] dur= 12.0s scene=stove:11,unk:1  "Baby Carrots" dino=0.47
+
+[1042.2-1048.2s] dur=  6.0s scene=sink:4,unk:1  "Rigatoni Pasta" dino=0.63
+
+[1052.2-1063.2s] dur= 11.0s scene=sink:6,stove:4  "Rigatoni Pasta" dino=0.68
+
+[1068.2-1078.2s] dur= 10.0s scene=stove:11 (2 items)
+  "Rigatoni Pasta" dino=0.67 active=full cov=100%
+  "Baby Carrots" dino=0.30 active=full cov=100%
+
+[1083.2-1085.2s] dur=  2.0s scene=stove:3  "Rigatoni Pasta" dino=0.68
+
+[1086.2-1087.2s] dur=  1.0s scene=stove:2  "Baby Carrots" dino=0.28 [flicker]
+
+[1088.2-1100.2s] dur= 12.0s scene=stove:12,unk:1 (2 items)
+  "Rigatoni Pasta" dino=0.59 active=full cov=100%
+  "Baby Carrots" dino=0.23 active=5-8s cov= 25%
+
+[1104.2-1134.3s] dur= 30.1s scene=stove:32 (2 items)
+  "Rigatoni Pasta" dino=0.69 active=full cov=100%
+  "Baby Carrots" dino=0.32 active=full cov= 97%
+
+[1143.3-1146.2s] dur=  3.0s scene=stove:4 (2 items)
+  "Rigatoni Pasta" dino=0.70 active=0-2s cov= 67%
+  "Baby Carrots" dino=0.32 active=full cov=100%
+
+[1150.2-1160.2s] dur= 10.0s scene=stove:8,unk:2 (2 items)
+  "Rigatoni Pasta" dino=0.70 active=full cov=100%
+  "Baby Carrots" dino=0.32 active=full cov=100%
+
+[1163.2-1164.2s] dur=  1.0s scene=stove:2 (2 items)
+  "Rigatoni Pasta" dino=0.61 active=full cov=100% [flicker]
+  "Baby Carrots" dino=0.26 active=full cov=100% [flicker]
+
+[1171.2-1190.2s] dur= 19.0s scene=stove:16,unk:4 (2 items)
+  "Green Onions" dino=0.49 active=full cov=100%
+  "Sharp Cheddar Cheese" dino=0.33 active=full cov=100%
+
+[1192.2-1228.2s] dur= 36.0s scene=stove:35,unk:1 (2 items)
+  "Rigatoni Pasta" dino=0.69 active=full cov=100%
+  "Baby Carrots" dino=0.36 active=full cov= 97%
+
+[1235.2-1253.2s] dur= 18.0s scene=stove:13,unk:6 (2 items)
+  "Rigatoni Pasta" dino=0.66 active=full cov=100%
+  "Baby Carrots" dino=0.30 active=0-14s cov= 78%
+
+[1258.2-1259.2s] dur=  1.0s scene=stove:2 (2 items)
+  "Rigatoni Pasta" dino=0.54 active=full cov=100% [flicker]
+  "Baby Carrots" dino=0.30 active=full cov=100% [flicker]
+
+[1262.2-1298.2s] dur= 36.0s scene=sink:28,stove:6,unk:1 (3 items)
+  "Rigatoni Pasta" dino=0.70 active=full cov= 94%
+  "Baby Carrots" dino=0.28 active=6-30s cov= 67%
+  "Sharp Cheddar Cheese" dino=0.21 active=0-2s cov=  6%
+
+[1308.9-1309.9s] dur=  1.0s scene=unk:2  "Sharp Cheddar Cheese" dino=0.51 [flicker]
+
+[1316.9-1329.9s] dur= 13.0s scene=stove:8,unk:5 (2 items)
+  "Sharp Cheddar Cheese" dino=0.43 active=4-13s cov= 69%
+  "Baby Carrots" dino=0.28 active=full cov=100%
+
+[1334.9-1335.9s] dur=  1.0s scene=storage:1,unk:1  "Sharp Cheddar Cheese" dino=0.38 [flicker]
+
+[1343.9-1344.9s] dur=  1.0s scene=stove:2  "Orange Juice" dino=0.43 [flicker]
+
+[1364.9-1365.9s] dur=  1.0s scene=sink:2  "soy sauce" dino=0.30 [flicker]
+
+[1378.9-1396.9s] dur= 18.0s scene=sink:13,stove:3,unk:3 (2 items)
+  "Kimchi" dino=0.67 active=full cov=100%
+  "Napa Cabbage" dino=0.42 active=2-14s cov= 67%
+
+[1411.9-1413.9s] dur=  2.0s scene=unk:3 (2 items)
+  "Rigatoni Pasta" dino=0.58 active=full cov=100%
+  "Baby Carrots" dino=0.27 active=full cov=100%
+
+
+## Task
+
+Return **one decision entry for every distinct inventory iid whose visual_class appears at least once in the Per-Item Detections section above.** Items whose visual_class never appears are NOT in the candidate set — omit them.
+
+**Duplicate iids of the same visual_class:** when two or more inventory entries share the same `visual_class` (e.g. two purchase instances of "Large White Eggs" or "Whole Milk Gallon"), the evidence usually cannot distinguish them — two sealed cartons of the same product score identically. Do NOT refuse observation of all duplicates. Treat the group as one physical package: emit `observe` for exactly ONE instance_id (the earliest trailing `YYYYMMDD` — FIFO, oldest carton consumed first), and `no_observation` for the others with reasoning citing the duplication.
+
+## Step 1 — decide `observe` or `no_observation` for each detected iid
+
+Your default decision is `observe`. Choose `no_observation` only when you can articulate a specific reason the evidence does not reflect real use of the item.
+
+Walk the iid's bursts in time order:
+
+- Multiple bursts over time, or any burst with sustained high DINO score, almost certainly indicate a real interaction — `observe`.
+- A single brief burst with modest scores may still be a real quick interaction (staples like oil, sauce, eggs are handled briefly). Default to `observe` unless you have a concrete reason to reject it.
+- `no_observation` is appropriate when the bursts plausibly result from visual cross-talk — e.g. a meat-reference image firing weakly on unrelated cooking frames, a generic bottle reference matching a different container on the counter. Typical pattern: multiple short, low-DINO bursts scattered across the cooking phase without clustering, and another visual_class with a much stronger overlapping burst.
+- Returning `observe` for every detected iid is acceptable if the evidence supports it.
+
+Write one sentence of `reasoning` for every decision, explaining what in the evidence drove your choice.
+
+## Step 2 — pick observation segments for every `observe` iid
+
+Walk the bursts in time order. Most items follow a retrieval → use → put-back arc. Pick short segments that let the observer piece this story together:
+
+- Include at least one **early** burst when one exists (retrieval / first access) — this often shows the starting package and fill level best.
+- Include the **most informative middle burst** (the one with the highest sustained DINO score for this item).
+- Include a **final** burst if one is present — often the clearest view of what remains.
+- For items handled only briefly, 1–2 short segments is enough.
+- For items with a long cluster (many bursts across minutes), 3–5 short segments covering first → middle → last is appropriate.
+- Prefer short segments (~2–5s). The observer sees them concatenated, so several short clips beat one long clip.
+
+**Frame budget:** the observer has up to 50 frames total per call (one call per `observe` iid). Keep segments short.
+
+## Output Format
+
+Return ONLY JSON (no other text):
+```json
+{
+  "item_decisions": [
+    {
+      "item": "<visual_class exactly as in inventory>",
+      "instance_id": "<instance_id from inventory>",
+      "decision": "observe" | "no_observation",
+      "reasoning": "<one sentence: what in the evidence drove this decision>",
+      "confidence": "high" | "medium" | "low",
+      "segments": [[start1, end1], [start2, end2]]
+    }
+  ]
+}
+```
+
+Rules:
+- You MUST return an entry for every distinct inventory iid whose visual_class appears at least once in Per-Item Detections. Omit items whose visual_class never appears.
+- Use EXACT `visual_class` and `instance_id` strings from the Session Inventory section.
+- `segments` is REQUIRED when `decision == "observe"` and MUST be omitted or empty when `decision == "no_observation"`.
+- Multiple short segments (2–5s each) are preferred over one long segment.
+- Do NOT bias observation windows toward the last burst only — earlier bursts often show the package and starting fill better than cooking-side bursts.
+- `confidence` reflects how certain you are in the decision itself (not in the eventual amount estimate).

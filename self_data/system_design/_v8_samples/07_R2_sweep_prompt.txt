@@ -1,0 +1,106 @@
+You are running ROUND 2 of a 2-round sweep observer pass on an egocentric kitchen video.
+
+These 100 frames come from 9 new SEGMENTS the R2 planner picked specifically to fill amount fields the R1 observer could not read for these candidates. Frames are intermixed below in chronological order. Each segment is tagged `[journey]` (single-frame context point) or `[dense]` (continuous burst centred on a dispense moment).
+
+R1 already confirmed each candidate's `status: used`. **Do not re-confirm usage.** Treat status as fixed at `used` for every candidate unless the new frames CLEARLY contradict R1 (in which case flip to `not_used` and explain).
+
+## Sweep Segments (Round 2)
+- Segment 1 [journey]: t=40.0s, frame 1
+    target items: Rigatoni Pasta
+- Segment 2 [dense]: t=200.8–221.7s, frames 2–15
+    target items: Baby Carrots
+- Segment 3 [dense]: t=347.9–369.9s, frames 16–29
+    target items: Green Onions
+- Segment 4 [dense]: t=370.1–418.1s, frames 30–60
+    target items: Rigatoni Pasta
+- Segment 5 [dense]: t=667.2–689.7s, frames 61–75
+    target items: Ground Beef
+- Segment 6 [dense]: t=744.7–756.7s, frames 76–83
+    target items: Sour Cream
+- Segment 7 [journey]: t=864.5s, frame 84
+    target items: garlic
+- Segment 8 [dense]: t=883.8–898.7s, frames 85–94
+    target items: garlic
+- Segment 9 [dense]: t=977.3–987.2s, frames 95–100
+    target items: Sweet Baby Rays BBQ Sauce
+
+## Candidate Items (with R1 amount triple — gaps to fill)
+For each candidate the line below shows what R1 already filled and what `needs:` to be filled by THIS round.
+
+- instance_id=`baby_carrots_20260317`  visual_class="Baby Carrots"  unit=grams  package=454g
+    R2 segments: 2
+    R1 amounts: starting=454.0  remaining=None  derivative=None
+    needs: remaining (R1 has starting only — find a POST-dispense window)
+- instance_id=`garlic_20260310`  visual_class="garlic"  unit=grams  package=90g
+    R2 segments: 7, 8
+    R1 amounts: starting=None  remaining=None  derivative=None
+    needs: starting AND remaining (no fill read AT ALL in R1)
+- instance_id=`green_onions_20260317`  visual_class="Green Onions"  unit=grams  package=80g
+    R2 segments: 3
+    R1 amounts: starting=80.0  remaining=None  derivative=None
+    needs: remaining (R1 has starting only — find a POST-dispense window)
+- instance_id=`ground_beef_20260317`  visual_class="Ground Beef"  unit=grams  package=454g
+    R2 segments: 5
+    R1 amounts: starting=454.0  remaining=None  derivative=None
+    needs: remaining (R1 has starting only — find a POST-dispense window)
+- instance_id=`rigatoni_pasta_20260317`  visual_class="Rigatoni Pasta"  unit=grams  package=454g
+    R2 segments: 1, 4
+    R1 amounts: starting=None  remaining=None  derivative=None
+    needs: starting AND remaining (no fill read AT ALL in R1)
+- instance_id=`sour_cream_20260317`  visual_class="Sour Cream"  unit=grams  package=227g
+    R2 segments: 6
+    R1 amounts: starting=227.0  remaining=None  derivative=None
+    needs: remaining (R1 has starting only — find a POST-dispense window)
+- instance_id=`sweet_baby_rays_bbq_sauce_20260317`  visual_class="Sweet Baby Rays BBQ Sauce"  unit=grams  package=510g
+    R2 segments: 9
+    R1 amounts: starting=410.0  remaining=None  derivative=None
+    needs: remaining (R1 has starting only — find a POST-dispense window)
+
+## Per-Item Decision
+
+Output the same 4-field schema as R1, with the same independent-amount rules:
+
+- **`status`** — keep `"used"` (R1's confirmed state) unless the new frames clearly contradict it.
+- **`amount_starting`** — fill level of the stock package BEFORE dispensing began. Number if any new frame gives a readable starting fill; otherwise `null`.
+- **`amount_remaining`** — fill level of the stock package AFTER dispensing (post-dispense view, put-back / storage-return frame, late visibility). Number if readable in any new frame; otherwise `null`. **This is the most important field — fill it whenever you can.**
+- **`amount_derivative`** — how much was TAKEN OUT / consumed (visible portion on a plate / bowl / pan / cutting board, or amount poured / scooped / squeezed). Number if estimable from the new frames; otherwise `null`.
+
+You are NOT required to fill the same field R1 filled — you may fill the same field again if you have a better read, or fill a different field entirely. The script will merge per-field, preferring R1's value when it is set.
+
+"Remaining" / "starting" reads count only what is still inside the stock container; loose portions on plates / bowls / pans / cutting boards count toward `amount_derivative`, not the others.
+
+## Per-Segment Narrative
+
+Write ONE short observation per segment in `per_segment_observations`. Use verbs from the action vocabulary (retrieval, access / open package, dispensing / pour / scoop / squeeze, visible-portion-on-board, restocking / put-away, idle), name the candidate item(s), and indicate the dispense stage (pre / during / post / none).
+
+## Output Format
+
+Return ONLY JSON (no other text):
+```json
+{
+  "items": [
+    {
+      "instance_id": "<exact instance_id>",
+      "visual_class": "<visual_class>",
+      "status": "used" | "not_used",
+      "amount_starting": <number or null>,
+      "amount_remaining": <number or null>,
+      "amount_derivative": <number or null>,
+      "evidence_frames": [<timestamp values of key frames>],
+      "reasoning": "<one short sentence: which frame(s) gave each amount, and which gap from R1 you filled>"
+    }
+  ],
+  "per_segment_observations": [
+    {
+      "segment_idx": <1-based segment number from the Sweep Segments list>,
+      "observation": "<one sentence: what is happening in this segment, which item, which stage>"
+    }
+  ]
+}
+```
+
+Rules:
+- Emit one entry per candidate item. Do NOT skip any.
+- Each amount field is independent: fill any combination of starting / remaining / derivative. Use `null` for ones the new frames do not support. (The script keeps R1's value for any field you leave null.)
+- `evidence_frames` should cite at least one frame when any amount is filled; can be empty if no new fill could be read.
+- `per_segment_observations` MUST include one entry per R2 segment listed above (use `segment_idx` 1..N).

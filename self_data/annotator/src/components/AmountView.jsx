@@ -22,6 +22,64 @@ function formatTime(seconds) {
   return `${m}:${s.toFixed(1).padStart(4, '0')}`;
 }
 
+// Parse the observer's `*_evidence` string. Format: one or more `t=<sec>s`
+// tokens (range form `t=<lo>s..<hi>s` is also accepted), optionally followed
+// by a short caption. Returns { seekT, label, full } or null if no timestamp
+// could be extracted. `seekT` is the frame to jump to (lower bound for a
+// range, or the timestamp itself for a single hit). Falls back to `frameNum`
+// (legacy single-number `amount_*_frame` field) if the string is empty.
+function parseEvidence(evidence, frameNum) {
+  if (typeof evidence === 'string' && evidence.trim()) {
+    const re = /t=([\d.]+)s(?:\.\.([\d.]+)s)?/g;
+    const hits = [];
+    let m;
+    while ((m = re.exec(evidence)) !== null) {
+      const lo = parseFloat(m[1]);
+      const hi = m[2] != null ? parseFloat(m[2]) : null;
+      if (!isNaN(lo)) hits.push({ lo, hi });
+    }
+    if (hits.length > 0) {
+      const first = hits[0];
+      const seekT = first.lo;
+      const label = first.hi != null
+        ? `${first.lo.toFixed(1)}–${first.hi.toFixed(1)}s`
+        : `${first.lo.toFixed(1)}s`;
+      return { seekT, label, full: evidence.trim() };
+    }
+  }
+  if (typeof frameNum === 'number' && !isNaN(frameNum)) {
+    return { seekT: frameNum, label: `${frameNum.toFixed(1)}s`, full: null };
+  }
+  return null;
+}
+
+// Render a predicted amount + (optional) "@NNN.Ns" badge that seeks to the
+// frame the observer cited as evidence for this value. Click on either the
+// number or the badge jumps the video; click stops table-row propagation so
+// the row's own click (item filter toggle) doesn't fire.
+function AmountCell({ value, unit, evidence, frame, seekTo }) {
+  const ev = parseEvidence(evidence, frame);
+  const onClick = (e) => {
+    if (!ev) return;
+    e.stopPropagation();
+    seekTo(ev.seekT);
+  };
+  const cursorStyle = ev ? { cursor: 'pointer', textDecoration: 'underline dotted' } : {};
+  const tooltip = ev
+    ? (ev.full ? `${ev.full} — jump to ${ev.label}` : `Jump to ${ev.label} (observer evidence frame)`)
+    : undefined;
+  return (
+    <span onClick={onClick} title={tooltip} style={cursorStyle}>
+      {formatAmt(value, unit)}
+      {ev && (
+        <span style={{ fontSize: 9, color: '#4FC3F7', marginLeft: 3 }}>
+          @{ev.label}
+        </span>
+      )}
+    </span>
+  );
+}
+
 export default function AmountView({
   participant, session, globalTime, totalDuration, seekTo, ledger, actions: gtActions,
   videoRef, playing, togglePlay, activeClipIdx, clipMap, onTimeUpdate, onEnded, setPlaying, scrubbingRef,
@@ -34,7 +92,6 @@ export default function AmountView({
   const [selectedItem, setSelectedItem] = useState(null);
   const [itemLog, setItemLog] = useState(null);
   const [filterItem, setFilterItem] = useState(null);
-  const [promptExpanded, setPromptExpanded] = useState(false);
   const [detData, setDetData] = useState(null);       // hands23 + siglip + dino + scene per frame
   const [selectedDetFrame, setSelectedDetFrame] = useState(null);
 
@@ -374,7 +431,6 @@ export default function AmountView({
   const handleItemClick = useCallback((instanceId) => {
     setSelectedItem(prev => prev === instanceId ? null : instanceId);
     setFilterItem(prev => prev === instanceId ? null : instanceId);
-    setPromptExpanded(false);
   }, []);
 
   const handleTimelineClick = useCallback((e, containerRef) => {
@@ -589,15 +645,48 @@ export default function AmountView({
               <div style={S.tableColItem} title={inv.instance_id}>{inv.visual_class}</div>
               {/* Prefer eval's tare-corrected values over raw ledger snapshot */}
               <div style={{ ...S.tableColNum, color: '#66BB6A' }}>{formatAmt(ev?.used ?? inv.gt_used, inv.unit)}</div>
-              <div style={{ ...S.tableColNum, color: pred ? '#fff' : '#555' }}>{pred ? formatAmt(pred.amount_used ?? pred.amount_derivative, inv.unit) : '—'}</div>
+              {/* Pred used (= amount_derivative) — clickable when the observer
+                  cited an amount_derivative_evidence string. */}
+              <div style={{ ...S.tableColNum, color: pred ? '#fff' : '#555' }}>
+                {pred
+                  ? <AmountCell
+                      value={pred.amount_used ?? pred.amount_derivative}
+                      unit={inv.unit}
+                      evidence={pred.amount_derivative_evidence}
+                      frame={pred.amount_derivative_frame}
+                      seekTo={seekTo}
+                    />
+                  : '—'}
+              </div>
               <div style={{ ...S.tableColCnpe, color: cnpeColor(cnpeU) }}>{cnpeU != null ? `${cnpeU.toFixed(1)}%` : '—'}</div>
               <div style={{ ...S.tableColNum, color: '#66BB6A' }}>{formatAmt(ev?.after ?? inv.gt_remaining, inv.unit)}</div>
+              {/* Pred remaining — when the observer cited an
+                  amount_remaining_evidence (or amount_starting_evidence in the
+                  fallback branch), expose it as a clickable seek target. */}
               <div style={{ ...S.tableColNum, color: pred ? '#fff' : '#555' }}>
                 {pred
                   ? (pred.amount_remaining != null
-                      ? <>{formatAmt(pred.amount_remaining, inv.unit)}{pred.amount_kind === 'computed_remaining' && <span style={{ fontSize: 9, color: '#888', marginLeft: 3 }}>(s−d)</span>}</>
+                      ? <>
+                          <AmountCell
+                            value={pred.amount_remaining}
+                            unit={inv.unit}
+                            evidence={pred.amount_remaining_evidence}
+                            frame={pred.amount_remaining_frame}
+                            seekTo={seekTo}
+                          />
+                          {pred.amount_kind === 'computed_remaining' && <span style={{ fontSize: 9, color: '#888', marginLeft: 3 }}>(s−d)</span>}
+                        </>
                       : pred.amount_starting != null
-                        ? <>{formatAmt(pred.amount_starting, inv.unit)}<span style={{ fontSize: 9, color: '#FFA726', marginLeft: 3 }}>[start]</span></>
+                        ? <>
+                            <AmountCell
+                              value={pred.amount_starting}
+                              unit={inv.unit}
+                              evidence={pred.amount_starting_evidence}
+                              frame={pred.amount_starting_frame}
+                              seekTo={seekTo}
+                            />
+                            <span style={{ fontSize: 9, color: '#FFA726', marginLeft: 3 }}>[start]</span>
+                          </>
                         : '—')
                   : '—'}
               </div>
@@ -620,193 +709,10 @@ export default function AmountView({
         />
       ) : (<>
 
-      {/* Activity summary (AVP planner) */}
-      {sr?.activity_summary && (
-        <div style={{ borderBottom: '1px solid #333' }}>
-          <div style={S.sectionTitle}>Activity Summary</div>
-          <pre style={{ ...S.traceContent, margin: '0 10px 8px 10px', maxHeight: 150 }}>
-            {sr.activity_summary}
-          </pre>
-        </div>
-      )}
-
-      {/* Session reasoning (wholevideo thinking trace) */}
-      {sr?.thinking && (
-        <div style={{ borderBottom: '1px solid #333' }}>
-          <div style={S.sectionTitle}>
-            Session Reasoning
-            {sr.stats?.total_tokens && (
-              <span style={{ fontSize: 10, color: '#888', marginLeft: 8 }}>
-                ({sr.stats.total_tokens.toLocaleString()} tok{sr.stats.inference_time_s ? `, ${sr.stats.inference_time_s}s` : ''})
-              </span>
-            )}
-          </div>
-          <pre style={{ ...S.traceContent, margin: '0 10px 8px 10px', maxHeight: 300 }}>
-            {sr.thinking}
-          </pre>
-        </div>
-      )}
-
-      {/* Session prompt (collapsible, any pipeline)
-          Auto-expanded when no item is selected (useful for AVP planner prompt). */}
-      {sr?.prompt && (() => {
-        const showPrompt = !selectedItem || promptExpanded;
-        return (
-        <div style={{ borderBottom: '1px solid #333' }}>
-          <div style={{ ...S.sectionTitle, cursor: 'pointer' }} onClick={() => setPromptExpanded(!promptExpanded)}>
-            {showPrompt ? '▼' : '▶'} Session Prompt {!selectedItem && <span style={{ fontSize: 10, color: '#888' }}>(click item to collapse)</span>}
-          </div>
-          {showPrompt && (
-            <pre style={{ ...S.traceContent, margin: '0 10px 8px 10px', maxHeight: 400 }}>
-              {sr.prompt}
-            </pre>
-          )}
-        </div>
-        );
-      })()}
-
-      {/* Item detail */}
-      {selectedItem && (
-        <div style={S.detailSection}>
-          <div style={S.sectionTitle}>
-            {inventory.find(i => i.instance_id === selectedItem)?.visual_class || selectedItem}
-          </div>
-
-          {/* GT vs Prediction comparison */}
-          <div style={S.comparisonCard}>
-            <div style={S.compRow}>
-              <div style={S.compLabel}></div>
-              <div style={S.compHeader}>Ground Truth</div>
-              <div style={S.compHeader}>Prediction</div>
-              <div style={S.compHeader}>CNPE</div>
-            </div>
-            <div style={S.compRow}>
-              <div style={S.compLabel}>Used</div>
-              <div style={S.compVal}>{formatAmt(selectedEval?.used, selectedEval?.unit)}</div>
-              <div style={S.compVal}>{formatAmt(selectedPred?.amount_used ?? selectedPred?.amount_derivative, selectedEval?.unit)}</div>
-              <CnpeBadge value={selectedEval?.cnpe_used} />
-            </div>
-            <div style={S.compRow}>
-              <div style={S.compLabel}>Remaining</div>
-              <div style={S.compVal}>{formatAmt(selectedEval?.after, selectedEval?.unit)}</div>
-              <div style={S.compVal}>
-                {selectedPred?.amount_remaining != null
-                  ? <>{formatAmt(selectedPred.amount_remaining, selectedEval?.unit)}{selectedPred.amount_kind === 'computed_remaining' && <span style={{ fontSize: 10, color: '#888', marginLeft: 4 }}>(s−d)</span>}</>
-                  : selectedPred?.amount_starting != null
-                    ? <>{formatAmt(selectedPred.amount_starting, selectedEval?.unit)}<span style={{ fontSize: 10, color: '#FFA726', marginLeft: 4 }}>[start]</span></>
-                    : '—'}
-              </div>
-              <CnpeBadge value={selectedEval?.cnpe_rem} />
-            </div>
-            {/* New journey/dense schema: surface the raw triple so the user
-                sees what each independent amount field contained. */}
-            {(selectedPred?.amount_starting != null || selectedPred?.amount_remaining_raw != null || selectedPred?.amount_derivative != null) && (
-              <div style={{ ...S.compRow, borderTop: '1px solid #2a2a2a', paddingTop: 4, fontSize: 10, color: '#888' }}>
-                <div style={S.compLabel}>raw</div>
-                <div style={S.compVal}></div>
-                <div style={S.compVal}>
-                  s={selectedPred.amount_starting ?? '—'} · r={selectedPred.amount_remaining_raw ?? '—'} · d={selectedPred.amount_derivative ?? '—'}
-                  {selectedPred.amount_kind && <span style={{ marginLeft: 6, color: '#66BB6A' }}>[{selectedPred.amount_kind}]</span>}
-                </div>
-                <div style={S.compVal}></div>
-              </div>
-            )}
-          </div>
-
-          {/* Stats */}
-          {selectedPred?.stats && (() => {
-            const st = selectedPred.stats;
-            return (
-              <div style={S.statsRow}>
-                {st.inference_time_s && <span>{st.inference_time_s}s</span>}
-                {st.input_tokens && <span>{st.input_tokens} in</span>}
-                {st.num_frames && <span>{st.num_frames} frames</span>}
-                {st.planner_inference_time_s && <span>plan: {st.planner_inference_time_s}s</span>}
-                {selectedPred.planner_confidence && (
-                  <span style={{
-                    color: selectedPred.planner_confidence === 'high' ? '#66BB6A'
-                      : selectedPred.planner_confidence === 'medium' ? '#FFA726' : '#EF5350'
-                  }}>{selectedPred.planner_confidence}</span>
-                )}
-                {selectedPred.segments?.length > 0 && <span>{selectedPred.segments.length} seg</span>}
-              </div>
-            );
-          })()}
-
-          {/* Planner reasoning */}
-          {selectedPred?.planner_reasoning && (
-            <div style={S.traceSection}>
-              <div style={S.traceTitle}>Planner Reasoning</div>
-              <pre style={S.traceContent}>{selectedPred.planner_reasoning}</pre>
-            </div>
-          )}
-
-          {/* Segments sent to observer (AVP) */}
-          {isAvp && selectedPred?.segments?.length > 0 && (
-            <div style={S.traceSection}>
-              <div style={S.traceTitle}>Planner → Observer Segments</div>
-              <div style={{ fontSize: 11, padding: '4px 8px', background: '#1a1a1a', borderRadius: 4, margin: '4px 0' }}>
-                {selectedPred.segments.map((seg, i) => (
-                  <span
-                    key={i}
-                    style={{ display: 'inline-block', margin: '2px 4px 2px 0', padding: '1px 6px', background: '#333', borderRadius: 3, cursor: 'pointer', color: '#aaa' }}
-                    onClick={() => seekTo(seg.start)}
-                    title={`Click to seek to ${formatTime(seg.start)}`}
-                  >
-                    {formatTime(seg.start)}–{formatTime(seg.end)}
-                  </span>
-                ))}
-                <div style={{ marginTop: 4, color: '#666', fontSize: 10 }}>
-                  {selectedPred.segments.length} segments, {selectedPred.segments.reduce((sum, seg) => sum + (seg.end - seg.start), 0).toFixed(0)}s total
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Thinking trace (per-item, from baseline or item log) */}
-          {(itemLog?.thinking || selectedPred?.thinking) && (
-            <div style={S.traceSection}>
-              <div style={S.traceTitle}>Thinking Trace</div>
-              <pre style={S.traceContent}>{itemLog?.thinking || selectedPred.thinking}</pre>
-            </div>
-          )}
-
-          {/* Reasoning (per-item: AVP observer output or baseline VLM reasoning) */}
-          {(itemLog?.reasoning || selectedPred?.reasoning) && (
-            <div style={S.traceSection}>
-              <div style={S.traceTitle}>Reasoning</div>
-              <pre style={S.traceContent}>{itemLog?.reasoning || selectedPred.reasoning}</pre>
-            </div>
-          )}
-
-          {/* Evidence timestamps */}
-          {selectedPred?.evidence_timestamps?.length > 0 && (
-            <div style={{ marginTop: 4, padding: '0 8px' }}>
-              <span style={{ fontSize: 10, color: '#888' }}>Evidence timestamps: </span>
-              {selectedPred.evidence_timestamps.map((ts, i) => (
-                <span
-                  key={i}
-                  style={{ display: 'inline-block', margin: '2px 3px', padding: '1px 5px', background: '#2E7D32', borderRadius: 3, cursor: 'pointer', color: '#fff', fontSize: 10 }}
-                  onClick={() => seekTo(ts)}
-                  title={`Seek to ${formatTime(ts)}`}
-                >
-                  {formatTime(ts)}
-                </span>
-              ))}
-            </div>
-          )}
-
-          {/* Per-item prompt (collapsible, from item log) */}
-          {itemLog?.prompt && (
-            <div style={S.traceSection}>
-              <div style={{ ...S.traceTitle, cursor: 'pointer' }} onClick={() => setPromptExpanded(!promptExpanded)}>
-                {promptExpanded ? '▼' : '▶'} Item Prompt
-              </div>
-              {promptExpanded && <pre style={S.traceContent}>{itemLog.prompt}</pre>}
-            </div>
-          )}
-        </div>
-      )}
+      {/* Raw prompts/responses — no formatting, just the text the model saw
+          and produced, in pipeline order: R1 planner → R1 observer → R2
+          planner → R2 observer → (R3+ if iterative). */}
+      <RawTraceBlocks blocks={sr?.raw_blocks || []} itemLog={itemLog} />
 
       </>)}
 
@@ -821,6 +727,51 @@ export default function AmountView({
         />
       )}
       </div>
+    </div>
+  );
+}
+
+function RawTraceBlocks({ blocks, itemLog }) {
+  const allBlocks = useMemo(() => {
+    const out = Array.isArray(blocks) ? [...blocks] : [];
+    if (itemLog?.prompt)    out.push({ label: 'Item Prompt',   text: itemLog.prompt });
+    if (itemLog?.thinking)  out.push({ label: 'Item Thinking', text: itemLog.thinking });
+    if (itemLog?.reasoning) out.push({ label: 'Item Reasoning',text: itemLog.reasoning });
+    return out;
+  }, [blocks, itemLog]);
+  const [openIdx, setOpenIdx] = useState(() => allBlocks.length ? 0 : -1);
+  useEffect(() => { setOpenIdx(allBlocks.length ? 0 : -1); }, [allBlocks.length]);
+  if (!allBlocks.length) {
+    return <div style={{ padding: 10, color: '#666', fontSize: 11 }}>(no prompt/response captured for this run)</div>;
+  }
+  const charCount = (s) => (s ? s.length.toLocaleString() : '0');
+  return (
+    <div>
+      {allBlocks.map((b, i) => {
+        const isOpen = openIdx === i;
+        return (
+          <div key={i} style={{ borderBottom: '1px solid #2a2a2a' }}>
+            <div
+              style={{
+                cursor: 'pointer', padding: '6px 10px', background: '#181818',
+                fontSize: 11, color: '#ddd', display: 'flex', justifyContent: 'space-between',
+              }}
+              onClick={() => setOpenIdx(isOpen ? -1 : i)}
+            >
+              <span>{isOpen ? '▼' : '▶'} {b.label}</span>
+              <span style={{ color: '#666' }}>{charCount(b.text)} chars</span>
+            </div>
+            {isOpen && (
+              <pre style={{
+                margin: 0, padding: '8px 10px', fontSize: 11, lineHeight: 1.4,
+                color: '#ccc', background: '#0e0e0e', whiteSpace: 'pre-wrap',
+                wordBreak: 'break-word', maxHeight: 600, overflowY: 'auto',
+                fontFamily: 'ui-monospace, Menlo, Consolas, monospace',
+              }}>{b.text}</pre>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 }

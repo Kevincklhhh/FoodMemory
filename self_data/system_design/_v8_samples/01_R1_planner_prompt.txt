@@ -1,0 +1,260 @@
+You are an expert kitchen activity analyst. You are given an inventory and per-item hand-object-interaction (HOI) detection evidence for a single egocentric cooking session. Your job is to:
+
+1. Decide, for each inventory iid that has any detection burst in the evidence, whether a vision model should verify it (`observe`) or skip it (`no_observation`).
+2. Pick TWO complementary kinds of frame samples and, for each, list which candidate items the sweep observer should look for in those frames. The two kinds are merged (sorted by timestamp) and fed to ONE multi-item sweep observer call.
+
+## Signals
+- **dino**: image-to-image similarity between the cropped hand-held object and the item's reference product photo. Generally reliable for branded packages, but can still fire on visually generic items (e.g. a meat reference matching pink/marbled surfaces during cooking).
+- A detection row is listed whenever, during a hand-object contact event, the DINO score crossed its threshold and (for segment / chrono modes) stayed active across a short window.
+
+## Session Inventory
+- baby_carrots_20260317: "Baby Carrots" (grams, package=454g, [transparent])
+- blackberries_20260317: "Blackberries" (grams, package=340g, [transparent])
+- chobani_vanilla_greek_yogurt_20260318: "Chobani Vanilla Greek Yogurt" (grams, package=900g, [opaque])
+- garden_salad_bag_20260317: "Garden Salad Bag" (grams, package=340g, [transparent])
+- garlic_20260310: "garlic" (grams, package=90g, [transparent])
+- green_onions_20260317: "Green Onions" (grams, package=80g, [transparent])
+- ground_beef_20260317: "Ground Beef" (grams, package=454g, [transparent])
+- hidden_valley_ranch_dressing_20260317: "Hidden Valley Ranch Dressing" (grams, package=473g, [opaque])
+- kashi_peanut_butter_cereal_20260317: "Kashi Peanut Butter Cereal" (grams, package=479g, [opaque])
+- kimchi_20260310: "Kimchi" (grams, package=419g, [transparent])
+- large_white_eggs_20260310: "Large White Eggs" (count, package=60 count, [transparent])
+- mixed_nuts_20260317: "Mixed Nuts" (grams, package=454g, [transparent])
+- napa_cabbage_20260310: "Napa Cabbage" (grams, package=724g, [transparent])
+- olive_oil_20260310: "olive oil" (grams, package=460g, [opaque])
+- orange_juice_20260317: "Orange Juice" (grams, package=1418g, [transparent])
+- pink_salmon_fillets_20260317: "Pink Salmon Fillets" (grams, package=907g, [transparent])
+- plain_bagels_20260317: "Plain Bagels" (count, package=6 count, [transparent])
+- red_tomato_20260310: "Red Tomato" (count, package=4 count, [transparent])
+- rice_20260310: "rice" (grams, package=907g, [transparent])
+- rigatoni_pasta_20260317: "Rigatoni Pasta" (grams, package=454g, [opaque])
+- sharp_cheddar_cheese_20260317: "Sharp Cheddar Cheese" (grams, package=227g, [opaque])
+- sour_cream_20260317: "Sour Cream" (grams, package=227g, [opaque])
+- soy_sauce_20260310: "soy sauce" (grams, package=575g, [opaque])
+- sweet_baby_rays_bbq_sauce_20260317: "Sweet Baby Rays BBQ Sauce" (grams, package=510g, [transparent])
+- whole_milk_gallon_20260310: "Whole Milk Gallon" (grams, package=3785g, [opaque])
+- whole_milk_gallon_20260318: "Whole Milk Gallon" (grams, package=3785g, [opaque])
+
+## Per-Item Detections (HOI-gated temporal SEGMENTS per visual_class — one row per coherent on-contact window.)
+### "Baby Carrots" (iids: baby_carrots_20260317; [transparent]; pkg=454g, unit=g)
+  [ 157.8- 160.8s] dur= 3.0s hot=3/4 dino_peak=0.62 scene=storage:4  iid=baby_carrots_20260317
+  [ 170.7- 182.7s] dur=12.0s hot=13/13 dino_peak=0.77 scene=sink:3,unk:10  iid=baby_carrots_20260317
+  [ 190.7- 221.7s] dur=31.0s hot=31/32 dino_peak=0.80 scene=sink:7,storage:3,unk:22  iid=baby_carrots_20260317
+  [ 227.9- 250.9s] dur=23.0s hot=23/24 dino_peak=0.71 scene=sink:17,storage:1,unk:5  iid=baby_carrots_20260317
+  [ 253.9- 305.9s] dur=52.0s hot=53/53 dino_peak=0.75 scene=storage:7,sink:3,unk:43  iid=baby_carrots_20260317
+  [ 323.9- 330.9s] dur= 7.0s hot=7/8 dino_peak=0.55 scene=storage:5,sink:3  iid=baby_carrots_20260317
+  [ 609.3- 612.3s] dur= 3.0s hot=4/4 dino_peak=0.32 scene=sink:4  iid=baby_carrots_20260317
+  [ 724.7- 728.7s] dur= 4.0s hot=4/5 dino_peak=0.47 scene=sink:5  iid=baby_carrots_20260317
+  [ 733.7- 735.7s] dur= 2.0s hot=2/3 dino_peak=0.60 scene=sink:3  iid=baby_carrots_20260317
+  [ 837.8- 848.8s] dur=11.0s hot=11/12 dino_peak=0.54 scene=stove:11  iid=baby_carrots_20260317
+  [ 855.8- 859.8s] dur= 4.0s hot=5/5 dino_peak=0.43 scene=stove:5  iid=baby_carrots_20260317
+  [ 902.7- 909.7s] dur= 7.0s hot=8/8 dino_peak=0.44 scene=stove:8  iid=baby_carrots_20260317
+  [ 930.7- 934.7s] dur= 4.0s hot=5/5 dino_peak=0.49 scene=stove:5  iid=baby_carrots_20260317
+  [ 938.7- 946.7s] dur= 8.0s hot=9/9 dino_peak=0.43 scene=stove:9  iid=baby_carrots_20260317
+  [ 949.2- 956.2s] dur= 7.0s hot=8/8 dino_peak=0.40 scene=stove:8  iid=baby_carrots_20260317
+  [1022.2-1034.2s] dur=12.0s hot=12/13 dino_peak=0.47 scene=stove:11,unk:1  iid=baby_carrots_20260317
+  [1068.2-1078.2s] dur=10.0s hot=11/11 dino_peak=0.30 scene=stove:11  iid=baby_carrots_20260317
+  [1093.2-1096.2s] dur= 3.0s hot=3/4 dino_peak=0.23 scene=stove:3,unk:1  iid=baby_carrots_20260317
+  [1104.2-1133.3s] dur=29.1s hot=27/31 dino_peak=0.32 scene=stove:31  iid=baby_carrots_20260317
+  [1143.3-1146.2s] dur= 3.0s hot=4/4 dino_peak=0.32 scene=stove:4  iid=baby_carrots_20260317
+  [1150.2-1160.2s] dur=10.0s hot=9/11 dino_peak=0.32 scene=stove:8,unk:2  iid=baby_carrots_20260317
+  [1193.2-1228.2s] dur=35.0s hot=33/36 dino_peak=0.36 scene=stove:34,unk:1  iid=baby_carrots_20260317
+  [1235.2-1249.2s] dur=14.0s hot=12/15 dino_peak=0.30 scene=stove:12,unk:3  iid=baby_carrots_20260317
+  [1268.2-1292.2s] dur=24.0s hot=19/25 dino_peak=0.28 scene=sink:23,stove:2  iid=baby_carrots_20260317
+  [1316.9-1329.9s] dur=13.0s hot=12/14 dino_peak=0.28 scene=stove:8,unk:5  iid=baby_carrots_20260317
+  [1411.9-1413.9s] dur= 2.0s hot=3/3 dino_peak=0.27 scene=unk:3  iid=baby_carrots_20260317
+
+### "Chobani Vanilla Greek Yogurt" (iids: chobani_vanilla_greek_yogurt_20260318; [opaque]; pkg=900g, unit=g)
+  [ 626.3- 629.3s] dur= 3.0s hot=4/4 dino_peak=0.36 scene=sink:2,storage:1  iid=chobani_vanilla_greek_yogurt_20260318
+  [ 725.7- 731.7s] dur= 6.0s hot=7/7 dino_peak=0.47 scene=sink:6,unk:1  iid=chobani_vanilla_greek_yogurt_20260318
+  [ 734.7- 740.7s] dur= 6.0s hot=7/7 dino_peak=0.48 scene=sink:6,unk:1  iid=chobani_vanilla_greek_yogurt_20260318
+  [ 744.7- 756.7s] dur=12.0s hot=13/13 dino_peak=0.49 scene=sink:8,unk:5  iid=chobani_vanilla_greek_yogurt_20260318
+
+### "garlic" (iids: garlic_20260310; [transparent]; pkg=90g, unit=g)
+  [ 863.8- 880.8s] dur=17.0s hot=15/18 dino_peak=0.41 scene=unk:15  iid=garlic_20260310
+  [ 883.8- 898.7s] dur=15.0s hot=15/16 dino_peak=0.45 scene=unk:16  iid=garlic_20260310
+
+### "Green Onions" (iids: green_onions_20260317; [transparent]; pkg=80g, unit=g)
+  [ 318.9- 344.9s] dur=26.0s hot=24/27 dino_peak=0.67 scene=sink:15,storage:5,unk:3  iid=green_onions_20260317
+  [ 347.9- 369.9s] dur=22.0s hot=22/23 dino_peak=0.52 scene=storage:4,sink:2,unk:17  iid=green_onions_20260317
+  [ 456.1- 460.1s] dur= 4.0s hot=4/5 dino_peak=0.34 scene=sink:3,unk:2  iid=green_onions_20260317
+  [ 470.1- 472.1s] dur= 2.0s hot=2/3 dino_peak=0.26 scene=stove:2,unk:1  iid=green_onions_20260317
+  [ 477.1- 479.1s] dur= 2.0s hot=3/3 dino_peak=0.34 scene=sink:1,unk:2  iid=green_onions_20260317
+  [ 819.8- 821.8s] dur= 2.0s hot=3/3 dino_peak=0.18 scene=storage:2,unk:1  iid=green_onions_20260317
+  [ 824.8- 827.8s] dur= 3.0s hot=3/4 dino_peak=0.16 scene=storage:1,unk:2  iid=green_onions_20260317
+  [ 850.8- 853.8s] dur= 3.0s hot=3/4 dino_peak=0.36 scene=unk:3  iid=green_onions_20260317
+  [ 861.8- 863.8s] dur= 2.0s hot=2/3 dino_peak=0.43 scene=unk:2  iid=green_onions_20260317
+  [ 866.8- 870.8s] dur= 4.0s hot=5/5 dino_peak=0.45 scene=unk:5  iid=green_onions_20260317
+  [ 884.8- 886.8s] dur= 2.0s hot=3/3 dino_peak=0.32 scene=unk:3  iid=green_onions_20260317
+  [ 890.7- 897.7s] dur= 7.0s hot=8/8 dino_peak=0.32 scene=unk:8  iid=green_onions_20260317
+  [1171.2-1190.2s] dur=19.0s hot=20/20 dino_peak=0.49 scene=stove:16,unk:4  iid=green_onions_20260317
+
+### "Ground Beef" (iids: ground_beef_20260317; [transparent]; pkg=454g, unit=g)
+  [ 166.8- 168.7s] dur= 2.0s hot=3/3 dino_peak=0.74 scene=storage:2,stove:1  iid=ground_beef_20260317
+  [ 171.7- 178.7s] dur= 7.0s hot=7/8 dino_peak=0.77 scene=sink:2,unk:6  iid=ground_beef_20260317
+  [ 188.7- 194.7s] dur= 6.0s hot=5/7 dino_peak=0.81 scene=sink:1,unk:5  iid=ground_beef_20260317
+  [ 226.9- 233.9s] dur= 7.0s hot=7/8 dino_peak=0.75 scene=sink:2,storage:1,unk:5  iid=ground_beef_20260317
+  [ 325.9- 330.9s] dur= 5.0s hot=6/6 dino_peak=0.71 scene=storage:5,sink:1  iid=ground_beef_20260317
+  [ 340.9- 342.9s] dur= 2.0s hot=2/3 dino_peak=0.45 scene=stove:1,unk:2  iid=ground_beef_20260317
+  [ 354.9- 358.9s] dur= 4.0s hot=4/5 dino_peak=0.33 scene=unk:5  iid=ground_beef_20260317
+  [ 467.1- 469.1s] dur= 2.0s hot=2/3 dino_peak=0.67 scene=sink:1,unk:1  iid=ground_beef_20260317
+  [ 558.3- 563.3s] dur= 5.0s hot=6/6 dino_peak=0.88 scene=sink:4,storage:1,unk:1  iid=ground_beef_20260317
+  [ 601.3- 603.3s] dur= 2.0s hot=2/3 dino_peak=0.65 scene=sink:1,unk:1  iid=ground_beef_20260317
+  [ 612.3- 616.3s] dur= 4.0s hot=4/5 dino_peak=0.82 scene=sink:3,unk:1  iid=ground_beef_20260317
+  [ 635.7- 640.7s] dur= 5.0s hot=5/6 dino_peak=0.77 scene=stove:2,sink:1,unk:3  iid=ground_beef_20260317
+  [ 654.7- 660.7s] dur= 6.0s hot=7/7 dino_peak=0.85 scene=sink:2,unk:5  iid=ground_beef_20260317
+  [ 663.7- 689.7s] dur=26.0s hot=25/27 dino_peak=0.86 scene=stove:24,unk:1  iid=ground_beef_20260317
+  [ 693.7- 719.7s] dur=26.0s hot=26/27 dino_peak=0.85 scene=sink:19,stove:4,unk:1  iid=ground_beef_20260317
+  [ 769.7- 775.7s] dur= 6.0s hot=7/7 dino_peak=0.56 scene=stove:6,unk:1  iid=ground_beef_20260317
+  [ 781.7- 809.7s] dur=28.0s hot=29/29 dino_peak=0.42 scene=stove:23,unk:6  iid=ground_beef_20260317
+
+### "Hidden Valley Ranch Dressing" (iids: hidden_valley_ranch_dressing_20260317; [opaque]; pkg=473g, unit=g)
+  [ 969.2- 986.2s] dur=17.0s hot=16/18 dino_peak=0.49 scene=sink:10,unk:8  iid=hidden_valley_ranch_dressing_20260317
+
+### "Kashi Peanut Butter Cereal" (iids: kashi_peanut_butter_cereal_20260317; [opaque]; pkg=479g, unit=g)
+  [  30.9-  35.8s] dur= 4.8s hot=5/6 dino_peak=0.23 scene=sink:3,unk:3  iid=kashi_peanut_butter_cereal_20260317
+  [  41.6-  43.5s] dur= 1.9s hot=3/3 dino_peak=0.17 scene=sink:1,unk:2  iid=kashi_peanut_butter_cereal_20260317
+
+### "Kimchi" (iids: kimchi_20260310; [transparent]; pkg=419g, unit=g)
+  [1378.9-1396.9s] dur=18.0s hot=19/19 dino_peak=0.67 scene=sink:13,stove:3,unk:3  iid=kimchi_20260310
+
+### "Large White Eggs" (iids: large_white_eggs_20260310; [transparent]; pkg=60 count, unit=ct)
+  [ 608.3- 611.3s] dur= 3.0s hot=4/4 dino_peak=0.18 scene=sink:4  iid=large_white_eggs_20260310
+  [ 633.7- 636.7s] dur= 3.0s hot=3/4 dino_peak=0.21 scene=stove:2,unk:1  iid=large_white_eggs_20260310
+  [ 650.7- 653.7s] dur= 3.0s hot=3/4 dino_peak=0.16 scene=sink:2,unk:1  iid=large_white_eggs_20260310
+
+### "Napa Cabbage" (iids: napa_cabbage_20260310; [transparent]; pkg=724g, unit=g)
+  [1380.9-1392.9s] dur=12.0s hot=13/13 dino_peak=0.42 scene=sink:12,unk:1  iid=napa_cabbage_20260310
+
+### "Orange Juice" (iids: orange_juice_20260317; [transparent]; pkg=1418g, unit=g)
+  [ 976.2- 979.2s] dur= 3.0s hot=4/4 dino_peak=0.24 scene=unk:4  iid=orange_juice_20260317
+  [ 982.2- 986.2s] dur= 4.0s hot=5/5 dino_peak=0.25 scene=sink:4,unk:1  iid=orange_juice_20260317
+
+### "Pink Salmon Fillets" (iids: pink_salmon_fillets_20260317; [transparent]; pkg=907g, unit=g)
+  [ 697.7- 699.7s] dur= 2.0s hot=3/3 dino_peak=0.16 scene=sink:3  iid=pink_salmon_fillets_20260317
+
+### "Plain Bagels" (iids: plain_bagels_20260317; [transparent]; pkg=6 count, unit=ct)
+  FLICKER ONLY: 3 HOI-contact hits over 221.7-650.7s (dino_peak=0.31; sample ts: 221.7, 425.1, 650.7) — no coherent segment formed under tau_dino=0.15, gap_close=2.0s, min_dur=1.5s
+
+### "Rigatoni Pasta" (iids: rigatoni_pasta_20260317; [opaque]; pkg=454g, unit=g)
+  [  26.1-  43.5s] dur=17.4s hot=19/19 dino_peak=0.95 scene=sink:8,storage:1,unk:10  iid=rigatoni_pasta_20260317
+  [ 370.1- 418.1s] dur=48.0s hot=45/49 dino_peak=0.91 scene=stove:25,sink:5,unk:14  iid=rigatoni_pasta_20260317
+  [1042.2-1048.2s] dur= 6.0s hot=5/7 dino_peak=0.63 scene=sink:4,unk:1  iid=rigatoni_pasta_20260317
+  [1052.2-1063.2s] dur=11.0s hot=10/12 dino_peak=0.68 scene=sink:6,stove:4  iid=rigatoni_pasta_20260317
+  [1068.2-1078.2s] dur=10.0s hot=11/11 dino_peak=0.67 scene=stove:11  iid=rigatoni_pasta_20260317
+  [1083.2-1085.2s] dur= 2.0s hot=3/3 dino_peak=0.68 scene=stove:3  iid=rigatoni_pasta_20260317
+  [1088.2-1100.2s] dur=12.0s hot=12/13 dino_peak=0.59 scene=stove:12,unk:1  iid=rigatoni_pasta_20260317
+  [1104.2-1134.3s] dur=30.1s hot=31/32 dino_peak=0.69 scene=stove:32  iid=rigatoni_pasta_20260317
+  [1143.3-1145.3s] dur= 2.0s hot=3/3 dino_peak=0.70 scene=stove:3  iid=rigatoni_pasta_20260317
+  [1150.2-1160.2s] dur=10.0s hot=10/11 dino_peak=0.70 scene=stove:8,unk:2  iid=rigatoni_pasta_20260317
+  [1192.2-1228.2s] dur=36.0s hot=36/37 dino_peak=0.69 scene=stove:35,unk:1  iid=rigatoni_pasta_20260317
+  [1235.2-1253.2s] dur=18.0s hot=19/19 dino_peak=0.66 scene=stove:13,unk:6  iid=rigatoni_pasta_20260317
+  [1264.2-1298.2s] dur=34.0s hot=33/35 dino_peak=0.70 scene=sink:28,stove:4,unk:1  iid=rigatoni_pasta_20260317
+  [1411.9-1413.9s] dur= 2.0s hot=3/3 dino_peak=0.58 scene=unk:3  iid=rigatoni_pasta_20260317
+
+### "Sharp Cheddar Cheese" (iids: sharp_cheddar_cheese_20260317; [opaque]; pkg=227g, unit=g)
+  [  26.1-  35.8s] dur= 9.7s hot=8/11 dino_peak=0.18 scene=sink:5,storage:1,unk:5  iid=sharp_cheddar_cheese_20260317
+  [  38.7-  43.5s] dur= 4.8s hot=5/6 dino_peak=0.25 scene=sink:1,unk:5  iid=sharp_cheddar_cheese_20260317
+  [ 170.7- 175.7s] dur= 5.0s hot=6/6 dino_peak=0.46 scene=sink:2,unk:4  iid=sharp_cheddar_cheese_20260317
+  [ 253.9- 255.9s] dur= 2.0s hot=3/3 dino_peak=0.38 scene=storage:1,unk:2  iid=sharp_cheddar_cheese_20260317
+  [ 325.9- 327.9s] dur= 2.0s hot=2/3 dino_peak=0.17 scene=storage:3  iid=sharp_cheddar_cheese_20260317
+  [ 355.9- 359.9s] dur= 4.0s hot=5/5 dino_peak=0.28 scene=unk:5  iid=sharp_cheddar_cheese_20260317
+  [ 367.9- 372.1s] dur= 4.2s hot=4/6 dino_peak=0.32 scene=storage:4,stove:2  iid=sharp_cheddar_cheese_20260317
+  [ 387.1- 389.1s] dur= 2.0s hot=3/3 dino_peak=0.17 scene=unk:3  iid=sharp_cheddar_cheese_20260317
+  [ 399.1- 403.1s] dur= 4.0s hot=4/5 dino_peak=0.16 scene=stove:5  iid=sharp_cheddar_cheese_20260317
+  [ 422.1- 424.1s] dur= 2.0s hot=3/3 dino_peak=0.21 scene=sink:1,unk:2  iid=sharp_cheddar_cheese_20260317
+  [ 432.1- 436.1s] dur= 4.0s hot=5/5 dino_peak=0.79 scene=stove:2,storage:1,unk:2  iid=sharp_cheddar_cheese_20260317
+  [ 456.1- 460.1s] dur= 4.0s hot=5/5 dino_peak=0.54 scene=sink:3,unk:2  iid=sharp_cheddar_cheese_20260317
+  [ 465.1- 496.1s] dur=31.0s hot=30/32 dino_peak=0.70 scene=sink:23,stove:2,unk:5  iid=sharp_cheddar_cheese_20260317
+  [ 536.3- 539.3s] dur= 3.0s hot=3/4 dino_peak=0.18 scene=unk:3  iid=sharp_cheddar_cheese_20260317
+  [ 603.3- 611.3s] dur= 8.0s hot=8/9 dino_peak=0.23 scene=sink:8  iid=sharp_cheddar_cheese_20260317
+  [ 631.7- 635.7s] dur= 4.0s hot=3/5 dino_peak=0.17 scene=stove:2,unk:2  iid=sharp_cheddar_cheese_20260317
+  [ 638.7- 641.7s] dur= 3.0s hot=3/4 dino_peak=0.19 scene=sink:1,unk:3  iid=sharp_cheddar_cheese_20260317
+  [ 693.7- 712.7s] dur=19.0s hot=18/20 dino_peak=0.26 scene=sink:19,stove:1  iid=sharp_cheddar_cheese_20260317
+  [ 716.7- 719.7s] dur= 3.0s hot=4/4 dino_peak=0.18 scene=storage:2,stove:1,unk:1  iid=sharp_cheddar_cheese_20260317
+  [ 737.7- 739.7s] dur= 2.0s hot=2/3 dino_peak=0.17 scene=sink:3  iid=sharp_cheddar_cheese_20260317
+  [ 750.7- 752.7s] dur= 2.0s hot=3/3 dino_peak=0.28 scene=unk:3  iid=sharp_cheddar_cheese_20260317
+  [1171.2-1190.2s] dur=19.0s hot=20/20 dino_peak=0.33 scene=stove:16,unk:4  iid=sharp_cheddar_cheese_20260317
+  [1262.2-1264.2s] dur= 2.0s hot=2/3 dino_peak=0.21 scene=stove:3  iid=sharp_cheddar_cheese_20260317
+  [1320.9-1329.9s] dur= 9.0s hot=9/10 dino_peak=0.43 scene=stove:8,unk:2  iid=sharp_cheddar_cheese_20260317
+
+### "Sour Cream" (iids: sour_cream_20260317; [opaque]; pkg=227g, unit=g)
+  [ 471.1- 477.1s] dur= 6.0s hot=7/7 dino_peak=0.21 scene=sink:3,stove:2,unk:2  iid=sour_cream_20260317
+  [ 480.1- 487.1s] dur= 7.0s hot=8/8 dino_peak=0.23 scene=sink:8  iid=sour_cream_20260317
+  [ 493.1- 495.1s] dur= 2.0s hot=3/3 dino_peak=0.20 scene=sink:3  iid=sour_cream_20260317
+  [ 626.3- 629.3s] dur= 3.0s hot=4/4 dino_peak=0.47 scene=sink:2,storage:1  iid=sour_cream_20260317
+  [ 724.7- 731.7s] dur= 7.0s hot=8/8 dino_peak=0.53 scene=sink:7,unk:1  iid=sour_cream_20260317
+  [ 734.7- 740.7s] dur= 6.0s hot=7/7 dino_peak=0.38 scene=sink:6,unk:1  iid=sour_cream_20260317
+  [ 744.7- 756.7s] dur=12.0s hot=13/13 dino_peak=0.37 scene=sink:8,unk:5  iid=sour_cream_20260317
+  [ 989.2- 995.2s] dur= 6.0s hot=6/7 dino_peak=0.17 scene=sink:4,unk:2  iid=sour_cream_20260317
+
+### "soy sauce" (iids: soy_sauce_20260310; [opaque]; pkg=575g, unit=g)
+  [ 969.2- 971.2s] dur= 2.0s hot=3/3 dino_peak=0.28 scene=sink:2,unk:1  iid=soy_sauce_20260310
+
+### "Sweet Baby Rays BBQ Sauce" (iids: sweet_baby_rays_bbq_sauce_20260317; [transparent]; pkg=510g, unit=g)
+  [ 964.2- 966.2s] dur= 2.0s hot=3/3 dino_peak=0.46 scene=sink:2,unk:1  iid=sweet_baby_rays_bbq_sauce_20260317
+  [ 969.2- 987.2s] dur=18.0s hot=19/19 dino_peak=0.81 scene=sink:11,unk:8  iid=sweet_baby_rays_bbq_sauce_20260317
+
+
+## Task
+
+### Step 1 — `observe` vs `no_observation` for each detected iid
+
+Return **one decision entry for every distinct inventory iid whose visual_class appears at least once in the Per-Item Detections section above.** Items whose visual_class never appears are NOT in the candidate set — omit them.
+
+**Duplicate iids of the same visual_class:** when two or more inventory entries share the same `visual_class`, the evidence usually cannot distinguish them. Emit `observe` for exactly ONE instance_id (the earliest trailing `YYYYMMDD` — FIFO, oldest carton consumed first), and `no_observation` for the others with reasoning citing the duplication.
+
+Default decision is `observe`. Choose `no_observation` only when you can articulate a specific reason the evidence does not reflect real use of the item (e.g. multiple short, low-DINO bursts plausibly explained by visual cross-talk against another visual_class with much stronger overlapping bursts).
+
+### Step 2 — pick `journey_samples` AND `dense_windows`
+
+Two complementary sample kinds (BOTH should be emitted for actively-used items):
+
+- **`journey_samples`** — sparse INDIVIDUAL timestamps (each yields ~1 frame) that span an item's journey through the session: retrieval from storage → transit/handling → moment it leaves the original package → return / last sighting. These give the observer CONTEXT: where the item came from, where it ended up, and whether it was actually used or just briefly handled. 3–6 timestamps per item is typical. They cost little and let the observer rule out look-alikes and confirm not-used-this-session.
+- **`dense_windows`** — short continuous bursts ([start, end], typically 3–10 s each) centred on the moments when the item LEAVES its original package (pour / scoop / squeeze / crack / cut). These are the windows where the observer reads the **stock container's fill level** (pre-dispense view, fill drop during dispense, post-dispense or put-back view).
+
+Guidelines:
+- Use EXACT `instance_id` strings in `target_items`.
+- Each entry's `target_items` lists the candidate items the observer should look for in those frames; multi-target entries are encouraged when several items share a window.
+- Spread `journey_samples` across early / middle / late so the observer gets full session context for each item.
+- Anchor `dense_windows` on the strongest evidence bursts — high DINO + HOI contact. Prefer the moment around dispensing rather than transit.
+- For items where the only useful read is the put-back / final shelf view (transparent jar, etc.), include that as a dense window.
+- An item MAY appear in multiple journey samples and multiple dense windows.
+- Every item with `decision == "observe"` MUST appear in `target_items` of at least one entry (journey OR dense).
+- Budgets: at most 24 `journey_samples` total and at most 12 `dense_windows` total across the session — stay within both, but use as many as you need for the items you're observing.
+- If every item is `no_observation`, return both lists empty.
+
+## Output Format
+
+Return ONLY JSON (no other text):
+```json
+{
+  "item_decisions": [
+    {
+      "item": "<visual_class exactly as in inventory>",
+      "instance_id": "<instance_id from inventory>",
+      "decision": "observe" | "no_observation",
+      "reasoning": "<one sentence: what in the evidence drove this decision>",
+      "confidence": "high" | "medium" | "low"
+    }
+  ],
+  "journey_samples": [
+    {
+      "t": <seconds>,
+      "target_items": ["<instance_id1>", "<instance_id2>", ...]
+    }
+  ],
+  "dense_windows": [
+    {
+      "start": <seconds>,
+      "end": <seconds>,
+      "target_items": ["<instance_id1>", "<instance_id2>", ...]
+    }
+  ]
+}
+```
+
+Rules:
+- One decision entry per distinct inventory iid whose visual_class appears in Per-Item Detections. Omit items whose visual_class never appears.
+- Use EXACT `visual_class` and `instance_id` strings from the Session Inventory section.
+- `confidence` reflects how certain you are in the decision itself.

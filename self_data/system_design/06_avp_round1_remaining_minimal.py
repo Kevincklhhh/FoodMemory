@@ -135,17 +135,31 @@ def make_observer_client(model: str):
                 "Missing GOOGLE_API_KEY — required for Gemini observer model "
                 f"'{model}'. Set GOOGLE_API_KEY or pass --model gpt-5.4."
             )
-        return genai.Client(api_key=api_key)
+        # v1alpha is required for the Gemini-3 media_resolution param. It's a
+        # superset of v1beta for our calls, so always opt in (no-op for older
+        # models that ignore the field).
+        return genai.Client(api_key=api_key, http_options={'api_version': 'v1alpha'})
     return make_client(model)
 
 
 def _observer_api_call(observer_client, model: str, prompt: str,
-                       frames_b64: list, timestamps: list) -> tuple[str, int, int]:
+                       frames_b64: list, timestamps: list,
+                       media_resolution: str | None = None,
+                       thinking_level: str | None = None,
+                       thinking_budget: int = 16384) -> tuple[str, int, int]:
     """Single observer call. Dispatches on model prefix.
 
     Returns (response_text, input_tokens, output_tokens). Per the canonical
     cost convention (project_avp_experiment_baseline.md), output_tokens
     INCLUDES reasoning/thinking tokens for both providers.
+
+    Gemini-3 controls:
+    - `media_resolution` (e.g. "media_resolution_low" = 280 tok/image) is set
+      per inline-image part. Default (None) lets Gemini pick — for image parts
+      that means media_resolution_high ≈ 1,120 tok/image, which is overkill
+      for 1 fps egocentric sweep frames.
+    - `thinking_level` ("low"/"medium"/"high"/"minimal") replaces the legacy
+      `thinking_budget`. They are mutually exclusive at the API level.
     """
     if model.startswith("gemini-"):
         from google.genai import types
@@ -153,9 +167,23 @@ def _observer_api_call(observer_client, model: str, prompt: str,
         contents = [types.Part.from_text(text=prompt)]
         for i, (fb64, ts) in enumerate(zip(frames_b64, timestamps), 1):
             contents.append(types.Part.from_text(text=f"[t={ts:.1f}s]"))
-            contents.append(types.Part.from_bytes(
-                data=_b64.b64decode(fb64), mime_type="image/jpeg",
-            ))
+            img_part: dict = {
+                "inline_data": {
+                    "mime_type": "image/jpeg",
+                    "data": _b64.b64decode(fb64),
+                }
+            }
+            if media_resolution:
+                img_part["media_resolution"] = {"level": media_resolution}
+            contents.append(img_part)
+        if thinking_level:
+            thinking_cfg = types.ThinkingConfig(
+                thinking_level=thinking_level, include_thoughts=True,
+            )
+        else:
+            thinking_cfg = types.ThinkingConfig(
+                thinking_budget=thinking_budget, include_thoughts=True,
+            )
         resp = observer_client.models.generate_content(
             model=model, contents=contents,
             config=types.GenerateContentConfig(
@@ -164,9 +192,7 @@ def _observer_api_call(observer_client, model: str, prompt: str,
                 # around 6 items mid-reasoning, leaving the JSON unparseable.
                 # 32768 is comfortable headroom and gemini-2.5-pro caps higher.
                 temperature=0.3, max_output_tokens=32768,
-                thinking_config=types.ThinkingConfig(
-                    thinking_budget=16384, include_thoughts=True,
-                ),
+                thinking_config=thinking_cfg,
             ),
         )
         # Strip thought parts from the user-visible response; keep all parts
@@ -174,7 +200,7 @@ def _observer_api_call(observer_client, model: str, prompt: str,
         text = ""
         if resp.candidates and resp.candidates[0].content:
             for part in resp.candidates[0].content.parts or []:
-                if hasattr(part, "thought") and part.thought:
+                if hasattr(part, "") and part.thought:
                     continue
                 text += (part.text or "")
         um = resp.usage_metadata
@@ -936,6 +962,8 @@ def format_blocks_evidence(
     max_block_s: float | None = None,
     crosstalk_dino_ratio: float = 0.4,
     crosstalk_cov_floor: float = 0.7,
+    r1_segments: list[dict] | None = None,
+    r1_per_segment_observations: list[dict] | None = None,
 ) -> tuple[str, dict, set[str], set[str]]:
     """Activity-block counterpart to chrono / segments evidence modes.
 
@@ -965,6 +993,44 @@ def format_blocks_evidence(
         inventory_scope=inventory_scope,
     )
     owl_points = _PER_ITEM_SEGMENTS.load_owlv2_scene_points(participant, session)
+
+    # R1 observation augmentation (optional). When R2 calls this formatter
+    # we inject R1 observer per-segment notes inline under the matching
+    # block, so the planner sees DINO evidence + "what R1 already saw"
+    # in a single timeline instead of two parallel structures.
+    r1_obs_by_idx: dict[int, str] = {}
+    for e in r1_per_segment_observations or []:
+        if isinstance(e, dict) and e.get("segment_idx") is not None:
+            try:
+                r1_obs_by_idx[int(e["segment_idx"])] = str(e.get("observation", ""))
+            except (TypeError, ValueError):
+                continue
+    r1_segs_with_idx = [
+        (i + 1, seg) for i, seg in enumerate(r1_segments or [])
+        if isinstance(seg, dict)
+    ]
+
+    def _r1_obs_lines_for_block(b_start: float, b_end: float) -> list[str]:
+        out: list[str] = []
+        for idx, seg in r1_segs_with_idx:
+            s_lo = float(seg.get("start", 0))
+            s_hi = float(seg.get("end", s_lo))
+            # Treat journey samples (start==end) as a point; require it to
+            # fall within the block. For dense segments require interval
+            # overlap.
+            if s_hi == s_lo:
+                if not (b_start <= s_lo <= b_end):
+                    continue
+            else:
+                if s_hi <= b_start or s_lo >= b_end:
+                    continue
+            note = r1_obs_by_idx.get(idx, "").strip()
+            if not note:
+                continue
+            kind = seg.get("kind", "dense")
+            kind_tag = "[journey]" if kind == "journey" else "[dense]"
+            out.append(f"  ↳ R1 Seg {idx} {kind_tag}: {note}")
+        return out
 
     inv_by_iid = {inv["instance_id"]: inv for inv in inventory}
     inv_iids = set(inv_by_iid)
@@ -1099,6 +1165,7 @@ def format_blocks_evidence(
                 f"dino={slot['peak_dino']:.2f}{flicker_tag}"
             )
             n_rows_emitted += 1
+            lines.extend(_r1_obs_lines_for_block(b_start, b_end))
             lines.append("")
             continue
         # Cross-talk filter: drop sub-rows whose peak DINO is < ratio × the
@@ -1139,6 +1206,7 @@ def format_blocks_evidence(
                 f"dino={slot['peak_dino']:.2f}{flicker_tag}{ct_tag}"
             )
             n_rows_emitted += 1
+            lines.extend(_r1_obs_lines_for_block(b_start, b_end))
             lines.append("")
             continue
         ct_tag = f", -{n_filtered_in_block} cross-talk" if n_filtered_in_block else ""
@@ -1165,6 +1233,7 @@ def format_blocks_evidence(
                 f'active={active_str} cov={cov:3.0f}%{flicker_tag}'
             )
             n_rows_emitted += 1
+        lines.extend(_r1_obs_lines_for_block(b_start, b_end))
         lines.append("")
 
     stats = {
@@ -1371,7 +1440,7 @@ Return ONLY JSON (no other text):
       "item": "<visual_class exactly as in inventory>",
       "instance_id": "<instance_id from inventory>",
       "decision": "observe" | "no_observation",
-      "reasoning": "<one sentence: what in the evidence drove this decision>",
+      "reasoning": "<≤12 words for no_observation (the cross-talk/no-signal pattern); ≤25 words for observe>",
       "confidence": "high" | "medium" | "low",
       "segments": [[start1, end1], [start2, end2]]
     }}
@@ -1463,7 +1532,9 @@ return / last sighting. These give the observer CONTEXT: where the \
 item came from, where it ended up, and whether it was actually used or \
 just briefly handled. 3–6 timestamps per item is typical. They cost \
 little and let the observer rule out look-alikes and confirm \
-not-used-this-session.
+not-used-this-session. Do NOT place a journey sample for an item \
+inside any dense window that already targets that same item — the \
+dense window's frames already cover that moment.
 - **`dense_windows`** — short continuous bursts ([start, end], typically \
 3–10 s each) centred on the moments when the item LEAVES its original \
 package (pour / scoop / squeeze / crack / cut). These are the windows \
@@ -1476,9 +1547,7 @@ Guidelines:
 - Each entry's `target_items` lists the candidate items the observer \
 should look for in those frames; multi-target entries are encouraged \
 when several items share a window.
-- Spread `journey_samples` across early / middle / late so the observer \
-gets full session context for each item.
-- Anchor `dense_windows` on the strongest evidence bursts — high DINO + \
+{burst_coverage_rule}- Anchor `dense_windows` on the strongest evidence bursts — high DINO + \
 HOI contact. Prefer the moment around dispensing rather than transit.
 - For items where the only useful read is the put-back / final shelf \
 view (transparent jar, etc.), include that as a dense window.
@@ -1501,7 +1570,7 @@ Return ONLY JSON (no other text):
       "item": "<visual_class exactly as in inventory>",
       "instance_id": "<instance_id from inventory>",
       "decision": "observe" | "no_observation",
-      "reasoning": "<one sentence: what in the evidence drove this decision>",
+      "reasoning": "<≤12 words for no_observation (the cross-talk/no-signal pattern); ≤25 words for observe>",
       "confidence": "high" | "medium" | "low"
     }}
   ],
@@ -1671,6 +1740,41 @@ def build_planner_prompt(
     return prompt, ev_stats, active_vcs, active_iids
 
 
+# Three variants of the per-item allocation rule, switchable via the
+# --burst-coverage CLI arg. The choice changes which bursts the planner
+# is asked to assign journey samples to:
+#   - `off`:  v10 behaviour — only spread across early/middle/late.
+#             Cheaper output but may miss late-cooking bursts.
+#   - `all`:  v11 behaviour — one journey per strong burst per item;
+#             when an item has >3 strong bursts, prefer the late ones.
+#             Best recall on the dispense window; more journey samples.
+#   - `late`: same as `all` but the planner only allocates to LATE bursts
+#             (cooking / dispensing / put-back). Skips retrieval/prep
+#             windows entirely. Tightest on output, focuses budget on
+#             the windows where amount_remaining is most readable.
+_BURST_RULES = {
+    "off": (
+        "- Spread `journey_samples` across early / middle / late for "
+        "session context per item.\n"
+    ),
+    "all": (
+        "- **Per-item burst coverage (REQUIRED for `observe` items):** "
+        "assign ONE `journey_sample` to every strong burst of each "
+        "`observe` item; if an item has more than 3 strong bursts, "
+        "prefer the LATE ones (cooking / dispense / put-back over "
+        "retrieval).\n"
+    ),
+    "late": (
+        "- **Per-item LATE-burst coverage (REQUIRED for `observe` items):** "
+        "assign ONE `journey_sample` to every strong burst of each "
+        "`observe` item that falls in the LATE phase (cooking / dispense "
+        "/ put-back / final-shelf views). Skip retrieval / transit "
+        "bursts.\n"
+    ),
+}
+BURST_COVERAGE_CHOICES = list(_BURST_RULES)
+
+
 def build_planner_prompt_sweep_only(
     participant: str,
     session: str,
@@ -1694,6 +1798,7 @@ def build_planner_prompt_sweep_only(
     crosstalk_dino_ratio: float = 0.4,
     crosstalk_cov_floor: float = 0.7,
     sweep_budget: int = 20,
+    burst_coverage: str = "all",
 ) -> tuple[str, dict, set[str], set[str]]:
     """Build the sweep-only planner prompt. Same evidence rendering as the
     per-item planner, but the prompt asks only for `item_decisions` + a
@@ -1783,6 +1888,7 @@ def build_planner_prompt_sweep_only(
         evidence_format_note=evidence_format_note,
         journey_budget=journey_budget,
         dense_budget=dense_budget,
+        burst_coverage_rule=_BURST_RULES.get(burst_coverage, _BURST_RULES["all"]),
     )
     return prompt, ev_stats, active_vcs, active_iids
 
@@ -1825,20 +1931,18 @@ not readable: occluded? back-of-package? motion blur? out of frame?).
 
 {per_item_history}
 
-## R1 full session timeline (avoid overlap)
+## Per-Item Detections + R1 observer notes ({evidence_format_note}, unresolved items only)
 
-Below is the FULL R1 segment list (journey + dense, sorted by time) \
-with the observer's narration. Your R2 segments MUST NOT overlap any \
-R1 segment listed here. Use these notes to re-anchor: if R1 only \
-caught the retrieval frame, look LATER (during or after dispense). If \
-R1 only caught a portion-on-board view with no package, look EARLIER \
-(retrieval) or LATER (put-back).
-
-{r1_session_timeline}
-
-## Per-Item Detections ({evidence_format_note}, unresolved items only)
-Re-rendered for the still-unresolved items — this is the FULL evidence \
-pool to choose unsampled bursts from.
+Below is the full evidence pool (DINO bursts + scene tags). R1 observer \
+notes are inlined as `↳ R1 Seg N [kind]: ...` sub-lines under any block \
+whose timespan overlaps an R1 segment, so DINO evidence and "what R1 \
+already saw" are visible in ONE timeline. Use this to:
+  (a) AVOID picking R2 windows that overlap any R1 segment listed here \
+(those have a `↳ R1 Seg N: ...` line attached).
+  (b) Re-anchor: if R1 only caught the retrieval frame, look LATER \
+(during or after dispense). If R1 only caught a portion-on-board view \
+with no package, look EARLIER (retrieval) or LATER (put-back).
+  (c) Find UNSAMPLED bursts (blocks with NO `↳ R1 Seg ...` line attached).
 
 {evidence}
 
@@ -1965,32 +2069,20 @@ def _format_per_item_r1_history(
         r = sw.get("amount_remaining")
         d = sw.get("amount_derivative")
         needs = _r1_needs_str(s, r, d)
-        seg_lines: list[str] = []
-        for i, seg in enumerate(r1_segments or []):
-            tgts = seg.get("target_items", []) or []
-            if iid not in tgts:
-                continue
-            kind = seg.get("kind", "dense")
-            kind_tag = "[journey]" if kind == "journey" else "[dense]"
-            if kind == "journey" or seg.get("end") == seg.get("start"):
-                t_str = f"t={seg['start']:.1f}s"
-            else:
-                t_str = f"t={seg['start']:.1f}–{seg['end']:.1f}s"
-            obs = obs_by_idx.get(i + 1, "")
-            obs_suffix = f"  observed: {obs}" if obs else ""
-            seg_lines.append(f"      R1 Seg {i+1} {kind_tag}: {t_str}{obs_suffix}")
-        seg_block = "\n".join(seg_lines) if seg_lines else "      (no R1 segment targeted this item)"
-        ev = sw.get("evidence_frames", []) or []
-        ev_str = ", ".join(f"{float(t):.1f}s" for t in ev) if ev else "(none)"
+        # Just IDs — the augmented evidence timeline below has the per-segment
+        # observations attached to the matching DINO row, so listing them here
+        # too would double-render.
+        seg_ids = [
+            i + 1 for i, seg in enumerate(r1_segments or [])
+            if iid in (seg.get("target_items") or [])
+        ]
+        seg_str = ", ".join(str(i) for i in seg_ids) if seg_ids else "(none)"
         reasoning = (sw.get("reasoning") or "").strip()
         sections.append(
-            f'  - iid=`{iid}` "{vc}" ({unit}):\n'
-            f"      R1 amounts: starting={s}  remaining={r}  derivative={d}\n"
-            f"      needs: {needs}\n"
-            f"      R1 evidence frames: {ev_str}\n"
-            f"      R1 observer reasoning: {reasoning[:240]}\n"
-            f"      R1 segments targeting this item:\n"
-            f"{seg_block}"
+            f'  - iid=`{iid}` "{vc}" ({unit}):  '
+            f"R1 amounts: s={s} r={r} d={d}  |  needs: {needs}\n"
+            f"      R1 segs targeting this item: {seg_str}\n"
+            f"      R1 reasoning: {reasoning[:200]}"
         )
     return "\n\n".join(sections) if sections else "  (no unresolved items)"
 
@@ -2030,7 +2122,16 @@ def build_planner_prompt_round_2(
                                  journey + dense, sorted by start time).
     r1_per_segment_observations: R1 observer's per-segment narration
                                  [{segment_idx, observation}, ...].
+
+    NOTE: only `--evidence-mode blocks` injects R1 observer notes into
+    the evidence timeline (one merged view). Other modes still emit
+    DINO-only evidence, and the R2 planner has to cross-reference
+    per_item_history for what R1 saw — workable but less elegant.
     """
+    if evidence_mode != "blocks":
+        print("  [R2] WARNING: --evidence-mode != blocks; R1 observer "
+              "notes will NOT be inlined into the evidence timeline. "
+              "Use --evidence-mode blocks for the merged view.")
     if evidence_mode == "blocks":
         evidence_text, ev_stats, active_vcs, active_iids = format_blocks_evidence(
             participant, session, target_inventory, transparency_by_iid,
@@ -2041,8 +2142,12 @@ def build_planner_prompt_round_2(
             flicker_peak_score=flicker_peak_score, block_gap_close=block_gap_close,
             max_block_s=max_block_s, crosstalk_dino_ratio=crosstalk_dino_ratio,
             crosstalk_cov_floor=crosstalk_cov_floor,
+            r1_segments=r1_segments,
+            r1_per_segment_observations=r1_per_segment_observations,
         )
-        evidence_format_note = "ACTIVITY BLOCKS (filtered to round-N items)"
+        evidence_format_note = (
+            "ACTIVITY BLOCKS — R1 observer notes injected inline as `↳ R1 Seg N: ...` lines"
+        )
     elif evidence_mode == "segments":
         evidence_text, ev_stats, active_vcs, active_iids = format_per_item_segments_evidence(
             participant, session, target_inventory, transparency_by_iid,
@@ -2074,15 +2179,11 @@ def build_planner_prompt_round_2(
     per_item_history = _format_per_item_r1_history(
         target_inventory, r1_items_by_iid, r1_segments, r1_per_segment_observations,
     )
-    r1_session_timeline = _format_r1_session_timeline(
-        r1_segments, r1_per_segment_observations,
-    )
     journey_budget = max(sweep_budget * 2, sweep_budget + 6)
     dense_budget = sweep_budget
 
     prompt = PLANNER_ROUND_2_PROMPT.format(
         per_item_history=per_item_history,
-        r1_session_timeline=r1_session_timeline,
         evidence=evidence_text,
         evidence_format_note=evidence_format_note,
         journey_budget=journey_budget,
@@ -2612,80 +2713,47 @@ frames if it helps.
 
 ## Per-Item Decision
 
-For each candidate item, fill the four fields:
+Per candidate, fill: `status` ("used" if any consumption/dispensing this \
+session, else "not_used"); plus three INDEPENDENT amounts in the item's \
+unit (any subset can be filled, others null):
+- `amount_starting`: stock-package fill BEFORE dispensing (pre-dispense view).
+- `amount_remaining`: stock-package fill AFTER dispensing (post-dispense / \
+put-back / last sighting). **Most important — fill whenever possible.**
+- `amount_derivative`: amount TAKEN OUT (visible portion on plate / bowl / \
+pan / board, or pour/scoop/squeeze quantity).
 
-- **`status`** — `"used"` if the item was actually consumed in this \
-session (any visible dispensing, portion taken out, or use of the \
-contents); `"not_used"` if the item is absent OR is only visible \
-being moved / put away without any dispensing this session.
-- **`amount_starting`** — fill level of the stock container BEFORE \
-dispensing began (pre-dispense / retrieval view). Number if any frame \
-gives a readable starting fill; otherwise `null`.
-- **`amount_remaining`** — fill level of the stock container AFTER \
-dispensing (post-dispense view, put-back / storage-return frame, or \
-the last sighting if the package disappears late). Number if readable \
-in any frame; otherwise `null`. **This is the ground-truth target — \
-fill it whenever you can.**
-- **`amount_derivative`** — how much was TAKEN OUT / consumed \
-(visible portion on a plate / bowl / pan / cutting board, or amount \
-poured / scooped / squeezed during dispense). Number in the same unit \
-as the others; `null` if not estimable.
+Loose portions never count toward starting/remaining; they go to derivative.
 
-You are not forced to pick one — fill any combination of the three \
-amount fields that the frames support. They are independent \
-measurements. If only one is readable, fill that one and leave the \
-others `null`. If `status == "not_used"`, all three amounts should \
-typically be `null` (or just `amount_remaining` reflecting an \
-unchanged package fill — your call).
-
-"Remaining" / "starting" reads count only what is still inside the \
-stock container; loose portions on plates / bowls / pans / cutting \
-boards count toward `amount_derivative`, not the others.
+`reasoning`: ≤6 words per evidence frame in chronological order, joined \
+by " → ". Do NOT restate timestamps. Example: "Bag full → portion on \
+board → late shelf view".
 
 ## Per-Segment Narrative
 
-In addition to the per-item decisions, write ONE short observation per \
-segment in `per_segment_observations`. Use verbs from the action \
-vocabulary (retrieval, access / open package, dispensing / pour / \
-scoop / squeeze, visible-portion-on-board, restocking / put-away, \
-idle), name the candidate item(s) involved, and indicate the dispense \
-stage (pre / during / post / none).
+In `per_segment_observations`, one entry per segment listed above (use \
+`segment_idx` 1..N). Use action verbs (retrieval, access/open, \
+dispensing/pour/scoop/squeeze, visible-portion-on-board, \
+restocking/put-away, idle), name the candidate item(s), tag stage \
+(pre/during/post/none).
 
-## Output Format
+## Output (JSON only)
 
-Return ONLY JSON (no other text):
 ```json
 {{
   "items": [
-    {{
-      "instance_id": "<exact instance_id from candidate list>",
-      "visual_class": "<visual_class>",
-      "status": "used" | "not_used",
-      "amount_starting": <number or null>,
-      "amount_remaining": <number or null>,
-      "amount_derivative": <number or null>,
-      "evidence_frames": [<timestamp values of key frames>],
-      "reasoning": "<one short sentence: which frame(s) gave each amount, and why you assigned this status>"
-    }}
+    {{"instance_id": "...", "visual_class": "...",
+      "status": "used"|"not_used",
+      "amount_starting": <num|null>, "amount_remaining": <num|null>, "amount_derivative": <num|null>,
+      "reasoning": "..."}}
   ],
   "per_segment_observations": [
-    {{
-      "segment_idx": <1-based segment number from the Sweep Segments list>,
-      "observation": "<one sentence: what is happening in this segment, which item, which stage>"
-    }}
+    {{"segment_idx": <int>, "observation": "..."}}
   ]
 }}
 ```
 
-Rules:
-- Emit one entry per candidate item. Do NOT skip any.
-- Each amount field is independent: fill any combination of starting / \
-remaining / derivative. Use `null` for ones the frames do not support.
-- `evidence_frames` should cite at least one frame when any amount is \
-filled or when `status == "used"`; can be empty for `status == "not_used"`.
-- `per_segment_observations` MUST include one entry per segment listed \
-above (use `segment_idx` 1..N matching the list). If nothing \
-meaningful happens in a segment, say so briefly.
+Emit one item per candidate (never skip). per_segment_observations must \
+cover every segment 1..N.
 """
 
 
@@ -2866,6 +2934,9 @@ def run_sweep_observer(
     frame_seg_idx: list[int],
     model: str,
     prompt_save_path: Path | None = None,
+    media_resolution: str | None = None,
+    thinking_level: str | None = None,
+    thinking_budget: int = 16384,
 ) -> tuple[str, str, dict]:
     prompt = _build_sweep_prompt(
         len(frames_b64), timestamps, candidates,
@@ -2882,6 +2953,9 @@ def run_sweep_observer(
         try:
             response_text, in_tok, out_tok = _observer_api_call(
                 client, model, prompt, frames_b64, timestamps,
+                media_resolution=media_resolution,
+                thinking_level=thinking_level,
+                thinking_budget=thinking_budget,
             )
             stats = {
                 "inference_time_s": round(time.time() - t0, 2),
@@ -2928,20 +3002,40 @@ def parse_sweep_response(response_text: str) -> tuple[list[dict], list[dict]]:
     empty if the observer omits the field.
     """
     parsed = None
-    fence = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", response_text, re.DOTALL)
-    if fence:
-        try:
-            parsed = json.loads(fence.group(1))
-        except json.JSONDecodeError:
-            parsed = None
-
-    if parsed is None:
+    # Some models (notably gemini-3.1-pro) occasionally emit TWO ```json blocks
+    # back-to-back in one response — the first is partial/aborted, the second
+    # is the real one. A naive regex spanning the first ``` to the last ```
+    # captures both and yields invalid JSON, so walk each ```json marker and
+    # parse its content up to the next ``` independently. Prefer the candidate
+    # that yields a non-empty `items` array; fall back to any valid dict.
+    candidates: list[str] = []
+    for m in re.finditer(r"```(?:json)?\s*\n", response_text):
+        body_start = m.end()
+        end = response_text.find("```", body_start)
+        body = response_text[body_start:end].strip() if end > 0 else response_text[body_start:].strip()
+        if body:
+            candidates.append(body)
+    # Last-ditch: any {...} containing "items".
+    if not candidates:
         obj_match = re.search(r"\{.*\"items\".*\}", response_text, re.DOTALL)
         if obj_match:
-            try:
-                parsed = json.loads(obj_match.group())
-            except json.JSONDecodeError:
-                parsed = None
+            candidates.append(obj_match.group())
+    # Try every candidate; prefer one with a non-empty items array.
+    fallback = None
+    for body in reversed(candidates):
+        try:
+            j = json.loads(body)
+        except json.JSONDecodeError:
+            continue
+        if not isinstance(j, dict):
+            continue
+        if j.get("items"):
+            parsed = j
+            break
+        if fallback is None:
+            fallback = j
+    if parsed is None:
+        parsed = fallback
 
     if not isinstance(parsed, dict):
         return [], []
@@ -2970,7 +3064,6 @@ def parse_sweep_response(response_text: str) -> tuple[list[dict], list[dict]]:
             "amount_starting": _to_float(it.get("amount_starting")),
             "amount_remaining": _to_float(it.get("amount_remaining")),
             "amount_derivative": _to_float(it.get("amount_derivative")),
-            "evidence_frames": it.get("evidence_frames", []),
             "reasoning": it.get("reasoning", ""),
         })
 
@@ -3026,75 +3119,46 @@ what `needs:` to be filled by THIS round.
 
 ## Per-Item Decision
 
-Output the same 4-field schema as R1, with the same independent-amount \
-rules:
+Same 4-field schema as R1: `status` ("used"|"not_used"), plus \
+INDEPENDENT amounts `amount_starting` (pre-dispense fill), \
+`amount_remaining` (post-dispense fill — MOST IMPORTANT), \
+`amount_derivative` (taken-out delta). Fill any subset; null otherwise. \
+Loose portions go to derivative, not starting/remaining.
 
-- **`status`** — keep `"used"` (R1's confirmed state) unless the new \
-frames clearly contradict it.
-- **`amount_starting`** — fill level of the stock package BEFORE \
-dispensing began. Number if any new frame gives a readable starting \
-fill; otherwise `null`.
-- **`amount_remaining`** — fill level of the stock package AFTER \
-dispensing (post-dispense view, put-back / storage-return frame, \
-late visibility). Number if readable in any new frame; otherwise \
-`null`. **This is the most important field — fill it whenever you can.**
-- **`amount_derivative`** — how much was TAKEN OUT / consumed (visible \
-portion on a plate / bowl / pan / cutting board, or amount poured / \
-scooped / squeezed). Number if estimable from the new frames; \
-otherwise `null`.
+Per the candidate `needs:` line, prioritise filling the missing \
+field(s) — the script keeps R1's value for any field you leave null \
+and merges in only the gap-fills. Keep `status: used` unless the new \
+frames clearly contradict it (then flip to `not_used`).
 
-You are NOT required to fill the same field R1 filled — you may fill \
-the same field again if you have a better read, or fill a different \
-field entirely. The script will merge per-field, preferring R1's value \
-when it is set.
-
-"Remaining" / "starting" reads count only what is still inside the \
-stock container; loose portions on plates / bowls / pans / cutting \
-boards count toward `amount_derivative`, not the others.
+`reasoning`: ≤6 words per evidence frame in chronological order, \
+joined by " → ". Do NOT restate timestamps.
 
 ## Per-Segment Narrative
 
-Write ONE short observation per segment in `per_segment_observations`. \
-Use verbs from the action vocabulary (retrieval, access / open \
-package, dispensing / pour / scoop / squeeze, visible-portion-on-board, \
-restocking / put-away, idle), name the candidate item(s), and indicate \
-the dispense stage (pre / during / post / none).
+In `per_segment_observations`, one entry per R2 segment listed above \
+(use `segment_idx` 1..N). Use action verbs (retrieval, access/open, \
+dispensing/pour/scoop/squeeze, visible-portion-on-board, \
+restocking/put-away, idle), name the candidate item(s), tag stage \
+(pre/during/post/none).
 
-## Output Format
+## Output (JSON only)
 
-Return ONLY JSON (no other text):
 ```json
 {{
   "items": [
-    {{
-      "instance_id": "<exact instance_id>",
-      "visual_class": "<visual_class>",
-      "status": "used" | "not_used",
-      "amount_starting": <number or null>,
-      "amount_remaining": <number or null>,
-      "amount_derivative": <number or null>,
-      "evidence_frames": [<timestamp values of key frames>],
-      "reasoning": "<one short sentence: which frame(s) gave each amount, and which gap from R1 you filled>"
-    }}
+    {{"instance_id": "...", "visual_class": "...",
+      "status": "used"|"not_used",
+      "amount_starting": <num|null>, "amount_remaining": <num|null>, "amount_derivative": <num|null>,
+      "reasoning": "..."}}
   ],
   "per_segment_observations": [
-    {{
-      "segment_idx": <1-based segment number from the Sweep Segments list>,
-      "observation": "<one sentence: what is happening in this segment, which item, which stage>"
-    }}
+    {{"segment_idx": <int>, "observation": "..."}}
   ]
 }}
 ```
 
-Rules:
-- Emit one entry per candidate item. Do NOT skip any.
-- Each amount field is independent: fill any combination of starting / \
-remaining / derivative. Use `null` for ones the new frames do not \
-support. (The script keeps R1's value for any field you leave null.)
-- `evidence_frames` should cite at least one frame when any amount is \
-filled; can be empty if no new fill could be read.
-- `per_segment_observations` MUST include one entry per R2 segment \
-listed above (use `segment_idx` 1..N).
+Emit one item per candidate (never skip). per_segment_observations must \
+cover every R2 segment 1..N.
 """
 
 
@@ -3185,6 +3249,9 @@ def run_sweep_observer_round_2(
     r1_items_by_iid: dict[str, dict],
     model: str,
     prompt_save_path: Path | None = None,
+    media_resolution: str | None = None,
+    thinking_level: str | None = None,
+    thinking_budget: int = 16384,
 ) -> tuple[str, str, dict]:
     prompt = _build_sweep_prompt_round_2(
         len(frames_b64), timestamps, candidates,
@@ -3202,6 +3269,9 @@ def run_sweep_observer_round_2(
         try:
             response_text, in_tok, out_tok = _observer_api_call(
                 client, model, prompt, frames_b64, timestamps,
+                media_resolution=media_resolution,
+                thinking_level=thinking_level,
+                thinking_budget=thinking_budget,
             )
             stats = {
                 "inference_time_s": round(time.time() - t0, 2),
@@ -3277,6 +3347,10 @@ def process_session(
     enable_per_item_observer: bool = False,
     rounds: int = 1,
     sweep_budget_r2: int = 8,
+    burst_coverage: str = "all",
+    media_resolution: str | None = None,
+    thinking_level: str | None = None,
+    thinking_budget: int = 16384,
 ) -> tuple[list[dict], dict]:
     session_log: dict = {
         "session": session, "planner": {}, "sweep": {},
@@ -3370,6 +3444,7 @@ def process_session(
             crosstalk_dino_ratio=crosstalk_dino_ratio,
             crosstalk_cov_floor=crosstalk_cov_floor,
             sweep_budget=sweep_budget,
+            burst_coverage=burst_coverage,
         )
         print(f"  Evidence ({evidence_mode}): {ev_stats['n_items_emitted']} items with hits "
               f"({ev_stats['n_rows_emitted']} rows across {ev_stats['n_hoi_frames_total']} HOI frames)")
@@ -3495,6 +3570,8 @@ def process_session(
         frame_seg_idx=frame_seg_idx,
         model=model,
         prompt_save_path=cache_dir / "sweep_prompt.txt",
+        media_resolution=media_resolution,
+        thinking_level=thinking_level,
     )
     (cache_dir / "sweep_response.txt").write_text(sweep_text or "")
     sweep_items, sweep_per_seg = parse_sweep_response(sweep_text)
@@ -3690,6 +3767,9 @@ def process_session(
                         r1_items_by_iid=sweep_by_iid,
                         model=model,
                         prompt_save_path=cache_dir / "sweep_r2_prompt.txt",
+                        media_resolution=media_resolution,
+                        thinking_level=thinking_level,
+                        thinking_budget=thinking_budget,
                     )
                     (cache_dir / "sweep_r2_response.txt").write_text(r2_text or "")
                     r2_items, r2_per_seg = parse_sweep_response(r2_text)
@@ -3715,8 +3795,8 @@ def process_session(
 
                     # ── Per-field merge: R1 wins for any field already filled;
                     # R2 fills nulls. Status stays at R1's "used" unless R2
-                    # explicitly returns "not_used" (rare). evidence_frames
-                    # and reasoning are concatenated with an R2: prefix.
+                    # explicitly returns "not_used" (rare). R2 reasoning is
+                    # carried separately for transparency.
                     filled_count = 0
                     for iid in unresolved_iids:
                         r2_sw = r2_by_iid.get(iid)
@@ -3729,8 +3809,6 @@ def process_session(
                             if merged.get(fld) is None and r2_sw.get(fld) is not None:
                                 merged[fld] = r2_sw.get(fld)
                                 gained_fields.append(fld)
-                        # Carry R2 evidence frames forward separately for transparency.
-                        merged["evidence_frames_r2"] = r2_sw.get("evidence_frames", [])
                         merged["reasoning_r2"] = r2_sw.get("reasoning", "")
                         # Allow a clear contradiction to flip status.
                         if r2_sw.get("status") == "not_used":
@@ -3806,7 +3884,7 @@ def process_session(
             "status": status,
             "round_source": f"r{round_src}",
             "reasoning": sw.get("reasoning", ""),
-            "evidence_frames": sw.get("evidence_frames", []),
+            "reasoning_r2": sw.get("reasoning_r2", ""),
             "planner_reasoning": planner_entry.get("reasoning", ""),
             "planner_confidence": planner_entry.get("confidence", ""),
             "sweep_frame_timestamps": sweep_frame_ts,
@@ -3837,6 +3915,8 @@ def main():
                         help="Short label for this run (e.g. 'minimal_v1').")
     group = parser.add_mutually_exclusive_group()
     group.add_argument("--session", help="Single session")
+    group.add_argument("--sessions",
+                       help="Comma-separated list of sessions.")
     group.add_argument("--all", action="store_true", help="All sessions")
     parser.add_argument("--model", default="gemini-2.5-pro",
                         help="Observer model (planner always uses gpt-5.4). "
@@ -3934,6 +4014,42 @@ def main():
                         help="Cap on the number of segments each round-N "
                              "dispensal-window planner (N>=2) may emit. "
                              "Same budget applies to all replan rounds.")
+    parser.add_argument(
+        "--burst-coverage", choices=BURST_COVERAGE_CHOICES, default="all",
+        help="R1 planner journey-allocation rule. "
+             "`all` (default): one journey_sample per strong burst per "
+             "`observe` item; if >3 strong bursts, prefers late ones. "
+             "`late`: only allocate to LATE bursts (cooking / dispense / "
+             "put-back); skip retrieval/prep entirely — tightest output, "
+             "best for sessions where amount_remaining lives in late "
+             "windows. "
+             "`off`: v10 behaviour, only spread early/middle/late for "
+             "context with no per-item burst guarantee — cheapest, may "
+             "miss late-cooking bursts.",
+    )
+    parser.add_argument(
+        "--media-resolution",
+        choices=["media_resolution_low", "media_resolution_medium",
+                 "media_resolution_high", "media_resolution_ultra_high"],
+        help="Gemini-3 per-image token allocation for sweep frames. "
+             "Images: low=280, medium=560, high=1120 (default for images). "
+             "For 1 fps egocentric kitchen frames, `media_resolution_low` "
+             "(280 tok/image) is recommended — matches the LB whole-video "
+             "rate at media_resolution_high (also 280 tok/frame for video) "
+             "for apples-to-apples cost comparison.",
+    )
+    parser.add_argument(
+        "--thinking-level",
+        choices=["minimal", "low", "medium", "high"],
+        help="Gemini-3 thinking depth for the observer. Mutually exclusive "
+             "with --thinking-budget; if both are passed, thinking_level wins.",
+    )
+    parser.add_argument(
+        "--thinking-budget", type=int, default=16384,
+        help="Cap on thinking tokens per Gemini observer call (default 16384). "
+             "Pass 8192 to match the LB run for symmetric reasoning-load comparison. "
+             "Ignored when --thinking-level is set.",
+    )
     args = parser.parse_args()
 
     if args.planner_only and args.observer_only:
@@ -3943,6 +4059,7 @@ def main():
 
     sessions = (
         [args.session] if args.session
+        else [s.strip() for s in args.sessions.split(",") if s.strip()] if args.sessions
         else get_sessions(args.participant) if args.all
         else get_sessions(args.participant)
     )
@@ -4043,6 +4160,10 @@ def main():
                 enable_per_item_observer=args.enable_per_item_observer,
                 rounds=args.rounds,
                 sweep_budget_r2=args.sweep_budget_r2,
+                burst_coverage=args.burst_coverage,
+                media_resolution=args.media_resolution,
+                thinking_level=args.thinking_level,
+                thinking_budget=args.thinking_budget,
             )
         except KeyboardInterrupt:
             raise

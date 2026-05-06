@@ -732,8 +732,26 @@ function normalizePrediction(pred) {
     session:              pred.session,
     instance_id:          pred.instance_id,
     item:                 pred.item,
-    amount_used:          pred.amount_used ?? null,
+    amount_used:          pred.amount_used ?? pred.amount_derivative ?? null,
     amount_remaining:     pred.amount_remaining ?? null,
+    // Sweep schema (06_avp_round1_remaining_minimal_r2free*.py): independent
+    // start/remain/derivative triple + the round 1/2 frame citations the
+    // observer attaches to start/remain. Frame-citations are seconds in
+    // session-cumulative time and may be null when the observer didn't
+    // ground the value in a single frame (e.g. computed_remaining).
+    amount_starting:          pred.amount_starting ?? null,
+    amount_derivative:        pred.amount_derivative ?? null,
+    amount_kind:              pred.amount_kind ?? null,
+    amount_starting_frame:    pred.amount_starting_frame ?? null,
+    amount_remaining_frame:   pred.amount_remaining_frame ?? null,
+    amount_derivative_frame:  pred.amount_derivative_frame ?? null,
+    // Sweep r2free evframe schema: per-amount evidence strings of form
+    // `t=<sec>s` or `t=<lo>s..<hi>s` plus optional ≤6-word caption.
+    // Non-null iff the corresponding amount is non-null. The annotator's
+    // parseEvidence helper extracts the first timestamp for the seek target.
+    amount_starting_evidence:    pred.amount_starting_evidence ?? null,
+    amount_remaining_evidence:   pred.amount_remaining_evidence ?? null,
+    amount_derivative_evidence:  pred.amount_derivative_evidence ?? null,
     // Unified: AVP calls them evidence_frames, others use evidence_timestamps
     evidence_timestamps:  pred.evidence_timestamps || pred.evidence_frames || [],
     segments,
@@ -773,7 +791,10 @@ function flattenStats(stats) {
 // ---------------------------------------------------------------------------
 
 function loadSessionReasoning(entry, participant, session) {
-  const result = { thinking: null, prompt: null, activity_summary: null, stats: null };
+  const result = {
+    thinking: null, prompt: null, activity_summary: null, stats: null,
+    raw_blocks: [],
+  };
 
   if (entry.pipeline === 'wholevideo') {
     const sessionDir = path.join(entry.cacheDir, participant, session);
@@ -784,6 +805,8 @@ function loadSessionReasoning(entry, participant, session) {
         result.thinking = log.thinking || null;
         result.prompt = log.prompt || null;
         result.stats = log.stats || null;
+        if (log.prompt) result.raw_blocks.push({ label: 'Prompt', text: log.prompt });
+        if (log.thinking) result.raw_blocks.push({ label: 'Response', text: log.thinking });
       } catch (e) { /* ignore */ }
     }
   } else if ((entry.pipeline === 'avp' || entry.pipeline === 'iterative') && entry.plannerFile) {
@@ -793,24 +816,49 @@ function loadSessionReasoning(entry, participant, session) {
       participantDir(participant), 'outputs', session,
       path.basename(entry.plannerFile)
     );
-    let sessPlanner = null;
+    let sessLog = null;
     if (fs.existsSync(sessPlannerPath)) {
       try {
         const sd = JSON.parse(fs.readFileSync(sessPlannerPath, 'utf-8'));
-        sessPlanner = (sd.session && sd.session.planner) || null;
+        sessLog = sd.session || sd || null;
       } catch (e) { /* ignore */ }
     }
-    if (!sessPlanner && fs.existsSync(entry.plannerFile)) {
+    if (!sessLog && fs.existsSync(entry.plannerFile)) {
       try {
         const plannerData = JSON.parse(fs.readFileSync(entry.plannerFile, 'utf-8'));
-        const sessLog = (plannerData.sessions || []).find(s => s.session === session);
-        sessPlanner = sessLog?.planner || null;
+        sessLog = (plannerData.sessions || []).find(s => s.session === session) || null;
       } catch (e) { /* ignore */ }
     }
+    const sessPlanner = sessLog?.planner || null;
     if (sessPlanner) {
       result.prompt = sessPlanner.prompt || null;
       result.activity_summary = sessPlanner.activity_summary || null;
       result.stats = sessPlanner.stats || null;
+    }
+    if (sessLog) {
+      const blocks = [
+        ['R1 Planner Prompt',   sessLog.planner?.prompt],
+        ['R1 Planner Response', sessLog.planner?.raw_response],
+        ['R1 Observer Prompt',  sessLog.sweep?.prompt],
+        ['R1 Observer Response',sessLog.sweep?.raw_response],
+        ['R2 Planner Prompt',   sessLog.planner_r2?.prompt],
+        ['R2 Planner Response', sessLog.planner_r2?.raw_response],
+        ['R2 Observer Prompt',  sessLog.sweep_r2?.prompt],
+        ['R2 Observer Response',sessLog.sweep_r2?.raw_response],
+      ];
+      for (const [label, text] of blocks) {
+        if (text) result.raw_blocks.push({ label, text });
+      }
+      // Iterative rounds ≥3
+      const rounds = sessLog.rounds || [];
+      for (let i = 0; i < rounds.length; i++) {
+        const r = rounds[i];
+        const rn = r?.sweep?.stats?.round || (3 + i);
+        if (r?.planner?.prompt)        result.raw_blocks.push({ label: `R${rn} Planner Prompt`,   text: r.planner.prompt });
+        if (r?.planner?.raw_response)  result.raw_blocks.push({ label: `R${rn} Planner Response`, text: r.planner.raw_response });
+        if (r?.sweep?.prompt)          result.raw_blocks.push({ label: `R${rn} Observer Prompt`,  text: r.sweep.prompt });
+        if (r?.sweep?.raw_response)    result.raw_blocks.push({ label: `R${rn} Observer Response`,text: r.sweep.raw_response });
+      }
     }
   }
   // baseline: no session-level reasoning (per-item only via item log)
@@ -865,6 +913,55 @@ app.get('/api/participants/:participant/amount-tags', (req, res) => {
   res.json(buildTagRegistry(req.params.participant).map(e => ({
     tag: e.tag, pipeline: e.pipeline,
   })));
+});
+
+// Sessions present in a given preds file. Used by PriorView so the session
+// dropdown only shows sessions the eval/preds file actually contains.
+app.get('/api/participants/:participant/amount-tag-sessions/:tag', (req, res) => {
+  const { participant, tag } = req.params;
+  const entry = buildTagRegistry(participant).find(r => r.tag === tag);
+  if (!entry) return res.status(404).json({ error: 'Tag not found' });
+  if (!fs.existsSync(entry.predsFile)) return res.status(404).json({ error: 'Predictions not found' });
+  const allPreds = JSON.parse(fs.readFileSync(entry.predsFile, 'utf-8'));
+  const sessionSet = new Set(allPreds.map(p => p.session).filter(Boolean));
+  res.json({ sessions: [...sessionSet].sort() });
+});
+
+// Cross-session evidence store written by 06_avp_round1_remaining_minimal_r2free_evidence_v1.py.
+// The index file is `observer_evidence_<rawTag>.json` next to the preds file,
+// where rawTag is the same string the predsTemplate uses (e.g.
+// `gemini-3.1-pro-preview_late_evon_v1`).
+app.get('/api/participants/:participant/prior-evidence/:tag', (req, res) => {
+  const { participant, tag } = req.params;
+  const entry = buildTagRegistry(participant).find(r => r.tag === tag);
+  if (!entry) return res.status(404).json({ error: 'Tag not found' });
+  // Recover rawTag from the registry entry. cacheLookupTag is set to rawTag
+  // by buildTagRegistry — the same string the predsTemplate uses, e.g.
+  // "gemini-3.1-pro-preview_late_evon_v1".
+  const rawTag = entry.cacheLookupTag || entry.tag;
+  const indexFile = path.join(
+    participantDir(participant), 'outputs',
+    `observer_evidence_${rawTag}.json`
+  );
+  if (!fs.existsSync(indexFile)) {
+    return res.status(404).json({ error: 'No prior-evidence index for this tag' });
+  }
+  res.json(JSON.parse(fs.readFileSync(indexFile, 'utf-8')));
+});
+
+// Serve a prior-evidence JPEG by its index-recorded relative path. The path
+// is rooted at `participants/<p>/outputs/`; we sandbox by re-resolving and
+// rejecting anything that escapes that directory.
+app.get('/prior-evidence-image/:participant/{*rest}', (req, res) => {
+  const segments = Array.isArray(req.params.rest) ? req.params.rest : [req.params.rest];
+  const rel = segments.join('/');
+  const baseOutputs = path.resolve(participantDir(req.params.participant), 'outputs');
+  const fp = path.resolve(baseOutputs, rel);
+  if (!fp.startsWith(baseOutputs + path.sep)) {
+    return res.status(400).send('Bad path');
+  }
+  if (!fs.existsSync(fp)) return res.status(404).send('Not found');
+  res.sendFile(fp);
 });
 
 app.get('/api/participants/:participant/sessions/:session/amount-results/:tag', (req, res) => {

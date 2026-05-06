@@ -1,0 +1,125 @@
+You are analyzing frames from an egocentric kitchen video recorded with smart glasses.
+
+These 100 frames come from 23 short SEGMENTS sampled across a single cooking session — they are NOT continuous footage. Frames were sampled in two complementary ways and are intermixed below in chronological order:
+
+- **Journey samples** — sparse INDIVIDUAL frames spanning each item's journey through the session (retrieval from storage, transit, leaving the original package, return / last sighting). They give CONTEXT: where the item came from, where it ended up, and whether it was actually used.
+- **Dense windows** — short continuous bursts of frames centred on moments when an item left its original package. Read the **stock container's fill level** here (pre-dispense view, fill drop during dispense, post-dispense or put-back view).
+
+Each segment in the list below is tagged `[journey]` or `[dense]` and lists the candidate items the planner pre-associated with it. Look at that segment's target items first; you MAY use any of the 100 frames if it helps.
+
+## Sweep Segments
+- Segment 1 [dense]: window t=26.1–34.1s, frames at t∈[25.6–33.5s]
+    target items: Rigatoni Pasta
+- Segment 2 [journey]: window t=29.5s, frame at t=29.0s
+    target items: Rigatoni Pasta
+- Segment 3 [dense]: window t=170.7–178.7s, frames at t∈[170.2–178.1s]
+    target items: Ground Beef, Baby Carrots
+- Segment 4 [journey]: window t=172.5s, frame at t=172.0s
+    target items: Ground Beef, Baby Carrots
+- Segment 5 [dense]: window t=190.7–200.7s, frames at t∈[190.2–200.1s]
+    target items: Baby Carrots, Ground Beef
+- Segment 6 [journey]: window t=256.0s, frame at t=255.5s
+    target items: Baby Carrots
+- Segment 7 [dense]: window t=318.9–328.9s, frames at t∈[318.4–328.3s]
+    target items: Green Onions, Baby Carrots
+- Segment 8 [journey]: window t=326.0s, frame at t=325.5s
+    target items: Green Onions, Baby Carrots
+- Segment 9 [dense]: window t=432.1–438.1s, frames at t∈[431.6–437.4s]
+    target items: Sharp Cheddar Cheese
+- Segment 10 [journey]: window t=434.0s, frame at t=433.5s
+    target items: Sharp Cheddar Cheese
+- Segment 11 [dense]: window t=470.1–479.1s, frames at t∈[469.6–478.5s]
+    target items: Sour Cream, Sharp Cheddar Cheese, Green Onions
+- Segment 12 [journey]: window t=483.0s, frame at t=482.5s
+    target items: Sharp Cheddar Cheese, Sour Cream
+- Segment 13 [journey]: window t=627.0s, frame at t=626.5s
+    target items: Sour Cream
+- Segment 14 [journey]: window t=667.0s, frame at t=666.5s
+    target items: Ground Beef
+- Segment 15 [dense]: window t=724.7–732.7s, frames at t∈[724.2–732.1s]
+    target items: Sour Cream
+- Segment 16 [journey]: window t=728.0s, frame at t=727.5s
+    target items: Sour Cream
+- Segment 17 [dense]: window t=866.8–876.8s, frames at t∈[866.3–876.2s]
+    target items: garlic, Green Onions
+- Segment 18 [journey]: window t=868.0s, frame at t=867.5s
+    target items: garlic, Green Onions
+- Segment 19 [dense]: window t=969.2–977.2s, frames at t∈[968.7–976.6s]
+    target items: Sweet Baby Rays BBQ Sauce
+- Segment 20 [journey]: window t=973.0s, frame at t=972.5s
+    target items: Sweet Baby Rays BBQ Sauce
+- Segment 21 [journey]: window t=1205.0s, frame at t=1204.5s
+    target items: Rigatoni Pasta, Baby Carrots, Green Onions, Sharp Cheddar Cheese
+- Segment 22 [dense]: window t=1378.9–1388.9s, frames at t∈[1378.4–1388.3s]
+    target items: Kimchi
+- Segment 23 [journey]: window t=1385.0s, frame at t=1384.5s
+    target items: Kimchi
+
+## Candidate Items
+- instance_id=`baby_carrots_20260317`  visual_class="Baby Carrots"  unit=grams  package=454g
+    segments: 3, 4, 5, 6, 7, 8, 21
+- instance_id=`garlic_20260310`  visual_class="garlic"  unit=grams  package=90g
+    segments: 17, 18
+- instance_id=`green_onions_20260317`  visual_class="Green Onions"  unit=grams  package=80g
+    segments: 7, 8, 11, 17, 18, 21
+- instance_id=`ground_beef_20260317`  visual_class="Ground Beef"  unit=grams  package=454g
+    segments: 3, 4, 5, 14
+- instance_id=`kimchi_20260310`  visual_class="Kimchi"  unit=grams  package=419g
+    segments: 22, 23
+- instance_id=`rigatoni_pasta_20260317`  visual_class="Rigatoni Pasta"  unit=grams  package=454g
+    segments: 1, 2, 21
+- instance_id=`sharp_cheddar_cheese_20260317`  visual_class="Sharp Cheddar Cheese"  unit=grams  package=227g
+    segments: 9, 10, 11, 12, 21
+- instance_id=`sour_cream_20260317`  visual_class="Sour Cream"  unit=grams  package=227g
+    segments: 11, 12, 13, 15, 16
+- instance_id=`sweet_baby_rays_bbq_sauce_20260317`  visual_class="Sweet Baby Rays BBQ Sauce"  unit=grams  package=510g
+    segments: 19, 20
+
+## Per-Item Decision
+
+For each candidate item, fill the four fields:
+
+- **`status`** — `"used"` if the item was actually consumed in this session (any visible dispensing, portion taken out, or use of the contents); `"not_used"` if the item is absent OR is only visible being moved / put away without any dispensing this session.
+- **`amount_starting`** — fill level of the stock container BEFORE dispensing began (pre-dispense / retrieval view). Number if any frame gives a readable starting fill; otherwise `null`.
+- **`amount_remaining`** — fill level of the stock container AFTER dispensing (post-dispense view, put-back / storage-return frame, or the last sighting if the package disappears late). Number if readable in any frame; otherwise `null`. **This is the ground-truth target — fill it whenever you can.**
+- **`amount_derivative`** — how much was TAKEN OUT / consumed (visible portion on a plate / bowl / pan / cutting board, or amount poured / scooped / squeezed during dispense). Number in the same unit as the others; `null` if not estimable.
+
+You are not forced to pick one — fill any combination of the three amount fields that the frames support. They are independent measurements. If only one is readable, fill that one and leave the others `null`. If `status == "not_used"`, all three amounts should typically be `null` (or just `amount_remaining` reflecting an unchanged package fill — your call).
+
+"Remaining" / "starting" reads count only what is still inside the stock container; loose portions on plates / bowls / pans / cutting boards count toward `amount_derivative`, not the others.
+
+## Per-Segment Narrative
+
+In addition to the per-item decisions, write ONE short observation per segment in `per_segment_observations`. Use verbs from the action vocabulary (retrieval, access / open package, dispensing / pour / scoop / squeeze, visible-portion-on-board, restocking / put-away, idle), name the candidate item(s) involved, and indicate the dispense stage (pre / during / post / none).
+
+## Output Format
+
+Return ONLY JSON (no other text):
+```json
+{
+  "items": [
+    {
+      "instance_id": "<exact instance_id from candidate list>",
+      "visual_class": "<visual_class>",
+      "status": "used" | "not_used",
+      "amount_starting": <number or null>,
+      "amount_remaining": <number or null>,
+      "amount_derivative": <number or null>,
+      "evidence_frames": [<timestamp values of key frames>],
+      "reasoning": "<one short sentence: which frame(s) gave each amount, and why you assigned this status>"
+    }
+  ],
+  "per_segment_observations": [
+    {
+      "segment_idx": <1-based segment number from the Sweep Segments list>,
+      "observation": "<one sentence: what is happening in this segment, which item, which stage>"
+    }
+  ]
+}
+```
+
+Rules:
+- Emit one entry per candidate item. Do NOT skip any.
+- Each amount field is independent: fill any combination of starting / remaining / derivative. Use `null` for ones the frames do not support.
+- `evidence_frames` should cite at least one frame when any amount is filled or when `status == "used"`; can be empty for `status == "not_used"`.
+- `per_segment_observations` MUST include one entry per segment listed above (use `segment_idx` 1..N matching the list). If nothing meaningful happens in a segment, say so briefly.

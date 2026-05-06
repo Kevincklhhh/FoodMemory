@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+
+\title{Food State Memory}
+\date{November 2025}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+Humans struggle with episodic memory for routine tasks, often forgetting the outcome of actions (e.g., ``Did I finish the milk?" or ``Did I add the salt?"). An effective memory assistant must go beyond recording raw video to capture and verify the persistent state of the physical world.
+
+We propose shifting the focus from transient Action Recognition (verbs) to persistent Object Transformation Indexing (nouns and states). By detecting and logging state changes (e.g., Whole $\to$ Sliced) into a Memory Knowledge Graph, we create a queryable, verifiable record of reality.
+
+We target Food as our primary domain because it unlocks high-value applications in both Long-Term Inventory (tracking leftovers/expiration) and Short-Term Procedural Assistance (recipe verification). Solving state tracking for food—the most complex object class—establishes a framework easily extensible to rigid objects.
+
+Food presents a unique ``Topological Challenge" for computer vision due to irreversible Splitting (1-to-Many) and Merging (Many-to-One) events. Standard bounding-box trackers fail to maintain identity during these transformations, leading to forgetting of food transfer quantity and food composition.
+
+We introduce the Temporal Food Graph, a dynamic data structure that models transformations as graph edges (Split, Merge, Update). This explicitly preserves the lineage of ingredients even when they become visually indistinguishable (e.g., identifying invisible ingredients merged into a batter).
+
+To enable accurate inventory management, the system must quantify consumption during "Split" or "Pour" events. We propose a State-Differential approach, guiding VLMs to estimate relative volume changes by reasoning on the visual delta between pre- and post-interaction frames.
+
+To track identity across drastic appearance changes and visual distractors, we propose  a "Working Memory" context of active items instead of a global visual search...
+
+Addressing the lack of state-centric data in current datasets (like EPIC-KITCHENS), we have constructed the Food State Benchmark. This dataset provides ground-truth annotations for fine-grained state transitions and quantity changes.
+
+\bibliographystyle{plain}
+\bibliography{references}
+\end{document}

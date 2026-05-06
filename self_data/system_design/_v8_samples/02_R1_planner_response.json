@@ -1,0 +1,295 @@
+{
+  "item_decisions": [
+    {
+      "item": "Baby Carrots",
+      "instance_id": "baby_carrots_20260317",
+      "decision": "observe",
+      "reasoning": "Many long, repeated HOI-gated bursts from storage to sink to stove, with early peaks up to 0.80, are consistent with real baby-carrot bag handling and use.",
+      "confidence": "high"
+    },
+    {
+      "item": "Chobani Vanilla Greek Yogurt",
+      "instance_id": "chobani_vanilla_greek_yogurt_20260318",
+      "decision": "no_observation",
+      "reasoning": "Its few moderate bursts align almost exactly with sour_cream_20260317 windows, so the yogurt signal is better explained as cross-talk from a similar white tub.",
+      "confidence": "medium"
+    },
+    {
+      "item": "garlic",
+      "instance_id": "garlic_20260310",
+      "decision": "observe",
+      "reasoning": "Two sustained prep-time bursts around 864-899s with moderate DINO scores suggest genuine garlic handling rather than isolated noise.",
+      "confidence": "medium"
+    },
+    {
+      "item": "Green Onions",
+      "instance_id": "green_onions_20260317",
+      "decision": "observe",
+      "reasoning": "A strong early sink/storage handling sequence and later cooking-stage bursts together fit real green-onion prep and addition.",
+      "confidence": "high"
+    },
+    {
+      "item": "Ground Beef",
+      "instance_id": "ground_beef_20260317",
+      "decision": "observe",
+      "reasoning": "Repeated long segments with very strong peaks up to 0.88 across prep and cooking make this a clear real-use signal.",
+      "confidence": "high"
+    },
+    {
+      "item": "Hidden Valley Ranch Dressing",
+      "instance_id": "hidden_valley_ranch_dressing_20260317",
+      "decision": "no_observation",
+      "reasoning": "The single mid-confidence dressing burst is fully overlapped by a much stronger Sweet Baby Rays BBQ Sauce squeeze window, making ranch more likely condiment cross-talk.",
+      "confidence": "medium"
+    },
+    {
+      "item": "Kashi Peanut Butter Cereal",
+      "instance_id": "kashi_peanut_butter_cereal_20260317",
+      "decision": "no_observation",
+      "reasoning": "Only two tiny low-score early hits occur during a dominant rigatoni-pasta box event, so this looks like box-shaped package confusion.",
+      "confidence": "high"
+    },
+    {
+      "item": "Kimchi",
+      "instance_id": "kimchi_20260310",
+      "decision": "observe",
+      "reasoning": "The late 18-second burst with a 0.67 peak is strong enough to warrant verification and is more consistent with a real kimchi serving event than random noise.",
+      "confidence": "medium"
+    },
+    {
+      "item": "Large White Eggs",
+      "instance_id": "large_white_eggs_20260310",
+      "decision": "no_observation",
+      "reasoning": "Only three very short, very low-score hits appear amid other stronger food-handling activity, which is insufficient evidence of actual egg use.",
+      "confidence": "high"
+    },
+    {
+      "item": "Napa Cabbage",
+      "instance_id": "napa_cabbage_20260310",
+      "decision": "no_observation",
+      "reasoning": "Its lone late burst sits inside a stronger overlapping kimchi event and can be explained by kimchi/napa visual similarity rather than separate cabbage use.",
+      "confidence": "medium"
+    },
+    {
+      "item": "Orange Juice",
+      "instance_id": "orange_juice_20260317",
+      "decision": "no_observation",
+      "reasoning": "The two short low-score hits occur only inside the stronger late condiment cluster, so they are more plausibly cross-talk than true orange-juice handling.",
+      "confidence": "high"
+    },
+    {
+      "item": "Pink Salmon Fillets",
+      "instance_id": "pink_salmon_fillets_20260317",
+      "decision": "no_observation",
+      "reasoning": "A single 2-second 0.16 burst is too weak and brief, and it occurs during other stronger meat-related activity.",
+      "confidence": "high"
+    },
+    {
+      "item": "Plain Bagels",
+      "instance_id": "plain_bagels_20260317",
+      "decision": "no_observation",
+      "reasoning": "This class never forms a coherent segment and only shows sparse flicker-level hits, which is not enough to justify verification.",
+      "confidence": "high"
+    },
+    {
+      "item": "Rigatoni Pasta",
+      "instance_id": "rigatoni_pasta_20260317",
+      "decision": "observe",
+      "reasoning": "A very strong early box-handling burst (peak 0.95) plus many later sustained segments indicate real rigatoni use.",
+      "confidence": "high"
+    },
+    {
+      "item": "Sharp Cheddar Cheese",
+      "instance_id": "sharp_cheddar_cheese_20260317",
+      "decision": "observe",
+      "reasoning": "Multiple sustained windows, including clear higher-confidence peaks up to 0.79, support real cheddar package handling despite some overlap with other ingredients.",
+      "confidence": "high"
+    },
+    {
+      "item": "Sour Cream",
+      "instance_id": "sour_cream_20260317",
+      "decision": "observe",
+      "reasoning": "Independent early spooning/handling windows around 471-495s make sour cream more credible than yogurt in the later overlapping tub events.",
+      "confidence": "medium"
+    },
+    {
+      "item": "soy sauce",
+      "instance_id": "soy_sauce_20260310",
+      "decision": "no_observation",
+      "reasoning": "The only detection is a 2-second low-score hit embedded in the stronger BBQ-sauce condiment burst, so soy sauce is likely incidental cross-talk.",
+      "confidence": "high"
+    },
+    {
+      "item": "Sweet Baby Rays BBQ Sauce",
+      "instance_id": "sweet_baby_rays_bbq_sauce_20260317",
+      "decision": "observe",
+      "reasoning": "A long 18-second squeeze-like burst with a strong 0.81 peak is compelling evidence of actual BBQ sauce use.",
+      "confidence": "high"
+    }
+  ],
+  "journey_samples": [
+    {
+      "t": 29.5,
+      "target_items": [
+        "rigatoni_pasta_20260317"
+      ]
+    },
+    {
+      "t": 172.5,
+      "target_items": [
+        "ground_beef_20260317",
+        "baby_carrots_20260317"
+      ]
+    },
+    {
+      "t": 256.0,
+      "target_items": [
+        "baby_carrots_20260317"
+      ]
+    },
+    {
+      "t": 326.0,
+      "target_items": [
+        "green_onions_20260317",
+        "baby_carrots_20260317"
+      ]
+    },
+    {
+      "t": 434.0,
+      "target_items": [
+        "sharp_cheddar_cheese_20260317"
+      ]
+    },
+    {
+      "t": 483.0,
+      "target_items": [
+        "sharp_cheddar_cheese_20260317",
+        "sour_cream_20260317"
+      ]
+    },
+    {
+      "t": 627.0,
+      "target_items": [
+        "sour_cream_20260317"
+      ]
+    },
+    {
+      "t": 667.0,
+      "target_items": [
+        "ground_beef_20260317"
+      ]
+    },
+    {
+      "t": 728.0,
+      "target_items": [
+        "sour_cream_20260317"
+      ]
+    },
+    {
+      "t": 868.0,
+      "target_items": [
+        "garlic_20260310",
+        "green_onions_20260317"
+      ]
+    },
+    {
+      "t": 973.0,
+      "target_items": [
+        "sweet_baby_rays_bbq_sauce_20260317"
+      ]
+    },
+    {
+      "t": 1205.0,
+      "target_items": [
+        "rigatoni_pasta_20260317",
+        "baby_carrots_20260317",
+        "green_onions_20260317",
+        "sharp_cheddar_cheese_20260317"
+      ]
+    },
+    {
+      "t": 1385.0,
+      "target_items": [
+        "kimchi_20260310"
+      ]
+    }
+  ],
+  "dense_windows": [
+    {
+      "start": 26.1,
+      "end": 34.1,
+      "target_items": [
+        "rigatoni_pasta_20260317"
+      ]
+    },
+    {
+      "start": 170.7,
+      "end": 178.7,
+      "target_items": [
+        "ground_beef_20260317",
+        "baby_carrots_20260317"
+      ]
+    },
+    {
+      "start": 190.7,
+      "end": 200.7,
+      "target_items": [
+        "baby_carrots_20260317",
+        "ground_beef_20260317"
+      ]
+    },
+    {
+      "start": 318.9,
+      "end": 328.9,
+      "target_items": [
+        "green_onions_20260317",
+        "baby_carrots_20260317"
+      ]
+    },
+    {
+      "start": 432.1,
+      "end": 438.1,
+      "target_items": [
+        "sharp_cheddar_cheese_20260317"
+      ]
+    },
+    {
+      "start": 470.1,
+      "end": 479.1,
+      "target_items": [
+        "sour_cream_20260317",
+        "sharp_cheddar_cheese_20260317",
+        "green_onions_20260317"
+      ]
+    },
+    {
+      "start": 724.7,
+      "end": 732.7,
+      "target_items": [
+        "sour_cream_20260317"
+      ]
+    },
+    {
+      "start": 866.8,
+      "end": 876.8,
+      "target_items": [
+        "garlic_20260310",
+        "green_onions_20260317"
+      ]
+    },
+    {
+      "start": 969.2,
+      "end": 977.2,
+      "target_items": [
+        "sweet_baby_rays_bbq_sauce_20260317"
+      ]
+    },
+    {
+      "start": 1378.9,
+      "end": 1388.9,
+      "target_items": [
+        "kimchi_20260310"
+      ]
+    }
+  ]
+}

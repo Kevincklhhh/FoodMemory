@@ -1,0 +1,53 @@
+{
+  "name": "iterative_pareto_v1",
+  "description": "Test set for the frame-count ↔ recall/CNPE Pareto sweep on the Iterative planner. Sessions were filtered from all annotated natural-cooking sessions by: (1) duration in [10, 30] min; (2) ≥ 5 annotated inventory items; (3) fraction of multi-use items (after > 0 in amount.txt) ≥ 0.80. Each session gives the reasoner real remaining-amount signal (not just 'fully consumed'), and enough items/duration for the loop's window-choice heuristic to matter.",
+  "created": "2026-04-24",
+  "selection_criteria": {
+    "duration_min_minutes": 10,
+    "duration_max_minutes": 30,
+    "min_items": 5,
+    "min_fraction_multi_use": 0.80
+  },
+  "tiers": {
+    "core": {
+      "description": "Primary 5-session development set. Small enough to iterate on prompts in minutes; covers short/medium/long duration and varied item-count complexity. Start here.",
+      "sessions": [
+        {"participant": "kailai", "session": "20260310-195710", "duration_min": 10.8, "n_items": 8,  "frac_multi": 1.00, "note": "Short, high-signal; Korean BBQ / rice — liquids (oil, soy, OJ) + bulk solids (cabbage, steak, rice, tofu) exercise both transparent and opaque windows."},
+        {"participant": "kailai", "session": "20260318-181229", "duration_min": 23.6, "n_items": 9,  "frac_multi": 1.00, "note": "Mid-length, 9 items, all multi-use. Dairy siblings (cheddar + sour cream) and liquid OJ stress derivative-vs-package detection."},
+        {"participant": "kailai", "session": "20260331-192433", "duration_min": 21.0, "n_items": 6,  "frac_multi": 1.00, "note": "Ground beef 51%-used + pasta + onion — strong dispensing signal for opaque packages; tomato (count=4→2) exercises count-unit logic."},
+        {"participant": "kailai", "session": "20260320-180647", "duration_min": 19.4, "n_items": 11, "frac_multi": 0.91, "note": "11-item stress test. Mix of transparent (sour cream, ranch), opaque (ground beef, mixed nuts), and one single-use (salad 100% consumed) — good for testing given_up path."},
+        {"participant": "chaoyu", "session": "20260320-185434", "duration_min": 27.3, "n_items": 5,  "frac_multi": 1.00, "note": "Cross-participant generalization. Baking session (tart shell + dairy + sugar) — different kitchen layout, different cooking pattern."}
+      ]
+    },
+    "extended": {
+      "description": "Additional 5 sessions for final evaluation once core tuning is stable. Gives a total n=10 so CNPE mean / recall are stable (~50–75 item predictions total). Run these only after prompts are frozen.",
+      "sessions": [
+        {"participant": "kailai", "session": "20260409-091803", "duration_min": 20.6, "n_items": 5,  "frac_multi": 1.00, "note": "Breakfast: cottage cheese + milk + egg + bread + oatmeal. All multi-use, low-dispense-percentage (tests fine-grained fill-line reading)."},
+        {"participant": "kailai", "session": "20260415-190510", "duration_min": 20.6, "n_items": 7,  "frac_multi": 0.88, "note": "Pasta-sauce stew. Three transparent liquids (pasta sauce, grape soda, sour cream) give dense transparent-window practice."},
+        {"participant": "kailai", "session": "20260401-190725", "duration_min": 28.2, "n_items": 5,  "frac_multi": 0.83, "note": "Longest session in set. Fewer items but long duration tests the planner's ability to pick sparse windows under frame budget pressure."},
+        {"participant": "kailai", "session": "20260320-131012", "duration_min": 10.7, "n_items": 6,  "frac_multi": 0.83, "note": "Lunch-scale session. 6 items, short; contrast anchor to the 20+ min long ones."},
+        {"participant": "chaoyu", "session": "20260319-221846", "duration_min": 24.7, "n_items": 5,  "frac_multi": 0.80, "note": "Second chaoyu session. Mushrooms + pepper + garlic + sausage — vegetable-heavy; tests bag-package reasoning."}
+      ]
+    }
+  },
+  "usage": {
+    "core_runtime_estimate": "With max_rounds=6 and frame_budget=100, each session runs ~3-8 minutes end-to-end (1 planner call per round + 1 observer call per round). Core tier ~5 sessions × 5 min ≈ 25 min wall-clock per full sweep.",
+    "extended_runtime_estimate": "Extended tier adds another ~30-40 min. Full 10-session set ~1 hour per config.",
+    "sweep_configs_suggested": [
+      {"max_rounds": 3, "frame_budget": 50,  "note": "Low-frame anchor — tests whether 3 well-chosen windows beat the single-shot CandList baseline."},
+      {"max_rounds": 5, "frame_budget": 80,  "note": "Mid point."},
+      {"max_rounds": 8, "frame_budget": 150, "note": "High-frame anchor — closer to PerItem's recall side; tests diminishing returns."}
+    ],
+    "compare_against": [
+      "06_avp_round1_remaining_CandList_HOI_PerItem.py (high-recall anchor)",
+      "06_avp_round1_remaining_CandList.py (low-frame anchor)"
+    ],
+    "metrics": [
+      "total VLM input+output tokens (planner + observer summed)",
+      "total observer frames sent (frame budget utilization)",
+      "recall (fraction of GT-annotated items with a prediction)",
+      "CNPE (mean weight-error / package-capacity over predicted items)",
+      "rounds_used distribution (planner efficiency)"
+    ]
+  }
+}

@@ -46,7 +46,7 @@
 \pagestyle{plain}
 \begin{document}
 
-\title{Food Inventory from Egocentric Kitchen Video}
+\title{Agentic Edge–Cloud Orchestration for Resource-Efficient \\ Daily Inventory Monitoring with Egocentric Video}
 
 % \author{Kailai Cui}
 % \affiliation{%
@@ -98,6 +98,7 @@ under an objective of \emph{minimizing VLM cost subject to an accuracy
 \maketitle
 
 
+\input{Latex_Ke/intro}
 
 \section{Introduction}
 \label{sec:intro}
@@ -109,7 +110,7 @@ A critical component of these applications is the ability to track object state 
 %   1. "Selective episodic state retrieval" -- emphasizes selection + memory framing; closest to Ego4D NLQ vocabulary.
 %   2. "Persistent inventory-style state tracking" -- emphasizes list-of-items setup; commits framing to inventory.
 %   3. "Long-horizon state-change retrieval over a query set" -- most descriptive, least catchy.
-Yet these VLM-based approaches have been validated predominantly in \emph{procedural settings} --- recipe execution, assembly, instruction following --- where every action advances the task and state changes saturate the timeline \cite{peddiCaptainCook4DDatasetUnderstanding2024, liBuildingEgocentricProcedural2025}. Daily memory augmentation, however, is fundamentally \emph{selective}: the user maintains a finite set of items of interest (a grocery ledger, a list of appliances, a checklist of medications) and asks about their state across long, unstructured recordings of ordinary life. In this regime, interactions with the queried items are sparse within hours of unrelated activity --- yet each interaction still demands the same heavy VLM reasoning that procedural settings rely on. This exposes a critical systems bottleneck: feeding hours of always-on video into VLMs incurs prohibitive API token costs \cite{openaiAPIPricing2026,googleGeminiAPIPricing2026} and far exceeds the context window of State-of-the-art VLMs \cite{yang2025qwen3, singh2025openaigpt5card, google2025gemini3promodelcard}, even though the task-relevant moments occupy a small fraction of the timeline. How, then, can we achieve accurate, long-horizon state retrieval over a query set without exhausting the VLM token budgets that this reasoning consumes?
+Yet these VLM-based approaches have been validated predominantly in \emph{procedural settings} --- recipe execution, assembly, instruction following --- where every action advances the task and state changes saturate the timeline \cite{peddiCaptainCook4DDatasetUnderstanding2024, liBuildingEgocentricProcedural2025}. Daily memory augmentation, however, is fundamentally \emph{selective}: the user maintains a finite set of items of interest (a grocery ledger, a list of appliances, a checklist of medications) and asks about their state across long, unstructured recordings of ordinary life. In this regime, interactions with the queried items are sparse within hours of unrelated activity --- yet each interaction still demands the same heavy VLM reasoning that procedural settings rely on. This exposes a critical systems bottleneck: feeding hours of always-on video into VLMs incurs prohibitive API token costs \cite{openaiAPIPricing2026,googleGeminiAPIPricing2026} and far exceeds the context window of State-of-the-art VLMs \cite{yang2025qwen3, singh2025openaigpt5card, google2025gemini3promodelcard}, even though the task-relevant moments occupy a small fraction of the timeline. At Gemini~3 Pro paid-tier rates~\cite{googleGeminiAPIPricing2026}, end-to-end inference on 1~fps egocentric video costs \$3.45/hour --- over \$100/household/month at one hour of daily logging. How, then, can we achieve accurate, long-horizon state retrieval over a query set without exhausting the VLM token budgets that this reasoning consumes?
 
 % Existing works on egocentric video understanding explores object state changes primarily through offline classification on trimmed video clips.
 % moscato,xxx,assembly,cooking procedural, 
@@ -188,72 +189,101 @@ We propose \sys{}, which separates inventory tracking into a \emph{locating} sta
 \section{Background and Motivation}
 \label{sec:motivation}
 
-\subsection{Observation: inventory-relevant interactions are sparse}
-\label{sec:bg-locate}
-Cooking sessions are long --- routinely tens of minutes to hours, far
-exceeding what current VLM APIs accept in a single call (on the order
-of 10~min in practice). Per-token pricing then scales roughly linearly
-in video length~\cite{openaiAPIPricing2026,googleGeminiAPIPricing2026},
-so naively streaming a session into a VLM is expensive in both cost
-and latency.
-% At the same time, inventory-relevant interactions are temporally
-% sparse: each item is only manipulated for seconds-to-tens-of-seconds
-% during retrieval, dispensing, and put-back; the rest of the session is
-% unrelated to that item's amount.
-At the same time, the moments that update the ledger --- retrieval,
-dispensing, put-back --- occupy only a small fraction of the timeline.
-\scaffold{On HD-EPIC, manipulations of inventory-relevant items account
-for roughly $X$\% of session duration (Fig.~\ref{fig:sparsity}); a
-similar density appears in EPIC-Kitchens action annotations
-[cite EPIC-Kitchens, HD-EPIC, Ego4D].}
-% Note: we frame this as 'selective' (a query set of inventory items in
-% otherwise unstructured cooking) rather than 'procedural' (every action
-% advances a single recipe, e.g. CaptainCook4D, Assembly101).
+\subsection{Related work}
+\label{sec:bg-related}
 
+\noindent\textbf{Long-form egocentric video understanding.}
+Long-horizon egocentric video understanding has been driven by
+progressively larger and more densely annotated datasets.
+Ego4D~\scaffold{[cite]},
+EPIC-Kitchens~\cite{damenRescalingEgocentricVision2022}, and
+HD-EPIC~\cite{perrettHDEPICHighlyDetailedEgocentric2025} together
+supply thousands of hours of first-person activity labeled at
+second-scale resolution with verb--noun action segments, narrations,
+and hand--object interactions. Built on these substrates, recent
+agentic VLM systems answer free-form queries over long video by
+iteratively retrieving the few answer-bearing
+frames~\scaffold{[cite VideoAgent, VideoTree, LLoVi, SeViLA]},
+decomposing what would be a single long-context VLM call into a
+planner--observer loop. We adopt the same locate-then-read
+decomposition with two adaptations to our setting: the planner is
+anchored to a fixed query set (the inventory ledger) rather than a
+free-form natural-language question, and the observer is asked to
+commit to a numerical amount per item rather than retrieve a span.
+
+\noindent\textbf{Object state-change understanding.}
+A separate strand formalises object transformations as classification,
+recognition, or graph-prediction
+targets~\cite{tateno2025learning, zameni2025moscato, ukai2025status}.
+These approaches share our goal of recovering per-item state from
+interaction, but evaluate predominantly on trimmed clips where the
+relevant interaction is already isolated; they do not confront the
+temporal selection problem that arises when the input is hours of
+unstructured cooking video. \sys{} inherits the per-item state target
+but operates on the long-video locating regime above.
+
+\noindent\textbf{Existing kitchen datasets are action-centric.}
+Quantifying either the sparsity or the displacement properties below
+requires ground-truth per-item starting and remaining amounts on
+untrimmed long-horizon recordings --- supervision that no existing
+benchmark provides. The large-scale egocentric kitchen video datasets
+cited above annotate \emph{actions} (verb--noun pairs, action
+segments, narrations) but not the persistent \emph{state} of
+inventory items across sessions. We address this gap with a new
+dataset (\S\ref{sec:dataset}).
+
+\subsection{Motivation study}
+\label{sec:bg-motivation}
+
+\noindent\textbf{The cost of running VLMs on whole videos.}
+Naively reading whole sessions into a state-of-the-art VLM is the
+obvious baseline and a useful cost reference. On a 10-session pilot
+from our dataset ($\approx$2.2 hours of 1~fps egocentric cooking
+video, 7{,}977 frames sent), end-to-end inference with
+Gemini~3.1~Pro at full visual resolution costs \$7.65 at current
+paid-tier rates~\cite{googleGeminiAPIPricing2026} --- \$3.45 per
+hour of recording, exceeding \$100/household/month at one hour of
+daily logging. The fundamental cost driver is the linear scaling of
+input tokens in video
+length~\cite{openaiAPIPricing2026,googleGeminiAPIPricing2026};
+against that scaling, the relevant evidence we want the VLM to reason
+about --- short interactions with inventory items --- is a small
+fraction of the input.
+
+\noindent\textbf{Inventory-relevant interactions are sparse.}
+Cooking sessions are long, routinely tens of minutes to hours, while
+the moments that update the ledger --- retrieval, dispensing,
+put-back --- occupy only a small fraction of the timeline.
+\scaffold{On HD-EPIC, manipulations of inventory-relevant items
+account for roughly $X$\% of session duration
+(Fig.~\ref{fig:sparsity}); EPIC-Kitchens shows comparable
+density~\cite{damenRescalingEgocentricVision2022,perrettHDEPICHighlyDetailedEgocentric2025}.}
+% Note: we frame this as 'selective' (a query set of inventory items
+% in otherwise unstructured cooking) rather than 'procedural' (every
+% action advances a single recipe, e.g. CaptainCook4D, Assembly101).
 This sparsity is what makes locate-then-read viable: lightweight CV
-signals (HOI contact, item identification, scene context) can pre-select
-the seconds in which an item is actually being touched, so an expensive
-VLM is only invoked on planner-allocated frames rather than the whole
-session.
-\scaffold{Cite long-video-understanding works that exploit similar
-locate-then-read decompositions [cite VideoAgent, VideoTree, LLoVi,
-SeViLA].}
+signals (HOI contact, item identification, scene context) can
+pre-select the seconds in which an item is actually being touched, so
+an expensive VLM is only invoked on planner-allocated frames rather
+than the whole session.
 
-\subsection{Challenge: the inventory-relevant moment may not coincide with the obvious interaction}
-\label{sec:bg-subset}
-Sparsity tells us \emph{where to look first} but not \emph{which frames
-contain the answer}. An HOI detection identifies the seconds when the
-user is in contact with an item, yet the amount-relevant evidence ---
-the moment a bottle is decanted, an egg is broken, a bag is opened ---
-is often offset from the contact peak: it can occur seconds later in
-the same window, on a return trip after an interleaved sub-task, or
-behind a hand. The inventory-changing event may even be split across
-the session (pickup at minute~3, decant at minute~8), so a single tight
-window around the contact peak misses the answer entirely.
-\scaffold{[cite agentic / iterative frame-retrieval works that converge
-on the same observation in long-video QA: VideoAgent, VideoTree, LLoVi,
-SeViLA, Goldfish].}
-
-The challenge, then, is to budget the VLM's frame reads across both
-the contact peak and its temporal context, and to revise that budget
-when the first read finds no answer. This is what motivates the
-two-stage planner in Section~\ref{sec:system}: a first pass that
-combines journey samples (sparse coverage across the item's lifecycle)
-with dense windows (concentrated reads around contact peaks), and a
-second gap-fill pass that revisits items whose remaining amount the
-first observer call could not resolve.
-
-\subsection{Existing kitchen datasets are action-centric}
-\label{sec:bg-datasets}
-\scaffold{Quantifying either the sparsity above or the displacement
-challenge requires ground-truth per-item starting and remaining amounts
-on untrimmed long-horizon recordings --- supervision that no existing
-benchmark provides. Existing large-scale egocentric kitchen video
-datasets --- EPIC-Kitchens, HD-EPIC, Ego4D, Assembly101 [cite] ---
-annotate \emph{actions} (verb--noun pairs, action segments, narrations)
-but not the persistent \emph{state} of inventory items across sessions.
-We address this gap with a new dataset
-(Section~\ref{sec:dataset}).}
+\noindent\textbf{The inventory-relevant moment is often displaced from the obvious interaction.}
+Sparsity tells us \emph{where to look first} but not \emph{which
+frames contain the answer}. An HOI detection identifies the seconds
+when the user is in contact with an item, yet the amount-relevant
+evidence --- the moment a bottle is decanted, an egg is broken, a bag
+is opened --- is often offset from the contact peak: it can occur
+seconds later in the same window, on a return trip after an
+interleaved sub-task, or behind a hand. The inventory-changing event
+may even be split across the session (pickup at minute~3, decant at
+minute~8), so a single tight window around the contact peak misses
+the answer entirely.\scaffold{ [cite agentic / iterative
+frame-retrieval works that converge on the same observation in
+long-video QA: VideoAgent, VideoTree, LLoVi, SeViLA, Goldfish].} The
+challenge, then, is to budget the VLM's frame reads across both the
+contact peak and its temporal context, and to revise that budget
+when the first read finds no answer --- exactly what motivates the
+two-stage planner in \S\ref{sec:system}.
 
 \section{Dataset Overview and Collection Progress}
 \label{sec:dataset}

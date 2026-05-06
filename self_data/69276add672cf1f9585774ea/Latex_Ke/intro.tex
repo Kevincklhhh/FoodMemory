@@ -1,0 +1,64 @@
+\section{Introduction}
+% Motivation: Why people want the daily inventory monitoring.
+% Motivation: How egocentric video captured by smartglass can help?
+% Motivation: One example to give people an imagination about the usage scenario.
+Wearable AI systems are emerging as a promising platform for augmenting human memory in everyday life. 
+%
+Imagine a user standing in a grocery store and asking their smartglasses, “Do I still have eggs at home?” 
+%
+Answering this question requires more than recognizing objects in the current scene: the assistant must recall prior observations from daily activities, retrieve the current household inventory, and reason about how that inventory has changed as items are purchased, stored, consumed, or discarded. 
+%
+Such capability could address common and consequential challenges in daily food management. 
+%
+% https://www.fda.gov/food/consumers/food-loss-and-waste
+% https://www.cdc.gov/food-safety/data-research/facts-stats/index.html
+In the United States, 30–40\% of the food supply is wasted, costing an average family of four approximately $1,500$ per year, while foodborne illness affects an estimated $48$ million people annually and causes $128,000$ hospitalizations and $3,000$ deaths \cite{}.
+
+% Limitatioin of prior arts and bottleneck challenge.
+% 1. without considering the cost of continous video understanding using VLM reasoning.
+% 2. have to use advanced VLM with long-horizon contextual memory for understanding 
+% 1. VLM reasoning cost for continuous video reocrding.
+% 2. VLM context window for continuous video understanding.
+% 3. Accuracy of the daily inventory monitoring.
+% 4. Unstable egocentric view.
+Recently, the cloud-based advanced large vision-language models (VLMs) and agentric AI has enabled powerful open-vocabulary visual understanding, making it possible to recognize diverse food items, infer object states, and answer natural-language queries about a scene \cite{tateno2025learning, zameni2025moscato,ukai2025status}.
+%
+However, enabling practical wearable memory assistance from egocentric video remains highly challenging.
+%
+A straightforward approach is to continuously stream smartglass video to a cloud VLM and ask it to summarize inventory-related observations, but such a design is difficult to deploy in daily life.
+%
+\emph{First}, continuous VLM reasoning incurs substantial inference cost.
+%
+\emph{Second}, inventory memory construction requires long-horizon reasoning to identify meaningful inventory updates.
+%
+Simply increasing the amount of video provided to a VLM is constrained by context-window limits.
+%
+\emph{Third}, egocentric video is inherently unstable, redundant, and incomplete, with frequent viewpoint changes, hand occlusions, and brief object appearances.
+%
+Consequently, continuous VLM reasoning requires a high-end, large-context VLM such as Gemini~3 Pro, yet still achieves limited inventory-monitoring accuracy.
+%
+At Gemini~3 Pro paid-tier rates~\cite{googleGeminiAPIPricing2026}, processing 1~fps egocentric video costs \$3.45 per hour, exceeding \$100 per household per month with only one hour of daily logging.
+
+% Our solution:
+% 1. selective. through the applied lens of automated kitchen food inventory tracking. 
+% Not all the video require VLM reasoning depending on the targeted goal.
+% 2. agentic edge–cloud orchestration
+% 3. 
+To resolve these challenges, our key insight is that not all egocentric video segments require expensive cloud VLM reasoning.
+%
+Only a small subset of moments involve potentially meaningful inventory changes, such as object acquisition, storage, removal, consumption, relocation, or state change.
+%
+This leads to the research question of this paper: can lightweight edge intelligence identify which egocentric video segments require VLM reasoning, thereby reducing overall token consumption while preserving or even improving daily inventory-monitoring accuracy?
+%
+This motivates a selective agentic architecture that uses lightweight edge intelligence to observe the video stream, identify candidate inventory-relevant events, maintain short-term context, and decide when cloud VLM reasoning is necessary.
+
+We present \sys{}, an agentic edge--cloud orchestration framework for resource-efficient daily inventory monitoring using egocentric video.
+%
+Through the applied lens of kitchen food inventory monitoring, \sys{} integrates lightweight edge observers, agentic event selection, cloud VLM reasoning, and structured memory updates.
+%
+Specifically, smartglasses record egocentric video stream and upload it to a household edge endpoint, such as a smartphone, home desktop, or local server.
+%
+The edge endpoint first runs lightweight computer-vision observers over the full session, producing compact, timestamped logs of inventory-relevant interactions.
+%
+An LLM-powered agent then acts as a remote planner over these logs: it decides which short video windows warrant deeper reasoning, dispatches the selected segments to a cloud VLM reasoner, and updates a structured inventory ledger.
+

@@ -209,12 +209,13 @@ more constrained notion of state than standard video QA: the system
 must answer a fixed set of item-state questions over a persistent
 inventory ledger. In our setting, the video source is a natural,
 long-horizon cooking session, and the state of interest is the food
-quantity associated with each package instance. We first define this
-task and the benchmark interface, then situate it against object
-state-change understanding, egocentric video understanding, long-form
-video retrieval systems, and egocentric kitchen benchmarks.
+quantity associated with each package instance. We first define the
+task, describe benchmark construction, and specify the evaluation
+axes, then situate the problem against object state-change
+understanding, egocentric video understanding, long-form video
+retrieval systems, and egocentric kitchen benchmarks.
 
-\subsection{Task Definition}
+\subsection{Task Definition and Benchmark Construction}
 \label{sec:bg-task}
 
 Let $V=\{f_t\}_{t=1}^{T}$ denote a natural, untrimmed egocentric
@@ -231,26 +232,28 @@ sessions, the ending ledger becomes the starting ledger for the next
 recording, so the same item instance is tracked from purchase to
 exhaustion.
 
-This formulation is fixed-query, long-horizon egocentric VQA \cite{grauman2022ego4d, perrettHDEPICHighlyDetailedEgocentric2025}: before
-reading the video, the system knows the set of questions it
+This formulation is fixed-query, long-horizon egocentric
+VQA~\cite{grauman2022ego4d, perrettHDEPICHighlyDetailedEgocentric2025}:
+before reading the video, the system knows the set of questions it
 must answer, namely whether each item $i \in L_0$ was used and how
-much of it remains, a food-quantity update to a persistent inventory ledger.
-
-\subsection{Benchmark Interface}
-\label{sec:bg-benchmark-interface}
-
-Our benchmark instantiates this task with natural household cooking
-sessions from multiple participants. Participants wear egocentric
+much of it remains. We instantiate the task with a benchmark of
+natural household cooking sessions. Participants wear egocentric
 cameras during ordinary meal preparation, register purchased items in
 a ledger with package size and reference images, and weigh each
-touched item at the start and end of a session to produce ground-truth
-starting amount, ending amount, and consumed amount. The benchmark
-therefore pairs each untrimmed session video with a participant
-ledger and per-item quantity labels. A system is evaluated by how
-accurately it updates the ledger and how much cloud VLM token cost it
-spends to do so. Section~\ref{sec:dataset} gives the full collection
-protocol after the system design, while Section~\ref{sec:evaluation}
-defines the scoring metrics and experiment matrix.
+touched item at the start and end of a session. These measurements
+produce the ground-truth starting amount, ending amount, and consumed
+amount for every touched item.
+
+The current benchmark contains recordings from \scaffold{5}
+participants, annotated ledgers from \scaffold{3} participants,
+\scaffold{29.9~h} of video, \scaffold{460} weighed consumption
+events, and \scaffold{150} tracked item instances spanning fluids,
+granular foods, solids, and discrete-count items. We evaluate a
+system by how accurately it updates the ledger and how much cloud VLM
+token cost it incurs to do so; Section~\ref{sec:evaluation} gives the
+scoring metrics and experiment matrix. Section~\ref{sec:dataset}
+provides the full collection protocol and item/lifecycle breakdowns
+after the system design.
 
 \subsection{Related Work}
 \label{sec:bg-related}

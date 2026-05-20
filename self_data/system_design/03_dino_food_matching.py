@@ -259,6 +259,7 @@ def run_session(
     batch_size: int,
     bbox_padding: float,
     ref_embed_s: float = 0.0,
+    inventory_scope: str = "full",
 ) -> Optional[Dict]:
     det_dir = hands23_dir(participant, session)
     hands23_file = list(det_dir.glob("*_hands23_results.json"))
@@ -266,7 +267,8 @@ def run_session(
         print(f"  SKIP: no hands23 results for {session}")
         return None
 
-    output_file = det_dir / f"{participant}_{session}_dino_matches.json"
+    suffix = "" if inventory_scope == "full" else f"_{inventory_scope}"
+    output_file = det_dir / f"{participant}_{session}_dino_matches{suffix}.json"
     cache_file = det_dir / f"{participant}_{session}_dino_image_embeddings.pt"
 
     print(f"\n  Loading hands23: {hands23_file[0].name}")
@@ -280,7 +282,10 @@ def run_session(
 
     # Filter references to items present in kitchen at session time
     from utils import load_full_inventory
-    inventory = load_full_inventory(participant, session)
+    inventory = load_full_inventory(
+        participant, session,
+        include_depleted=(inventory_scope == "purchased_all"),
+    )
     if inventory:
         inv_ids = {inv["instance_id"] for inv in inventory}
         sess_mask = [i for i, iid in enumerate(ref_iids) if iid in inv_ids]
@@ -309,6 +314,8 @@ def run_session(
         "match_s": 0.0,
         "ref_embed_s": ref_embed_s,
     }
+    if torch.cuda.is_available():
+        torch.cuda.reset_peak_memory_stats()
 
     # Check embedding cache
     crop_embs = None
@@ -435,6 +442,16 @@ def run_session(
                 "num_reference_items_total": len(ref_iids),
                 "num_reference_items_session": len(sess_ref_iids),
             },
+            **(
+                {
+                    "peak_gpu_mem_allocated_gb": round(
+                        torch.cuda.max_memory_allocated() / 1024**3, 3),
+                    "peak_gpu_mem_reserved_gb": round(
+                        torch.cuda.max_memory_reserved() / 1024**3, 3),
+                    "gpu_device_name": torch.cuda.get_device_name(0),
+                }
+                if torch.cuda.is_available() else {}
+            ),
         },
         "videos": output_videos,
     }
@@ -478,6 +495,13 @@ def main():
     parser.add_argument("--batch-size", type=int, default=32)
     parser.add_argument("--bbox-padding", type=float, default=0.2)
     parser.add_argument("--resume", action="store_true")
+    parser.add_argument("--inventory-scope", choices=["full", "purchased_all"],
+                        default="full",
+                        help="Reference pool: 'full' = purchased & not depleted "
+                             "before session (default); 'purchased_all' = every "
+                             "iid ever purchased before session, depletion ignored. "
+                             "When != 'full', output is written with a '_<scope>' "
+                             "suffix so it doesn't overwrite the canonical run.")
     args = parser.parse_args()
 
     device = torch.device(args.device if torch.cuda.is_available() else "cpu")
@@ -515,7 +539,8 @@ def main():
 
         if args.resume:
             det_dir = hands23_dir(args.participant, session)
-            match_file = det_dir / f"{args.participant}_{session}_dino_matches.json"
+            suffix = "" if args.inventory_scope == "full" else f"_{args.inventory_scope}"
+            match_file = det_dir / f"{args.participant}_{session}_dino_matches{suffix}.json"
             if match_file.exists():
                 print(f"  SKIPPED (results exist)")
                 continue
@@ -535,6 +560,7 @@ def main():
             batch_size=args.batch_size,
             bbox_padding=args.bbox_padding,
             ref_embed_s=ref_embed_s,
+            inventory_scope=args.inventory_scope,
         )
 
 

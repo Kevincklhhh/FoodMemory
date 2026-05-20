@@ -30,6 +30,10 @@ from typing import Any, Dict, List, Optional
 
 import cv2
 import numpy as np
+try:
+    import torch  # noqa: F401  (used for peak GPU memory reporting)
+except ImportError:
+    torch = None
 from PIL import Image, ImageDraw, ImageFont
 from tqdm import tqdm
 
@@ -294,6 +298,8 @@ def run_session(
         "visualization_s": 0.0,
         "image_read_s": 0.0,
     }
+    if torch is not None and torch.cuda.is_available():
+        torch.cuda.reset_peak_memory_stats()
 
     for clip_idx, (filename, clip_path, dur) in enumerate(clips):
         clip_stem = Path(filename).stem
@@ -377,6 +383,12 @@ def run_session(
     }
     if total_frames:
         timing_out["detection_s_per_frame"] = round(timing["detection_s"] / total_frames, 4)
+    if torch is not None and torch.cuda.is_available():
+        timing_out["peak_gpu_mem_allocated_gb"] = round(
+            torch.cuda.max_memory_allocated() / 1024**3, 3)
+        timing_out["peak_gpu_mem_reserved_gb"] = round(
+            torch.cuda.max_memory_reserved() / 1024**3, 3)
+        timing_out["gpu_device_name"] = torch.cuda.get_device_name(0)
     results = {
         "participant": participant,
         "session": session,

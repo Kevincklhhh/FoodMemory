@@ -183,11 +183,15 @@ def run_session(
     batch_size: int = 4,
     min_score: float = MIN_FOOD_SCORE,
     threshold: float = DETECTION_THRESHOLD,
+    queries_multi: Optional[Dict[str, List[str]]] = None,
+    output_filename: str = "scene_tags_owlv2.json",
 ) -> Optional[dict]:
+    if queries_multi is None:
+        queries_multi = QUERIES_MULTI
     det_dir = hands23_dir(participant, session)
     out_dir = outputs_dir(participant, session)
     out_dir.mkdir(parents=True, exist_ok=True)
-    output_file = out_dir / "scene_tags_owlv2.json"
+    output_file = out_dir / output_filename
 
     trigger_frames = collect_trigger_frames(participant, session, min_score)
     if not trigger_frames:
@@ -203,17 +207,19 @@ def run_session(
     # Flatten {scene: [q1, q2, ...]} into a single query list + reverse map.
     query_texts: List[str] = []
     query_to_scene: Dict[str, str] = {}
-    for scene, qs in QUERIES_MULTI.items():
+    for scene, qs in queries_multi.items():
         for q in qs:
             query_texts.append(q)
             query_to_scene[q] = scene
-    scene_names = list(QUERIES_MULTI.keys())
+    scene_names = list(queries_multi.keys())
 
     frames_dict = {}
     scene_counts = {s: 0 for s in scene_names + ["unknown"]}
 
     # Process in batches so the tqdm bar reflects GPU batches, not single images.
     skipped = 0
+    if torch.cuda.is_available():
+        torch.cuda.reset_peak_memory_stats()
     t0 = time.time()
     for start in tqdm(range(0, len(frame_paths), batch_size), desc="  OWLv2 batches"):
         batch_paths = frame_paths[start:start + batch_size]
@@ -257,7 +263,7 @@ def run_session(
         "participant": participant,
         "session": session,
         "model": MODEL_ID,
-        "queries": QUERIES_MULTI,
+        "queries": queries_multi,
         "threshold": threshold,
         "min_food_score": min_score,
         "timestamp": datetime.now().isoformat(),
@@ -265,6 +271,16 @@ def run_session(
             "total_trigger_frames": len(frames_dict),
             "scene_counts": scene_counts,
             "detect_time_s": round(elapsed, 2),
+            **(
+                {
+                    "peak_gpu_mem_allocated_gb": round(
+                        torch.cuda.max_memory_allocated() / 1024**3, 3),
+                    "peak_gpu_mem_reserved_gb": round(
+                        torch.cuda.max_memory_reserved() / 1024**3, 3),
+                    "gpu_device_name": torch.cuda.get_device_name(0),
+                }
+                if torch.cuda.is_available() else {}
+            ),
         },
         "frames": frames_dict,
     }
@@ -296,16 +312,36 @@ def main():
     parser.add_argument("--threshold", type=float, default=DETECTION_THRESHOLD,
                         help=f"OWLv2 confidence floor (default: {DETECTION_THRESHOLD})")
     parser.add_argument("--resume", action="store_true",
-                        help="Skip sessions with existing scene_tags_owlv2.json")
+                        help="Skip sessions with existing output file")
+    parser.add_argument("--probe-name", default=None,
+                        help="Probe mode: scene tag name (e.g. 'trash'). Output "
+                             "is written to scene_tags_owlv2_{probe-name}.json so "
+                             "the canonical scene_tags_owlv2.json is untouched.")
+    parser.add_argument("--probe-queries", nargs="+", default=None,
+                        help="Probe mode: OWLv2 text queries to detect. "
+                             "Required when --probe-name is set.")
     args = parser.parse_args()
+
+    if args.probe_name and not args.probe_queries:
+        parser.error("--probe-name requires --probe-queries")
+    if args.probe_queries and not args.probe_name:
+        parser.error("--probe-queries requires --probe-name")
+
+    if args.probe_name:
+        queries_multi = {args.probe_name: list(args.probe_queries)}
+        output_filename = f"scene_tags_owlv2_{args.probe_name}.json"
+    else:
+        queries_multi = QUERIES_MULTI
+        output_filename = "scene_tags_owlv2.json"
 
     device = torch.device(args.device if torch.cuda.is_available() else "cpu")
     sessions = [args.session] if args.session else get_sessions(args.participant)
 
     print(f"\nParticipant: {args.participant} | Sessions: {len(sessions)}")
     print(f"Device: {device}")
-    print(f"Queries: {QUERIES_MULTI}")
+    print(f"Queries: {queries_multi}")
     print(f"Threshold: {args.threshold}")
+    print(f"Output: {output_filename}")
 
     print(f"\nLoading OWLv2: {MODEL_ID}")
     from transformers import Owlv2ForObjectDetection, Owlv2Processor
@@ -320,7 +356,7 @@ def main():
             print(f"{'#' * 70}")
 
         if args.resume:
-            out_file = outputs_dir(args.participant, session) / "scene_tags_owlv2.json"
+            out_file = outputs_dir(args.participant, session) / output_filename
             if out_file.exists():
                 print("  SKIPPED (results exist)")
                 continue
@@ -334,6 +370,8 @@ def main():
             batch_size=args.batch_size,
             min_score=args.min_score,
             threshold=args.threshold,
+            queries_multi=queries_multi,
+            output_filename=output_filename,
         )
 
 

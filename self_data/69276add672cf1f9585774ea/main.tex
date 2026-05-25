@@ -7,9 +7,12 @@
 \usepackage{booktabs}
 \usepackage{subcaption}
 \usepackage{xcolor}
+\usepackage{placeins}
+\usepackage{xspace}
 
 \newcommand{\edited}[1]{#1}
 \newcommand{\scaffold}[1]{\textcolor{red}{#1}}
+\newcommand{\todo}[1]{\textcolor{red}{#1}}
 
 \AtBeginDocument{%
   \providecommand\BibTeX{{%
@@ -25,8 +28,7 @@
 % \acmISBN{}
 
 % System name is a placeholder until we settle on one.
-\newcommand{\sys}{\textit{proposed system}}
-\newcommand{\Sys}{\textit{Proposed system}}
+\newcommand{\sys}{\textit{InvAgent}\xspace}
 
 % --- Paper vs. code terminology (codebase is NOT being renamed) -------------
 %   Paper term           Code/filesystem term
@@ -48,6 +50,7 @@
 
 \title{Agentic Edge–Cloud Orchestration for Resource-Efficient \\ Daily Inventory Monitoring with Egocentric Video}
 
+
 % \author{Kailai Cui}
 % \affiliation{%
 %   \institution{University of Michigan -- Ann Arbor}
@@ -58,17 +61,37 @@
 
 \begin{abstract}
 We target automatic, per-item inventory tracking in home kitchens from
-first-person video. Given a participant's current inventory (items with known
-starting amounts) and a cloud-uploaded kitchen-activity video, the system
-outputs, for each inventory item, how much was consumed and how much remains,
-under an objective of \emph{minimizing VLM cost subject to an accuracy
- requirement}. 
+first-person video. Given a participant's current inventory monitoring
+list (known items with package size and reference images, but no
+provided starting amount) and an untrimmed kitchen-activity video, the
+system outputs which inventory items were used and how much remains,
+under an objective of minimizing cloud model cost without sacrificing
+amount accuracy. \sys addresses this cost--accuracy problem by
+splitting the task across edge and cloud: lightweight edge observers
+localize inventory interactions over the full video, while a cloud LLM
+planner sends only selected before/after windows to a VLM reasoner.
+
+% We evaluate \sys on a benchmark of \scaffold{37.27~h} of egocentric
+% kitchen video from 10 participants in 7 households, covering
+% \scaffold{593} usage events. The annotated item ledgers currently span
+% 172 tracked food item-instances. On the annotated in-the-wild accuracy
+% cohort, \sys improves
+% amount-aware inventory F1 by 2.1 points over a whole-video VLM
+% baseline (66.4\% to 68.5\%), while using $10.2\times$ fewer input
+% tokens and incurring $5.2\times$ lower cloud cost on this cohort. These
+% results generalize
+% across the evaluated households and across Gemini Pro and Flash VLM
+% backbones. The savings are largest when monitored item interactions are
+% sparse in time, reaching $9.3\times$ lower aggregate cost in sparse
+% sessions.
+% The edge pipeline runs within a 1~fps real-time budget on both server
+% and Jetson deployments.
  % The core insight is that inventory-relevant interactions occupy
 % only a small fraction of cooking video (roughly 6\% in HD-EPIC), so lightweight
 % CV models can pre-select the short observation windows over which an expensive
 % VLM must reason. We are collecting a benchmark of in-the-wild and
-% controlled-consumption recordings across four households with Meta Ray-Ban
-% Smart Glasses, and we evaluate against per-session ground-truth consumption
+% controlled-use recordings across four households with Meta Ray-Ban
+% Smart Glasses, and we evaluate against per-session ground-truth item use
 % using a capacity-normalized percentage error (CNPE). This draft reports the
 % problem statement, system design, data-collection targets and current
 % progress, and the evaluation plan; introduction, related work, and results
@@ -100,1020 +123,1191 @@ under an objective of \emph{minimizing VLM cost subject to an accuracy
 
 \input{Latex_Ke/intro}
 
-\section{Introduction}
-\label{sec:intro}
-The increasing ubiquity of wearable egocentric cameras enables continuous, passive memory augmentation for daily life logging and contextual assistance.
-% In the egocentric vision community, this is formalized as Episodic Memory Retrieval [cite Ego4D], where systems must answer natural language queries regarding past events.
-A critical component of these applications is the ability to track object state changes, as physical states reflect the outcomes of daily actions that humans frequently forget (e.g., determining whether a stove was left on, or quantifying how much of an ingredient was dispensed)[cite]. Because these queries require sophisticated causal and physical reasoning, recent works have increasingly relied on large vision--language models (VLMs) to interpret these dynamic transformations \cite{tateno2025learning, zameni2025moscato,ukai2025status}.
+% \section{Introduction}
+% \label{sec:intro}
+% The increasing ubiquity of wearable egocentric cameras enables continuous, passive memory augmentation for daily life logging and contextual assistance.
+% % In the egocentric vision community, this is formalized as Episodic Memory Retrieval [cite Ego4D], where systems must answer natural language queries regarding past events.
+% A critical component of these applications is the ability to track object state changes, as physical states reflect the outcomes of daily actions that humans frequently forget (e.g., determining whether a stove was left on, or estimating an ingredient's remaining amount)[cite]. Because these queries require sophisticated causal and physical reasoning, recent works have increasingly relied on large vision--language models (VLMs) to interpret these dynamic transformations \cite{tateno2025learning, zameni2025moscato,ukai2025status}.
 
-% Candidate names for this task class (defer naming to Related Work / Problem Statement):
-%   1. "Selective episodic state retrieval" -- emphasizes selection + memory framing; closest to Ego4D NLQ vocabulary.
-%   2. "Persistent inventory-style state tracking" -- emphasizes list-of-items setup; commits framing to inventory.
-%   3. "Long-horizon state-change retrieval over a query set" -- most descriptive, least catchy.
-Yet these VLM-based approaches have been validated predominantly in \emph{procedural settings} --- recipe execution, assembly, instruction following --- where every action advances the task and state changes saturate the timeline \cite{peddiCaptainCook4DDatasetUnderstanding2024, liBuildingEgocentricProcedural2025}. Daily memory augmentation, however, is fundamentally \emph{selective}: the user maintains a finite set of items of interest (a grocery ledger, a list of appliances, a checklist of medications) and asks about their state across long, unstructured recordings of ordinary life. In this regime, interactions with the queried items are sparse within hours of unrelated activity --- yet each interaction still demands the same heavy VLM reasoning that procedural settings rely on. This exposes a critical systems bottleneck: feeding hours of always-on video into VLMs incurs prohibitive API token costs \cite{openaiAPIPricing2026,googleGeminiAPIPricing2026} and far exceeds the context window of State-of-the-art VLMs \cite{yang2025qwen3, singh2025openaigpt5card, google2025gemini3promodelcard}, even though the task-relevant moments occupy a small fraction of the timeline. At Gemini~3 Pro paid-tier rates~\cite{googleGeminiAPIPricing2026}, end-to-end inference on 1~fps egocentric video costs \$3.45/hour --- over \$100/household/month at one hour of daily logging. How, then, can we achieve accurate, long-horizon state retrieval over a query set without exhausting the VLM token budgets that this reasoning consumes?
+% % Candidate names for this task class (defer naming to Related Work / Problem Statement):
+% %   1. "Selective episodic state retrieval" -- emphasizes selection + memory framing; closest to Ego4D NLQ vocabulary.
+% %   2. "Persistent inventory-style state tracking" -- emphasizes list-of-items setup; commits framing to inventory.
+% %   3. "Long-horizon state-change retrieval over a query set" -- most descriptive, least catchy.
+% Yet these VLM-based approaches have been validated predominantly in \emph{procedural settings} --- recipe execution, assembly, instruction following --- where every action advances the task and state changes saturate the timeline \cite{peddiCaptainCook4DDatasetUnderstanding2024, liBuildingEgocentricProcedural2025}. Daily memory augmentation, however, is fundamentally \emph{selective}: the user maintains a finite set of items of interest (a grocery inventory list, a list of appliances, a checklist of medications) and asks about their state across long, unstructured recordings of ordinary life. In this regime, interactions with the queried items are sparse within hours of unrelated activity --- yet each interaction still demands the same heavy VLM reasoning that procedural settings rely on. This exposes a critical systems bottleneck: feeding hours of always-on video into VLMs incurs prohibitive API token costs \cite{openaiAPIPricing2026,googleGeminiAPIPricing2026} and far exceeds the context window of State-of-the-art VLMs \cite{yang2025qwen3, singh2025openaigpt5card, google2025gemini3promodelcard}, even though the task-relevant moments occupy a small fraction of the timeline. At Gemini~3 Pro paid-tier rates~\cite{googleGeminiAPIPricing2026}, end-to-end inference on 1~fps egocentric video costs \$3.45/hour --- over \$100/household/month at one hour of daily logging. How, then, can we achieve accurate, long-horizon state retrieval over a query set without exhausting the VLM token budgets that this reasoning consumes?
 
-% Existing works on egocentric video understanding explores object state changes primarily through offline classification on trimmed video clips.
-% moscato,xxx,assembly,cooking procedural, 
-% However, another important yet unaddressed aspect of understanding object state change is the system efficiency on untrimmed long-form videos. [](what? inventory tracking? object retrieval?)
-% Executing multimodal foundation models over always-on video incurs prohibitive computational costs (examples of gemini api cost), yet their deep reasoning is required for the brief moments when state changes actually occur. how can we optimize for computation cost efficiency with the constraint of accurate state change recall and understanding?
+% % Existing works on egocentric video understanding explores object state changes primarily through offline classification on trimmed video clips.
+% % moscato,xxx,assembly,cooking procedural, 
+% % However, another important yet unaddressed aspect of understanding object state change is the system efficiency on untrimmed long-form videos. [](what? inventory tracking? object retrieval?)
+% % Executing multimodal foundation models over always-on video incurs prohibitive computational costs (examples of gemini api cost), yet their deep reasoning is required for the brief moments when state changes actually occur. how can we optimize for computation cost efficiency with the constraint of accurate state change recall and understanding?
 
-We answer this question through the applied lens of automated kitchen food inventory tracking. Food inventory is a near-universal daily memory-augmentation need: households replenish and consume food on a near-daily cycle, and the gap between what is on hand and what the user remembers drives wasted food, missed nutrition goals, and redundant grocery trips [cite]. It also introduces visual perception challenge  --- food morphs across fluids, solids, granulars, and discrete countables, each calling for a different combination of image retrieval, action recognition, container-aware detection, and volume- or count-based reasoning --- exactly the heavy VLM capabilities whose token cost is the bottleneck identified above. 
-% The combination of high deployment frequency and a perceptually heterogeneous item set makes food inventory a stringent testbed for cost-efficient, long-horizon state retrieval. 
-Concretely, given untrimmed egocentric video of cooking activities and an initial ledger, our goal is to quantify the consumed and remaining amount of each inventory item while minimizing the VLM token cost subject to \scaffold{accuracy requirement}. 
+% We answer this question through the applied lens of automated kitchen food inventory tracking. Food inventory is a near-universal daily memory-augmentation need: households replenish and consume food on a near-daily cycle, and the gap between what is on hand and what the user remembers drives wasted food, missed nutrition goals, and redundant grocery trips [cite]. It also introduces visual perception challenge  --- food morphs across fluids, solids, granulars, and discrete countables, each calling for a different combination of image retrieval, action recognition, container-aware detection, and volume- or count-based reasoning --- exactly the heavy VLM capabilities whose token cost is the bottleneck identified above. 
+% % The combination of high deployment frequency and a perceptually heterogeneous item set makes food inventory a stringent testbed for cost-efficient, long-horizon state retrieval. 
+% Concretely, given untrimmed egocentric video of cooking activities and an inventory list without a provided starting amount, our goal is to quantify each inventory item's remaining amount while minimizing the VLM token cost subject to \scaffold{accuracy requirement}.
 
-% --- DRAFT BULLETS for the rest of the introduction --------------------
-% Logical order chosen here: (i) propose system at high level (one sentence,
-% no methodology), (ii) state the two challenges that any such system must
-% solve, (iii) describe how our design addresses them (CV pipeline +
-% agentic plan-observe), (iv) dataset contribution, (v) contributions list.
-% Bullets are intentionally raw -- to be turned into prose on the next pass.
+% % --- DRAFT BULLETS for the rest of the introduction --------------------
+% % Logical order chosen here: (i) propose system at high level (one sentence,
+% % no methodology), (ii) state the design tensions that any selective system must
+% % manage, (iii) describe how our design addresses them (CV pipeline +
+% % agentic plan-observe), (iv) dataset contribution, (v) contributions list.
+% % Bullets are intentionally raw -- to be turned into prose on the next pass.
 
-We propose \sys{}, which separates inventory tracking into a \emph{locating} stage and a \emph{reasoning} stage. Smart glasses record kitchen video and upload it to a household edge endpoint --- a smartphone, a home desktop, or a local server. The endpoint first runs a lightweight CV pipeline locally over the full session, producing a compact, timestamped record of inventory interactions. It then runs an agent that calls a remote LLM planner over this record to decide which short segment windows are worth observing, dispatches those segments to a remote VLM observer, and uses the observer's per-item answers to update the inventory ledger. 
+% We propose \sys, which separates inventory tracking into a \emph{locating} stage and a \emph{reasoning} stage. Smart glasses record kitchen video and upload it to a household edge endpoint --- a smartphone, a home desktop, or a local server. The endpoint first runs a lightweight CV pipeline locally over the full session, producing a compact, timestamped record of inventory interactions. It then runs an agent that calls a remote LLM planner over this record to decide which short segment windows are worth observing, dispatches those segments to a remote VLM reasoner, and uses the reasoner's per-item answers to update the inventory list.
 
-% \begin{figure*}[t]
-%   \centering
-%   \includegraphics[width=\textwidth]{Figures/Pipeline.pdf}
-%   \caption{Lightweight detection pipeline. Given egocentric kitchen video and the household inventory ledger, edge detectors identify hand--object interactions, match contacted objects to inventory items, and output compact per-item interaction segments. These segments become the input evidence for the first planner call in Fig.~\ref{fig:plan-observe-replan}.}
-%   \label{fig:pipeline}
-% \end{figure*}
+% % \begin{figure*}[t]
+% %   \centering
+% %   \includegraphics[width=\textwidth]{Figures/Pipeline.pdf}
+% %   \caption{Lightweight detection pipeline. Given egocentric kitchen video and the household inventory list, edge detectors identify hand--object interactions, match contacted objects to inventory items, and output compact per-item interaction segments. These segments become the input evidence for the first planner call in Fig.~\ref{fig:plan-observe-replan}.}
+% %   \label{fig:pipeline}
+% % \end{figure*}
 
-% \begin{figure*}[t]
-%   \centering
-%   \includegraphics[width=\textwidth]{Figures/Plan-Observe-Reflect-Re-plan.pdf}
-%   \caption{Plan--observe--reflect--replan loop. Starting from the detected inventory-interaction segments in Fig.~\ref{fig:pipeline}, a text-only LLM planner selects which video moments to inspect, a VLM reasoner observes those frames to infer item state, and the planner revisits unresolved items before updating the inventory ledger.}
-%   \label{fig:plan-observe-replan}
-% \end{figure*}
+% % \begin{figure*}[t]
+% %   \centering
+% %   \includegraphics[width=\textwidth]{Figures/Plan-Observe-Reflect-Re-plan.pdf}
+% %   \caption{Plan--observe--reflect--replan loop. Starting from the detected inventory-interaction segments in Fig.~\ref{fig:pipeline}, a text-only LLM planner selects which video moments to inspect, a VLM reasoner observes those frames to infer item state, and the planner revisits unresolved items before updating the inventory list.}
+% %   \label{fig:plan-observe-replan}
+% % \end{figure*}
 
-\paragraph{Challenges.}
-\begin{itemize}
-  \item \textbf{C1 -- Locating inventory-interaction windows in long video.} Kitchen sessions span tens of minutes to hours; only a few-percent slice involves actual contact with a ledger item. The system must surface those moments cheaply, before any heavy VLM reasoning is invoked.
-  \item \textbf{C2 -- Selecting the few decision-relevant frames within those windows.} Even after C1, most located frames do not answer ``how much of item X remains?'' --- pre-interaction states, hand occlusions, wrong-item grabs, mid-pour blurs all coexist with the one or two frames that actually expose the post-interaction fill level. The system must read as few frames as possible while still landing on the answer-bearing ones.
-\end{itemize}
-
-\paragraph{Our design.}
-\begin{itemize}
-  \item Inspired by recent work on long egocentric video understanding [cite] and agentic video analytics [cite], we decompose the task into a \emph{lightweight CV pipeline} that builds a compact, item-indexed context of inventory-interaction events, followed by an \emph{LLM-driven agentic loop} that plans which short windows the VLM should observe, reads the VLM's per-item answers, and replans until each item's remaining amount is resolved or a token budget is exhausted.
-  \item C1 is addressed by the CV pipeline: hand--object interaction detection, scene tagging, and item identification jointly produce a per-item temporal event list that locates candidate windows without invoking a VLM on the full video.
-  \item C2 is addressed by the agentic plan--observe loop: a text-only LLM allocates a shared frame budget across items based on the CV evidence; a VLM observes only the planner-selected frames and returns per-item answers; the planner then replans on items whose state remained uncertain.
-\end{itemize}
-
-\paragraph{Dataset.}
-\begin{itemize}
-  \item Existing egocentric kitchen datasets annotate actions, not persistent item state, so we collect and annotate our own benchmark: in-the-wild and controlled-consumption recordings across multiple households on Meta Ray-Ban Smart Glasses, with per-session ground-truth starting and remaining amounts for every item the participant interacts with.
-\end{itemize}
-
-\paragraph{Contributions (placeholder list).}
-\begin{itemize}
-  \item A formulation of selective-query inventory tracking from untrimmed egocentric video as a cost--accuracy problem, with VLM token cost as the cost axis.
-  \item \sys{}: a CV-located, agentically-planned VLM observation pipeline that addresses C1 and C2.
-  \item A new benchmark of in-the-wild and controlled household kitchen video with per-item starting and remaining amounts.
-  \item Cost--accuracy frontier evaluation against a whole-video VLM baseline on the new benchmark, with cross-cuts by item shape category and per-item lifecycle.
-\end{itemize}
-% --- END DRAFT BULLETS --------------------------------------------------
-% Commented out: superseded by Section~\ref{sec:motivation} (Background and
-% Motivation). Content folded into sec:bg-locate. Kept here for reference
-% in case any wording is worth pulling forward.
-%
-% \subsection{Motivating observations}
-%
+% \paragraph{Design tensions.}
 % \begin{itemize}
-%   \item \textbf{Videos are long; the relevant window is short.} Updating an
-%   item's inventory only requires observing the brief interaction with that
-%   item, not the rest of the session.
-%   \item \textbf{Amount reasoning is hard and needs a powerful VLM.} Deciding
-%   how much of a jar of sauce was used, or how many tomatoes were cut, is a
-%   fine-grained visual-reasoning task that weaker models do poorly on.
-%   \item \textbf{Powerful VLM APIs are expensive.} An hour of video sampled at
-%   1~fps costs roughly \$2.5 in Gemini~3~Pro input tokens alone, and current
-%   VLM context windows typically cannot fit more than about 10~minutes of
-%   video per call.
-%   \item \textbf{Most of the video is irrelevant.} In HD-EPIC, interactions
-%   with inventory items account for only $\sim$6\% of cooking video time; the
-%   rest is meal prep, cooking, washing dishes, and similar activity
-%   \cite{perrettHDEPICHighlyDetailedEgocentric2025}.
+%   \item \textbf{Cheap edge observation.} Kitchen sessions span tens of minutes to hours; only a few-percent slice involves actual contact with an inventory item. The system must surface candidate moments cheaply, before any heavy VLM reasoning is invoked.
+%   \item \textbf{Cloud amount-estimation planning.} Even after edge observation, most located frames do not answer ``how much of item X remains?'' --- pre-interaction states, hand occlusions, wrong-item grabs, mid-pour blurs all coexist with the few frames that expose fill level or count. The planner must spend VLM frames only where amount evidence is likely.
 % \end{itemize}
-%
-% \subsection{Design insight}
-%
-% Use lightweight CV models to \emph{locate} segments that interact with
-% inventory items, so that an expensive VLM only reasons over those short
-% windows. This both reduces token cost and makes it feasible to reason across
-% long-horizon recordings that would otherwise exceed the VLM's context limit.
+
+% \paragraph{Our design.}
+% \begin{itemize}
+%   \item Inspired by recent work on long egocentric video understanding [cite] and agentic video analytics [cite], we decompose the task into a \emph{lightweight CV pipeline} that builds a compact, item-indexed context of inventory-interaction events, followed by an \emph{LLM-driven agentic loop} that plans which short windows the VLM should observe, reads the VLM's per-item answers, and replans until each item's remaining amount is resolved or a token budget is exhausted.
+%   \item Cheap edge observation is handled by the CV pipeline: hand--object interaction detection, scene tagging, and item identification jointly produce a per-item temporal event list that locates candidate windows without invoking a VLM on the full video.
+%   \item Cloud amount-estimation planning is handled by the plan--observe loop: a text-only LLM allocates a shared frame budget across items based on the CV evidence; a VLM observes only the planner-selected frames and returns per-item answers; the planner then replans on items whose state remained uncertain.
+% \end{itemize}
+
+% \paragraph{Dataset.}
+% \begin{itemize}
+%   \item Existing egocentric kitchen datasets annotate actions, not persistent item state, so we collect and annotate our own benchmark: in-the-wild and controlled-use recordings across multiple households on Meta Ray-Ban Smart Glasses, with per-session ground-truth pre-session and remaining amounts for every item the participant interacts with.
+% \end{itemize}
+
+% \paragraph{Contributions (placeholder list).}
+% \begin{itemize}
+%   \item A formulation of selective-query inventory tracking from untrimmed egocentric video as a cost--accuracy problem, with VLM token cost as the cost axis.
+%   \item \sys: lightweight edge observers coupled to a cloud agentic planner for amount estimation.
+%   \item A new benchmark of in-the-wild and controlled household kitchen video with per-item pre-session and remaining amounts.
+%   \item Cost--accuracy frontier evaluation against a whole-video VLM baseline on the new benchmark, with cross-cuts by item shape category and package depletion stage.
+% \end{itemize}
+% % --- END DRAFT BULLETS --------------------------------------------------
+% % Commented out: superseded by Section~\ref{sec:motivation} (Background and
+% % Motivation). Content folded into sec:bg-locate. Kept here for reference
+% % in case any wording is worth pulling forward.
+% %
+% % \subsection{Motivating observations}
+% %
+% % \begin{itemize}
+% %   \item \textbf{Videos are long; the relevant window is short.} Updating an
+% %   item's inventory only requires observing the brief interaction with that
+% %   item, not the rest of the session.
+% %   \item \textbf{Amount reasoning is hard and needs a powerful VLM.} Deciding
+% %   how much of a jar of sauce was used, or how many tomatoes were cut, is a
+% %   fine-grained visual-reasoning task that weaker models do poorly on.
+% %   \item \textbf{Powerful VLM APIs are expensive.} An hour of video sampled at
+% %   1~fps costs roughly \$2.5 in Gemini~3~Pro input tokens alone, and current
+% %   VLM context windows typically cannot fit more than about 10~minutes of
+% %   video per call.
+% %   \item \textbf{Most of the video is irrelevant.} In HD-EPIC, interactions
+% %   with inventory items account for only $\sim$6\% of cooking video time; the
+% %   rest is meal prep, cooking, washing dishes, and similar activity
+% %   \cite{perrettHDEPICHighlyDetailedEgocentric2025}.
+% % \end{itemize}
+% %
+% % \subsection{Design insight}
+% %
+% % Use lightweight CV models to \emph{locate} segments that interact with
+% % inventory items, so that an expensive VLM only reasons over those short
+% % windows. This both reduces token cost and makes it feasible to reason across
+% % long-horizon recordings that would otherwise exceed the VLM's context limit.
 
 \section{Background and Motivation}
 \label{sec:motivation}
 
-Daily inventory monitoring is an instance of episodic memory
-retrieval over egocentric video~\cite{grauman2022ego4d}, but it has a
-more constrained notion of state than standard video QA: the system
-must answer a fixed set of item-state questions over a persistent
-inventory ledger. In our setting, the video source is a natural,
-long-horizon cooking session, and the state of interest is the food
-quantity associated with each package instance. We first define the
-task, describe benchmark construction, and specify the evaluation
-axes, then situate the problem against object state-change
-understanding, egocentric video understanding, long-form video
-retrieval systems, and egocentric kitchen benchmarks.
-
 \subsection{Task Definition and Benchmark Construction}
 \label{sec:bg-task}
 
-Let $V=\{f_t\}_{t=1}^{T}$ denote a natural, untrimmed egocentric
-recording of a cooking session, and let
-$L_0=\{(i, u_i, a_i^0)\}_{i=1}^{N}$ denote the household inventory
-ledger before the session, where $i$ is an item instance, $u_i$ is its
-measurement unit (e.g., grams or count), and $a_i^0$ is
-its starting amount. The inventory-tracking task is to estimate, for
-each ledger item, whether the item was used during the session
-$z_i \in \{0,1\}$ and, if so, the amount consumed $\Delta_i$ and the
-remaining amount $a_i^T=a_i^0-\Delta_i$ after the session. If
-$z_i=0$, then $\Delta_i=0$ and the amount is unchanged. Across
-sessions, the ending ledger becomes the starting ledger for the next
-recording, so the same item instance is tracked from purchase to
-exhaustion.
+The input to the inventory-tracking task is a natural, untrimmed
+egocentric recording of a cooking session and the household 
+inventory monitoring list, which contains all monitored items 
+that are not yet depleted. Each entry stores the item's identity, 
+reference image, and package size.
+We use \emph{amount} to mean the food-specific quantity that 
+a household would naturally record: weight for fluids,
+granular foods, sauces, and other bulk items, and count for 
+discrete items such as eggs, fruit, or individually packaged units. Given the
+video and monitoring list, the system must decide which items were used
+and update each used item with its remaining amount from visual evidence. Section~\ref{sec:dataset}
+provides the full collection protocol and item/household breakdowns.
 
-This formulation is fixed-query, long-horizon egocentric
-VQA~\cite{grauman2022ego4d, perrettHDEPICHighlyDetailedEgocentric2025}:
-before reading the video, the system knows the set of questions it
-must answer, namely whether each item $i \in L_0$ was used and how
-much of it remains. We instantiate the task with a benchmark of
-natural household cooking sessions. Participants wear egocentric
-cameras during ordinary meal preparation, register purchased items in
-a ledger with package size and reference images, and weigh each
-touched item at the start and end of a session. These measurements
-produce the ground-truth starting amount, ending amount, and consumed
-amount for every touched item.
-
-The current benchmark contains recordings from \scaffold{5}
-participants, annotated ledgers from \scaffold{3} participants,
-\scaffold{29.9~h} of video, \scaffold{460} weighed consumption
-events, and \scaffold{150} tracked item instances spanning fluids,
-granular foods, solids, and discrete-count items. We evaluate a
-system by how accurately it updates the ledger and how much cloud VLM
-token cost it incurs to do so; Section~\ref{sec:evaluation} gives the
-scoring metrics and experiment matrix. Section~\ref{sec:dataset}
-provides the full collection protocol and item/lifecycle breakdowns
-after the system design.
+% The current benchmark contains recordings from 10 participants across
+% 7 households, totaling \scaffold{37.27~h} of video and
+% \scaffold{593} usage events. Its annotated item ledgers currently
+% contain 172 tracked item instances spanning fluids, granular foods,
+% solids, and discrete-count items. We evaluate end-to-end inventory
+% updates using amount-aware inventory F1, amount-update coverage,
+% hallucinated-update rate, and cloud model cost. We report
+% capacity-normalized percentage error only as a diagnostic for matched
+% updates with numeric amount estimates.
+% Section~\ref{sec:evaluation} gives the scoring metrics and experiment
+% matrix. Section~\ref{sec:dataset}
+% provides the full collection protocol and item/household breakdowns.
 
 \subsection{Related Work}
 \label{sec:bg-related}
+\paragraph{Long video understanding}
+Egocentric long video understanding systems exploit hand-object interactions, repeated places, and persistent scene structure to
+build affordance maps, active-object memories, and scene
+memories for later retrieval and reasoning~\cite{golettoAMEGOActiveMemory2024,nagarajan2020ego,price2022unweavenet,rodin2024action,fanEmbodiedVideoAgentPersistent2025, huang2025building,ramakrishnan2023naq,nagarajan2023egoenv}. However, they do not support revisiting visual evidence to understand fine-grained object states such as food quantity.
+Recent agentic video understanding systems address long-context limits
+by compressing video into memories, retrieving candidate evidence
+spans, and using LLM/VLM agents to decide what to inspect
+next~\cite{fanVideoAgentMemoryAugmentedMultimodal2025,wang2025active,
+yan2025ava,zhang2025deep,rege2026agentic, shen2026vgent,zhou2026reagent,zuo2026videolucy}. Their optimization target is 
+accuracy under the VLM context-window bottleneck: the agent retrieves
+or selects evidence so the model need not ingest the full video at
+once. When these systems report efficiency, they usually measure
+retrieved frames, input-token reduction, or inference time, rather than
+the priced cloud cost of a recurring deployment.
+\sys adapts the agentic pattern to a resource-constrained
+inventory-monitoring task: lightweight edge observers localize
+candidate item-use events, and a cloud planner reserves VLM reasoning
+for the selected moments that reveal food amount.
 
-\paragraph{Object state-change understanding.}
-A growing literature studies whether objects have been opened, cut,
-poured, assembled, consumed, or otherwise transformed by human
-action~\cite{tateno2025learning, zameni2025moscato, ukai2025status,
-sunTrackingUnderstandingObject2025}. These works motivate our use of
-a strong VLM for amount estimation: determining how much sauce was
-poured or how many tomatoes were sliced is a fine-grained visual
-reasoning problem. Existing state-change models are typically
-evaluated on trimmed clips where the relevant interaction has already
-been isolated. Inventory tracking therefore keeps the reasoning
-benefit of VLMs, but changes the surrounding problem: the state is a
-persistent ledger entry for each item, and the answer-bearing moments
-must first be localized in an untrimmed session before quantity can be
-estimated.
+\paragraph{Object state-change understanding}
+ Existing benchmarks and methods ask VLMs or video models
+to identify symbolic states such as open/closed or on/off, infer
+multi-label food states such as cracked or whisked, predict how several
+objects' states evolve through procedural actions, or track an object
+through a visible transformation~\cite{ukai2025status,
+tateno2025learning,zameni2025moscato,sunTrackingUnderstandingObject2025}.
+These tasks demonstrate that object state is temporally grounded and
+often depends on action history. However, they typically operate on
+image pairs, narrated or action-segmented procedural videos, or tracked
+object tubelets in which the relevant object interaction is already in
+view. Our setting instead starts from long untrimmed household video and
+an inventory list of known items. The system must retrieve the few
+visual moments that can update each inventory-list entry, estimate a
+quantitative remaining amount in weight or count, and do so under a
+cloud VLM token budget.
 
-\paragraph{Egocentric video understanding.}
-Long egocentric videos have structure that general video collections
-often lack: hands reveal active objects, repeated places anchor daily
-routines, and the same object can reappear across minutes or sessions.
-Prior systems exploit this structure by modeling environment
-affordances in egocentric video, active-object memories in long
-egocentric streams, or persistent embodied scene memories from
-egocentric observations and sensors~\cite{nagarajan2020ego,
-golettoAMEGOActiveMemory2024, fanEmbodiedVideoAgentPersistent2025, huang2025building}.
-These works motivate our edge-side per-item interaction log: an HOI
-detector proposes contact windows, object embeddings link detections
-to ledger items and package images, and scene embeddings provide
-storage and use context. Our memory, however, is not a general
-activity or scene representation. It is keyed by a household inventory
-ledger and preserves compact evidence about the state of particular
-package instances.
-
-\paragraph{General long-video retrieval and agents.}
-General long-video systems address context limits by building compact
-memories, retrieving short evidence spans, or using LLM/VLM agents to
-choose what to inspect next~\cite{huang2025building,
-fanVideoAgentMemoryAugmentedMultimodal2025,wang2025active,yan2025ava,
-zhang2025deep,rege2026agentic}. VideoAgent-style systems store
-temporal and object-centric memories for query-specific tool use,
-while agentic video analytics and active video perception systems
-iteratively plan observations, read partial evidence, and revise the
-next frame or segment to inspect. We adopt this agentic
-locate-then-read pattern after the edge pipeline has produced
-candidate inventory windows: the planner decides which windows should
-be sent to the VLM, reads quantity evidence, and revisits unresolved
-items when the first read is insufficient. The task interface is also
-different from prior long-video QA: the query set is fixed before the
-video is read, one question family is repeated for every ledger item,
-and the output is a persistent per-item state rather than a summary,
-free-form answer, or temporal interval.
-
-\paragraph{Egocentric video datasets.}
-Large egocentric datasets provide the substrate for action
-recognition, anticipation, narration grounding, hand-object
-interaction, segmentation, episodic-memory retrieval, and
-VQA~\cite{damenRescalingEgocentricVision2022,
+\paragraph{Egocentric video benchmarks}
+Egocentric video benchmarks provide the closest dataset context for our
+task, but their annotation targets differ from ours. They
+provide action segments, hand-object masks and relations, narrations,
+recipe steps, ingredients, object motion, VQA labels, and
+procedure-error labels~\cite{damenRescalingEgocentricVision2022,
 darkhalilEPICKITCHENSVISORBenchmark2022,grauman2022ego4d,
-perrettHDEPICHighlyDetailedEgocentric2025}. EPIC-Kitchens annotates
-unscripted kitchen videos with verb--noun action segments and
-retrieval tasks; VISOR adds hand and active-object masks with object
-relations; Ego4D broadens first-person video to many daily settings
-with narrations and episodic-memory queries; and HD-EPIC adds dense
-kitchen annotations such as recipe steps, fine-grained actions,
-ingredients, object movements, audio events, gaze, and 3D grounding.
-Procedural cooking datasets such as CaptainCook4D focus on step
-localization, error recognition, and procedure
-learning~\cite{peddiCaptainCook4DDatasetUnderstanding2024}. These
-benchmarks annotate actions, queries, and object relations, but they
-do not provide package-level quantities such as the starting amount of
-a jar, the count of remaining eggs, or the amount used in a session.
-Nor do they thread the same item instance across multiple sessions to
-support lifecycle evaluation. Because these labels are exactly what
-inventory tracking must predict, we collect a new benchmark, described
-in Section~\ref{sec:dataset}, that pairs untrimmed household cooking
-videos with per-item starting and ending amounts.
+perrettHDEPICHighlyDetailedEgocentric2025,
+peddiCaptainCook4DDatasetUnderstanding2024,plizzari2024outlook,grauman2024ego,wang2023holoassist,jia2022egotaskqa,huh2025epic,zhu2023egoobjects,huang2024egoexolearn,chen2026egoplan}. These labels do not evaluate systems' capability to
+recover the remaining quantity of a food package. Our benchmark therefore targets a different state
+variable: package-level food amount, measured by weight or count, for
+known inventory items across natural cooking sessions.
+
+Together, these lines of work leave a systems question open. Fine-grained
+food amount estimation requires VLM-level visual reasoning, but daily
+inventory monitoring repeats that reasoning across sessions and items
+under a cloud-inference budget.
 
 \section{Motivation Study}
 \label{sec:bg-motivation}
 
-We use pilot recordings and existing egocentric kitchen annotations to
-identify where VLM effort is wasted and motivate \sys{}'s split between
-cheap event location and expensive visual reasoning.
+We begin with whole-video VLM inference because it directly applies the visual reasoning
+capability that remaining-amount estimation requires. This
+baseline isolates the bottleneck that motivates \sys: package-amount
+evidence requires a capable VLM, yet most frames in a cooking session
+are irrelevant to that evidence.
+Throughout this section we ground each claim in a pilot study: 10~wild
+egocentric cooking sessions ($\approx$2.2~hours at 1~fps, 7{,}977
+sampled frames, 64~human-annotated usage events) drawn from our dataset
+(\S\ref{sec:dataset}).
 
-\paragraph{VLM cost scales with video length.}
+\paragraph{Whole-video VLM inference is expensive.}
 As a whole-video baseline, we send every sampled frame in a session to
 Gemini~3.1~Pro and ask the model to infer the final inventory state
-end-to-end. On a 10-session pilot from our dataset ($\approx$2.2~hours
-of 1~fps egocentric cooking video, 7{,}977 frames sent), this baseline
-costs \$7.65 at current paid-tier rates~\cite{googleGeminiAPIPricing2026}
---- \$3.45 per hour of recording, or over \$100/household/month at one
+end-to-end. On this pilot, the baseline
+costs \$8.05 at current paid-tier rates~\cite{googleGeminiAPIPricing2026}
+--- \$3.66 per hour of recording, or over \$100/household/month at one
 hour of daily logging. The cost driver is the linear scaling of input
 tokens with video length~\cite{openaiAPIPricing2026,googleGeminiAPIPricing2026}.
-Any deployable inventory system must therefore avoid sending the full
-video to the VLM whenever the relevant evidence occupies only a small
-fraction of the session.
+This finding rules out treating long-horizon egocentric video as a
+stream that can be routinely handed to a cloud VLM end-to-end.
 
-\paragraph{Inventory interactions are sparse.}
-Whether an item was used, and how much was used, can only be resolved
-around hand--object interactions (HOI) with that item. In a mining
-pass over HD-EPIC annotations, interactions with inventory-like items
-account for only roughly $6$\% of total cooking-video duration; the
-rest of the timeline includes meal preparation around non-query items,
-cooking, waiting, washing dishes, and other activity not directly
-changing the ledger~\cite{perrettHDEPICHighlyDetailedEgocentric2025}.
-This sparsity is what makes a locate-then-read split viable:
-lightweight CV signals can pre-select the seconds in which a ledger
-item is actually being touched, so an expensive VLM is invoked only on
-candidate inventory windows.
+\paragraph{Whole-video context buries amount evidence.}
+The same baseline also provides a diagnostic for context distraction
+before amount reading: most frames are not quantity evidence. When a VLM receives a
+long egocentric session, the
+answer-bearing views are embedded among hundreds of visually redundant
+or misleading frames: idle cooking, off-target object handling, hand
+occlusions, motion blur, and views of food after it has left the
+queried package, which no longer reveal the package's remaining amount. On the
+pilot, Gemini~3.1~Pro detects only 53 of 64 usage events (82.8\%)
+when the whole video is placed in context; restricting the context to
+human-annotated inventory-interaction frames recovers 58 of 64
+(90.6\%). This diagnostic suggests that selection is not only a cost
+mechanism: long context can distract the VLM from the sparse views
+needed for a numeric inventory update.
 
-\paragraph{Irrelevant context degrades amount estimation.}
-Selective reading is necessary for accuracy, not only for cost.
-When a VLM receives a long egocentric session, the answer-bearing
-views are embedded among thousands of visually redundant or
-misleading frames: idle cooking, off-target object handling, hand
-occlusions, motion blur, and food derivatives that resemble the
-queried package but no longer reveal its remaining amount. In our
-pilot whole-video baseline, only \scaffold{$X$\%} of sampled frames
-contain package-level quantity evidence, and Gemini~3.1~Pro reaches
-\scaffold{$Y$ CNPE / $Z$\% event recall} when all frames are placed
-in context, compared with \scaffold{$Y'$ CNPE / $Z'$\% recall} when
-the prompt is restricted to oracle answer-bearing windows. Thus
-filling the VLM context with irrelevant noisy frames can both increase
-token cost and dilute the visual evidence needed for inventory-state
-updates.
+\paragraph{Inventory-use evidence is sparse.}
+The design opportunity is that the moments needed to estimate
+an item's remaining amount are sparse but localizable. For each
+inventory item, the system must first detect whether an item-use event
+occurred and then find post-event views that reveal the package's
+remaining state. The short action in which food leaves the package or
+container is a \emph{portion-transfer moment}: pouring, scooping,
+cutting, removing, or discarding food. In a mining pass over
+HD-EPIC annotations,
+interactions with inventory-like source items account for only roughly
+$6$\% of total cooking-video duration.\footnote{We count a segment as
+inventory-like when the annotated noun corresponds to a source item or
+package whose household stock could change through retrieval,
+dispensing, removal, or put-back. We exclude downstream cooking actions
+on already transferred food, such as stirring, frying, or mixing
+ingredients in cookware.} The rest of the timeline includes
+meal preparation around non-query items, cooking, waiting, washing
+dishes, and other activity not directly changing inventory
+state~\cite{perrettHDEPICHighlyDetailedEgocentric2025}. This
+sparsity is the insight behind \sys's locate-then-read split:
+lightweight CV signals can pre-select candidate item-use events, so
+an expensive VLM is invoked only where it can observe the before/after
+evidence needed for an inventory update.
 
 \section{System Design}
 \label{sec:system}
 
-\sys{} takes an untrimmed egocentric kitchen video and a per-participant
-\emph{ledger} (the list of purchased food items with package amounts and
-reference images), and produces a per-session update of \emph{how much of
-each item was consumed}. The pipeline is organized as a sequence of
-numbered stages (scripts in \texttt{system\_design/}) with well-defined
-inputs and outputs so that components can be swapped or ablated.
+\sys separates locating from reading. As shown in
+Fig.~\ref{fig:system-overview}, the edge endpoint receives an untrimmed
+session and the current inventory monitoring list, then converts them
+into compact item-interaction timelines. The cloud planner uses those
+timelines to choose which video frames to fetch for the VLM reasoner and
+which unresolved items to revisit. This split keeps full-session search
+on lightweight edge observers and reserves VLM calls for the hard visual
+reading step: estimating starting amount, transferred amount, or
+remaining amount from selected evidence.
 
-\paragraph{System roles.} \sys{} comprises four roles, split across
-edge and cloud:
-\begin{itemize}
-  \item \textbf{Edge detector pipeline} (stages~1--3 below): runs on
-  the household endpoint --- a smartphone, home desktop, or local
-  server paired with the smart glasses. It processes each session
-  video locally and emits a compact, per-item record of inventory
-  interactions.
-  \item \textbf{LLM planner} (stage~4a): a text-only language model
-  invoked in the cloud. It reads the per-item record plus the current
-  ledger snapshot and decides which frames the VLM should observe.
-  \item \textbf{VLM reasoner} (stage~4b): a strong vision--language
-  model invoked in the cloud, only on the planner-selected frames. It
-  returns per-item answers about confirmation, evidence, and
-  remaining amount.
-  \item \textbf{Inventory ledger}: the persistent state. It lives on
-  the edge endpoint, is updated at session boundaries from the
-  reasoner's outputs, and is sent to the cloud only as an in-prompt
-  snapshot for the current session. The cloud LLM and VLM remain
-  stateless across sessions.
-\end{itemize}
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{Figures/overall.pdf}
+  \Description{Overall architecture: smart-glass video and the inventory
+  list are processed by lightweight edge observers into item-interaction
+  timelines, then a cloud planner and VLM reasoner select evidence
+  windows and output inventory updates.}
+  \caption{\sys separates full-session edge localization from cloud
+  amount reading.}
+  \label{fig:system-overview}
+\end{figure}
 
 \subsection{Inputs and assumptions}
 \label{sec:system-inputs}
 
-We assume that each item is registered \emph{at the time of purchase}
-with two lightweight artifacts:
-\begin{itemize}
-  \item A \textbf{receipt entry}, supplying the item's identity,
-  quantity, and unit (grams or count). This is what initialises the
-  per-participant ledger; subsequent sessions update an item's remaining
-  amount until it is exhausted.
-  \item One or more \textbf{reference images} of the item's package,
-  captured by the participant or pulled from the retailer / web. These
-  are what the item-identification stage (DINOv3, below) matches the
-  in-contact object crops against.
-\end{itemize}
-Both artifacts are produced once, when the item enters the household,
-and reused across every session that touches that item. Within a
-session, the system assumes nothing else: the video is processed
-independently against the current ledger snapshot.
+We assume that each item is registered when it enters the household and
+remains in the inventory monitoring list until marked depleted. This
+narrows the problem to tracking state changes of \textit{known
+inventory items}, avoiding the separate challenge of open-set instance
+retrieval over large food catalogs. Given the untrimmed video and
+current inventory-list snapshot, \sys assumes no manual segment
+labels, scripted recipe structure, or known order of item use.
+Registration also stores package size, reference image, measurement
+unit, and a package-transparency tag inferred from the product name and its
+image: transparent if the package is likely to expose its contents, and
+opaque otherwise.
 
-\subsection{Pipeline stages}
+%Outline:
+%lightweight CV models pipeline on edge: goal: lightweight processing of video that finds video context for agent planning. for our goal of understanding inventory state change, our goal is to temporally localize all interactions with inventory items. 
+    %frame-based detectors (how to say it? I mean those runs on single image instead of video) on 1fps enables efficient processing of video that can run with limited gpu memory. 
+    %extract frames at 1fps
+    %HOI detector
+    %DINOv3 inventory item retrieval
+    %include more context information, use OWLv2 to detect scene tags
+    %turns per-frame detection into segments
+    %then, list timeline to llm planner. 
+%agentic workflow through cloud LLM/VLMs
+\subsection{Edge timeline construction}
 
-\begin{enumerate}
-  \item \textbf{Hand--object interaction (HOI grasp detection).} The
-  Hands23 detector runs at 1~fps across the full video and flags frames
-  in which a hand is in \emph{object-contact} with something it is
-  holding. Only these grasp frames are carried forward; frames with no
-  active grasp are dropped, so downstream stages operate on a sparse
-  set of moments when the participant is actually manipulating an item.
-  \item \textbf{Scene tagging (OWLv2).} An OWLv2 open-vocabulary
-  detector labels each grasp frame with a coarse kitchen location:
-  \texttt{storage}, \texttt{sink}, or \texttt{stove}. These tags give
-  the planner the lifecycle cue needed to distinguish retrieval from
-  use from put-back when allocating observation budget.
-  \item \textbf{Item identification (DINOv3).} The in-contact object
-  crop from each grasp frame is matched against the participant's
-  current inventory via DINOv3 image-to-image similarity against each
-  item's reference images (Section~\ref{sec:system-inputs}). The
-  matching score decides \emph{which ledger item} is being handled in
-  each grasp frame. A SigLIP2 zero-shot text-to-image score is computed
-  in parallel but is disabled in the canonical configuration, so the
-  planner's evidence rendering relies on HOI contact and DINOv3 alone.
-\end{enumerate}
+The edge stage does not try to estimate amount. Its role is to construct
+a query-set-aware intermediate representation: an item-interaction
+timeline that records when each monitored item may have changed state,
+which routine context surrounded the interaction, and how confidently
+the contact matched the registered inventory. Figure~\ref{fig:edge-observer}
+shows this conversion from raw frames and a registered item list to
+a text timeline. In the example, noisy per-frame detections for eggs and
+tomatoes are merged into one stove segment with per-item peak-DINO times
+and active spans.
 
-\paragraph{Edge-pipeline output: per-item interaction record.} The
-output of stages~1--3 --- the only artifact crossing the
-edge$\to$cloud boundary, alongside the ledger snapshot --- is a
-per-item, HOI-gated temporal record. The per-frame grasp,
-identification, and scene signals are collapsed via heuristic
-morphological compression (close-then-open on per-frame DINOv3 scores)
-into a chronological list of \emph{on-contact bursts} per ledger item.
-Each burst carries: (i)~the item it was matched to, (ii)~its
-\texttt{[start, end]} timestamps, (iii)~the peak DINOv3
-match score (the identification confidence used by the planner to
-weigh evidence), and (iv)~the burst's scene-tag distribution
-(\texttt{storage}, \texttt{sink}, \texttt{stove}) from stage~2. This
-schema directly addresses challenge~C1: it locates per-item candidate
-evidence windows compactly enough to fit in a single text-only LLM
-prompt, without ever shipping pixels off the edge.
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=0.92\textwidth]{Figures/lightweight_observer.pdf}
+  \Description{Edge observer pipeline: 1 fps sampled frames pass through
+  hand-object interaction detection, inventory-item matching, scene
+  tagging, and temporal grouping to form item-interaction timelines.}
+  \caption{Lightweight edge observer pipeline.}
+  \label{fig:edge-observer}
+\end{figure*}
 
-\begin{enumerate}
-  \setcounter{enumi}{3}
-  \item \textbf{Amount estimation.} \sys{} predicts \emph{how much
-  remained} (or how much was used) for each touched item at the end of
-  the session. This stage is decomposed so that the expensive
-  vision--language reasoning is invoked at most twice per session, each
-  time on a planner-selected frame set:
-  \begin{enumerate}
-    \item[4a.] \textbf{Frame-budget planner (text-only LLM).} A
-    text-only LLM reads the session inventory together with the
-    per-item interaction record above and
-    emits, per inventory item, an \texttt{observe} /
-    \texttt{no\_observation} decision plus a single shared list of
-    sweep timestamps, partitioned into (i)~\emph{journey samples}
-    spread across the item's bursts and (ii)~\emph{dense windows}
-    concentrated on the most informative bursts (with a configurable
-    rule biasing toward late, dispense-phase bursts over early
-    retrieval). Each timestamp is tagged with the candidate items the
-    observer should look for there, so multiple items can be searched
-    for in a single observer call.
-    \item[4b.] \textbf{Sweep VLM observer.} A \emph{single}
-    multi-image VLM call sees the merged sweep frames and returns, for
-    every candidate item the planner flagged on those frames,
-    \texttt{\{item\_confirmed, evidence\_frames, amount\_remaining\}}.
-    The observer is multi-item by design (one call per round, not one
-    call per item), so the per-frame token cost is amortised across
-    every item the planner asked about on that frame. Amount estimation
-    --- judging how much of a jar of sauce was poured, or how many
-    tomatoes have been removed from a bag --- demands fine-grained
-    visual reasoning that weaker models still handle poorly
-    \scaffold{[cite MMVP, BLINK, V*]}; we therefore pay for a strong
-    VLM at this stage (Gemini 3.1 Pro Preview in our canonical
-    configuration~\cite{googleGeminiAPIPricing2026}) and amortise its
-    per-call cost across all items flagged for the same sweep frames.
-  \end{enumerate}
-\end{enumerate}
+\paragraph{Sampling for edge-feasible localization.} The household edge
+endpoint samples the video once at 1~fps and runs frame-based detectors
+on those images. This second-scale sampling captures ordinary kitchen
+manipulations while avoiding the GPU memory and processing cost of
+running clip-level video models over the full session
+\cite{liu2024end, zhang2022actionformer,li2024videomamba,wang2024internvideo2,zhang2025videollama}.
 
-Stages~1--3 correspond to the lightweight ``locate relevant windows''
-path described in Section~\ref{sec:motivation}; stage~4a is where a
-cheap language model reasons over the full session at the symbol
-level, and stage~4b is where the powerful VLM performs the expensive
-perceptual reasoning, but only on the planner-allocated frames.
+\paragraph{Localizing moments of physical contact.} Inventory state
+cannot change without physical contact, so contact is the first
+selection predicate. Hands23~\cite{chengRicher2DUnderstanding} filters
+the 1~fps stream to frames where a hand is in \emph{object-contact} and
+returns the interacted-object box. This box, illustrated as the masked
+crop in Fig.~\ref{fig:edge-observer}, is the visual evidence passed to
+item matching.
 
-\paragraph{Evidence frames are buried within similar detections.}
-HOI candidates alone are not the evidence. Only the moments at which
-the package's remaining state is visible --- the bag in hand before
-the pour, the carton with eggs visible, the jar on the counter ---
-actually answer ``how much remains?'', and these dispensing windows
-form a small fraction of an item's candidate set
-\scaffold{[stat: fraction of HOI+match frames per touched item that
-show the package vs.\ a derivative]}. The reason is structural: for
-many household items the dispensed form is visually close to the
-packaged product --- loose vegetables, raw meat, granular staples
-tipped into a pan, transparent containers whose contents look the
-same inside and outside --- so the same image-to-image similarity
-that ties HOI candidates to the right item also fires on every frame
-in which a derivative of that item is in view. Dispensing moments
-are not predictably anchored to the start or end of an interaction
-either, so uniformly subsampling within an item's candidates misses
-the dispensing frame as often as it lands on one \scaffold{[stat:
-hit rate of a uniform $k$-frame subsample against the dispensing
-window]}. The evidence is, in this sense, buried within visually
-similar but uninformative detections. Stage~4 therefore uses an
-agentic plan--observe--replan loop that allocates a bounded frame
-budget over each item's candidates, inspects the returned frames,
-recognises when the evidence is uninformative, and requests
-additional views before committing an inventory update.
+\paragraph{Matching contact to inventory.} Contact alone is not enough:
+the system must bind each possible state change to the household's
+current inventory list. For every retained frame, the edge endpoint
+matches the in-contact crop to the registered item images
+(Section~\ref{sec:system-inputs}) using
+DINOv3~\cite{simeoni2025dinov3} embeddings. This makes localization
+query-set aware. In Fig.~\ref{fig:edge-observer}, the crop is scored
+against the active list entries, so the downstream timeline records
+``Eggs'' and ``Tomatoes'' rather than open-vocabulary object labels.
 
-\paragraph{Plan--observe--replan (two rounds).} Stage~4 is structured
-as a fixed two-round plan--observe--replan loop driven by the
-\emph{planning agent}. The agent's action set is deliberately narrow:
-within a round it (i)~selects sweep frames over the per-item
-interaction record, (ii)~tags each frame with the candidate items to
-look for, (iii)~dispatches a single multi-image observer call, and
-(iv)~reads the observer's per-item answers; between rounds it
-(v)~replans on items whose remaining amount, starting amount, or
-per-event derivative is unresolved or under-confident; and at the end
-of stage~4 it (vi)~writes the final per-item answers back to the
-ledger. After round~1, the planner is re-invoked with (i)~the actual
-timestamp ranges of frames the round-1 observer saw (not the
-planner's declared windows) and (ii)~the per-item answers and
-confidences the observer returned. The
-round-2 planner is allowed to revisit any moment in the session ---
-including frames already inspected --- and dispatches a second sweep
-observer call targeting items whose remaining amount, starting amount,
-or per-event derivative was unresolved or under-confident in round~1.
-The loop terminates after round~2, or earlier if the planner declares
-all items resolved.
+\paragraph{Adding routine context with scene tags.}
+The same item can appear during retrieval, preparation, transfer, or
+put-back, but these stages differ in whether they reveal amount. \sys
+runs OWLv2~\cite{minderer2023scaling} on inventory-relevant contact
+frames with prompts for common kitchen scene tags: storage, sink, and
+stove. Each frame is assigned the tag whose prompt receives the highest
+detector score, or left untagged when no prompt matches confidently.
+Together with temporal order, the scene tag helps the planner separate
+storage retrieval, sink preparation, cooking, and put-back stages
+\cite{golettoAMEGOActiveMemory2024,huang2025building,nagarajan2020ego}.
+The transparency tag from item registration is used later in the same
+way: transparent packages make storage or put-back views plausible
+fill-level evidence, while opaque packages direct the planner to access
+or use windows that show the open package interior, post-use contents, or
+dispensed amount.
 
-\scaffold{\subsection{Reasoner extensions}}
-\label{sec:extensions}
+\paragraph{The item-interaction timeline abstraction.}
+Temporal merging turns per-frame observations into the compact
+representation consumed by the planner. A frame contributes to an item's
+timeline only when Hands23 reports object contact and DINOv3 matches the
+contacted crop to that item's registration image above a confidence
+threshold. The endpoint bridges short gaps, removes isolated matches,
+and merges nearby matches for the same item or for multiple items
+handled in the same short interval. Each segment records the fields shown
+in Fig.~\ref{fig:edge-observer}: start and end time, dominant scene tag,
+active inventory items, strongest DINOv3 timestamp for each item, and
+the interval over which each item was visible during contact. The
+timeline is therefore not just a detector output; it is the edge-side
+state-change hypothesis that the cloud planner turns into amount
+observations.
 
-\scaffold{\paragraph{Cross-session visual memory.} Amount estimation
-within a single session is fundamentally under-determined when the stock
-container is only partially visible, or when it never appears in its final
-state. This extension threads a small \emph{visual memory} across
-sessions: for each item the reasoner confirms, we persist a single
-canonical end-of-session frame (the moment the stock container is most
-clearly visible) together with its estimated remaining amount. On
-subsequent sessions the reasoner is prompted with this item's prior
-snapshots, in chronological order, alongside the current-session frames.
-The prior \emph{numeric} estimates are withheld to avoid anchoring; only
-the visual evolution of the package is exposed. The intended effect is
-that the reasoner can compare the current fill level against the previous
-fill level directly, rather than re-deriving the remaining amount from
-scratch each session.}
 
-\subsection{Baseline}
+\subsection{Cloud evidence planning}
+The cloud stage solves the second selection problem: deciding which
+localized interactions are worth observing with a VLM. Its design
+follows from a gap between interaction localization and amount evidence:
+the edge timeline can identify when an inventory item is likely active,
+but it cannot know which frames reveal usage and post-use package state.
+Figure~\ref{fig:cloud-agentic-plan} follows one example: a first planner
+round resolves eggs, leaves tomatoes unresolved, then revisits a likely
+tomato-bag view in the next round.
 
-A \textbf{whole-video} baseline gives the VLM the entire untrimmed video
-and asks it to predict remaining amounts end-to-end, with no temporal
-structure supplied. This is the comparator against which the \sys{}'s
-cost--accuracy gain is measured.
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=\textwidth]{Figures/cloud_agentic_plan.pdf}
+  \Description{Cloud planning loop: the planner receives edge
+  item-interaction timelines, selects observation windows for the VLM
+  reasoner, reads structured amount observations, filters unresolved
+  items, and replans until items are resolved or the round budget ends.}
+  \caption{Cloud agentic planning loop.}
+  \label{fig:cloud-agentic-plan}
+\end{figure*}
 
-\section{Dataset}
-\label{sec:dataset}
+\paragraph{Interaction segments are not evidence windows.}
+For a given item, the edge output is a sequence of short contact
+segments, typically 5--15~s each. The ordered segments show how use
+unfolded--retrieval from storage, opening or unpacking, portion transfer,
+views of food after it leaves the package, and put-back or final
+visibility--but the answer-bearing evidence usually lies in only part of
+that sequence. In Fig.~\ref{fig:cloud-agentic-plan}, tomatoes appear at
+the counter, on the cutting board, and in the pan; the latter views help
+verify use, but the bag view is more likely to expose remaining amount.
+Thus an interaction segment may be visually rich while containing only a
+few answer-bearing frames.
+%edge output: 3653s out of 7976.93
+%699s out of 3653s overlap with evidence
+In our pilot videos, the edge pipeline retains 46\% of sampled frames
+from the full videos, but only 19.5\% of those edge-retained frames
+contain direct remaining-state evidence.
+This mismatch
+motivates a cloud stage that selects observation windows around
+inventory evidence rather than reading every frame retained by the edge
+pipeline.
 
-The dataset is collected from three participants cooking in their own
-kitchens. Each participant records first-person video using either
-\textbf{Meta Ray-Ban Smart Glasses} (egocentric, fisheye) or a head-mounted
-\textbf{Raspberry Pi Camera Module~v3}, depending on hardware availability.
+\paragraph{Seeking amount windows from item-interaction timelines.}
+The planner operationalizes the amount-evidence model by mapping each
+item-interaction timeline onto candidate pre-use, transfer, and post-use
+windows under a fixed frame budget. It reads the timeline fields shown in
+Fig.~\ref{fig:edge-observer}--segment times, scene tags, co-handled
+items, active spans, and peak-DINO timestamps--plus the per-item
+transparency tag stored at registration. It then uses temporal order and
+package transparency to infer likely retrieval, access,
+portion-transfer, and final-visibility stages.
 
-\subsection{Collection protocol}
+\emph{Stage-sampling} windows give sparse coverage: for each active item
+in each segment, the planner selects a 1~s window centered on that
+item's peak-DINO timestamp.
+\emph{Transfer-inspection} windows allocate longer 3--10~s intervals
+around likely opening or portion-transfer moments. These windows cover
+frames where the package opens, food leaves the package, and the package
+interior, dispensed portion, or post-use contents become visible. The
+longer window handles viewing-angle, hand, and utensil occlusion around
+the package opening or container interior.
+For transparent packages, put-back or final-shelf views expose the
+remaining fill level, so the planner targets a long window there.
+For opaque packages, closed final-shelf views hide contents; the planner
+instead brackets opening and dispensing, where the package interior or
+dispensed amount is visible.
+Each window can name multiple target item ids when the same frames cover
+multiple target items.
 
-We collect two complementary cohorts with the same recording hardware
-and the same item-registration and per-session annotation procedure:
-\emph{in-the-wild} sessions, the primary realistic-deployment cohort,
-and \emph{controlled-consumption} sessions, which broaden
-item-category coverage and supply paired-comparison statistical
-power. We first describe the registration and annotation steps that
-apply to both cohorts, then the protocol that differs between them.
+\paragraph{VLM reasoner.}
+The VLM is reserved for reading amount from the selected visual evidence,
+not for searching the full video. Selected stage-sampling and
+transfer-inspection windows are flattened into a chronological
+multi-image prompt with the candidate item list and the image-to-segment
+mapping. For each candidate item, the reasoner first decides whether the
+item was used. It then fills an amount state with three independent
+visual readings when frame evidence supports them: starting amount before
+use, amount used during transfer, and remaining amount after use. A
+reading remains empty when no supporting frame is present; the reasoner
+does not infer one reading from the others.
 
-\paragraph{Item registration from grocery receipts.}
-Before any session is recorded, each item is initialized in the
-participant's ledger from its grocery receipt: we record the item's
-name, its \emph{original package size} (in grams or count), and a
-product image of the item's package. These attributes are populated
-once when the item enters the household, sourced from the receipt
-(or the retailer's product page when the receipt lacks an image),
-and reused across every subsequent session that touches it ---
-in both in-the-wild and controlled sessions.
+The reasoner also summarizes every selected segment. Each segment observation
+describes the visible action, such as accessing, opening, dispensing, views of
+food after it leaves the package, restocking, or idle frames, and whether the
+segment provides pre-, during-, or post-use evidence for the candidate item.
+These observations are carried forward as annotations on the retained timeline,
+so the next planner sees what the VLM actually inspected and which amount
+evidence remains missing.
 
-\paragraph{Per-session annotation.}
-\label{sec:annotation-labels}
-For every item the participant interacted with in a session ---
-again, in both cohorts --- we record:
-\begin{itemize}
-  \item \textbf{Item used} --- a binary flag indicating whether
-  any amount of the item was consumed during the session.
-  \item \textbf{Starting amount} --- the amount present at the
-  start of the session, in grams (bulk items) or count (discrete
-  items such as eggs).
-  \item \textbf{Ending amount} --- the amount remaining at the end
-  of the session, in the same unit. Together with the starting
-  amount this is the supervision signal a system must predict.
-  \item \textbf{Consumption amount} --- the session's consumed
-  amount, equal to starting minus ending.
-\end{itemize}
+\paragraph{Replan.}
+\sys treats missing amount evidence as a bounded recovery problem. The
+first observation plan is intentionally small, so it can fail in a
+specific way: it may select a non-diagnostic window that confirms use
+without showing the package-state evidence needed for the remaining
+amount. For example, tomatoes on a cutting board or in a pan show that
+the bag was used, but not the bag's starting or remaining amount.
+Replanning turns this partial VLM
+observation into feedback. The next plan is conditioned not only on the
+edge timeline, but also on which amount readings remain unobserved after
+the previous VLM call. After each round, an item is resolved if the
+reasoner directly reports a remaining amount, or if both the starting
+amount and amount used are grounded so the remaining amount can be
+derived downstream. Items that have neither a direct remaining amount nor
+two grounded readings remain unresolved.
 
-\paragraph{In-the-wild cooking sessions.}
-Participants wear the Meta Ray-Ban Smart Glasses during their
-ordinary meal-prep sessions at home, with no instructions on what or
-how to cook. Each session is intended to capture the complete
-lifecycle of an inventory item within that meal --- retrieval from
-storage, in-session use, and put-back --- so that the starting and
-ending states of every touched item are both visible on tape. At the
-beginning and end of each recording, the participant places each
-to-be-used or just-used item on a kitchen scale and reads the
-weight aloud (or shows it to the camera), producing the per-item
-ground-truth amounts described in
-Section~\ref{sec:annotation-labels}. Within the session itself,
-participants are explicitly \emph{not} asked to keep the item in
-view or to avoid natural recording noise; hand obstruction, head
-turning, off-camera handling, and the usual artefacts of egocentric
-recording are kept in the data so that the cohort reflects the
-realistic deployment scenario --- free-form cooking with multiple
-items, varied background clutter, and whatever item subset happens
-to be on the shelf that week. This is the primary evaluation cohort.
+Before the next planner call, \sys filters the context to the
+unresolved items.
+For each unresolved item, the planner receives the retained timeline,
+the current and missing amount readings, and the segment observations
+produced by the VLM reasoner so far. It then emits another bounded set
+of observation windows for missing evidence, such as a post-use package
+view or a longer segment around the likely portion-transfer moment. In
+Fig.~\ref{fig:cloud-agentic-plan}, the first round leaves tomatoes
+unresolved, so the next plan revisits the earlier tomato-bag observation
+with a longer window.
 
-\paragraph{Controlled consumption sessions.} In a controlled session
-the participant follows a scripted protocol that consumes a
-\emph{single} pre-selected item at a time: the item is removed from
-storage, a known amount is poured/scooped/cut out, and the item is
-returned. Several items are cycled through in a single recording.
-This cohort exists to deliberately exercise items
-under-represented in free-form cooking (less-used condiments,
-opaque-packaged items, unusual shape categories) and to produce many
-cleanly-bounded consumption events per unit recording time, raising
-the event count to the level needed for paired
-\sys{}-vs.-baseline comparisons at statistical significance that the
-wild cohort alone could not support.
+New VLM outputs fill only missing readings; previously grounded readings
+are preserved.
+The loop stops when every candidate item has a grounded update or when the
+fixed round budget is exhausted. In evaluation, varying this round budget
+exposes the cost--accuracy trade-off.
 
-\subsection{Dataset summary}
-\label{sec:current}
+\subsection{Budget control}
+\label{sec:budget-control}
 
-Table~\ref{tab:progress} reports the dataset across participants,
-hours of recording, weighed consumption events, and distinct
-tracked item instances.
+In the case when a user's deployment of \sys is constrained by a cloud budget, \sys adapts to a tighter budget by shrinking the set of items it monitors each session: rather than measuring every detected item, it skips items it judges unlikely to be approaching depletion and concentrates the available observer calls on those that are.
 
-\begin{table}[h]
-\centering
-\caption{Dataset summary across participants.}
-\label{tab:progress}
-\begin{tabular}{lr}
-\toprule
-                                 & \scaffold{Count} \\
-\midrule
-Participants (recording)         & \scaffold{5}      \\
-Participants (annotated ledger)  & \scaffold{3}      \\
-Total video                      & \scaffold{29.9~h}  \\
-\quad in-the-wild                & \scaffold{29.0~h}  \\
-\quad controlled                 & \scaffold{0.9~h}   \\
-Consumption events (weighed)     & \scaffold{460}     \\
-\quad in-the-wild                & \scaffold{388}     \\
-\quad controlled                 & \scaffold{72}      \\
-Distinct tracked item instances  & \scaffold{150}     \\
-\bottomrule
-\end{tabular}
-\end{table}
+The principle is that an item is only worth re-measuring when its remaining amount is plausibly close to running out. \sys maintains a lightweight running estimate of each tracked item's remaining stock, seeded at the receipt capacity when the item enters the inventory and overwritten by every observer measurement. Between observations, the estimate decays by a per-item prior on typical per-session consumption. As long as this estimate stays comfortably above half the receipt capacity, the observer is suppressed and the item is dropped from that session's observer prompt. Once the estimate would cross the 50\,\% mark, the next session forces a fresh measurement; if the measured amount likewise lies at or below half, the system raises a low-stock alarm to the user. A small safety cap forces a refresh after a configurable number of consecutive skips on the same item, which keeps the simple decay model from drifting unboundedly far from reality.
 
-Across the annotated ledgers, the \scaffold{150} tracked item
-instances fall into four shape categories
-(Table~\ref{tab:items} breaks this down with examples):
-\textsc{solid} \scaffold{39}, \textsc{discrete} \scaffold{36},
-\textsc{granular} \scaffold{33}, \textsc{fluid} \scaffold{20}, with
-\scaffold{22} instances not yet categorised.
+This design intentionally exposes two knobs. The 50\,\% threshold is the primary lever a user adjusts when their budget changes: pushing it lower trades alarm lead-time for fewer observer calls, while still guaranteeing that an alarm precedes depletion as long as the per-item prior is approximately correct. The refresh cap acts as a sanity floor against bad priors, ensuring that even an item the controller persistently underestimates gets re-measured periodically. Because every alarm is gated by an observer call, a spurious alarm on a non-depleting item costs at most one extra observation, already counted toward the budget; there is no separate false-alarm penalty.
 
-\subsection{Item variety}
-\label{sec:items}
+\input{Latex_Ke/dataset}
+% \input{Latex_Kailai/dataset}
+\input{Latex_Ke/eval}
 
-Each item in the dataset is tagged with a \emph{shape category} --- one of
-\{\textsc{fluid}, \textsc{granular}, \textsc{solid}, \textsc{discrete}\}
---- along with a \emph{transparency} flag indicating whether the package
-is see-through. These attributes are informative because they govern how
-an amount is estimated: fluid and granular items in transparent packaging
-permit fill-level reading, discrete items (eggs, yogurt cups) permit
-counting, and opaque containers must be inferred from pour/scoop duration
-or weighing context. Table~\ref{tab:items} summarises the current item
-inventory.
-
-\begin{table}[h]
-\centering
-\caption{Item variety across all annotated ledgers, grouped by shape
-category. Counts are item \emph{instances} (one row per purchase).}
-\label{tab:items}
-\begin{tabular}{lrl}
-\toprule
-Category    & Items & Examples \\
-\midrule
-Fluid       & \scaffold{20} & olive oil, milk, soy sauce \\
-Granular    & \scaffold{33} & rice, pasta, cereal \\
-Solid       & \scaffold{39} & garlic, steak, tofu \\
-Discrete    & \scaffold{36} & eggs, yogurt cups, bagels \\
-Unlabelled  & \scaffold{22} & \\
-\midrule
-Total       & \scaffold{150} & \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\subsection{Longitudinal coverage}
-\label{sec:longitudinal}
-
-The same item often persists across many sessions before it is exhausted,
-which lets us evaluate \emph{how a system tracks one package over its
-full lifecycle} rather than only how it does on isolated sessions.
-Across the annotated ledgers, item lifecycles span the
-distribution shown in Table~\ref{tab:longitudinal}:
-\scaffold{36} item-instances appear in at least 5 distinct
-sessions, \scaffold{12} in at least 10, and the longest-running
-items (eggs, sliced cheese, cereal, oats, milk gallons) are
-observed across \scaffold{13--18} sessions each. This long-tail
-subset is the substrate for the per-item lifecycle evaluation
-described in Section~\ref{sec:lifecycle}.
-
-\begin{table}[h]
-\centering
-\caption{Item lifecycle distribution across annotated ledgers.
-``Sessions'' is the number of distinct sessions in which a given item
-instance was logged as consumed.}
-\label{tab:longitudinal}
-\begin{tabular}{rrr}
-\toprule
-Sessions per item & Item instances & Cumulative ($\geq$) \\
-\midrule
-$\geq$1   & \scaffold{107} & \scaffold{107} \\
-$\geq$3   & \scaffold{61}  & \scaffold{61}  \\
-$\geq$5   & \scaffold{36}  & \scaffold{36}  \\
-$\geq$10  & \scaffold{12}  & \scaffold{12}  \\
-$\geq$15  & \scaffold{3}   & \scaffold{3}   \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\section{Benchmark and Evaluation Plan}
+\section{Evaluation}
 \label{sec:evaluation}
 
-\subsection{Benchmark structure}
+We evaluate whether \sys can exploit localizable item-use structure so
+cloud VLM input scales with candidate amount-evidence windows rather
+than full-session duration, while preserving numeric inventory-update
+quality. The key questions are whether agentic evidence
+planning achieves a better quality--cost tradeoff than whole-video
+inference and non-agentic edge baselines, which cues, replanning
+rounds explain that tradeoff, and whether \sys's lightweight observers can run efficiently on edge devices.
 
-Videos are organized into \emph{sessions} (meal-prep episodes).
+% ====================================================================
+% Paper-facing name <-> code-tag mapping. Code identifiers and per-cell
+% flag sets live in evaluation/experiment_matrix.py; per-cohort eval
+% JSONs live in evaluation/results/.
+%
+%   Whole-video VLM            <-  full_video             (Pro, lb_v4)
+%   No-planner (all segments)  <-  no_planner             (noplanner_v3_sync)
+%   No-planner (uniform sampling) <- uniform_budget        (noplanner, uniform_n100_v1)
+%   \sys  (primary = 3 rounds)  <-  canonical_v5_maxR3 (= R3 cap of canonical_v5; paper-default row)
+%   No scene tags              <-  no_scene_tag
+%   No transparency hint       <-  no_transparency        (= canonical_v3)
+%   4 rounds (round-budget ablation) <-  canonical_v5     (R4 default of canonical script; one more round than \sys)
+%   2 rounds (round-budget ablation) <-  round_limit_r2   (= canonical_v5_maxR2)
+%   Flash family               <-  vlm_switch             (Flash on BOTH planner LLM and reasoner VLM, transparency off)
+%
+% Cohort manifests (pooled = 97 sessions, 443 events, 28.72 h):
+%   Household A = kailai  (wild_kailai_v1.json,  79 sessions, 371 events, 16.12 h)
+%   Household B = ke      (wild_ke_v1.json,       7 sessions,  38 events,  4.48 h)
+%   Household C = peizhou (wild_peizhou_v1.json, 11 sessions,  34 events,  8.12 h)
+% ====================================================================
 
-\paragraph{Task.} Given (i)~an untrimmed egocentric session video and
-(ii)~the participant's current inventory ledger snapshot
-(Section~\ref{sec:system-inputs}), the system outputs, for every item
-the participant interacted with, an estimate of the item's
-\emph{remaining amount} at session end --- equivalently the
-\emph{consumption delta} relative to the ledger's starting amount. The
-ground-truth label, for every touched item, is the
-(\emph{starting amount}, \emph{ending amount}) pair from
-Section~\ref{sec:dataset}, against which either form of the prediction
-is scored.
+\subsection{Benchmark protocol}
 
-\paragraph{Evaluation axes.} A run is characterised by two scalars per
-session: amount-estimation \emph{accuracy}
-(Section~\ref{sec:cnpe}) and VLM \emph{cost}
-(Section~\ref{sec:tokens}). The headline result
-(Section~\ref{sec:results-headline}) plots accuracy against cost as a
-Pareto frontier; a system that wins on one axis while losing on the
-other is not preferred unless the trade is explicitly characterised
-along that frontier.
+Each evaluation unit pairs an untrimmed egocentric session with the
+participant's pre-session inventory snapshot: monitored in-stock items,
+their names, package sizes, and reference images, but no starting
+amount. Given this video--snapshot pair, a method predicts which
+items were used and each used item's remaining amount. 
 
-\subsection{Evaluation cohorts}
-\label{sec:eval-cohorts}
+\paragraph{Implementation.}
+All experiment cells use fixed prompts, parsing
+schemas, model choices, and no per-session prompt tuning. The default
+\sys stack uses a GPT-5.4 text planner over edge-produced
+item-interaction timelines and a Gemini-3.1 Pro reasoner over selected
+video frames. The planner returns bounded observation windows for
+sparse stage sampling, likely transfer inspection, and final
+visibility; the reasoner returns structured per-item state updates.
+The reported \sys row uses fixed frame budgets and a three-round
+plan--observe cap for every session; ablations change only the
+indicated cue or round limit. The code artifact includes the full
+prompts, command lines, decoding settings, parser, and
+example per-session JSON logs.
 
-We evaluate the two collection flavours for different purposes.
+For the whole-video baseline, we convert all source clips to $1$~fps and split the concatenated video into chunks of at most
+$20$~minutes. Each chunk receives the full in-stock inventory list and
+the same amount-reading schema as the \sys reasoner. The final
+session-level prediction aggregates the chunk outputs: an item update
+is carried forward until a later chunk reports the same item, at which
+point the later reading replaces the earlier one. The $20$-minute cap
+is set empirically to avoid exceeding Gemini 3.1 Pro's max output tokens limit under high thinking level.
 
-\paragraph{In-the-wild cooking videos.} These are our primary cohort and
-the one that reflects the deployed use case. On this cohort we report
-\emph{both} (i) amount-estimation accuracy (CNPE, Section~\ref{sec:cnpe})
-and (ii) VLM token consumption per session
-(Section~\ref{sec:tokens}). Target scale at submission:
-$\sim$20~h of video and $\sim$400 consumption events across 3
-participants (numbers to be finalised).
 
-\paragraph{Controlled consumption videos.} We use the controlled cohort to
-evaluate VLM amount-estimation accuracy over a broader, deliberately
-diversified set of food items (see Section~\ref{sec:dataset}). The item
-mix here spans shape categories and packaging transparencies that are
-under-represented in any one participant's natural cooking, which lets us
-measure how \sys{}'s accuracy gain over baselines generalises across item
-types. Target scale: $\sim$2~h of video and $\sim$300 consumption events;
-we report CNPE on this cohort with paired per-event comparisons so that
-\sys{}-vs.-baseline differences can be tested at statistical significance.
+\subsubsection{Metrics}
 
-\subsection{Primary metric: CNPE (accuracy)}
+\paragraph{Inventory-update performance.}
+Tables~\ref{tab:primary}, \ref{tab:ablation-deltas},
+\ref{tab:household-generalization}, and \ref{tab:vlm-switch} report
+amount-aware inventory F1, amount-update coverage,
+hallucinated-update rate, and projected monthly cloud cost. Conditional
+amount error is reported separately in the amount-reading breakdowns.
+
+\paragraph{Amount-update coverage and hallucinated updates.}
+Let $G$ be the set of ground-truth item-use events, $M \subseteq G$ be
+the matched used-item events, $M_{\mathrm{amt}} \subseteq M$ be the
+matched events for which the system returns a numeric session-end
+remaining-amount estimate, $U=G\setminus M$, and $H$ be hallucinated
+used-item predictions. Amount-update coverage is $|M_{\mathrm{amt}}|/|G|$: a
+detected use that lacks a numeric remaining-amount estimate does not
+update the inventory state and is not credited. A hallucinated update is
+a predicted used-item record that
+cannot be matched to any ground-truth item-use event in the session. We
+report hallucinated-update rate as $|H|/(|G|+|H|)$, equivalently
+$|H|/(|M|+|U|+|H|)$. This workload-normalized diagnostic measures how
+much the inventory-update stream is polluted by extra predicted updates
+in a setting with no meaningful true negatives. Items skipped by the
+planner, missed by the edge pipeline, or returned as unresolved count as
+misses for coverage.
+
+\paragraph{CNPE}
 \label{sec:cnpe}
+For matched items with numeric remaining-amount estimates,
+capacity-normalized percentage error is
+$\mathrm{CNPE}_i=\lvert \mathrm{pred}_i-\mathrm{GT}_i\rvert C_i^{-1}
+\times 100$, where $C_i$ is item $i$'s package capacity. We report CNPE
+on remaining amount unless stated otherwise. Because CNPE conditions on
+a numeric prediction and does not penalize missed or hallucinated
+updates, we use it as a diagnostic for VLM amount reading rather than
+as the end-to-end inventory metric.
 
-We measure accuracy with \textbf{Capacity-Normalized Percentage Error (CNPE)}:
-\[
-\mathrm{CNPE} \;=\; \frac{\lvert \mathrm{prediction} - \mathrm{GT} \rvert}{W_0} \times 100,
-\]
-where $W_0$ is the item's original package size (capacity). Normalizing by
-$W_0$ makes errors comparable across items of very different sizes: a 50~g
-error on a 500~g jar (10\% CNPE) is treated the same as a 50~g error on a
-50~g packet (100\% CNPE). CNPE can be computed equivalently on the remaining
-amount or the used amount.
+\paragraph{Amount-aware inventory F1.}
+Let $\mathcal{P}$ be the predicted-used item records. For each
+$g \in G$, let $e_g$ be its remaining-amount CNPE if matched to a
+numeric prediction, and set $q_g=1-\min(e_g,100)/100$; unmatched events
+or matched events without a numeric amount estimate have $q_g=0$. With
+$Q=\sum_{g \in G}q_g$,
+$R_{\mathrm{amt}}=Q/|G|$ and
+$P_{\mathrm{amt}}=Q/|\mathcal{P}|$. Inventory F1 is their harmonic
+mean, reported as a percentage.
+Hallucinated predictions lower precision; if no item is predicted,
+$P_{\mathrm{amt}}$ and $F1_{\mathrm{inv}}$ are zero. Thus the precision
+term is amount-aware; the hallucinated-update rate above remains a
+separate diagnostic.
 
-\subsection{Primary metric: VLM token consumption (cost)}
+% \paragraph{Low-stock decision F1.}
+% For household use, we also report a thresholded diagnostic that asks
+% whether the system would make the same coarse low-stock decision as the
+% ground truth. For a capacity threshold $\tau$, an item is low if its
+% remaining amount is at most $\tau C_i$. LowF1@$\tau$ converts the
+% predicted and ground-truth remaining amounts into low/not-low decisions
+% and reports F1 over low-stock item updates. Missed or unresolved
+% low-stock items count as false negatives, and hallucinated low-stock
+% updates count as false positives. We use this metric only as an
+% interpretability diagnostic because the appropriate threshold depends on
+% the household decision: a grocery reminder may tolerate a coarse
+% ``low'' flag, whereas recipe planning or automatic replenishment needs
+% more precise amount estimates.
+
+\paragraph{Cost and latency.}
+The cost columns in Tables~\ref{tab:primary},
+\ref{tab:ablation-deltas}, \ref{tab:household-generalization}, and
+\ref{tab:vlm-switch} report projected monthly cloud model cost.
+Table~\ref{tab:sparsity-cost} uses the same one-hour-per-day scale for
+the density-bin cost diagnostic. Section~\ref{sec:eval-runtime}
+reports edge-stage latency separately.
+
+\paragraph{Cloud model cost.}
 \label{sec:tokens}
+Each cloud call is priced from paid-tier input and output rates:
+$T_{\mathrm{in}}(c)$ is charged at $p_{\mathrm{in}}(m_c)$ and
+$T_{\mathrm{out}}(c)$ at $p_{\mathrm{out}}(m_c)$, both per million
+tokens, where $m_c$ is the model serving call
+$c$~\cite{googleGeminiAPIPricing2026,openaiAPIPricing2026}.
+Here $T_{\mathrm{out}}$ includes visible output tokens and any
+thinking/reasoning tokens charged at the output rate by API convention
+\cite{googleGeminiAPIPricing2026,openaiAPIPricing2026}. Image inputs
+are converted at $280$ tokens per frame under Gemini~3 media-resolution
+accounting~\cite{googleGeminiMediaResolution2026}. Table~\ref{tab:pricing}
+shows the paid-tier rates used for all cost
+calculations~\cite{googleGeminiAPIPricing2026,microsoftAzureOpenAIPricing2026};
+Gemini-3.1 Pro uses the $200$K-token per-call tier split shown in the
+table. At the $280$-token-per-frame media-resolution-high setting, a
+single call crosses the threshold once it carries more than $\approx
+714$ frames, i.e.\ $\sim 12$ minutes of $1$~fps video. In the
+wild\_kailai\_v1 cohort, no \sys call crosses the threshold (max
+per-call input $\approx 31$K tokens), whereas $29\%$ of whole-video
+baseline sessions ($23/79$) and $46\%$ of its individual calls do,
+accounting for $81\%$ of all frames billed in that cell. Per-cell cost
+sums planner LLM calls and VLM reasoner calls; the whole-video baseline
+has only a VLM reasoner call. To make dollar
+numbers comparable to a recurring household deployment, each table
+reports $C_{\mathrm{month}}=30C_{\mathrm{cell}}/H$, where
+$C_{\mathrm{cell}}$ is the total cloud spend in the table cell and $H$
+is the recorded video hours represented by that cell. This assumes one
+hour of daily logging; the underlying token totals remain measured on
+the evaluation cohort.
+For provider-agnostic comparison we also report
+\emph{billable tokens} $=T_{\mathrm{in}}+6T_{\mathrm{out}}$;
+the $6\times$ weighting matches the output:input price ratio of all
+three models on their primary tier.
 
-We report total cloud-VLM token cost per session as a USD figure under
-the locked pricing convention (Section~\ref{sec:lockdown}), priced
-across three token classes:
-\begin{itemize}
-  \item \textbf{Input tokens}: prompt text, the in-prompt ledger
-  snapshot, and the per-frame image tokens fed to the observer.
-  \item \textbf{Output tokens}: the observer's per-item answers and
-  the planner's plan-of-frames.
-  \item \textbf{Thinking tokens}: model-internal chain-of-thought
-  tokens, which both Gemini and GPT-5 bill at the output rate.
-\end{itemize}
-Cloud planner-LLM tokens are included in the \sys{} cost; the
-whole-video baseline calls only the VLM and incurs no planner cost.
+\paragraph{Edge processing latency.}
+Edge latency is measured separately from cloud cost. For each edge
+stage, we report processing time as seconds per sampled frame and
+seconds per session-hour, plus peak GPU memory. We also report
+end-to-end edge processing time normalized by recorded-video duration
+for the $1$~fps sampled workload.
 
-\paragraph{Edge compute is excluded from the USD axis, characterised
-separately.} The Hands23 HOI detector, OWLv2 scene tagger, and
-DINOv3 identification ViT all run on the household endpoint
-(Section~\ref{sec:system}), once per session, and are not billed per
-call. The headline cost claim of \sys{} is about \emph{recurring API
-dollars} --- the per-session out-of-pocket cost a household incurs
-as it records more video --- so edge compute is excluded from the
-USD axis. We exclude rather than convert because edge hardware
-varies across deployments (a phone, a home workstation, a local
-server), and edge cost amortises over session lifetime in a way the
-cloud per-token model does not; pricing GPU-hours into a single USD
-axis would conflate two fundamentally different cost regimes the
-system is designed to trade between. The edge pipeline is instead
-characterised on its own terms: per-stage \emph{peak GPU memory} and
-\emph{inference latency} (seconds per session-hour of video) measured
-on the deployment hardware, reported alongside the headline cost
-table so the household-side resource footprint is auditable.
+\subsubsection{Core experiments}
 
-\subsection{Cross-cut analyses}
-\label{sec:crosscut}
+Table~\ref{tab:primary} compares four ways to spend cloud reasoning on
+the in-the-wild Households~A--C cohort ($97$ sessions, $28.72$ hours,
+$443$ ground-truth item-use events). Whole-video VLM inference gives the
+reasoner the full $1$~fps session video. No-planner all-segments
+forwarding sends every edge-localized interaction segment. No-planner
+uniform sampling caps visual input by sampling a fixed number of frames
+from the same edge timeline. \sys keeps the edge timeline but uses a
+text-only planner to seek amount-bearing windows and revisit unresolved
+items. The table should be read as a cost--quality tradeoff:
+inventory F1 combines item matching, hallucinated updates, and amount
+error; update coverage measures how often a ground-truth use yields a
+numeric remaining-amount update; hallucinated-update rate measures extra
+predicted updates; billable tokens and projected monthly USD measure
+cloud usage.
 
-The two headline metrics (CNPE, token cost) are reported as session-level
-aggregates, but the questions that drive system design are sharper than a
-single mean. We additionally report cross-cut breakdowns of the
-same underlying per-event predictions along four axes --- shape
-category, packaging transparency, item lifecycle, and lifecycle stage
---- with each cross-cut computed separately within the in-the-wild
-and controlled cohorts so that cohort effects are never silently
-folded into category effects.
 
-\paragraph{Per-class CNPE.} CNPE is broken down by item shape category
-(\textsc{fluid}, \textsc{granular}, \textsc{solid}, \textsc{discrete})
-and crossed with packaging transparency. The hypothesis is that the
-\sys{}'s gain over the baseline concentrates on classes where amount
-reasoning is locally hard but \emph{visible} given the right frame ---
-fill levels in transparent fluids, residue in granulars, missing items
-in discrete counts --- whereas opaque-fluid and irregular-solid
-estimation remain hard regardless of how the observation windows are
-chosen. Reporting per-class CNPE makes the source of any aggregate
-gain auditable and exposes packaging types where future work is most
-needed. The per-class event counts in Table~\ref{tab:items} (20--39
-instances per category, with multiple consumption events per instance)
-are sufficient to support per-class means with bootstrap intervals.
-
-\paragraph{Item-lifecycle CNPE.}
-\label{sec:lifecycle}
-Inventory tracking is intrinsically a longitudinal task: the same
-package is observed across many sessions until exhausted. For the
-long-tail item subset characterised in Section~\ref{sec:longitudinal}
-(32 item-instances with $\geq$5 sessions, 11 with $\geq$10), we report a
-per-item CNPE \emph{trajectory} indexed by session number, alongside a
-single per-item lifecycle CNPE (mean across that item's sessions). Two
-trajectory shapes matter and we will distinguish them: (i)
-session-by-session error that stays roughly flat, indicating the system
-re-anchors against the current frame and earlier session errors do not
-compound; and (ii) error that grows monotonically as the package
-empties, indicating that low-fill states are a systematic failure mode
-and motivating the cross-session visual memory extension
-(Section~\ref{sec:extensions}). For items observed all the way to a
-``finished'' event, we additionally report end-of-life cumulative drift
-(predicted total used minus actual, normalised by capacity).
-
-\paragraph{Lifecycle-stage CNPE.} Independently of which item-instance
-they came from, consumption events are bucketed by the
-\emph{lifecycle stage} of the item at the start of the session ---
-\textsc{early-life} ($\geq$70\% of capacity remaining),
-\textsc{mid-life} (between 20\% and 70\%), and \textsc{late-life}
-($\leq$20\%) --- and CNPE is reported per bucket. The hypothesis is
-that late-life sessions, where the package is mostly empty and small
-absolute changes correspond to large CNPE, dominate aggregate error
-in a way that motivates the cross-session visual memory extension
-(Section~\ref{sec:extensions}). Splitting events by stage rather than
-only by item-instance makes this driver visible across the whole
-dataset, including items not yet long enough for a full trajectory.
-
-\subsection{Experiment matrix}
-
-Every cell in the matrix below is reported under both cross-cut
-breakdowns from Section~\ref{sec:crosscut} (per-class and
-item-lifecycle), so that the headline CNPE/token comparisons can be
-audited along the dimensions most likely to drive system design.
-
-\begin{itemize}
-  \item \textbf{Controlled vs.\ natural sessions.} We expect
-  amount-estimation error to be lower on controlled sessions (single item,
-  scripted consumption) and will report the two cohorts separately.
-  \item \textbf{Baseline vs.\ \sys.} Whole-video baseline and the
-  \sys{} (planner~+~sweep observer with iterative replan per
-  Section~\ref{sec:system}), using the same VLM backends for a fair
-  comparison.
-  \item \textbf{Ablations within the \sys.} (i) Number of plan--observe
-  rounds (1 vs.\ 2 vs.\ unbounded under a session-level frame budget);
-  (ii) frame-budget allocation policy (journey-only, dense-only,
-  mixed; late-burst-biased vs.\ uniform); (iii) planner evidence
-  rendering (per-item temporal segments vs.\ chronological timeline
-  vs.\ activity blocks); (iv) backbone VLM for the observer (GPT-5,
-  Gemini~3 Pro / 2.5 Pro / Flash, Gemma) under matched frame-budget
-  caps so the comparison isolates VLM choice from frame count.
-  \scaffold{\item \textbf{Extension (Section~\ref{sec:extensions}).} We
-  will additionally report \emph{cross-session visual memory}: the
-  \sys{} with prior end-of-session snapshots threaded into the reasoner
-  prompt, versus the same \sys{} without --- evaluated specifically on
-  the long-tail items of Table~\ref{tab:longitudinal} where the
-  trajectory metric (Section~\ref{sec:lifecycle}) makes any
-  cross-session benefit visible. The extension is evaluated on the same
-  CNPE/token axes so its cost/accuracy trade-off against the base
-  \sys{} is directly comparable.}
-  \item \textbf{Scalability.} As more participants and sessions come online,
-  we will re-run the full matrix and report metric stability as the
-  experiment set grows.
-\end{itemize}
-
-\subsection{Locked evaluation definitions}
-\label{sec:lockdown}
-
-To make the small-scale pilots and the final-cohort runs directly
-comparable, three definitions are pinned for the remainder of the
-project. Any later change to these is treated as a methodological
-revision and the affected runs are re-executed.
-
-\paragraph{Frozen cohort lists.} The wild and controlled cohorts are
-specified as explicit session-ID lists per participant
-(Appendix~\ref{app:cohort-ids}, to be added). New sessions recorded
-after the freeze date are excluded from the headline numbers and may
-appear only as out-of-distribution diagnostics. The current pilot
-cohort is the 10-session canonical \texttt{kailai} natural-cooking
-subset; the final cohort substitutes the larger frozen list under the
-same protocol.
-
-\paragraph{Frozen pricing convention.} Billable cost per session is
-reported in USD using Gemini~3~Pro paid-tier pricing
-(\$1.25/M~input,~\$10/M~output, thinking tokens charged at output
-rate), with images converted at 1~frame~$=$~260 input tokens. The same
-pricing convention is applied to the whole-video baseline and the
-\sys{} so that cost comparisons are not confounded by per-comparator
-pricing choices. Planner LLM cost is included only in the \sys{} and
-extension rows.
-
-\paragraph{Frozen metric definitions.} Three metrics constitute the
-headline:
-\begin{itemize}
-  \item \textbf{CNPE per event} (Section~\ref{sec:cnpe}), reported as
-  the mean over GT consumption events.
-  \item \textbf{Recall} = the fraction of GT consumption events for
-  which the system produced a non-null amount estimate. Items the
-  planner explicitly skipped, items the observer marked as
-  not-confirmed, and items never proposed in the first place all count
-  as missed.
-  \item \textbf{Fused CNPE${+}$recall} = the per-event mean of CNPE
-  with missed events charged at $\mathrm{CNPE}=100$. This single
-  scalar is the y-axis of the headline cost--accuracy figure. The
-  failure floor of $100$ corresponds to a full-package error and
-  prevents systems from improving the headline by skipping uncertain
-  items.
-\end{itemize}
-
-\section{Results}
-\label{sec:results}
-
-\scaffold{This section is a skeleton. Each figure and table below is
-defined here so that experiments executed between now and the
-freeze date populate specific cells rather than producing orphaned
-runs. Figures and tables will be filled as experiments complete.}
-
-\subsection{Setup}
-\label{sec:results-setup}
-
-\scaffold{Final cohort sizes (sessions, hours, consumption events) per
-participant, broken out by wild vs.\ controlled. One row per
-comparator (whole-video baseline, \sys{} R1, \sys{} R1$+$R2,
-\sys{}$+$memory) listing the locked run configuration: planner LLM,
-observer VLM, frame-budget cap, evidence rendering mode,
-burst-coverage rule, thinking depth. Pricing convention restated from
-Section~\ref{sec:lockdown}.}
-
-\subsection{Headline: cost--accuracy frontier}
-\label{sec:results-headline}
-
-\scaffold{\textbf{Figure (central):} Pareto plot. x-axis = USD/session
-(log scale); y-axis = fused CNPE$+$recall (lower is better). One
-marker per (comparator $\times$ frame-budget) cell. Curves: whole-video
-baseline (single point), \sys{} frontier (sweep over frame budget and
-round count). Iso-cost guides at \$0.10, \$0.50, \$1.00. Extension
-points appended in red when implemented.}
-
-\scaffold{\textbf{Table~\ref{tab:headline} (placeholder):} aggregate
-CNPE, recall, and \$/session for each comparator on the wild and
-controlled cohorts.}
-
-\subsection{Cross-cut analyses}
-\label{sec:results-crosscut}
-
-\scaffold{Two panels populate the breakdowns specified in
-Section~\ref{sec:crosscut}:}
-\begin{itemize}
-  \item \scaffold{\textbf{Per-class CNPE} bars: shape category
-  (\textsc{fluid}/\textsc{granular}/\textsc{solid}/\textsc{discrete})
-  $\times$ comparator, crossed with packaging transparency. Tests the
-  ``gain concentrates on visible-but-locally-hard classes'' hypothesis
-  from Section~\ref{sec:crosscut}.}
-  \item \scaffold{\textbf{Lifecycle trajectory grid:} small multiples,
-  one panel per long-tail item from Table~\ref{tab:longitudinal}, $x$
-  $=$ session index, $y$ $=$ CNPE, two lines per panel (whole-video
-  baseline / \sys{}). End-of-life cumulative drift reported in an
-  adjacent table for items observed to ``finished''.}
-\end{itemize}
-
-\subsection{Ablations}
-\label{sec:results-ablations}
-
-\scaffold{Each ablation produces a small Pareto subplot sharing axes
-with the headline figure. (i)~Round count (R1 vs.\ R1$+$R2 vs.\
-unbounded under a session-level frame budget). (ii)~Frame budget
-allocation policy (journey-only / dense-only / mixed; late-burst vs.\
-uniform). (iii)~Planner evidence rendering (\texttt{blocks} vs.\
-\texttt{chrono} vs.\ \texttt{segments}). (iv)~Observer-backbone swap
-(GPT-5, Gemini~3~Pro, Gemini~2.5~Pro/Flash, Gemma) at matched
-frame-budget caps.}
-
-\subsection{Failure analysis}
-\label{sec:results-failures}
-
-\scaffold{2--3 hand-picked sessions with figure-strip illustrations:
-session timeline, frames the observer actually saw, predicted vs.\
-true amount, one-sentence diagnosis. Each case is mapped to either the
-cross-session memory extension or flagged as an open problem.}
-
-\scaffold{\subsection{Extension}}
-\label{sec:results-extensions}
-
-\scaffold{Cross-session visual memory results: matched-frame-budget
-comparison against base \sys{}, evaluated on the
-Table~\ref{tab:longitudinal} long-tail items so the lifecycle
-trajectories from Section~\ref{sec:results-crosscut} can show the
-benefit.}
-
-\begin{table}[h]
+\begin{table*}[t]
 \centering
-\caption{\scaffold{(Placeholder.)} Headline CNPE, recall, and
-\$/session per comparator on the frozen cohorts.}
-\label{tab:headline}
-\begin{tabular}{lrrrrrr}
+\small
+\setlength{\tabcolsep}{4pt}
+\caption{Core-method accuracy and projected monthly cost.}
+\label{tab:primary}
+\begin{tabular}{lrrrrrrrrr}
 \toprule
-              & \multicolumn{3}{c}{Wild} & \multicolumn{3}{c}{Controlled} \\
-\cmidrule(lr){2-4}\cmidrule(lr){5-7}
-Comparator    & CNPE & Recall & \$/sess & CNPE & Recall & \$/sess \\
+& & & & \multicolumn{2}{c}{Planner LLM} & \multicolumn{2}{c}{VLM reasoner} & & \\
+\cmidrule(lr){5-6}\cmidrule(lr){7-8}
+Method & Inv.~F1 (\%) & Update Cov.~(\%) & Halluc.~Upd.~(\%) & $T_{\mathrm{in}}$ (M) & $T_{\mathrm{out}}$ (M) & $T_{\mathrm{in}}$ (M) & $T_{\mathrm{out}}$ (M) & Billable (M) & USD/mo \\
 \midrule
-Whole-video baseline & -- & -- & -- & -- & -- & -- \\
-\sys{} (R1)          & -- & -- & -- & -- & -- & -- \\
-\sys{} (R1$+$R2)     & -- & -- & -- & -- & -- & -- \\
-\scaffold{\sys{}$+$mem} & -- & -- & -- & -- & -- & -- \\
+Whole-video VLM                 & 66.4 & 90.5 & 5.9 & 0.00 & 0.00 & 27.88 & 1.63 & 37.69 & 133.73 \\
+No-planner (all segments)       & 67.7 & 91.7 & 8.1 & 0.00 & 0.00 & 10.86 & 0.86 & 16.03 &  46.66 \\
+No-planner (uniform sampling)   & 64.6 & 87.1 & 10.0 & 0.00 & 0.00 &  2.54 & 0.87 &  7.74 &  16.16 \\
+\textbf{\sys}                 & \textbf{68.5} & 90.5 & 6.3 & 0.44 & 0.56 & \textbf{2.30} & 0.88 & 11.35 & \textbf{25.70} \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\paragraph{Analysis.}
+\sys has the highest inventory F1 while keeping cloud use far below
+exhaustive baselines. It reaches $68.5\%$ inventory F1, $90.5\%$
+update coverage, and a $6.3\%$ hallucinated-update rate, with a
+projected monthly cloud cost of $\$25.70$. \sys stays close to
+whole-video VLM inference and no-planner all-segments forwarding in
+inventory F1, but reduces projected monthly cloud cost by $81\%$
+relative to whole-video and $45\%$ relative to forwarding all edge
+segments.
+\emph{Key finding: the system preserves inventory-update quality while
+moving the expensive reasoning from full-session video to selected
+amount evidence.}
+
+Whole-video VLM inference shows why full context is the wrong default
+for this task. It spends $27.88$M VLM input tokens and projects to
+$\$133.73$ per month, yet achieves lower inventory F1 than \sys
+($66.4\%$ vs. $68.5\%$) and the same update coverage ($90.5\%$).
+Sending every sampled frame therefore does not buy better inventory
+updates; it mainly pays for irrelevant context in which the amount
+evidence is sparse.
+\emph{Key finding: the locate-then-read split is not only a cost
+optimization; it also avoids asking the VLM to find numeric amount
+evidence inside full-session context.}
+
+No-planner all-segments forwarding isolates the value of edge
+localization before amount-evidence selection. It removes unrelated
+video, cutting projected monthly cost from $\$133.73$ to $\$46.66$ and
+VLM input tokens from
+$27.88$M to $10.86$M, while keeping inventory F1 close to \sys
+($67.7\%$ vs. $68.5\%$). However, its slightly higher update coverage
+does not translate into higher inventory F1, and it still costs
+$1.8\times$ \sys ($\$46.66$ vs. $\$25.70$ per projected month)
+because it forwards all localized interactions.
+\emph{Key finding: edge localization is an effective first filter, but
+forwarding every localized interaction leaves avoidable cost; selecting
+the localized windows most likely to expose amount evidence creates the
+remaining cost headroom while preserving inventory F1.}
+
+No-planner uniform sampling asks whether a simple budget cap can lower the cost without the planner. It is the cheapest row, with a projected monthly cloud cost
+of $\$16.16$, because it removes planner calls and samples frames from the edge timeline under a fixed
+budget. The cost saving comes with a
+concrete failure mode: uniform samples often fail to cover the before/after package views or transfer windows where remaining amount is readable.  The planner's extra $\$9.54$ per projected month, about $\$0.32$ per logged day, buys a $3.9$-point inventory-F1 gain. \emph{Key finding: uniform sampling can skip the amount-evidence
+windows that make updates numeric; the planner's value is choosing those
+windows, improving update coverage and inventory F1 with modest extra
+cloud cost.}
+
+Table~\ref{tab:sparsity-cost} reports projected monthly cost by
+usage-event density, \todo{Ke: What is this? using the session-median hourly \sys cost in each
+bin multiplied by $30$}; Saving is the aggregate whole-video/\sys cost
+ratio. The savings are largest when sessions are sparse. Whole-video
+VLM inference scales with sampled video duration, whereas \sys scales
+more closely with the number of edge-localized item interactions that
+need observation. Sparse sessions account for $21.1$ of the $28.6$
+analyzed hours but only $158$ events; there, \sys projects to
+$\$17.10$ per month and is $9.3\times$ cheaper than whole-video
+inference. Dense sessions contain less irrelevant time to discard, so
+\sys rises to $\$130.80$ per projected month and saves only
+$1.3\times$. The locate-then-read pipeline is therefore most valuable
+when long recordings contain sparse inventory interactions.
+
+% Source for Table~\ref{tab:sparsity-cost}: per_session_results from
+% Households A--C full-video and canonical_v5_maxR3 JSONs; duration is
+% hands23 total_frames/fps; event count is per-session total_gt.
+\begin{table}[!htbp]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\caption{Projected monthly cost trend by usage-event density.}
+\label{tab:sparsity-cost}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Bin (events/hr) & Sess. & Video h & \sys USD/mo & Saving \\
+\midrule
+Sparse (1--15/h) & 32 & 21.1 & \textbf{17.10} & $\mathbf{9.3\times}$ \\
+Middle (17--49/h) & 33 & 6.2 & 51.90 & $2.5\times$ \\
+Dense (51--212/h) & 32 & 1.3 & 130.80 & $1.3\times$ \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\section{Related Work}
-long video understanding
-ego: anchored by HOI and scene \cite{golettoAMEGOActiveMemory2024}, \cite{huang2025building}
-agentic: avp, ava, 
+\subsubsection{Design ablations}
 
-object state change
+Table~\ref{tab:ablation-deltas} tests the planner's dependence on
+task-structured cues and replanning depth. We remove scene tags or
+package-transparency hints, then vary the round budget from a single
+planner pass to one more pass than the default three-round \sys
+configuration.
 
-Datasets/benchmark on Object States: follow MASCATO
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\caption{Planner-design ablations. VLM frames is the total number of
+frames sent to the cloud reasoner.}
+\label{tab:ablation-deltas}
+\begin{tabular}{lrrrrrrrr}
+\toprule
+Ablation & Inv.~F1 (\%) & Update Cov.~(\%) & Halluc.~Upd.~(\%) & VLM frames & $T_{\mathrm{in}}$ (M) & $T_{\mathrm{out}}$ (M) & Billable (M) & USD/mo \\
+\midrule
+No scene tags          & 65.8 & 88.9 & 7.5 & 8,022 & 2.95 & 1.58 & 12.43 & 28.10 \\
+No transparency hint   & 65.7 & 88.0 & 6.5 & 7,313 & 2.78 & 1.54 & 12.00 & 27.22 \\
+$4$ rounds             & 68.8 & 91.0 & 6.3 & 7,427 & 2.76 & 1.44 & 11.42 & 25.86 \\
+\textbf{$3$ rounds (default)} & \textbf{68.5} & \textbf{90.5} & 6.3 & 7,402 & 2.74 & 1.44 & \textbf{11.35} & \textbf{25.70} \\
+$2$ rounds             & 67.7 & 89.4 & 6.1 & 7,249 & 2.67 & 1.40 & 11.06 & 25.03 \\
+$1$ round              & 61.4 & 80.4 & 5.9 & 6,593 & 2.38 & 1.26 &  9.95 & 22.51 \\
+\bottomrule
+\end{tabular}
+\end{table*}
 
-\cite{wang2025active}
+The ablations show that lightweight metadata affects update quality,
+not just planner bookkeeping. Removing scene tags costs $2.7$
+inventory-F1 points relative to \sys and raises hallucinated-update
+rate from $6.3\%$ to $7.5\%$. Removing the transparency hint costs
+$2.8$ inventory-F1 points and lowers update coverage from $90.5\%$ to
+$88.0\%$. Both cues help the planner avoid localized contacts that show
+handling but do not expose readable amount evidence.
+
+The round-budget sweep shows how replanning recovers missed amount
+evidence without reverting to all-segments forwarding. A single planner
+pass is inexpensive but brittle: its initial sparse-stage sample can
+observe handling while missing the transfer-inspection or post-use
+package view that makes the remaining amount readable ($\$22.51$
+projected monthly cost, $61.4\%$ inventory F1). A second round uses the
+unresolved reasoner outputs to request the missing evidence and recovers
+most of the loss, raising F1 to $67.7\%$ for an additional $\$2.52$ per
+projected month.
+The third round adds a smaller gain on the harder residual cases
+($68.5\%$ F1 for another $\$0.67$), while a fourth round changes little
+($68.8\%$ F1, $91.0\%$ update coverage). The extra replanning remains
+selective: three rounds send $7{,}402$ frames to the VLM, compared with
+$38{,}233$ frames in no-planner all-segments, and use $2.30$M VLM input
+tokens versus $10.86$M in Table~\ref{tab:primary}. We fix \sys at
+three rounds because it captures the useful replanning gain before the
+curve flattens.
+
+\subsubsection{Household generalization}
+
+The pooled results in Table~\ref{tab:primary} are event-weighted:
+Household~A contributes $371$ of the $443$ annotated in-the-wild
+events ($84\%$). Table~\ref{tab:household-generalization} therefore
+repeats the core experiments per household and supports a
+household-macro reading, where each home contributes one accuracy
+summary regardless of how many sessions it contains. This checks
+whether the accuracy-cost tradeoff holds beyond the dominant household
+among the currently evaluated homes. Households~D--G are still being
+annotated and are listed in scaffold.
+
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\caption{Per-household core-method breakdown.}
+\label{tab:household-generalization}
+\begin{tabular}{llrrrrrrr}
+\toprule
+Household & Method & Inv.~F1 (\%) & Update Cov.~(\%) & Halluc.~Upd.~(\%) & $T_{\mathrm{in}}$ (M) & $T_{\mathrm{out}}$ (M) & Billable (M) & USD/mo \\
+\midrule
+A (kailai, 16.12~h, 371 events)
+  & Whole-video VLM      & 67.2 & 89.8 & 6.3 & 15.83 & 1.00 & 21.86 & 128.25 \\
+  & No-planner (all segments) & 66.3 & 90.6 & 7.3 &  6.50 & 0.67 & 10.53 & 49.52 \\
+  & \textbf{\sys}      & \textbf{68.1} & 89.8 & \textbf{5.4} &  2.04 & 1.13 & \textbf{8.84} & \textbf{35.68} \\
+\midrule
+B (ke, 4.48~h, 38 events)
+  & Whole-video VLM      & 61.3 & 97.4 & 5.0 &  4.29 & 0.14 &  5.15 & 129.24 \\
+  & No-planner (all segments) & 71.7 & 94.7 & 5.0 &  1.55 & 0.07 &  1.96 & 42.12 \\
+  & \textbf{\sys}      & 67.2 & 92.1 & 5.0 &  \textbf{0.29} & 0.12 & \textbf{1.03} & \textbf{14.93} \\
+\midrule
+C (peizhou, 8.12~h, 34 events)
+  & Whole-video VLM      & 63.1 & 91.2 & 2.9 &  7.76 & 0.49 & 10.68 & 147.08 \\
+  & No-planner (all segments) & 77.6 & 100.0 & 19.0 &  2.80 & 0.12 &  3.54 & 43.49 \\
+  & \textbf{\sys}      & 74.6 & 97.1 & 17.1 &  \textbf{0.41} & 0.18 & \textbf{1.48} & \textbf{11.82} \\
+\midrule
+\scaffold{D} & \scaffold{Whole-video VLM} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} \\
+& \scaffold{No-planner (all segments)} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} \\
+& \scaffold{\textbf{\sys}} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} \\
+\midrule
+\scaffold{E} & \scaffold{Whole-video VLM} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} \\
+& \scaffold{No-planner (all segments)} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} \\
+& \scaffold{\textbf{\sys}} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} \\
+\midrule
+\scaffold{F} & \scaffold{Whole-video VLM} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} \\
+& \scaffold{No-planner (all segments)} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} \\
+& \scaffold{\textbf{\sys}} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} \\
+\midrule
+\scaffold{G} & \scaffold{Whole-video VLM} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} \\
+& \scaffold{No-planner (all segments)} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} \\
+& \scaffold{\textbf{\sys}} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} & \scaffold{--} \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+Under this macro view over the annotated Households~A--C, \sys stays
+close to its pooled operating point: household-macro inventory F1 is
+$70.0\%$ versus $68.5\%$ in the event-weighted table. Whole-video VLM
+inference drops to $63.9\%$ macro F1, while \sys is $5.2\times$
+lower in projected monthly cloud cost. The no-planner all-segments
+variant reaches $71.9\%$ macro F1, but costs $1.8\times$ more than
+\sys. The per-household rows show the same tradeoff: \sys beats whole-video F1
+in all three evaluated homes while cutting cost by $72$--$92\%$, and is
+slightly lower than no-planner all-segments on Households~B and~C while
+reducing their costs by $65\%$ and $73\%$.
+
+\subsubsection{Gemini Pro/Flash sensitivity}
+
+Table~\ref{tab:vlm-switch} asks whether the selection benefit persists
+when the cloud reasoner moves from Gemini-3.1 Pro to a cheaper Flash
+tier. The Flash \sys row is a low-cost configuration that swaps both
+the planner and reasoner to Gemini-3 Flash and disables the transparency
+hint. We keep GPT-5.4 as the default text planner in the Pro row because
+pilot planner swaps to Gemini-3.1 Pro and Flash produced worse plans:
+lower update coverage, noisier amount estimates, and more reasoner-side
+work. We do not include a GPT-5.4 whole-video VLM row because our Azure
+deployment caps a request at $50$ images, which is incompatible with the
+frozen whole-video transport used for the Gemini baselines.
+
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\caption{Gemini Pro/Flash sensitivity.}
+\label{tab:vlm-switch}
+\begin{tabular}{lrrrrrrr}
+\toprule
+Configuration & Inv.~F1 (\%) & Update Cov.~(\%) & Halluc.~Upd.~(\%) & $T_{\mathrm{in}}$ (M) & $T_{\mathrm{out}}$ (M) & Billable (M) & USD/mo \\
+\midrule
+Whole-video VLM, Gemini-3.1 Pro        & 66.4 & 90.5 & 5.9 & 27.88 & 1.63 & 37.69 & 133.73 \\
+Whole-video VLM, Gemini-3 Flash        & 65.4 & 97.1 & 9.4 & 31.30 & 1.12 & 37.99 &  19.85 \\
+\midrule
+\textbf{\sys, GPT-5.4 + Gemini-3.1 Pro} & \textbf{68.5} & 90.5 & 6.3 &  2.74 & 1.44 & \textbf{11.35} &  \textbf{25.70} \\
+\textbf{\sys, Gemini-3 Flash (planner + reasoner)} & 65.4 & 90.5 & \textbf{9.0} &  \textbf{2.50} & 1.62 & \textbf{12.20} &   \textbf{6.37} \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+For both Gemini tiers, selection is the main cost lever. With
+Gemini-3.1 Pro, \sys raises inventory F1 from $66.4\%$ to $68.5\%$
+while cutting projected monthly cloud cost by $5.2\times$. With
+Gemini-3 Flash, \sys matches the rounded whole-video F1 ($65.4\%$)
+while cutting projected monthly cloud cost by $3.1\times$. The cheapest
+row is therefore \sys+Flash: it is $21\times$ cheaper than whole-video
+Gemini-3.1 Pro while staying within one F1 point.
+
+A coverage exception is amount-update coverage. Whole-video Flash
+has the highest amount-update coverage ($97.1\%$) because it sees the
+unfiltered session video, while \sys intentionally filters before VLM
+reasoning. Its inventory F1 remains lower because coverage alone does
+not make a useful inventory update: the model must also read the amount
+correctly and avoid spurious updates. Cheaper VLMs reduce price, but the
+planner still removes visual tokens before amount reasoning.
+
+\subsection{Runtime and deployment feasibility}
+\label{sec:eval-runtime}
+
+The item-interaction timeline is more practical when its edge-processing
+delay is small relative to the recorded session. We therefore report
+edge-stage throughput separately from amount accuracy, treating $1$~fps
+as the sampled-video workload rather than a hard real-time requirement.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{Figures/edge_latency_breakdown.pdf}
+\Description{Stacked bars show A6000 and Jetson edge-processing latency
+relative to one second per sampled frame.}
+\caption{Edge processing time per sampled frame on the A6000 server and Jetson
+AGX Orin. }
+\label{fig:runtime}
+\end{figure}
+
+\paragraph{Analysis.}
+Figure~\ref{fig:runtime} compares server-side logs from the common timed
+paper-cohort sessions with an optimized Jetson trace. The main takeaway
+is that both deployments process the $1$~fps sampled workload faster
+than the recorded video duration: the recorded end-to-end pass stays
+below one second per sampled frame. This throughput is sufficient for a
+post-session inventory update, without assuming a hard online deadline.
+The dominant stages differ by hardware: DINOv3 crop encoding dominates
+on the A6000 server, while OWLv2, Hands23, and stream I/O dominate the
+Jetson trace.
+
+\paragraph{Edge memory footprint.}
+The three edge stages run sequentially on a single GPU, so the edge
+memory budget is set by the largest single stage rather than their
+sum. Measured on an NVIDIA RTX 6000 Ada, peak allocations are
+$0.84$~GB for Hands23, $17.08$~GB for DINOv3 ViT-7B (bfloat16), and
+$5.51$~GB for OWLv2-base; the binding constraint is DINOv3. The
+Jetson trace in Figure~\ref{fig:runtime} uses a smaller DINOv3
+ViT-L/16 backbone, illustrating the main edge-memory tradeoff for
+VRAM-limited deployments.
+
+\subsection{VLM amount-reading breakdowns}
+\label{sec:crosscut}
+
+The primary tables establish the system result: edge localization and
+planning reduce projected monthly cloud cost while preserving
+inventory-update accuracy.
+The breakdowns in this subsection connect those end-to-end scores to
+household decisions and to VLM amount-reading limits.
+
+\paragraph{Low-stock decisions.}
+Table~\ref{tab:low-stock-f1} evaluates whether the predicted remaining
+amount supports a coarse low-stock decision. These results show that
+daily inventory monitoring remains a difficult visual perception
+problem: even whole-video VLM inference is unreliable at strict
+low-stock thresholds. \sys does not eliminate this limitation, but it
+raises low-stock F1 across thresholds while using substantially fewer
+cloud tokens. The current accuracy level supports coarse inventory
+awareness and ``check this item'' reminders, not autonomous grocery
+purchasing, nutrition logging, or precise recipe planning. The
+scaffolded no-planner uniform-sampling row will test whether the
+low-cost non-agentic policy preserves these household decisions.
+
+\begin{table}[!htbp]
+\centering
+\small
+\caption{Low-stock decision F1 at different remaining-capacity thresholds.}
+\label{tab:low-stock-f1}
+\begin{tabular}{lrrr}
+\toprule
+Method & LowF1@20\% & LowF1@25\% & LowF1@50\% \\
+\midrule
+Whole-video VLM & \scaffold{42.0\%} & \scaffold{49.8\%} & \scaffold{64.3\%} \\
+\makecell[l]{No-planner\\(uniform sampling)} & \scaffold{--} & \scaffold{--} & \scaffold{--} \\
+\textbf{\sys} & \scaffold{\textbf{51.5\%}} & \scaffold{\textbf{55.4\%}} & \scaffold{\textbf{69.6\%}} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Matched amount reading.}
+Table~\ref{tab:breakdown-class} isolates the VLM reasoner's error after
+the system has produced a numeric amount update. It reports
+matched-only CNPE ($\mathrm{CNPE}_{\mathrm{m}}$): remaining-amount error
+only on ground-truth usage events for which the system emitted an
+amount prediction. This metric does not penalize missed or hallucinated
+updates, so we use it only to diagnose amount-reading difficulty. The matched-only CNPE stays in the $20.8$--$28.4\%$
+range across shape categories. The splits show where the pipeline needs
+better evidence: fluids are hardest, transparent packages are slightly
+easier than opaque packages, and near-empty packages are somewhat harder
+to read.
+
+\begin{table}[!htbp]
+\centering
+\small
+\caption{Matched-only VLM amount-reading error.}
+\label{tab:breakdown-class}
+\begin{tabular}{lrr}
+\toprule
+Split & $n$ & $\mathrm{CNPE}_{\mathrm{m}}$ (\%) \\
+\midrule
+\multicolumn{3}{l}{\emph{Shape category}} \\
+Fluid    & 107 & 28.4 \\
+Granular & 102 & 25.4 \\
+Solid    & 114 & \textbf{20.8} \\
+Discrete &  84 & 24.6 \\
+\midrule
+\multicolumn{3}{l}{\emph{Package-transparency tag}} \\
+Transparent & 222 & \textbf{23.8} \\
+Opaque      & 185 & 25.9 \\
+\midrule
+\multicolumn{3}{l}{\emph{Amount at session start}} \\
+Early ($\geq 70\%$)       & 206 & \textbf{23.2} \\
+Middle ($20\text{--}70\%$) & 164 & 26.1 \\
+Late ($\leq 20\%$)        &  37 & 27.5 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+The class split shows why evidence selection matters. Solid items have
+the lowest matched CNPE ($20.8\%$), because the remaining piece is often
+visible as a coherent object. Fluid items are hardest ($28.4\%$):
+container geometry, tilt, and hidden volume can remain ambiguous even
+in a useful fill-level view.
+
+The package-transparency tag has a smaller but design-relevant effect:
+transparent packages are $2.1$ CNPE points better than opaque packages
+($23.8\%$ vs.\ $25.9\%$). This supports the planner's transparency
+prior, while showing that transparency alone does not solve amount
+reading.
+
+\paragraph{Package depletion stage.}
+\label{sec:depletion-stage}
+The final block in Table~\ref{tab:breakdown-class} buckets matched
+events by the amount remaining at session start, again isolating VLM
+amount reading from end-to-end update coverage.
+
+\paragraph{Interpretation.}
+Near-empty packages are harder among matched numeric updates, but the
+effect is modest. Matched CNPE rises from $23.2\%$ in the early bucket to
+$27.5\%$ in the late bucket, a $4.3$ point spread. This is smaller than
+the difference between solid and fluid items.
+
+\subsection{Adaptive budget control}
+\label{sec:eval-budget-control}
+
+We measure whether the budget controller of \S\ref{sec:budget-control} preserves on-time low-stock alarms while genuinely reducing observer cost, by replaying it on the in-the-wild kailai cohort against the canonical observer outputs. The replay keeps the canonical observation on every item the controller does not suppress and drops the rest, isolating the controller's effect from observer noise.
+
+The cohort spans 79 cooking sessions over 47 days.
+% Twenty-three visual classes fall within the controller's scope, corresponding to 28 receipt instances active in the cohort; 19 of these reach a recorded depletion before the cohort closes and form the events against which we measure alarm recall. The remaining 9 instances are still open at cohort end and contribute only to the cost denominator. One milk-gallon instance is excluded a priori because its first observed session shows a 2.6\,kg unrecorded loss against the receipt amount, which makes the initial estimate meaningless --- an annotation gap rather than a controller failure.
+
+% With the threshold at 50\,\% of receipt capacity and the refresh cap at ten consecutive skips, the controller catches 17 of the 19 depletions on time, raising the alarm a median of 11 sessions before depletion (mean 14.8, range 1--54). Observer cost over the cohort falls to between 67\,\% and 90\,\% of the no-skip baseline of 2.42\,M tokens, where the bound depends on whether the observer's input tokens scale with the per-call item count or are dominated by the fixed video-frame payload. Output tokens, which carry the per-item structured response, scale linearly in either case.
+
+% Both of the two misses are observer overestimates on partially-empty containers whose contents are difficult to read visually --- a fresh-blueberry punnet and a kimchi jar. In each case the controller correctly identifies the session at which to take a fresh measurement, but the observer reports a remaining amount close to the receipt capacity: 300\,g against a true 81\,g for the blueberries, 360\,g against a true 209\,g for the kimchi. The alarm condition therefore fails to fire, and depletion follows two sessions later. The failure is structural: the observer answers each session in isolation, with no cross-session memory of the container's prior draw-down, and on visually ambiguous packaging its prior on ``how full a fresh jar looks'' dominates the actual visual evidence. We sketch in the discussion section an extension that conditions the observer prompt on the controller's running estimate as a soft prior.
+
+% \subsection{Locked evaluation definitions}
+% \label{sec:lockdown}
+
+% To make pilot and final-cohort runs directly comparable, the following
+% definitions are pinned before producing final results. Any later
+% change is treated as a methodological revision and the affected runs are
+% re-executed.
+
+% \paragraph{Frozen cohort lists.} The wild and controlled cohorts are
+% specified as explicit session-ID lists per participant
+% (Appendix~\ref{app:cohort-ids}, to be added). New sessions recorded
+% after the freeze date are excluded from the final reported numbers and may
+% appear only as out-of-distribution diagnostics.
+
+% \paragraph{Frozen video readiness.} Each session included in a
+% reported run must have the raw video, inventory-list snapshot, item reference
+% images, edge-detector outputs, and per-session ground-truth amounts
+% available before any method is run. Sessions missing one of these
+% artifacts are excluded from all comparators rather than from only the
+% methods that need that artifact.
+
+% \paragraph{Frozen pricing convention.} Billable cost per session is
+% reported in USD using the price fields in Section~\ref{sec:tokens}.
+% The same pricing convention is applied to every comparator. Planner LLM
+% cost is included only for \sys and planner-dependent ablations.
+
+\section{Discussion}
+failure modes: 
+duplicate or similar looking items, how "similarity" in the inventory confuses DINO and VLM, data on how "big" our inventory snapshot is, per session
+
+assumption of oracle deletion
+
+\section{Conclusion}
+\sys\ shows that long-horizon inventory tracking need not spend cloud
+VLM reasoning in proportion to video duration. By locating candidate
+item interactions on the edge and letting a text planner choose the
+windows that contain amount evidence, the system preserves inventory-update
+quality relative to whole-video VLM inference while using
+$10.2\times$ fewer input tokens and incurring $5.2\times$ lower
+projected monthly cloud cost on the annotated in-the-wild cohort. The remaining
+cost depends on the density of monitored item interactions: sparse
+sessions yield the largest savings, while dense sessions leave less
+irrelevant video to discard. The same cost--quality tradeoff appears
+in the per-household results and in the Gemini Pro/Flash sensitivity
+study. The amount-reading breakdowns show why this
+architecture is viable: the evaluated VLMs can estimate remaining food amount
+coarsely once given relevant evidence, but fluids, opaque packages, and
+near-empty containers remain the hardest cases. Together, the results support
+edge--cloud orchestration as a practical path for wearable memory
+systems that need fine-grained state updates without streaming every
+frame to a cloud VLM.
 
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{references}
